@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text_white">#fff</color>
+    <color name="text_grey">#a5a5a5</color>
+    <color name="light_grey">#808080</color>
+    <color name="droid">#93ad43</color>
+    <color name="header_orange">#FF9105</color>
+    <color name="profile_background">#fec04c</color>
+
+</resources>

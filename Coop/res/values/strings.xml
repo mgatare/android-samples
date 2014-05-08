@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">coop</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_enter_pin">Settings</string>
+    <string name="activate_app">Activate the app</string>
+    <string name="enter_activation_code">Enter activation code</string>
+    <string name="activation_code_text">Get your activation code at &lt;a href="http://www.entercard.com/">remembercard.no/app&lt;/a>", and enter it below.</string>
+    <string name="create_four_digit_code">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you the next time</string>
+    <string name="create_pin_code">Create your PIN code</string>
+    <string name="btn_create_pin">Create your PIN code</string>
+    <string name="option_transactions">Transactions</string>
+    <string name="option_transfer_funds">Transfer Funds</string>
+    <string name="option_cards">Cards</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="transfer_funds_title">The transfer is processed within one business day. The fee is 2% of the transferred amount or minimum 35 SEK. Interest applies from day one.</string>
+    <string name="receiver_name">Receiver\'s Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="amount">Amount</string>
+    <string name="message_from_kid">Message from KID</string>
+
+</resources>

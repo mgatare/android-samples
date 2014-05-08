@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.entercard.coop.EnterPinActivity_old"
+    tools:ignore="MergeRootFrame" >
+
+    <!-- <include -->
+    <!-- android:id="@+id/layoutTitle" -->
+    <!-- android:layout_centerInParent="true" -->
+    <!-- layout="@layout/view_actionbar_title" /> -->
+
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/view_margin_top"
+        android:textSize="@dimen/activate_font_size" />
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/bodytextTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/view_usual_margin"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/title_screen_font_size" />
+
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/Theme.Entercardcoop.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/title_screen_font_size" />
+
+</RelativeLayout>
