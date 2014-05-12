@@ -11,8 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entercard.coop.R;
-
-import dcom.entercard.coop.model.DataModel;
+import com.entercard.coop.model.DataModel;
 
 public class TransactionsAdapter extends ArrayAdapter<DataModel> {
 

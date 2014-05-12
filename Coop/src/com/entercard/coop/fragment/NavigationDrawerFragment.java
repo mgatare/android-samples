@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -72,7 +73,7 @@ public class NavigationDrawerFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
 		drawerItemsListView = (ListView) rootView.findViewById(R.id.listTabOptions);
-		drawerItemsListView.setSelector(R.drawable.list_selector);
+		//drawerItemsListView.setSelector(R.drawable.list_selector);
 
 		drawerItemsListView.setOnItemClickListener(new ListItemClickListener());
 
@@ -82,7 +83,7 @@ public class NavigationDrawerFragment extends Fragment {
 						getString(R.string.option_transactions),
 						getString(R.string.option_transfer_funds),
 						getString(R.string.option_cards), }));
-		drawerItemsListView.setItemChecked(currentSelectedPosition, true);
+		//drawerItemsListView.setItemChecked(currentSelectedPosition, true);
 		return rootView;
 	}
 
@@ -134,7 +135,6 @@ public class NavigationDrawerFragment extends Fragment {
 			drawerLayout.openDrawer(fragmentContainerView);
 		}
 
-		// Defer code dependent on restoration of previous instance state.
 		drawerLayout.post(new Runnable() {
 			@Override
 			public void run() {
@@ -230,19 +230,26 @@ public class NavigationDrawerFragment extends Fragment {
 				fragmentManager.popBackStack();
 				break;
 			case 1:
-				if(null == fragmentManager.findFragmentByTag("transfer_fragment"))
+				if(null == fragmentManager.findFragmentByTag("transfer_fragment")) {
 					fragmentManager.beginTransaction().replace(R.id.container, new TransferFundsFragment(), "transfer_fragment")
 							.addToBackStack("transfer_fragment")
 							.commit();
-				 else 
+					fragmentManager.beginTransaction().setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				} else {
 					fragmentManager.beginTransaction().replace(R.id.container, fragmentManager.findFragmentByTag("transfer_fragment"), "transfer_fragment").commit();
+					fragmentManager.beginTransaction().setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				 }
+				
 				break;
 			case 2:
-				if (null == fragmentManager.findFragmentByTag("card_fragment")) 
+				if (null == fragmentManager.findFragmentByTag("card_fragment")) {
 					fragmentManager.beginTransaction()
 							.replace(R.id.container, new CardsFragment(),"card_fragment").addToBackStack("card_fragment").commit();
-				 else 
+					fragmentManager.beginTransaction().setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				} else {
 					fragmentManager.beginTransaction().replace(R.id.container,  fragmentManager.findFragmentByTag("card_fragment"),"card_fragment").commit();
+					fragmentManager.beginTransaction().setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				}
 				break;
 			default:
 				break;

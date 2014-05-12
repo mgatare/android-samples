@@ -19,17 +19,8 @@ import android.widget.TextView;
 
 import com.entercard.coop.fragment.CreatePinFragment;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class EnterPinActivity_New.
- */
 public class EnterPinActivity extends FragmentActivity {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
-	 */
 	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +37,12 @@ public class EnterPinActivity extends FragmentActivity {
 		}
 	}
 
-	/**
-	 * The Class EnterPinFragment.
-	 * 
-	 * @author mgatare
-	 */
-	public static class EnterPinFragment extends Fragment implements
-			OnClickListener {
-		/** The title text view. */
-		//private TextView titleTextView;
+	public static class EnterPinFragment extends Fragment implements OnClickListener {
 
-		/** The bodytext text view. */
 		private TextView bodytextTextView;
-
-		/** The header text view. */
 		private TextView headerTextView;
-
-		/** The btn ok. */
 		private Button btnOk;
 
-		/**
-		 * Instantiates a new enter pin fragment.
-		 */
 		public EnterPinFragment() {
 			// empty constructor
 		}
@@ -91,12 +66,10 @@ public class EnterPinActivity extends FragmentActivity {
 
 			// titleTextView = (TextView)
 			// titleLayout.findViewById(R.id.title_text);
-			//titleTextView.setText(getResources().getString(R.string.app_name));
+			// titleTextView.setText(getResources().getString(R.string.app_name));
 
-			bodytextTextView.setText(Html
-					.fromHtml(getString(R.string.activation_code_text)));
-			bodytextTextView
-					.setMovementMethod(LinkMovementMethod.getInstance());
+			bodytextTextView.setText(Html.fromHtml(getString(R.string.activation_code_text)));
+			bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance());
 			bodytextTextView.setLinkTextColor(Color.WHITE);
 			headerTextView.setText(R.string.activate_app);
 			btnOk.setText(R.string.enter_activation_code);

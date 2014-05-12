@@ -17,8 +17,8 @@ public class CardsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View parentView = inflater.inflate(R.layout.fragment_cards,
-				container, false);
+		View parentView = inflater.inflate(R.layout.fragment_cards, container,
+				false);
 
 		return parentView;
 	}
