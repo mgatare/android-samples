@@ -9,14 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_five_px"
-        android:layout_marginTop="@dimen/margin_five_px"
-        android:orientation="horizontal" >
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:weightSum="1" >
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_weight="0.5"
             android:ellipsize="end"
             android:textColor="@android:color/black"
             android:textSize="@dimen/normal_font_size"
@@ -24,9 +27,11 @@
 
         <TextView
             android:id="@+id/priceTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_weight="0.5"
             android:ellipsize="end"
             android:gravity="right"
             android:textColor="@android:color/black"
@@ -35,12 +40,14 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_five_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/margin_five_px"
         android:ellipsize="end"
-        android:textColor="@android:color/black"
+        android:textColor="@color/text_grey"
         android:textSize="@dimen/normal_font_size"
         android:textStyle="normal" />
 

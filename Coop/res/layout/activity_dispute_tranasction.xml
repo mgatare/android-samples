@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/view_usual_margin"
+            android:layout_weight="0.6"
+            android:gravity="left"
+            android:text="@string/recognize_transaction"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_font_size" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="ToggleButton" />
+    </LinearLayout>
+
+    <include layout="@drawable/seperator" />
+
+    <EditText
+        android:id="@+id/edtReasonDispute"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/view_usual_margin"
+        android:background="@android:color/transparent"
+        android:gravity="left"
+        android:hint="@string/reason_for_dispute"
+        android:inputType="text"
+        android:maxLines="5"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/normal_font_size" />
+
+    <include layout="@drawable/seperator" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_usual_margin"
+        android:background="@android:color/transparent"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLines="5"
+        android:textSize="@dimen/normal_font_size" />
+
+    <include layout="@drawable/seperator" />
+
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_usual_margin"
+        android:background="@android:color/transparent"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:maxLines="5"
+        android:textSize="@dimen/normal_font_size" />
+
+    <include layout="@drawable/seperator" />
+
+    <Button
+        android:id="@+id/btnIncreaseCreditLimit"
+        style="@style/Theme.Entercardcoop.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_usual_margin"
+        android:text="@string/option_transfer_funds"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/normal_font_size" />
+
+</LinearLayout>

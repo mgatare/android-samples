@@ -13,8 +13,8 @@
         android:top="0dp" />
 
     <size
-        android:height="50dp"
-        android:width="270dp" />
+        android:height="45dp"
+        android:width="0dp" />
 
     <stroke
         android:width="3dp"

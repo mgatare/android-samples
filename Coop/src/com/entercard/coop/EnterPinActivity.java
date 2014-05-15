@@ -19,8 +19,17 @@ import android.widget.TextView;
 
 import com.entercard.coop.fragment.CreatePinFragment;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EnterPinActivity_New.
+ */
 public class EnterPinActivity extends FragmentActivity {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+	 */
 	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +40,18 @@ public class EnterPinActivity extends FragmentActivity {
 			getSupportFragmentManager()
 					.beginTransaction()
 					.add(R.id.lytContainer, new EnterPinFragment())
-					.setCustomAnimations(R.anim.enter, R.anim.exit,
-							R.anim.pop_enter, R.anim.pop_exit).commit();
+					.setCustomAnimations(R.anim.enter, R.anim.exit).commit();
 
 		}
 	}
 
-	public static class EnterPinFragment extends Fragment implements OnClickListener {
+	/**
+	 * The Class EnterPinFragment.
+	 * 
+	 * @author mgatare
+	 */
+	public static class EnterPinFragment extends Fragment implements
+			OnClickListener {
 
 		private TextView bodytextTextView;
 		private TextView headerTextView;
@@ -66,10 +80,12 @@ public class EnterPinActivity extends FragmentActivity {
 
 			// titleTextView = (TextView)
 			// titleLayout.findViewById(R.id.title_text);
-			// titleTextView.setText(getResources().getString(R.string.app_name));
+			//titleTextView.setText(getResources().getString(R.string.app_name));
 
-			bodytextTextView.setText(Html.fromHtml(getString(R.string.activation_code_text)));
-			bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance());
+			bodytextTextView.setText(Html
+					.fromHtml(getString(R.string.activation_code_text)));
+			bodytextTextView
+					.setMovementMethod(LinkMovementMethod.getInstance());
 			bodytextTextView.setLinkTextColor(Color.WHITE);
 			headerTextView.setText(R.string.activate_app);
 			btnOk.setText(R.string.enter_activation_code);
@@ -86,8 +102,7 @@ public class EnterPinActivity extends FragmentActivity {
 				FragmentManager fragmentManager = getFragmentManager();
 				FragmentTransaction transaction = fragmentManager
 						.beginTransaction();
-				transaction.setCustomAnimations(R.anim.enter, R.anim.exit,
-						R.anim.pop_enter, R.anim.pop_exit);
+				transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
 				transaction.replace(R.id.lytContainer, new CreatePinFragment());
 				transaction.addToBackStack(null);
 				transaction.commit();

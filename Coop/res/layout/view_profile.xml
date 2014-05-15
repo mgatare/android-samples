@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="80dp"
     android:background="@android:color/white" >
 
     <ImageView
@@ -19,28 +19,28 @@
         android:layout_marginLeft="5dp" >
 
         <TextView
-            android:id="@+id/cardNumerTextView"
+            android:id="@+id/accountNumerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/cardNameTextView"
-            android:layout_marginTop="20dp"
-            android:text="Card Number"
+            android:layout_below="@+id/accountNameTextView"
+            android:layout_marginTop="15dp"
+            android:text="Account Number"
             android:textColor="@android:color/black"
-            android:textSize="13sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/cardNameTextView"
+            android:id="@+id/accountNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:text="Card Name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_five_px"
+            android:text="Account Name"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
 </LinearLayout>

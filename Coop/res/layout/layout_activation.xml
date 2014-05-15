@@ -12,29 +12,27 @@
 
     <TextView
         android:id="@+id/headerTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/view_margin_top"
+        android:gravity="center"
         android:textSize="@dimen/activate_font_size" />
 
     <ImageView
         android:id="@+id/imgIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/headerTextView"
+        android:layout_above="@+id/bodytextTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/bodytextTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgIcon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/view_usual_margin"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/title_screen_font_size" />

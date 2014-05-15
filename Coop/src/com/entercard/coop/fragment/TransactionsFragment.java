@@ -2,23 +2,26 @@ package com.entercard.coop.fragment;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.entercard.coop.R;
+import com.entercard.coop.ShowMapActivity;
 import com.entercard.coop.adapters.TransactionsAdapter;
 import com.entercard.coop.model.DataModel;
+import com.entercard.coop.utils.StringUtils;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class TransactionsFragment extends Fragment {
 	private ListView listView;
-
+	private ArrayList<DataModel> arrayList;
 	public static TransactionsFragment newInstance(int sectionNumber) {
 		TransactionsFragment fragment = new TransactionsFragment();
 		return fragment;
@@ -34,28 +37,58 @@ public class TransactionsFragment extends Fragment {
 				container, false);
 
 		listView = (ListView) rootView.findViewById(R.id.listView);
-
+		listView.setOnItemClickListener(new ListItemClickListener());
 		setData();
 		return rootView;
 	}
 
 	private void setData() {
 
-		ArrayList<DataModel> arrayList = new ArrayList<DataModel>();
+		arrayList = new ArrayList<DataModel>();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 40; i++) {
 			DataModel dataModel = new DataModel();
 			dataModel.setId("00" + i);
 			dataModel.setDate(i + "/01/2014");
-			dataModel
-					.setName("Lorem Ipsum is simply dummy text of the printing");
-			dataModel.setPrice(i + "0000");
+			dataModel.setName("POLARN O PYRET");
+			String price = (i+1) + "000";
+			dataModel.setPrice(StringUtils.formatCurrency(price));
+			dataModel.setShowMap(true);	
+			
 			arrayList.add(dataModel);
 		}
 
-		TransactionsAdapter transactionsAdapter = new TransactionsAdapter(
-				getActivity(), 0, arrayList);
+		TransactionsAdapter transactionsAdapter = new TransactionsAdapter(getActivity(), 0, arrayList);
 		listView.setAdapter(transactionsAdapter);
 		transactionsAdapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+	
+	/**
+	 * 
+	 * @author mgatare
+	 *
+	 */
+	public class ListItemClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Log.i("", "ItemClicked::" + arg2);
+			if (null != arrayList && arrayList.size() > 0) {
+				boolean isMapNeeded = arrayList.get(arg2).getShowMap();
+				if (isMapNeeded) {
+					Intent intent = new Intent(getActivity(),ShowMapActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+				}
+			}
+		}
 	}
 }
