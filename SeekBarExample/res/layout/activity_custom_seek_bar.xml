@@ -10,10 +10,18 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        android:progressDrawable="@drawable/styled_progress"
+        android:indeterminate="false"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:thumb="@drawable/thumbler_small"
-         android:indeterminate="false" />
+        android:progressDrawable="@drawable/styled_progress"
+        android:thumb="@drawable/thumbler_small" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp" />
 
 </RelativeLayout>

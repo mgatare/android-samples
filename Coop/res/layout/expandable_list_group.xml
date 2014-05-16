@@ -17,7 +17,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="sdmf"
             android:textSize="@dimen/activate_font_size"
             android:textStyle="normal" />
 
@@ -39,6 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:contentDescription="@null"
             android:src="@drawable/arrow_down" />
     </RelativeLayout>
 
