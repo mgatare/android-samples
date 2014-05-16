@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.entercard.coop.HomeScreenActivity;
+import com.entercard.coop.AccountsActivity;
 import com.entercard.coop.R;
 
 public class CreatePinFragment extends Fragment implements OnClickListener {
@@ -62,10 +62,8 @@ public class CreatePinFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnOk:
-			// FragmentManager fragmentManager = getFragmentManager();
-			// fragmentManager.popBackStack();
 
-			Intent intent = new Intent(getActivity(), HomeScreenActivity.class);
+			Intent intent = new Intent(getActivity(), AccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 

@@ -36,7 +36,7 @@ public class ShowMapActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_show_map);
 		
-		final ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle("Map");
@@ -140,7 +140,7 @@ public class ShowMapActivity extends FragmentActivity {
 				
 				UiSettings settings = getMap().getUiSettings();
 				settings.setAllGesturesEnabled(true);
-				settings.setMyLocationButtonEnabled(false);
+				settings.setMyLocationButtonEnabled(true);
 	            settings.setZoomControlsEnabled(false);
 				
 				getMap().clear();

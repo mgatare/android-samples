@@ -46,14 +46,19 @@ public class TransactionsFragment extends Fragment {
 
 		arrayList = new ArrayList<DataModel>();
 
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 60; i++) {
 			DataModel dataModel = new DataModel();
 			dataModel.setId("00" + i);
-			dataModel.setDate(i + "/01/2014");
+			
+			if (i > 30)
+				dataModel.setDate((i-30) + "/01/2014");
+			else
+				dataModel.setDate(i + "/01/2014");
+			
 			dataModel.setName("POLARN O PYRET");
 			String price = (i+1) + "000";
 			dataModel.setPrice(StringUtils.formatCurrency(price));
-			dataModel.setShowMap(true);	
+			dataModel.setShowMap(true);
 			
 			arrayList.add(dataModel);
 		}

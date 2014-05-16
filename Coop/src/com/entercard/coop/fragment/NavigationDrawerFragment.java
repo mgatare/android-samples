@@ -37,7 +37,7 @@ public class NavigationDrawerFragment extends Fragment {
 	private DrawerLayout drawerLayout;
 	private ListView drawerItemsListView;
 	private View fragmentContainerView;
-	// private View profileView;
+	private View profileView;
 
 	private int currentSelectedPosition = 0;
 	private boolean fromSavedInstanceState;
@@ -70,12 +70,20 @@ public class NavigationDrawerFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
+		
+		profileView = (View) rootView.findViewById(R.id.profileView);
+		profileView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				getActivity().finish();
+			}
+		});
+		//TextView accountNameTextView = (TextView)profileView.findViewById(R.id.accountNameTextView);
+		//accountNameTextView.setText(HomeScreenActivity.accountName !=null ?HomeScreenActivity.accountName :"Account Number");
+		
 		drawerItemsListView = (ListView) rootView.findViewById(R.id.listTabOptions);
 		drawerItemsListView.setSelector(R.drawable.list_selector);
-
 		drawerItemsListView.setOnItemClickListener(new ListItemClickListener());
-
 		drawerItemsListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(), R.layout.row_textview,
 					R.id.textView1, new String[] {
@@ -101,7 +109,7 @@ public class NavigationDrawerFragment extends Fragment {
 		actionBar.setHomeButtonEnabled(true);
 
 		actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(),
-				drawerLayout, R.drawable.ic_drawer,
+				drawerLayout, R.drawable.ic_navigation_drawer,
 				R.string.navigation_drawer_open,
 				R.string.navigation_drawer_close) {
 			@Override

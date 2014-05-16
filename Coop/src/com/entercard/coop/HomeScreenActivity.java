@@ -15,12 +15,16 @@ public class HomeScreenActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	private NavigationDrawerFragment navigationDrawerFragment;
-
+	//public static String accountName;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homescreen);
 
+		//Get Account Number
+		//accountName = getIntent().getExtras().getString("account");
+		
 		if (null == savedInstanceState) {
 			getSupportFragmentManager()
 					.beginTransaction()
@@ -28,12 +32,9 @@ public class HomeScreenActivity extends ActionBarActivity implements
 							"home_screen").commit();
 		}
 
-		navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.navigation_drawer);
-
+		navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		// Set up the drawer.
-		navigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
+		navigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
 
 		ActionBar actionBar = getSupportActionBar();
 

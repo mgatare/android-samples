@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_five_px"
     tools:context="com.entercard.coop.EnterPinActivity_old"
     tools:ignore="MergeRootFrame" >
 
@@ -20,19 +21,21 @@
 
     <ImageView
         android:id="@+id/imgIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bodytextTextView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@+id/headerTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="70dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/uilock" />
 
     <TextView
         android:id="@+id/bodytextTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/imgIcon"
+        android:layout_marginTop="@dimen/margin_ten_px"
         android:gravity="center"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/title_screen_font_size" />

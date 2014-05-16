@@ -43,6 +43,7 @@
             android:name=".HomeScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified"
             android:theme="@style/Theme.Entercardcoop" >
             <meta-data
                 android:name="android.app.default_searchable"
@@ -64,6 +65,12 @@
             android:name=".ShowMapActivity"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Entercardcoop" >
+        </activity>
+        <activity
+            android:name=".AccountsActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Entercardcoop" >
         </activity>
