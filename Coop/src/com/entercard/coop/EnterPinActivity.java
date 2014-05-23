@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.encapsecurity.encap.android.client.api.Controller;
 import com.entercard.coop.fragment.CreatePinFragment;
 
 // TODO: Auto-generated Javadoc
@@ -30,6 +31,9 @@ public class EnterPinActivity extends FragmentActivity {
 	 * 
 	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
 	 */
+	
+	private Controller controller;
+	
 	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,13 @@ public class EnterPinActivity extends FragmentActivity {
 		if (savedInstanceState == null) {
 			getSupportFragmentManager()
 					.beginTransaction()
-					.add(R.id.lytContainer, new EnterPinFragment())
+					.add(R.id.lytContainer, new ActivateAppFragment())
 					.setCustomAnimations(R.anim.enter, R.anim.exit).commit();
 
 		}
+		
+		// Application ensures there is one instance,
+        controller = ((ApplicationEx) getApplication()).getController();
 	}
 
 	/**
@@ -50,14 +57,14 @@ public class EnterPinActivity extends FragmentActivity {
 	 * 
 	 * @author mgatare
 	 */
-	public static class EnterPinFragment extends Fragment implements
+	public static class ActivateAppFragment extends Fragment implements
 			OnClickListener {
 
 		private TextView bodytextTextView;
 		private TextView headerTextView;
 		private Button btnOk;
 
-		public EnterPinFragment() {
+		public ActivateAppFragment() {
 			// empty constructor
 		}
 
@@ -65,7 +72,7 @@ public class EnterPinActivity extends FragmentActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 
-			View parentView = inflater.inflate(R.layout.fragment_enter_pin,
+			View parentView = inflater.inflate(R.layout.fragment_activate_app,
 					container, false);
 			// LinearLayout titleLayout = (LinearLayout)
 			// parentView.findViewById(R.id.layoutTitle);
@@ -106,7 +113,7 @@ public class EnterPinActivity extends FragmentActivity {
 				transaction.replace(R.id.lytContainer, new CreatePinFragment());
 				transaction.addToBackStack(null);
 				transaction.commit();
-
+				
 				break;
 
 			default:

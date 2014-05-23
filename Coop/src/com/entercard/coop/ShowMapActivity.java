@@ -25,7 +25,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ShowMapActivity extends FragmentActivity {
 
@@ -54,10 +53,8 @@ public class ShowMapActivity extends FragmentActivity {
 
 	        } else {
 				getSupportFragmentManager().beginTransaction()
-						.add(R.id.MapContainer,
-								CustomMapFragment.newInstance(new LatLng(19.100050, 72.920343)), "map_screen")
+						.add(R.id.MapContainer, CustomMapFragment.newInstance(new LatLng(19.100050, 72.920343)), "map_screen")
 						.commit();
-	        	
 	        }
 		}
 		
@@ -65,8 +62,6 @@ public class ShowMapActivity extends FragmentActivity {
 		btnDispute.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//finish();
-				//overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 				Toast.makeText(ShowMapActivity.this, "Raise a Dispute", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -135,24 +130,26 @@ public class ShowMapActivity extends FragmentActivity {
 		private void initMap() {
 			Log.v("CustomMapFragment", "initMap");
 			if (getMap() != null) {
-				//Get the current location
-				Location location = getCurrentLocation(getMap()); 
 				
-				UiSettings settings = getMap().getUiSettings();
+				GoogleMap gMap = getMap();
+				
+				//Get the current location
+				Location location = getCurrentLocation(gMap); 
+				
+				UiSettings settings = gMap.getUiSettings();
 				settings.setAllGesturesEnabled(true);
 				settings.setMyLocationButtonEnabled(true);
 	            settings.setZoomControlsEnabled(false);
 				
-				getMap().clear();
+	            gMap.clear();
 				
 				if (null == location) {
-					getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 14));
-					getMap().addMarker(new MarkerOptions().position(latLong).draggable(false));
+					gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 14));
+					//gMap.addMarker(new MarkerOptions().position(latLong).draggable(false));
 				} else {
-					//
 					LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-					getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14));
-					getMap().addMarker(new MarkerOptions().position(currentLatLng).draggable(false));
+					gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14));
+					//gMap.addMarker(new MarkerOptions().position(currentLatLng).draggable(false));
 				}
 			}
 		}

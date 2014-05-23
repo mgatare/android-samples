@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -27,7 +28,8 @@ public class AccountsActivity extends ActionBarActivity {
 	ExpandableListView expListView;
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
-	boolean isClicked = false;
+	private DisplayMetrics metrics;
+	int width;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,10 @@ public class AccountsActivity extends ActionBarActivity {
 		
 		listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 		expListView.setAdapter(listAdapter);
+		metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		width = metrics.widthPixels;
+		expListView.setIndicatorBounds(width - GetDipsFromPixel(50), width - GetDipsFromPixel(10));
 		expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
@@ -58,16 +64,16 @@ public class AccountsActivity extends ActionBarActivity {
 				// "Group Clicked " + listDataHeader.get(groupPosition),
 				// Toast.LENGTH_SHORT).show();
 				
-				ImageView imgDropDown = (ImageView)v.findViewById(R.id.imgExpanded);
-				if(!isClicked) {
-					turn(180f, imgDropDown);
-					//imgDropDown.setImageResource(R.drawable.arrow_down);
-					isClicked=true;
-				} else {
-					turn(0f, imgDropDown);
-					//imgDropDown.setImageResource(R.drawable.arrow_up);
-					isClicked=false;
-				}
+				// ImageView imgDropDown =
+				// (ImageView)v.findViewById(R.id.imgExpanded);
+				// turn(180f, imgDropDown);
+				// //imgDropDown.setImageResource(R.drawable.arrow_down);
+				// isClicked=true;
+				// } else {
+				// turn(0f, imgDropDown);
+				// //imgDropDown.setImageResource(R.drawable.arrow_up);
+				// isClicked=false;
+				// }
 				//Log.d("", "imgDropDown--->>"+imgDropDown);
 				return false;
 			}
@@ -165,5 +171,13 @@ public class AccountsActivity extends ActionBarActivity {
 
 		anim.setFillAfter(true);
 		view.startAnimation(anim);
+	}
+	/**
+	 * @param pixels
+	 * @return
+	 */
+	public int GetDipsFromPixel(float pixels) {
+		final float scale = getResources().getDisplayMetrics().density;
+		return (int) (pixels * scale + 0.5f);
 	}
 }

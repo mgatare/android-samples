@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.entercard.coop"
+<manifest package="com.entercard.coop"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -26,7 +25,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:allowBackup="true"
+        android:name="com.entercard.coop.ApplicationEx"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
@@ -43,8 +43,8 @@
             android:name=".HomeScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified"
-            android:theme="@style/Theme.Entercardcoop" >
+            android:theme="@style/Theme.Entercardcoop"
+            android:windowSoftInputMode="adjustUnspecified" >
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />

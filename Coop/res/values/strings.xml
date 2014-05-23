@@ -29,5 +29,16 @@
     <string name="phone_number">Phone number</string>
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
+    <!-- ENCAP RELATED -->
+    <string name="pref_serverUrl_key">EncapServerUrl</string>
+    <string name="pref_applicationId_key">EncapApplicationId</string>
+    <string name="pref_apiKey_key">EncapApiKey</string>
+    <string name="pref_gcmSenderId_key">EncapGcmSenderId</string>
+    <string name="pref_publicKeyHashes_key">EncapPublicKeyHashes</string>
+    <string name="pref_timeout_key">EncapTimeout</string>
+    <string name="pref_signingEnabled_key">EncapSigningEnabled</string>
+    <string name="pref_signingKeySize_key">EncapSigningKeySize</string>
+    <string name="pref_registrationId_key">EncapRegistrationId</string>
+    <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
 
 </resources>
