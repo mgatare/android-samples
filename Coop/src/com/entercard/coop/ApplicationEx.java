@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import android.app.Application;
 import android.util.Log;
 
-import com.encapsecurity.encap.android.client.api.AndroidLoggingControllerFactory;
+import com.encapsecurity.encap.android.client.api.AndroidControllerFactory;
 import com.encapsecurity.encap.android.client.api.Controller;
 
 public class ApplicationEx extends Application {
@@ -39,59 +39,50 @@ public class ApplicationEx extends Application {
 				Log.d(LOG_TAG, "Already initialized!");
 				return;
 			}
-			controller = AndroidLoggingControllerFactory
-					.getInstance(getBaseContext());
+			
+			controller = AndroidControllerFactory.getInstance(getBaseContext());
 			initializeControllerFromPreferences();
-			// initializePreferencesFromApplication();
-
 			Log.d(LOG_TAG, "Successfully initialized.");
+			
 		} catch (Exception ex) {
 			Log.d(LOG_TAG, "Error during initialization: ", ex);
 		}
 	}
 
 	public void initializeControllerFromPreferences() {
-		// This test app reads from preferences for test purposes,
-		// production apps uses hard coded values.
-
 		// Set URL for Encap server.
-		// final String serverUrl= loadPreference(R.string.pref_serverUrl_key,
-		// "http://test.encap.no/pt");
-		final String serverUrl = "https://demo.encapsecurity.com/pt";
-
+		String serverUrl = "https://encap.test.signicat.com/encap_entercard";
 		controller.setServerUrl(serverUrl);
 
-		// Set application ID.
-		final String applicationId = "encap";
+		String applicationId = "encap";
 		controller.setApplicationId(applicationId);
 
-		// Set the API key.
-		final String apiKey = ("9f333c24-efa4-47b2-ac57-77540a8b2881");
+		String apiKey = "9f333c24-efa4-47b2-ac57-77540a8b2881";
 		controller.setApiKey(apiKey);
 
-		final String publicKeyHashes = ("sha1/OHmlAWx9n7hv8NECa3PEhC6t+rc="
-				+ ", " + "sha1/bMq9fbR+lKV1mQG2p9/UXRwJHMw=" + ", "
-				+ "sha1/sYEIGhmkwJQf+uiVKMEkyZs0rMc=");
+		String publicKeyHashes = "sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=";
+		
+		/**Intermediate (ThawteSSLCA): sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=
+		leaf (encap.test.signicat.com): sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=
+		 **/
+		
 		try {
 			setPublicKeyHashes(publicKeyHashes);
 		} catch (Exception ex) {
-			Log.d(LOG_TAG, "initializeControllerFromPreferences():"
-					+ " Unable to set public key hashes: " + publicKeyHashes
-					+ ", exception: " + ex);
+			Log.e(LOG_TAG, "*********Unable to set public key hashes: exception: " + ex);
 		}
-		controller.setConnectionTimeout(10000);
+		controller.setConnectionTimeout(120000);
+		controller.setSigningEnabled(false);
+		controller.setSigningKeySize(2048);
 
 	}
 
 	/**
-	 * Set public key hashes and indicate the result of the operation.
-	 * 
 	 * @param publicKeyHashes
-	 *            The comma separated list of public key hashes on Chrome format
-	 *            (sha1/....).
+	 * @throws Exception
 	 */
 	public void setPublicKeyHashes(String publicKeyHashes) throws Exception {
-		Log.d(LOG_TAG, "setPublicKeyHashes(" + publicKeyHashes + ")");
-		controller.setPublicKeyHashes(publicKeyHashes.split(","));
+		String [] hash = publicKeyHashes.split(",");
+		controller.setPublicKeyHashes(hash);
 	}
 }

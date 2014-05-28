@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -22,7 +21,7 @@ import android.widget.ImageView;
 
 import com.entercard.coop.adapters.ExpandableListAdapter;
 
-public class AccountsActivity extends ActionBarActivity {
+public class AccountsActivity extends BaseActivity {
 
 	ExpandableListAdapter listAdapter;
 	ExpandableListView expListView;
@@ -60,21 +59,6 @@ public class AccountsActivity extends ActionBarActivity {
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
 				
-				// Toast.makeText(getApplicationContext(),
-				// "Group Clicked " + listDataHeader.get(groupPosition),
-				// Toast.LENGTH_SHORT).show();
-				
-				// ImageView imgDropDown =
-				// (ImageView)v.findViewById(R.id.imgExpanded);
-				// turn(180f, imgDropDown);
-				// //imgDropDown.setImageResource(R.drawable.arrow_down);
-				// isClicked=true;
-				// } else {
-				// turn(0f, imgDropDown);
-				// //imgDropDown.setImageResource(R.drawable.arrow_up);
-				// isClicked=false;
-				// }
-				//Log.d("", "imgDropDown--->>"+imgDropDown);
 				return false;
 			}
 		});

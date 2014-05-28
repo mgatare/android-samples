@@ -7,5 +7,8 @@
     <color name="droid">#93ad43</color>
     <color name="header_orange">#FF9105</color>
     <color name="profile_background">#fec04c</color>
-
-</resources>
+    <color name="dialog_body_background_color">#f6f6f6</color>
+    <color name="dialog_title_background_color">#333333</color>
+    <color name="dialog_body_text_color">#333333</color>
+    <color name="dialog_title_text_color">#ffffff</color>
+</resources>

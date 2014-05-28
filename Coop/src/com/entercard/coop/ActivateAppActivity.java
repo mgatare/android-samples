@@ -1,10 +1,10 @@
 package com.entercard.coop;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
@@ -18,38 +18,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.encapsecurity.encap.android.client.api.Controller;
-import com.entercard.coop.fragment.CreatePinFragment;
+import com.entercard.coop.fragment.CreateActivationCodeFragment;
+import com.entercard.coop.helpers.PreferenceHelper;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class EnterPinActivity_New.
  */
-public class EnterPinActivity extends FragmentActivity {
+public class ActivateAppActivity extends BaseActivity {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
-	 */
-	
-	private Controller controller;
-	
+	public Controller controller;
+	public PreferenceHelper preferenceHelper;
+
 	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_enter_pin);
-
+		setContentView(R.layout.activity_activate_app);
+		preferenceHelper = new PreferenceHelper(this);
+		
 		if (savedInstanceState == null) {
-			getSupportFragmentManager()
-					.beginTransaction()
+			getSupportFragmentManager().beginTransaction()
 					.add(R.id.lytContainer, new ActivateAppFragment())
 					.setCustomAnimations(R.anim.enter, R.anim.exit).commit();
 
 		}
-		
+
 		// Application ensures there is one instance,
-        controller = ((ApplicationEx) getApplication()).getController();
+		controller = ((ApplicationEx) getApplication()).getController();
 	}
 
 	/**
@@ -74,8 +70,7 @@ public class EnterPinActivity extends FragmentActivity {
 
 			View parentView = inflater.inflate(R.layout.fragment_activate_app,
 					container, false);
-			// LinearLayout titleLayout = (LinearLayout)
-			// parentView.findViewById(R.id.layoutTitle);
+			
 			RelativeLayout layoutActivation = (RelativeLayout) parentView
 					.findViewById(R.id.layoutActivation);
 
@@ -85,15 +80,12 @@ public class EnterPinActivity extends FragmentActivity {
 					.findViewById(R.id.headerTextView);
 			btnOk = (Button) layoutActivation.findViewById(R.id.btnOk);
 
-			// titleTextView = (TextView)
-			// titleLayout.findViewById(R.id.title_text);
-			//titleTextView.setText(getResources().getString(R.string.app_name));
-
 			bodytextTextView.setText(Html
 					.fromHtml(getString(R.string.activation_code_text)));
 			bodytextTextView
 					.setMovementMethod(LinkMovementMethod.getInstance());
 			bodytextTextView.setLinkTextColor(Color.WHITE);
+			
 			headerTextView.setText(R.string.activate_app);
 			btnOk.setText(R.string.enter_activation_code);
 			btnOk.setOnClickListener(this);
@@ -107,18 +99,31 @@ public class EnterPinActivity extends FragmentActivity {
 			case R.id.btnOk:
 
 				FragmentManager fragmentManager = getFragmentManager();
-				FragmentTransaction transaction = fragmentManager
-						.beginTransaction();
+				FragmentTransaction transaction = fragmentManager.beginTransaction();
 				transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-				transaction.replace(R.id.lytContainer, new CreatePinFragment());
+				transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
 				transaction.addToBackStack(null);
 				transaction.commit();
-				
+
 				break;
 
 			default:
 				break;
 			}
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 0) {
+			
+			/* Start the PIN code Activity */
+			Intent intent = new Intent(this, AccountsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+
+			finish();
 		}
 	}
 }

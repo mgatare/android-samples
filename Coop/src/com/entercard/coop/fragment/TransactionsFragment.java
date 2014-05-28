@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.entercard.coop.R;
-import com.entercard.coop.ShowMapActivity;
+import com.entercard.coop.ShowDisputeOnMapActivity;
 import com.entercard.coop.adapters.TransactionsAdapter;
 import com.entercard.coop.model.DataModel;
 import com.entercard.coop.utils.StringUtils;
@@ -88,7 +88,7 @@ public class TransactionsFragment extends Fragment {
 			if (null != arrayList && arrayList.size() > 0) {
 				boolean isMapNeeded = arrayList.get(arg2).getShowMap();
 				if (isMapNeeded) {
-					Intent intent = new Intent(getActivity(),ShowMapActivity.class);
+					Intent intent = new Intent(getActivity(),ShowDisputeOnMapActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 					getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

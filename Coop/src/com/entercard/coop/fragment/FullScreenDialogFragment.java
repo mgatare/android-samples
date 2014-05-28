@@ -29,7 +29,7 @@ public class FullScreenDialogFragment extends DialogFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_enter_pin, container,
+		View view = inflater.inflate(R.layout.activity_enter_pin, container,
 				false);
 		view.setOnClickListener(this);
 		return view;

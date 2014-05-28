@@ -1,18 +1,78 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient" >
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical" >
 
-    <!-- <include -->
-    <!-- android:id="@+id/layoutTitle" -->
-    <!-- android:layout_centerInParent="true" -->
-    <!-- layout="@layout/view_actionbar_title" /> -->
-
-    <FrameLayout
-        android:id="@+id/lytContainer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="50dp"
+        android:orientation="horizontal"
+        android:weightSum="1" >
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/pin1EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_five_px"
+            android:layout_weight="0.25"
+            android:background="@android:drawable/edit_text"
+            android:digits="1234567890"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textColor="@android:color/transparent" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/pin2EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_five_px"
+            android:layout_weight="0.25"
+            android:background="@android:drawable/edit_text"
+            android:digits="1234567890"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textColor="@android:color/transparent" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/pin3EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_five_px"
+            android:layout_weight="0.25"
+            android:background="@android:drawable/edit_text"
+            android:digits="1234567890"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textColor="@android:color/transparent" />
+
+        <EditText
+            android:id="@+id/pin4EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:background="@android:drawable/edit_text"
+            android:digits="1234567890"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textColor="@android:color/transparent" />
+    </LinearLayout>
+
+    <!-- <EditText -->
+    <!-- android:id="@+id/pinEditText" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_gravity="center_horizontal" -->
+    <!-- android:layout_margin="@dimen/margin_ten_px" -->
+    <!-- android:ems="10" -->
+    <!-- android:gravity="center" -->
+    <!-- android:inputType="numberPassword" -->
+    <!-- android:singleLine="true" > -->
+    <!-- </EditText> -->
+
+</LinearLayout>

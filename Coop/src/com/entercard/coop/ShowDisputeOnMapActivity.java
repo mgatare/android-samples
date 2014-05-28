@@ -26,7 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 
-public class ShowMapActivity extends FragmentActivity {
+public class ShowDisputeOnMapActivity extends FragmentActivity {
 
 	//private Button btnClose;
 	private Button btnDispute;
@@ -62,7 +62,7 @@ public class ShowMapActivity extends FragmentActivity {
 		btnDispute.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(ShowMapActivity.this, "Raise a Dispute", Toast.LENGTH_SHORT).show();
+				Toast.makeText(ShowDisputeOnMapActivity.this, "Raise a Dispute", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
