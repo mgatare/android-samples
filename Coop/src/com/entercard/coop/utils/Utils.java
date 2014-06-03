@@ -57,8 +57,7 @@ public class Utils {
 	 */
 	public static void writeToTextFile(String data, Context ctx, String filename) {
 		try {
-			File myFile = new File(Environment.getExternalStorageDirectory(),
-					filename);
+			File myFile = new File(Environment.getExternalStorageDirectory(),filename);
 			if (!myFile.exists()) {
 				myFile.createNewFile();
 			}

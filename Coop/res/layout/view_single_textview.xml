@@ -8,8 +8,10 @@
         android:id="@+id/actCodeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:digits="1234567890"
         android:focusable="true"
+        android:gravity="center"
+        android:maxLength="6"
         android:inputType="numberPassword" >
     </EditText>
 

@@ -29,7 +29,11 @@
     <string name="phone_number">Phone number</string>
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
-    <string name="pref_is_activated">isActivated</string>
+    <string name="no_internet_connection">Your data connection is currently disabled. Please enable from phone settings.</string>
+<!-- Validation Messages -->
+	<string name="please_enter_code">Please enter code</string>
+
+    
     <!-- ENCAP RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>
     <string name="pref_applicationId_key">EncapApplicationId</string>
@@ -40,5 +44,6 @@
     <string name="pref_signingKeySize_key">EncapSigningKeySize</string>
     <string name="pref_registrationId_key">EncapRegistrationId</string>
     <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
+    <string name="pref_is_activated">isActivated</string>
 
 </resources>

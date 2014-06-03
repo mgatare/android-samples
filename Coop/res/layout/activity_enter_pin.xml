@@ -2,8 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@color/screen_bg_grey_light"
     android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/dummyEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:digits="1234567890"
+        android:gravity="center"
+        android:inputType="numberPassword"
+        android:maxLength="0" >
+    </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +31,8 @@
             android:layout_weight="0.25"
             android:background="@android:drawable/edit_text"
             android:digits="1234567890"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
             android:textColor="@android:color/transparent" >
@@ -34,6 +46,8 @@
             android:layout_weight="0.25"
             android:background="@android:drawable/edit_text"
             android:digits="1234567890"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
             android:textColor="@android:color/transparent" >
@@ -47,6 +61,8 @@
             android:layout_weight="0.25"
             android:background="@android:drawable/edit_text"
             android:digits="1234567890"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
             android:textColor="@android:color/transparent" />
@@ -58,6 +74,8 @@
             android:layout_weight="0.25"
             android:background="@android:drawable/edit_text"
             android:digits="1234567890"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
             android:textColor="@android:color/transparent" />

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -22,12 +23,11 @@ public class BaseActivity extends ActionBarActivity {
 	protected int drawerContentHeight;
 	protected LinearLayout userguideLinearLayout;
 	protected FrameLayout windowFrameLayout;
-	// private AlertDialog errorDialog;
+	//private AlertDialog errorDialog;
 	private Dialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 
@@ -39,6 +39,12 @@ public class BaseActivity extends ActionBarActivity {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.i("", "BASE ACTIVITY ONRESUME CALLED");
+	}
+	
 	/**
 	 * 
 	 * @param title
@@ -49,6 +55,9 @@ public class BaseActivity extends ActionBarActivity {
 		progressDialog = new Dialog(BaseActivity.this);
 		View dialogView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+		         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
 		progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		progressDialog.setContentView(dialogView);
 
@@ -77,7 +86,7 @@ public class BaseActivity extends ActionBarActivity {
 			Log.e("COOP", ""+e.getMessage());
 		}
 	}
-
+	
 	// @SuppressWarnings("deprecation")
 	// public void displayErrorMessages(String message) {
 	// errorDialog = new AlertDialog.Builder(this).create();
@@ -130,6 +139,15 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
+//	public void showNumericKeyBoard(EditText view) {
+//		View currentFocus = getCurrentFocus();
+//		if (currentFocus != null) {
+//			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//			imm.toggleSoftInputFromWindow(currentFocus.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+//			view.setRawInputType(Configuration.KEYBOARD_12KEY);
+//		}
+//	}
+	
 	public void makeWindowDim() {
 		if (windowFrameLayout != null) {
 			windowFrameLayout.getForeground().setAlpha(255 / 2);

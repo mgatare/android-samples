@@ -35,7 +35,7 @@
         <activity
             android:name="com.entercard.coop.ActivateAppActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Entercardcoop" >
+            android:theme="@style/Theme.CoopTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,10 +43,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".BaseActivity"
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".HomeScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Entercardcoop"
+            android:theme="@style/Theme.CoopTheme"
             android:windowSoftInputMode="adjustUnspecified" >
             <meta-data
                 android:name="android.app.default_searchable"
@@ -69,19 +75,19 @@
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Entercardcoop" >
+            android:theme="@style/Theme.CoopTheme" >
         </activity>
         <activity
             android:name=".AccountsActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Entercardcoop" >
+            android:theme="@style/Theme.CoopTheme" >
         </activity>
-         <activity
+        <activity
             android:name=".EnterPINCodeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            android:theme="@style/Theme.Entercardcoop" >
+            android:theme="@style/Theme.CoopTheme"
+            android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
 
         <meta-data

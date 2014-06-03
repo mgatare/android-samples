@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
@@ -18,13 +19,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
-import com.encapsecurity.encap.android.client.api.Controller;
 import com.encapsecurity.encap.android.client.api.StartActivationResult;
 import com.entercard.coop.ActivateAppActivity;
-import com.entercard.coop.ApplicationEx;
 import com.entercard.coop.EnterPINCodeActivity;
 import com.entercard.coop.R;
+import com.entercard.coop.R.style;
 import com.entercard.coop.helpers.AlertHelper;
+import com.entercard.coop.helpers.NetworkHelper;
 
 /**
  * 
@@ -34,8 +35,8 @@ import com.entercard.coop.helpers.AlertHelper;
 public class ActivateDialogFragment extends DialogFragment implements OnClickListener {
 
 	private ActivateAppActivity parentActivity;
-	private Controller controller;
 	private Handler handler;
+	private EditText actCodeEditText;
 	
     public static ActivateDialogFragment newInstance(int title) {
         ActivateDialogFragment frag = new ActivateDialogFragment();
@@ -43,27 +44,17 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
         frag.setArguments(args);
         return frag;
     }
-
+    
     @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		setStyle(0, android.R.style.Theme_DeviceDefault_Light);
-		
+		setStyle(0, style.Theme_Cooptheme);
+				
 		parentActivity = (ActivateAppActivity) getActivity();
-		controller = ApplicationEx.applicationEx.getController();
 		handler = new Handler();
 		
 		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
 		View innerView = layoutInflater.inflate(R.layout.view_single_textview, null);
-		final EditText actCodeEditText = (EditText) innerView.findViewById(R.id.actCodeEditText);
-		
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// Get focus and show the Keyboard
-				InputMethodManager inputMgr = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-				inputMgr.toggleSoftInput(0, 0);
-			}
-		}, 100);
+		actCodeEditText = (EditText) innerView.findViewById(R.id.actCodeEditText);
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle("Enter your pin")
@@ -75,32 +66,37 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 								String code = actCodeEditText.getText().toString();
 								if(!TextUtils.isEmpty(code)) {
 								
-									parentActivity.showProgressDialog();
+									boolean isNetworkAvailable = NetworkHelper.isOnline(getActivity());
+									if(isNetworkAvailable) {
 									
-									controller.startActivation(code, new AsyncCallback<StartActivationResult>() {
-											@Override
-											public void onFailure(Throwable err) {
-												Log.i("ENCAP","->>>>>startActivation onFailure--->>>>>("+ err+ ")");
-												parentActivity.hideProgressDialog();
-												AlertHelper.Alert(err.getLocalizedMessage(), parentActivity);
-											}
-											@Override
-											public void onSuccess(StartActivationResult result) {
-												parentActivity.hideProgressDialog();
-												Log.i("ENCAP","->>>startActivation onSuccess--->("+ result + ")");
-												Log.e("", ""+result.getPinCodeLength());
-												Log.e("", ""+result.getPinCodeType());
-												
-												/*Start the PIN code Activity*/
-												Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
-												intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-												parentActivity.startActivity(intent);
-												
-												parentActivity.finish();
-											}
-										});
+										parentActivity.showProgressDialog();
+										
+										parentActivity.controller.startActivation(code, new AsyncCallback<StartActivationResult>() {
+												@Override
+												public void onFailure(Throwable err) {
+													Log.i("ENCAP","->>>>>startActivation onFailure--->>>>>("+ err+ ")");
+													parentActivity.hideProgressDialog();
+													AlertHelper.Alert(err.getLocalizedMessage(), parentActivity);
+												}
+												@Override
+												public void onSuccess(StartActivationResult result) {
+													parentActivity.hideProgressDialog();
+													Log.i("ENCAP","->>>startActivation onSuccess--->("+ result + ")");
+													
+													/*Start the PIN code Activity*/
+													Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
+													intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+													parentActivity.startActivity(intent);
+													
+													parentActivity.finish();
+												}
+											});
+									} else {
+										//Network not available
+										Toast.makeText(parentActivity, getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+									}
 								} else {
-									Toast.makeText(parentActivity, "Please enter code", Toast.LENGTH_SHORT).show();
+									Toast.makeText(parentActivity, getResources().getString(R.string.please_enter_code), Toast.LENGTH_SHORT).show();
 								}
 							}
 						})
@@ -115,6 +111,22 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 						.setView(innerView)
 						.create();
 	}
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	Log.i("", "onResume() calledddddddddddddddddddddddddddddddddddd");
+    	actCodeEditText.requestFocus();
+		actCodeEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// Get focus and show the Keyboard
+				InputMethodManager inputMgr = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputMgr.toggleSoftInput(0, 0);
+			}
+		}, 200);
+    }
     
     @Override
 	public void onClick(View v) {

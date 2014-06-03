@@ -20,41 +20,41 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.Entercardcoop" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_entercardcoop</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.Entercardcoop</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Entercardcoop</item>
-        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Entercardcoop</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Entercardcoop</item>
-        <item name="android:actionBarStyle">@style/ActionBar.Solid.Entercardcoop</item>
-        <item name="android:actionModeBackground">@drawable/cab_background_top_entercardcoop</item>
-        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_entercardcoop</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Entercardcoop</item>
-        <item name="android:button">@style/Theme.Entercardcoop.Button</item>
+    <style name="Theme.CoopTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_cooptheme</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Cooptheme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Cooptheme</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Cooptheme</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Cooptheme</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Cooptheme</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_cooptheme</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_cooptheme</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Cooptheme</item>
+        <item name="android:button">@style/Theme.CoopTheme.Button</item>
 
         <!-- Light.DarkActionBar specific -->
-        <item name="android:actionBarWidgetTheme">@style/Theme.Entercardcoop.Widget</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.CoopTheme.Widget</item>
     </style>
 
-    <style name="ActionBar.Solid.Entercardcoop" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/ab_solid_entercardcoop</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_entercardcoop</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_entercardcoop</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Entercardcoop</item>
+    <style name="ActionBar.Solid.CoopTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_cooptheme</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_cooptheme</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_cooptheme</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item>
     </style>
 
-    <style name="ActionBar.Transparent.Entercardcoop" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@drawable/ab_transparent_entercardcoop</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Entercardcoop</item>
+    <style name="ActionBar.Transparent.CoopTheme" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_cooptheme</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Entercardcoop.Widget" parent="@style/Theme.AppCompat">
-        <item name="android:popupMenuStyle">@style/PopupMenu.Entercardcoop</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Entercardcoop</item>
+    <style name="Theme.CoopTheme.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Cooptheme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Cooptheme</item>
     </style>
 
-    <style name="Theme.Entercardcoop.Button" parent="android:Widget.Button">
+    <style name="Theme.CoopTheme.Button" parent="android:Widget.Button">
         <item name="android:background">@drawable/button_background</item>
     </style>
 

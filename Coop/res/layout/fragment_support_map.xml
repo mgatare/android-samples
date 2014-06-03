@@ -16,7 +16,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="@dimen/margin_ten_px"
-            android:background="@color/droid"
+            android:background="@color/button_green"
             android:text="X"
             android:textColor="@android:color/black" />
     </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.encapsecurity.encap.android.client.api.AsyncCallback;
+import com.encapsecurity.encap.android.client.api.LoadConfigResult;
+import com.entercard.coop.ActivateAppActivity;
 import com.entercard.coop.R;
 
 public class CreateActivationCodeFragment extends Fragment implements OnClickListener {
@@ -21,6 +25,7 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 	private TextView bodytextTextView;
 	private TextView headerTextView;
 	private Button btnAction;
+	private ActivateAppActivity parentActivity;
 
 	public CreateActivationCodeFragment() {
 	}
@@ -31,7 +36,7 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 
 		View parentView = inflater.inflate(R.layout.fragment_create_activation_code,
 				container, false);
-
+		parentActivity = (ActivateAppActivity) getActivity();
 		RelativeLayout layoutActivation = (RelativeLayout) parentView.findViewById(R.id.layoutActivation);
 
 		bodytextTextView = (TextView) layoutActivation
@@ -47,6 +52,22 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 
 		btnAction.setText(R.string.btn_create_pin);
 		btnAction.setOnClickListener(this);
+		
+		parentActivity.showProgressDialog();
+		parentActivity.controller.loadConfig(new AsyncCallback<LoadConfigResult>() {
+			
+			@Override
+			public void onFailure(Throwable arg0) {
+				parentActivity.hideProgressDialog();
+				parentActivity.longToast(arg0.getLocalizedMessage());
+			}
+
+			@Override
+			public void onSuccess(LoadConfigResult arg0) {
+				Log.i("COOP", "CONFIGURATION onSuccess::"+arg0.getActivationCodeInputType());
+				parentActivity.hideProgressDialog();
+			}
+		});
 		
 		//Show the Get Pin code dialogue
 		return parentView;

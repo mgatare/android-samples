@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -44,10 +45,31 @@ public class ActivateAppActivity extends BaseActivity {
 
 		}
 
-		// Application ensures there is one instance,
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(false);
+		//actionBar.setDisplayShowCustomEnabled(true);
+		
+		// Gets only one instance
 		controller = ((ApplicationEx) getApplication()).getController();
 	}
 
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
+
+			/* Start the PIN code Activity */
+			Intent intent = new Intent(this, EnterPINCodeActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			
+			finish();
+
+		} 
+	}
 	/**
 	 * The Class EnterPinFragment.
 	 * 
@@ -113,17 +135,17 @@ public class ActivateAppActivity extends BaseActivity {
 		}
 	}
 	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 0) {
-			
-			/* Start the PIN code Activity */
-			Intent intent = new Intent(this, AccountsActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-
-			finish();
-		}
-	}
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+//		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 0) {
+//			
+//			/* Start the PIN code Activity */
+//			Intent intent = new Intent(this, AccountsActivity.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			startActivity(intent);
+//
+//			finish();
+//		}
+//	}
 }

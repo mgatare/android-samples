@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/view_margin_top"
         android:gravity="center"
+       android:textColor="@color/text_grey"
         android:textSize="@dimen/activate_font_size" />
 
     <ImageView
@@ -42,12 +43,12 @@
 
     <Button
         android:id="@+id/btnOk"
-        style="@style/Theme.Entercardcoop.Button"
+        style="@style/Theme.CoopTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:textColor="@android:color/white"
+        android:textColor="@color/text_grey"
         android:textSize="@dimen/title_screen_font_size" />
 
 </RelativeLayout>

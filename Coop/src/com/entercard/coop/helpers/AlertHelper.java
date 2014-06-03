@@ -15,6 +15,8 @@ public class AlertHelper {
 	public static void Alert(String msg, Context context) {
 
 		builder = new AlertDialog.Builder(context);
+//		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+//		         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		builder.setMessage(msg)
 				.setTitle("Alert !")
 				.setCancelable(true)

@@ -73,7 +73,8 @@ public class ApplicationEx extends Application {
 		}
 		controller.setConnectionTimeout(120000);
 		controller.setSigningEnabled(false);
-		controller.setSigningKeySize(2048);
+		//controller.setSigningKeySize(2048);
+		controller.setClientOnly(false);
 
 	}
 
