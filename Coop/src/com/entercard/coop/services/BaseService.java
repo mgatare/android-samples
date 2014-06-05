@@ -2,7 +2,6 @@ package com.entercard.coop.services;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +9,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,29 +23,29 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONException;
 
 import android.util.Log;
 
 import com.entercard.coop.ApplicationEx;
+import com.entercard.coop.R;
 import com.entercard.coop.helpers.NetworkHelper;
 
 public abstract class BaseService implements Runnable {
 
 	private static final String TAG = "BaseService";
-	private static final int GET = 10;
-	private static final int POST = 11;
-	private static final int PUT = 12;
+	protected static final int GET = 10;
+	protected static final int POST = 11;
+	protected static final int PUT = 12;
 
 	private static String BASE_URL = ""; //
 	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
 	
-	private String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.remember+json; version=2.0";
 	
-	private ArrayList<NameValuePair> headers;
 	
-	private static final boolean isStaging = true;
-	private static final int CONNECTION_TIMEOUT = 30000;
+	private static final boolean isStaging = false;
+	private static final int CONNECTION_TIMEOUT = 150000;
 
 	public static final int NETWORK_NOT_AVAILABLE = 2001;
 	public static final int EMPTY_RESPONSE = 204;
@@ -58,10 +58,8 @@ public abstract class BaseService implements Runnable {
 	public static final int PERMISSION_DENIED = 550;
 	
 	protected int statusCode = -1;
-	
-	public static final String INCORRECT_JSON_RESPONSE = "Incorrect response received from server";
-	public static final String SERVER_NOT_RESPONDING = "Server not responding";
-	public static final String INVALID_SEARCH = "Invalid search criteria";
+	protected Header[] headerArray;
+	private ArrayList<NameValuePair> headers;
 	
 	public BaseService() {
 		headers = new ArrayList<NameValuePair>();
@@ -103,12 +101,12 @@ public abstract class BaseService implements Runnable {
 	 * @throws UnrecoverableKeyException
 	 * @throws KeyManagementException
 	 * @throws ClientProtocolException
-	 * @throws UnsupportedEncodingException
 	 * @throws IOException
 	 */
-	public String makeRequest(String methodname, String postData, int type) throws NoSuchAlgorithmException, KeyStoreException,
-			CertificateException, UnrecoverableKeyException, KeyManagementException, ClientProtocolException,
-			UnsupportedEncodingException, IOException {
+	public String makeRequest(String methodname, String postData, int type)
+			throws KeyStoreException, KeyManagementException,
+			UnrecoverableKeyException, NoSuchAlgorithmException,
+			ClientProtocolException, IOException {
 
 		String authResponse = null;
 		DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -117,18 +115,7 @@ public abstract class BaseService implements Runnable {
 		if(NetworkHelper.isOnline(ApplicationEx.applicationEx)) {
 			try {
 				url = BASE_URL + methodname;
-//				Resources resources = ApplicationEx.applicationEx.getResources();
-//				AssetManager assetManager = resources.getAssets();
-//				InputStream is = assetManager.open(CERT_NAME);
-//				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-//				try {
-//					trustStore.load(is, "7layer".toCharArray());
-//				} finally {
-//					is.close();
-//				}
-//				SSLSocketFactory socketFactory = new SSLSocketFactory(trustStore);
-//				Scheme sch = new Scheme("https", socketFactory, 8443);
-				httpclient.getConnectionManager().getSchemeRegistry();//.register(sch)
+				httpclient.getConnectionManager().getSchemeRegistry();//.register(sch);
 				HttpParams httpParams = new BasicHttpParams();
 				HttpConnectionParams.setConnectionTimeout(httpParams, CONNECTION_TIMEOUT);
 				HttpConnectionParams.setSoTimeout(httpParams, CONNECTION_TIMEOUT);
@@ -136,11 +123,10 @@ public abstract class BaseService implements Runnable {
 				
 				if (type == POST) { // make post request
 					HttpPost httppost = new HttpPost(url);
-//					httppost.setHeader("Content-Type", "application/json");
-//					httppost.setHeader("Accept", HTTP_HEADER_ACCEPT);
+					httppost.setHeader("Content-Type", "application/json");
 					
-					for (NameValuePair h : headers) {
-						httppost.setHeader(h.getName(), h.getValue());
+					for (NameValuePair nameValuePair : headers) {
+						httppost.setHeader(nameValuePair.getName(), nameValuePair.getValue());
 					}
 					
 					httppost.setParams(httpParams);
@@ -149,22 +135,21 @@ public abstract class BaseService implements Runnable {
 					httpResponse = httpclient.execute(httppost);
 				} else if (type == GET) { // make get request
 					HttpGet httpget = new HttpGet(url);
-//					httpget.setHeader("Content-Type", "application/json");
-//					httpget.setHeader("X-API-Key", API_KEY);
+					httpget.setHeader("Content-Type", "application/json");
 					
-					for (NameValuePair h : headers) {
-						httpget.setHeader(h.getName(), h.getValue());
+					for (NameValuePair nameValuePair : headers) {
+						httpget.setHeader(nameValuePair.getName(), nameValuePair.getValue());
 					}
 					
 					httpget.setParams(httpParams);
 					httpResponse = httpclient.execute(httpget);
+					
 				} else if (type == PUT) { // make put request
 					HttpPut httpPut = new HttpPut(url);
-//					httpPut.setHeader("Content-Type", "application/json");
-//					httpPut.setHeader("X-API-Key", API_KEY);
+					httpPut.setHeader("Content-Type", "application/json");
 					
-					for (NameValuePair h : headers) {
-						httpPut.setHeader(h.getName(), h.getValue());
+					for (NameValuePair nameValuePair : headers) {
+						httpPut.setHeader(nameValuePair.getName(), nameValuePair.getValue());
 					}
 					
 					StringEntity input = new StringEntity(postData);
@@ -173,7 +158,10 @@ public abstract class BaseService implements Runnable {
 					httpResponse = httpclient.execute(httpPut);
 				}
 				statusCode = httpResponse.getStatusLine().getStatusCode();
-				Log.i(TAG, "STATUS CODE:: "+statusCode);
+				
+				//Retrive the Headers from the Response
+				getHeadersFromResponse(httpResponse);
+				
 				if (statusCode == 204) {// 204 is empty response
 					return "";
 				}
@@ -198,5 +186,50 @@ public abstract class BaseService implements Runnable {
 	
 	public int getStatusCode() {
 		return statusCode;
+	}
+	/**
+	 * @param httpResponse
+	 */
+	private void getHeadersFromResponse(HttpResponse httpResponse) {
+
+		Header[] headers = httpResponse.getAllHeaders();
+		for (Header header : headers) {
+			Log.i(TAG, "HEADER Key : " + header.getName() + " : Value : "+ header.getValue());
+
+			if (header.getName().equalsIgnoreCase("UUID"))
+				ApplicationEx.applicationEx.setUUID(header.getValue());
+			
+			else if (header.getName().equalsIgnoreCase("jsessionid"))
+				ApplicationEx.applicationEx.setSessionID(header.getValue());
+			
+			else if (header.getName().equalsIgnoreCase("Set-Cookie"))
+				ApplicationEx.applicationEx.setCookie(header.getValue());
+		}
+	}
+	/**
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public String getExceptionType(Exception e) {
+		if(e instanceof JSONException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_json_errorr);
+		} else if(e instanceof KeyManagementException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_key_management);
+		} else if(e instanceof UnrecoverableKeyException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_unrecoverable_key);
+		} else if(e instanceof KeyStoreException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_keystore);
+		} else if(e instanceof NoSuchAlgorithmException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_algorithm_not_found_exception);
+		} else if(e instanceof CertificateException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_certificate_not_found);
+		} else if(e instanceof IOException) {
+			return ApplicationEx.applicationEx.getString(R.string.exception_io_exception);
+		} else if(e instanceof Exception) {
+			return e.getMessage();
+		} else {
+			return ApplicationEx.applicationEx.getString(R.string.exception_network_not_found);
+		}
 	}
 }

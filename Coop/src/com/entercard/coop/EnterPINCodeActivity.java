@@ -1,5 +1,6 @@
 package com.entercard.coop;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
@@ -8,10 +9,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.InputFilter;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
@@ -23,10 +25,12 @@ import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailed
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.entercard.coop.helpers.AlertHelper;
 import com.entercard.coop.helpers.PreferenceHelper;
-import com.entercard.coop.utils.StringUtils;
+import com.entercard.coop.model.AccountsModel;
+import com.entercard.coop.services.GetAccountsService;
+import com.entercard.coop.services.GetAccountsService.GetAccountsListener;
 import com.entercard.coop.utils.Utils;
 
-public class EnterPINCodeActivity extends BaseActivity {
+public class EnterPINCodeActivity extends BaseActivity{
 
 	private EditText pin1EditText;
 	private EditText pin2EditText;
@@ -34,20 +38,21 @@ public class EnterPINCodeActivity extends BaseActivity {
 	private EditText pin4EditText;
 	private String newPIN = null;
 	private int isActivated;
-	private Handler handler;
 	private Controller controller;
 	private PreferenceHelper preferenceHelper;
 	private EditText dummyEditText;
 	private String clientDate = null;
+	private StringBuilder stringBuilder;
+	private GetAccountsService accountsService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_pin);
 
-		handler = new Handler();
 		controller =  ((ApplicationEx) getApplication()).getController();
 		preferenceHelper = new PreferenceHelper(this);
+		stringBuilder = new StringBuilder();
 		
 		pin1EditText = (EditText) findViewById(R.id.pin1EditText);
 		pin2EditText = (EditText) findViewById(R.id.pin2EditText);
@@ -57,102 +62,91 @@ public class EnterPINCodeActivity extends BaseActivity {
 		
 		getFocusToDummyEditText();
 		
-//		handler.post(new Runnable() {
-//			@Override
-//			public void run() {
-//				pin1EditText.setCursorVisible(false);
-//				pin2EditText.setCursorVisible(false);
-//				pin3EditText.setCursorVisible(false);
-//				pin4EditText.setCursorVisible(false);
-//
-//				pin1EditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-//				pin2EditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-//				pin3EditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-//				pin4EditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-//			}
-//		});
-//		handler.postDelayed(new Runnable() {
-//			@Override
-//			public void run() {
-//				pin1EditText.setFocusable(false);
-//				pin2EditText.setFocusable(false);
-//				pin3EditText.setFocusable(false);
-//				pin4EditText.setFocusable(false);
-//
-//				pin1EditText.setFocusableInTouchMode(false);
-//				pin2EditText.setFocusableInTouchMode(false);
-//				pin3EditText.setFocusableInTouchMode(false);
-//				pin4EditText.setFocusableInTouchMode(false);
-//			}
-//		}, 200);
-		
 		isActivated = preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated));
 		if(isActivated == 1) {
 			startAuthentication();
 		}
+		
+//		 String str = "hello\r\n\tjava\r\nbook";
+//		 System.out.println(str);
+//		 str = str.replaceAll("(\\r|\\n|\\t)", "");
+//		 System.out.println(str);
+		
 	}
 
 	private void getFocusToDummyEditText() {
 		dummyEditText.requestFocus();
 		dummyEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
+		
+		/**
+		 * For JelyBean and above devices we are not able to get the KeyEvents,
+		 * so for this we need to have a TextWatcher that will act in place of
+		 * keyevents.
+		 * http://developer.android.com/reference/android/view/KeyEvent.html
+		 */
+		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+		if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
+			dummyEditText.addTextChangedListener(new PINTextWatcher(dummyEditText));
+		} 
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onKeyUp(int, android.view.KeyEvent)
+	 * Wont give KeyEvents for Number Keys from JelyBean and above
+	 */
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		
-		/*Log.i("", "---keyCode--"+keyCode);
-		Log.i("", "---getKeyCode--"+event.getKeyCode());
-		Log.i("", "---getDisplayLabel--"+event.getDisplayLabel());*/
-		
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		super.onKeyUp(keyCode, event);
+		Log.i("", "---keyCode--"+keyCode);
 	    switch (keyCode) {
 	    
 	        case KeyEvent.KEYCODE_0:
-	        	setTextForEditField("0");
+	        	setTextFromSoftKeyboard("0");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_1:
-	        	setTextForEditField("1");
+	        	setTextFromSoftKeyboard("1");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_2:
-	        	setTextForEditField("2");
+	        	setTextFromSoftKeyboard("2");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_3:
-	        	setTextForEditField("3");
+	        	setTextFromSoftKeyboard("3");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_4:
-	        	setTextForEditField("4");
+	        	setTextFromSoftKeyboard("4");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_5:
-	        	setTextForEditField("5");
+	        	setTextFromSoftKeyboard("5");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_6:
-	        	setTextForEditField("6");
+	        	setTextFromSoftKeyboard("6");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_7:
-	        	setTextForEditField("7");
+	        	setTextFromSoftKeyboard("7");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_8:
-	        	setTextForEditField("8");
+	        	setTextFromSoftKeyboard("8");
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_9:
-	        	setTextForEditField("9");
+	        	setTextFromSoftKeyboard("9");
 	            return true;
-	            
+	    
 	        case KeyEvent.KEYCODE_DEL:
 	        	deleteTextForEditText();
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_BACK:
 	        	Log.i("", "------------------BACK PRESSED-------------------");
-	    		handler.removeCallbacks(null);
 	    		finish();
 	            return true;
 	            
@@ -160,43 +154,101 @@ public class EnterPINCodeActivity extends BaseActivity {
 	            return super.onKeyUp(keyCode, event);
 	    }
 	}
-	
-	public void setTextForEditField(String text) {
-		
-		pin1EditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1),StringUtils.getNumbersInputFilter() });
-		pin2EditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1),StringUtils.getNumbersInputFilter() });
-		pin3EditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1),StringUtils.getNumbersInputFilter() });
-		pin4EditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1),StringUtils.getNumbersInputFilter() });
+
+	/**
+	 * TextWatcher for all the PIN editTexts which will be involved for JB 4.1.x
+	 * and above devices
+	 */
+	private class PINTextWatcher implements TextWatcher {
+
+		private View view;
+
+		private PINTextWatcher(View view) {
+			this.view = view;
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+		}
+
+		public void afterTextChanged(Editable editable) {
+			String text = editable.toString();
+			//Log.i("", "===text===" + text);
+			
+			if(stringBuilder.length() == 0) {
+				
+				pin1EditText.setText(text);
+				pin1EditText.setBackgroundColor(Color.RED);
+				stringBuilder.append(text);
+				
+			} else if(stringBuilder.length() == 1) {
+				
+				pin2EditText.setText(text.substring(1));
+				pin2EditText.setBackgroundColor(Color.RED);
+				stringBuilder.append(text.substring(1));
+				
+			} else if(stringBuilder.length() == 2) {
+				
+				pin3EditText.setText(text.substring(2));
+				pin3EditText.setBackgroundColor(Color.RED);
+				stringBuilder.append(text.substring(2));
+				
+			} else if(stringBuilder.length() == 3) {
+				
+				pin4EditText.setText(text.substring(3));
+				pin4EditText.setBackgroundColor(Color.RED);
+				stringBuilder.append(text.substring(3));
+				
+				Log.i("", "--------PIN CODE IS----" + stringBuilder.toString().trim());
+				newPIN = stringBuilder.toString().trim();
+				
+				/*Is App is Already activated then Just Authenticate the PIN*/
+				if(isActivated != 1) 
+					checkPinWithEncap(newPIN);
+				else
+					finishAuthentication(newPIN);
+				
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param text
+	 */
+	public void setTextFromSoftKeyboard(String text) {
 		
 		if(pin1EditText.getText().length()==0) {
 			pin1EditText.setText(text);
 			pin1EditText.setBackgroundColor(Color.RED);
+			stringBuilder.append(text);
+			
 		}else if(pin2EditText.getText().length()==0) {
 			pin2EditText.setText(text);
 			pin2EditText.setBackgroundColor(Color.RED);
+			stringBuilder.append(text);
+			
 		}else if(pin3EditText.getText().length()==0) {
 			pin3EditText.setText(text);
 			pin3EditText.setBackgroundColor(Color.RED);
+			stringBuilder.append(text);
+			
 		}else if(pin4EditText.getText().length()==0) {
 			pin4EditText.setText(text);
 			pin4EditText.setBackgroundColor(Color.RED);
+			stringBuilder.append(text);
 			
-			/*Append all the code here*/
-			StringBuffer buffer = new StringBuffer();
-			buffer.append(pin1EditText.getText().toString());
-			buffer.append(pin2EditText.getText().toString());
-			buffer.append(pin3EditText.getText().toString());
-			buffer.append(pin4EditText.getText().toString());
-			
-			Log.i("", "--------PIN CODE IS----" + buffer.toString().trim());
-			newPIN = buffer.toString().trim();
+			Log.i("", "--------PIN CODE IS----" + stringBuilder.toString().trim());
+			newPIN = stringBuilder.toString().trim();
 			
 			/*Is App is Already activated then Just Authenticate the PIN*/
 			if(isActivated != 1) 
 				checkPinWithEncap(newPIN);
 			else
 				finishAuthentication(newPIN);
-			
 		} 
 	}
 
@@ -205,15 +257,29 @@ public class EnterPINCodeActivity extends BaseActivity {
 		if(pin4EditText.getText().length()>0) {
 			pin4EditText.setText("");
 			pin4EditText.setBackgroundColor(Color.WHITE);
+			stringBuilder.deleteCharAt(3).trimToSize();
+			//Log.i("", "---deleteCharAt(3)---"+stringBuilder.toString());
+			
 		} else if(pin3EditText.getText().length()>0) {
 			pin3EditText.setText("");
 			pin3EditText.setBackgroundColor(Color.WHITE);
+			stringBuilder.deleteCharAt(2).trimToSize();
+			//Log.i("", "---deleteCharAt(2)---"+stringBuilder.toString());
+			
 		} else if(pin2EditText.getText().length()>0) {
 			pin2EditText.setText("");
 			pin2EditText.setBackgroundColor(Color.WHITE);
+			stringBuilder.deleteCharAt(1).trimToSize();
+			//Log.i("", "---deleteCharAt(1)---"+stringBuilder.toString());
+			
 		} else if(pin1EditText.getText().length()>0) {
-			pin1EditText.setText("");
-			pin1EditText.setBackgroundColor(Color.WHITE);
+			stringBuilder.deleteCharAt(0).trimToSize();
+			//Log.i("", "---deleteCharAt(0)---"+stringBuilder.toString());
+			
+			stringBuilder = new StringBuilder();
+			
+			resetPINFields();
+			
 		} else {
 			//TODO
 		}
@@ -227,6 +293,7 @@ public class EnterPINCodeActivity extends BaseActivity {
 		pin2EditText.setText(null);
 		pin3EditText.setText(null);
 		pin4EditText.setText(null);
+		dummyEditText.setText(null);
 		
 		pin1EditText.setBackgroundColor(Color.WHITE);
 		pin2EditText.setBackgroundColor(Color.WHITE);
@@ -261,6 +328,11 @@ public class EnterPINCodeActivity extends BaseActivity {
 
 	protected void startAuthentication() {
 		showProgressDialog();
+		
+		/**
+		 * Need to set the Client only true as the Entercard Authentication is based on Client side setting true for all app authentication
+		 * as suggested by the support@encapsecurity.com
+		 */
 		controller.setClientOnly(true);
 		controller.startAuthentication(getClientDate(), new AsyncCallback<StartAuthenticationResult>() {
 			
@@ -273,9 +345,7 @@ public class EnterPINCodeActivity extends BaseActivity {
 					public void onSuccess(final StartAuthenticationResult result) {
 						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
-						// if (result.getContent().hasData()) {
-						// //
-						// }
+						
 						if(isActivated !=1) {
 							finishAuthentication(newPIN);
 						}
@@ -314,15 +384,19 @@ public class EnterPINCodeActivity extends BaseActivity {
             	hideProgressDialog();
 
 		        if (result.hasResponseContent()) {
-                    Log.i("", ""+result.getResponseContent());
-                    
-                    /* Create the SAML token here by encoding the response to Base64 */
-                    String samlClientDate = new String(Base64.encode(result.getResponseContentAsBytes()));
-                    Utils.writeToTextFile(samlClientDate, EnterPINCodeActivity.this, "SAML.txt");
-                    startAccountsScreen();
+		        	
+		        	String samlData = Base64.encode(result.getResponseContentAsBytes()).replaceAll("(\\r|\\n|\\t)", "");
+		        	Log.i("", "-----SAML Length-----"+samlData.length());
+		        	
+                    /* Add to TXT file for testing purposes. Remove on Staging/Deployment
+                     * Create the SAML token here by encoding the response to Base64 */
+		        	
+		        	if(ApplicationEx.applicationEx.isdeveloperMode) {
+                    	Utils.writeToTextFile(samlData, EnterPINCodeActivity.this, "dump.tmp");
+		        	}
+                    startAccountsScreen(samlData);
                     
 		        } else {
-		        	//
 		        	AlertHelper.Alert("SAML data not found.",EnterPINCodeActivity.this);
 		        }
              }
@@ -330,15 +404,21 @@ public class EnterPINCodeActivity extends BaseActivity {
 	}
     /**
      * 
+     * @param samlData 
+     * @param samlClientDate 
      * @param samlTxt
      */
-	private void startAccountsScreen() {
-			/*Start the PIN code Activity*/
-			Intent intent = new Intent(EnterPINCodeActivity.this, AllAccountsActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			
-			finish();
+	private void startAccountsScreen(String samlData) {
+		
+		ApplicationEx.applicationEx.setSAMLTxt(samlData);
+		
+		/* Start the PIN code Activity */
+		Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+
+		finish();
+		
 	}
 	
 	/**
@@ -351,30 +431,4 @@ public class EnterPINCodeActivity extends BaseActivity {
 		}
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
 	}
-	/**
-	 * 
-	 * @param result
-	 * @param message
-	 */
-//	protected String parseSAMLToken(Result result, StringBuffer message) {
-//		
-//		String samlTxt = result.getResponseContent().toString();
-//		SamlAssertion samlAssertion = new SamlAssertion(samlTxt);
-//		String samlClientBase64Data = null;
-//		
-//		if (clientDate != null) {
-//			// Verify against SAML response attribute
-//			samlClientBase64Data = samlAssertion.getAttributeValue("SmartDevice.ClientData");
-//			Log.i("", "samlClientBase64Data>>>>" + samlClientBase64Data);
-//
-//			/* Decode the date just to chk */
-//			String samlClientDate = new String(Base64.decode(samlClientBase64Data));
-//			//Log.i("", "samlClientDate>>>>" + samlClientDate);
-//
-//			if (!clientDate.equals(samlClientDate)) {
-//				throw new RuntimeException("Expected: " + clientDate + ", got: " + samlClientDate);
-//			}
-//		}
-//		return samlClientBase64Data;
-//	}
 }

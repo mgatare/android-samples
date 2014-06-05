@@ -11,8 +11,8 @@
         android:layout_height="0dp"
         android:digits="1234567890"
         android:gravity="center"
-        android:inputType="numberPassword"
-        android:maxLength="0" >
+        android:maxLength="4"
+        android:inputType="numberPassword" >
     </EditText>
 
     <LinearLayout
@@ -35,6 +35,7 @@
             android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:maxLength="1"
             android:textColor="@android:color/transparent" >
         </EditText>
 
@@ -50,6 +51,7 @@
             android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:maxLength="1"
             android:textColor="@android:color/transparent" >
         </EditText>
 
@@ -65,6 +67,7 @@
             android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:maxLength="1"
             android:textColor="@android:color/transparent" />
 
         <EditText
@@ -78,6 +81,7 @@
             android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:maxLength="1"
             android:textColor="@android:color/transparent" />
     </LinearLayout>
 

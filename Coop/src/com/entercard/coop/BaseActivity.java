@@ -23,7 +23,7 @@ public class BaseActivity extends ActionBarActivity {
 	protected int drawerContentHeight;
 	protected LinearLayout userguideLinearLayout;
 	protected FrameLayout windowFrameLayout;
-	//private AlertDialog errorDialog;
+	// private AlertDialog errorDialog;
 	private Dialog progressDialog;
 
 	@Override
@@ -44,7 +44,7 @@ public class BaseActivity extends ActionBarActivity {
 		super.onResume();
 		Log.i("", "BASE ACTIVITY ONRESUME CALLED");
 	}
-	
+
 	/**
 	 * 
 	 * @param title
@@ -53,19 +53,25 @@ public class BaseActivity extends ActionBarActivity {
 	public void showProgressDialog() {
 
 		progressDialog = new Dialog(BaseActivity.this);
-		View dialogView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
+		View dialogView = LayoutInflater.from(this).inflate(
+				R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-		         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		progressDialog.getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+				WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-		progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+		progressDialog.getWindow().setBackgroundDrawableResource(
+				android.R.color.transparent);
 		progressDialog.setContentView(dialogView);
 
 		progressDialog.setCancelable(true);
 
-		ImageView progressSpinner = (ImageView) dialogView.findViewById(R.id.progress);
+		ImageView progressSpinner = (ImageView) dialogView
+				.findViewById(R.id.progress);
 
-		RotateAnimation anim = new RotateAnimation(0f, 350f,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+		RotateAnimation anim = new RotateAnimation(0f, 350f,
+				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+				0.5f);
 		anim.setRepeatCount(Animation.INFINITE);
 		anim.setDuration(500);
 		anim.setInterpolator(new LinearInterpolator());
@@ -83,10 +89,10 @@ public class BaseActivity extends ActionBarActivity {
 			}
 			progressDialog = null;
 		} catch (Exception e) {
-			Log.e("COOP", ""+e.getMessage());
+			Log.e("COOP", "" + e.getMessage());
 		}
 	}
-	
+
 	// @SuppressWarnings("deprecation")
 	// public void displayErrorMessages(String message) {
 	// errorDialog = new AlertDialog.Builder(this).create();
@@ -135,19 +141,11 @@ public class BaseActivity extends ActionBarActivity {
 		View currentFocus = getCurrentFocus();
 		if (currentFocus != null) {
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(currentFocus.getApplicationWindowToken(), 0);
+			imm.hideSoftInputFromWindow(
+					currentFocus.getApplicationWindowToken(), 0);
 		}
 	}
 
-//	public void showNumericKeyBoard(EditText view) {
-//		View currentFocus = getCurrentFocus();
-//		if (currentFocus != null) {
-//			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//			imm.toggleSoftInputFromWindow(currentFocus.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-//			view.setRawInputType(Configuration.KEYBOARD_12KEY);
-//		}
-//	}
-	
 	public void makeWindowDim() {
 		if (windowFrameLayout != null) {
 			windowFrameLayout.getForeground().setAlpha(255 / 2);
@@ -159,38 +157,4 @@ public class BaseActivity extends ActionBarActivity {
 			windowFrameLayout.getForeground().setAlpha(0);
 		}
 	}
-
-	// public void displayErrorMessages(int code) {
-	// // Need to validate error messages
-	// switch (code) {
-	// case BaseService.JSON_ERROR:
-	// displayErrorMessages(getString(R.string.incorrect_response_received_from_server));
-	// break;
-	// case BaseService.NETWORK_ERROR:
-	// displayErrorMessages(getString(R.string.unable_to_connect_to_server));
-	// break;
-	//
-	// case BaseService.SERVER_ERROR:
-	// displayErrorMessages(getString(R.string.server_not_responding));
-	// break;
-	//
-	// case BaseService.MALFORMED_URL_ERROR:
-	// displayErrorMessages(getString(R.string.unable_to_connect_to_server));
-	// break;
-	//
-	// case BaseService.INVALID_USER_ERROR:
-	// displayErrorMessages(getString(R.string.invalid_userid_password));
-	// break;
-	//
-	// case BaseService.INVALID_SEARCH_CRITERIA:
-	// displayErrorMessages(getString(R.string.invalid_search_criteria));
-	// break;
-	//
-	// default:
-	// if (code > 0)
-	// displayErrorMessages(getString(code));
-	// break;
-	// }
-	// }
-
 }

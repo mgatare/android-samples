@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class ShowDisputeOnMapActivity extends FragmentActivity {
 
-	//private Button btnClose;
 	private Button btnDispute;
 	@Override
 	protected void onCreate(Bundle arg0) {

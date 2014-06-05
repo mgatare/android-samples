@@ -126,6 +126,10 @@ public class ActivateAppActivity extends BaseActivity {
 				transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
 				transaction.addToBackStack(null);
 				transaction.commit();
+				
+//				Intent intent = new Intent(getActivity(), EnterPINCodeActivity.class);
+//				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
 
 				break;
 
@@ -134,18 +138,4 @@ public class ActivateAppActivity extends BaseActivity {
 			}
 		}
 	}
-	
-//	@Override
-//	protected void onResume() {
-//		super.onResume();
-//		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 0) {
-//			
-//			/* Start the PIN code Activity */
-//			Intent intent = new Intent(this, AccountsActivity.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			startActivity(intent);
-//
-//			finish();
-//		}
-//	}
 }

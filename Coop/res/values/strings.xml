@@ -12,6 +12,9 @@
     <string name="create_four_digit_code">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you the next time</string>
     <string name="create_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
+    <string name="tab_title_transaction">Transaction</string>
+    <string name="tab_title_credit_increase">Credit Line Increase</string>
+    <string name="tab_title_transfer">Transfer</string>
     <string name="option_transactions">Transactions</string>
     <string name="option_transfer_funds">Funds Transfer</string>
     <string name="option_credit_line_increase">Credit Line Increase</string>
@@ -30,10 +33,19 @@
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
     <string name="no_internet_connection">Your data connection is currently disabled. Please enable from phone settings.</string>
-<!-- Validation Messages -->
-	<string name="please_enter_code">Please enter code</string>
 
-    
+    <!-- ENCAP Related -->
+    <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>
+    <string name="encap_app_id">encap</string>
+    <string name="encap_api_key">9f333c24-efa4-47b2-ac57-77540a8b2881</string>
+    <string name="encap_public_key_hash_intermediate">sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=</string>
+    <string name="encap_public_key_hash_leaf">sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=</string>
+    <string name="encap_server_timeout">90000</string>
+    <string name="encap_signing_key_size">2048</string>
+
+    <!-- Validation Messages -->
+    <string name="please_enter_code">Please enter code</string>
+
     <!-- ENCAP RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>
     <string name="pref_applicationId_key">EncapApplicationId</string>
@@ -45,5 +57,27 @@
     <string name="pref_registrationId_key">EncapRegistrationId</string>
     <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
     <string name="pref_is_activated">isActivated</string>
+
+    <!-- HTTP HEADERS -->
+    <string name="http_header_accept_language">Accept-Language</string>
+    <string name="http_header_accept">Accept</string>
+    <string name="http_header_saml">SAML</string>
+    <string name="http_header_user_agent">User-Agent</string>
+    <string name="http_header_device_platform ">devicePlatform</string>
+    <string name="http_header_device_version">deviceVersion</string>
+    <string name="http_header_uuid">UUID</string>
+    <string name="http_header_jsessionid">jsessionid</string>
+    <string name="http_header_content_type">Content-Type</string>
+
+    <!-- Exception Error Messages -->
+    <string name="exception_json_errorr">Incorrect JSON response received from server.</string>
+    <string name="exception_key_management">Error processing key value.</string>
+    <string name="exception_unrecoverable_key">Error recovering a key from a KeyStore.</string>
+    <string name="exception_keystore">General Keystore error.</string>
+    <string name="exception_algorithm_not_found_exception">Requested algorithm could not be found.</string>
+    <string name="exception_certificate_not_found">Certificate not found.</string>
+    <string name="exception_io_exception">Server not reachable.</string>
+    <string name="exception_network_not_found">Please check you network connection and try again.</string>
+    <string name="general_exception_occured">Error. Server returned incorrect response</string>
 
 </resources>

@@ -2,11 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.entercard.coop"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.1" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="9"
         android:targetSdkVersion="19" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="false" />
 
     <permission
         android:name="com.example.actiont.permission.MAPS_RECEIVE"
@@ -78,7 +84,7 @@
             android:theme="@style/Theme.CoopTheme" >
         </activity>
         <activity
-            android:name=".AccountsActivity"
+            android:name=".AllAccountsActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CoopTheme" >

@@ -1,8 +1,10 @@
 package com.entercard.coop.fragment;
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.entercard.coop.R;
 import com.entercard.coop.adapters.CardsAdapter;
 import com.entercard.coop.model.DataModel;
@@ -24,9 +25,16 @@ public class CardsFragment extends Fragment {
 	private String [] cardHolderName = {"Mayur G", "Mayuresh G", "Mayur G"};
 	private Button btnIncreaseCreditLimit;
 	
+	public static CardsFragment newInstance() {
+		CardsFragment fragment = new CardsFragment();
+		return fragment;
+	}
+
 	public CardsFragment() {
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

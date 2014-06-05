@@ -25,6 +25,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Cooptheme</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Cooptheme</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Cooptheme</item>
+        <item name="android:actionBarTabTextStyle">@style/StackedTabText</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Cooptheme</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Cooptheme</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_cooptheme</item>
@@ -36,16 +37,26 @@
         <item name="android:actionBarWidgetTheme">@style/Theme.CoopTheme.Widget</item>
     </style>
 
+    <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="ActionBar.Solid.CoopTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_cooptheme</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_cooptheme</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_cooptheme</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item>
+        <!-- <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item> -->
     </style>
 
     <style name="ActionBar.Transparent.CoopTheme" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:background">@drawable/ab_transparent_cooptheme</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item>
+        <!-- <item name="android:progressBarStyle">@style/ProgressBar.Cooptheme</item> -->
+
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->

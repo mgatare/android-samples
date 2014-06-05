@@ -1,90 +1,137 @@
 package com.entercard.coop;
 
+import java.util.Locale;
+
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.entercard.coop.fragment.NavigationDrawerFragment;
+import com.entercard.coop.fragment.CardsFragment;
 import com.entercard.coop.fragment.TransactionsFragment;
+import com.entercard.coop.fragment.TransferFundsFragment;
+import com.entercard.coop.view.ParallexViewPager;
+
 
 public class HomeScreenActivity extends ActionBarActivity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks {
+		ActionBar.TabListener {
 
-	private NavigationDrawerFragment navigationDrawerFragment;
-	//public static String accountName;
-	
+	private SectionsPagerAdapter mSectionsPagerAdapter;
+	private ParallexViewPager parallexViewPager;
+	private ActionBar actionBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homescreen);
 
-		//Get Account Number
-		//accountName = getIntent().getExtras().getString("account");
-		
-		if (null == savedInstanceState) {
-			getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.navgationContainer, new TransactionsFragment(),
-							"home_screen").commit();
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("Demo App");
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		parallexViewPager = (ParallexViewPager) findViewById(R.id.pager);
+        parallexViewPager.set_max_pages(3);
+        parallexViewPager.setBackgroundAsset(R.drawable.back_three);
+        parallexViewPager.setAdapter(mSectionsPagerAdapter);
+
+        parallexViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+					@Override
+					public void onPageSelected(int position) {
+						actionBar.setSelectedNavigationItem(position);
+					}
+				});
+
+		// For each of the sections in the app, add a tab to the action bar.
+		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+			actionBar.addTab(actionBar.newTab()
+					.setText(mSectionsPagerAdapter.getPageTitle(i))
+					.setTabListener(this));
 		}
-
-		navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		// Set up the drawer.
-		navigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
-
-		ActionBar actionBar = getSupportActionBar();
-
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setTitle("Transactions");
-
-	}
-
-	@Override
-	public void onNavigationDrawerItemSelected(int position) {
-	}
-
-	public void onSectionAttached(int number) {
-		// TODO
-	}
-
-	public void restoreActionBar() {
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayShowTitleEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (!navigationDrawerFragment.isDrawerOpen()) {
-			restoreActionBar();
-			return true;
-		}
-		
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_home_actions, menu);
-		
-//		// Associate searchable configuration with the SearchView
-//		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//		SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-//		Log.i("", "SearchView-->>" + searchView);
-//		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-		return super.onCreateOptionsMenu(menu);
+		//getMenuInflater().inflate(R.menu.pager_actions, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.search:
-			// TODO search action
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+//		int id = item.getItemId();
+//		if (id == R.id.activity_chooser_view_content) {
+//			//showDialog(null, null);
+//			return true;
+//		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onTabSelected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+		parallexViewPager.setCurrentItem(tab.getPosition());
+	}
+
+	@Override
+	public void onTabUnselected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+	}
+
+	@Override
+	public void onTabReselected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+	}
+
+	/**
+	 * A fragment corresponding to
+	 * one of the sections/tabs/pages.
+	 */
+	public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+
+		public SectionsPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			//Log.i("", "*************getItem is called::"+position);
+			if(position == 0) {
+				return TransactionsFragment.newInstance(0);
+			}else if(position == 1) {
+				return CardsFragment.newInstance();
+			}else if(position ==2) {
+				return TransferFundsFragment.newInstance();
+			}
+			return new TransactionsFragment();
+		}
+
+		@Override
+		public int getCount() {
+			// Show 3 total pages.
+			return 3;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			Locale l = Locale.getDefault();
+			switch (position) {
+			case 0:
+				return getString(R.string.tab_title_transaction).toUpperCase(l);
+			case 1:
+				return getString(R.string.tab_title_credit_increase).toUpperCase(l);
+			case 2:
+				return getString(R.string.tab_title_transfer).toUpperCase(l);
+			}
+			return null;
 		}
 	}
 }
