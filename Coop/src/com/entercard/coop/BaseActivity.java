@@ -38,7 +38,10 @@ public class BaseActivity extends ActionBarActivity {
 	public void shortToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
-
+	
+	void showDeveloperLog(String tag, String msg) {
+		Log.d(tag, msg);
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();

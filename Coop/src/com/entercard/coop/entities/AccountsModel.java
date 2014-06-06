@@ -1,4 +1,6 @@
-package com.entercard.coop.model;
+package com.entercard.coop.entities;
+
+import java.util.ArrayList;
 
 public class AccountsModel {
 
@@ -23,6 +25,9 @@ public class AccountsModel {
 	private String date;
 	private String type;
 	private String isDisputable;
+
+	private ArrayList<TransactionDataModel> transactionDataArraylist;
+	private ArrayList<CardDataModel> cardDataArrayList;
 
 	public String getAccountNumber() {
 		return accountNumber;
@@ -175,4 +180,22 @@ public class AccountsModel {
 	public void setIsDisputable(String isDisputable) {
 		this.isDisputable = isDisputable;
 	}
+
+	public ArrayList<TransactionDataModel> getTransactionDataArraylist() {
+		return transactionDataArraylist;
+	}
+
+	public void setTransactionDataArraylist(
+			ArrayList<TransactionDataModel> transactionDataArraylist) {
+		this.transactionDataArraylist = transactionDataArraylist;
+	}
+
+	public ArrayList<CardDataModel> getCardDataArrayList() {
+		return cardDataArrayList;
+	}
+
+	public void setCardDataArrayList(ArrayList<CardDataModel> cardDataArrayList) {
+		this.cardDataArrayList = cardDataArrayList;
+	}
+
 }

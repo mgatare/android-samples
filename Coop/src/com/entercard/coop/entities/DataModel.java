@@ -1,4 +1,4 @@
-package com.entercard.coop.model;
+package com.entercard.coop.entities;
 
 public class DataModel {
 

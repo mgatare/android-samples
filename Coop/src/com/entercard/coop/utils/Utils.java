@@ -3,6 +3,7 @@ package com.entercard.coop.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,7 +58,8 @@ public class Utils {
 	 */
 	public static void writeToTextFile(String data, Context ctx, String filename) {
 		try {
-			File myFile = new File(Environment.getExternalStorageDirectory(),filename);
+			File myFile = new File(Environment.getExternalStorageDirectory(),
+					filename);
 			if (!myFile.exists()) {
 				myFile.createNewFile();
 			}
@@ -67,6 +69,28 @@ public class Utils {
 		} catch (IOException e) {
 			Log.e("Exception", "File write failed: " + e.toString());
 		}
+	}
+
+	/**
+	 * 
+	 * @param context
+	 * @param filename
+	 * @return
+	 */
+	public static String readResponseFromAssetsFile(Context context,
+			String filename) {
+		String response = null;
+		try {
+			InputStream inputStream = context.getAssets().open(filename);
+			int size = inputStream.available();
+			byte[] buffer = new byte[size];
+			inputStream.read(buffer);
+			inputStream.close();
+			response = new String(buffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 	/**

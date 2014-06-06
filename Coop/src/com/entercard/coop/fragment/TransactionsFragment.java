@@ -16,7 +16,7 @@ import android.widget.ListView;
 import com.entercard.coop.R;
 import com.entercard.coop.ShowDisputeOnMapActivity;
 import com.entercard.coop.adapters.TransactionsAdapter;
-import com.entercard.coop.model.DataModel;
+import com.entercard.coop.entities.DataModel;
 import com.entercard.coop.utils.StringUtils;
 
 public class TransactionsFragment extends Fragment {

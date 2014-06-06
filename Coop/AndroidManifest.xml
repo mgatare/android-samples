@@ -37,7 +37,8 @@
         android:name="com.entercard.coop.ApplicationEx"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/Theme.CoopTheme" >
         <activity
             android:name="com.entercard.coop.ActivateAppActivity"
             android:label="@string/app_name"
@@ -52,7 +53,8 @@
             android:name=".BaseActivity"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CoopTheme" >
         </activity>
         <activity
             android:name=".HomeScreenActivity"

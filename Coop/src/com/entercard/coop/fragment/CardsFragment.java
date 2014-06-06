@@ -1,6 +1,7 @@
 package com.entercard.coop.fragment;
 
 import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -14,9 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.entercard.coop.R;
 import com.entercard.coop.adapters.CardsAdapter;
-import com.entercard.coop.model.DataModel;
+import com.entercard.coop.entities.DataModel;
 
 public class CardsFragment extends Fragment {
 

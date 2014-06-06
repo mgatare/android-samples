@@ -100,10 +100,6 @@ public class ApplicationEx extends Application {
 		controller.setPublicKeyHashes(hash);
 	}
 
-	void showDeveloperLog(String tag, String msg) {
-		Log.d(tag, msg);
-	}
-
 	public ArrayList<String> getAccountsArrayList() {
 		return accountsArrayList;
 	}

@@ -76,12 +76,6 @@
         <item name="android:background">@drawable/btn_cab_done_cooptheme</item>
     </style>
 
-    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Cooptheme.Widget" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="popupMenuStyle">@style/PopupMenu.Cooptheme</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Cooptheme</item>
-    </style>
-
     <style name="Theme.Cooptheme.Button" parent="android:Widget.Button">
         <item name="android:background">@drawable/button_background</item>
     </style>
