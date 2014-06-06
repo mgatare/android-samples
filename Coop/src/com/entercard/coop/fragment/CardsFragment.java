@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,8 +44,8 @@ public class CardsFragment extends Fragment {
 		allCardsListView = (ListView) parentView.findViewById(R.id.allCardsListView);
 		setData();
 		
-		ActionBar actionBar = getActivity().getActionBar();
-		actionBar.setTitle("Credit Line Increase");
+//		ActionBar actionBar = getActivity().getActionBar();
+//		actionBar.setTitle("Cards");
 		
 		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
 		btnIncreaseCreditLimit.setOnClickListener(new OnClickListener() {

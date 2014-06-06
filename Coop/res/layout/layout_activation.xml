@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/view_margin_top"
         android:gravity="center"
-       android:textColor="@color/text_grey"
+        android:textColor="@color/text_title"
         android:textSize="@dimen/activate_font_size" />
 
     <ImageView
@@ -28,8 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="70dp"
-        android:contentDescription="@null"
-        android:src="@drawable/uilock" />
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/bodytextTextView"
@@ -38,17 +37,17 @@
         android:layout_below="@+id/imgIcon"
         android:layout_marginTop="@dimen/margin_ten_px"
         android:gravity="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_detail"
         android:textSize="@dimen/title_screen_font_size" />
 
     <Button
         android:id="@+id/btnOk"
-        style="@style/Theme.CoopTheme.Button"
+        style="@style/Theme.Coopmedlem.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:textColor="@color/text_grey"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/title_screen_font_size" />
 
 </RelativeLayout>

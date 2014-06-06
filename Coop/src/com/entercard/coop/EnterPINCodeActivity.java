@@ -1,6 +1,5 @@
 package com.entercard.coop;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
@@ -23,11 +22,9 @@ import com.encapsecurity.encap.android.client.api.FinishAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
-import com.entercard.coop.entities.AccountsModel;
-import com.entercard.coop.helpers.AlertHelper;
-import com.entercard.coop.helpers.PreferenceHelper;
 import com.entercard.coop.services.GetAccountsService;
-import com.entercard.coop.services.GetAccountsService.GetAccountsListener;
+import com.entercard.coop.utils.AlertHelper;
+import com.entercard.coop.utils.PreferenceHelper;
 import com.entercard.coop.utils.Utils;
 
 public class EnterPINCodeActivity extends BaseActivity{
@@ -67,7 +64,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 			startAuthentication();
 		}
 		
-//		 String str = "hello\r\n\tjava\r\nbook";
+//		 String str = "helllloooo\r\n\ttheworld\r\nmayurrr";
 //		 System.out.println(str);
 //		 str = str.replaceAll("(\\r|\\n|\\t)", "");
 //		 System.out.println(str);
@@ -208,7 +205,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 				
 				/*Is App is Already activated then Just Authenticate the PIN*/
 				if(isActivated != 1) 
-					checkPinWithEncap(newPIN);
+					finishActivation(newPIN);
 				else
 					finishAuthentication(newPIN);
 				
@@ -246,7 +243,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 			
 			/*Is App is Already activated then Just Authenticate the PIN*/
 			if(isActivated != 1) 
-				checkPinWithEncap(newPIN);
+				finishActivation(newPIN);
 			else
 				finishAuthentication(newPIN);
 		} 
@@ -258,19 +255,16 @@ public class EnterPINCodeActivity extends BaseActivity{
 			pin4EditText.setText("");
 			pin4EditText.setBackgroundColor(Color.WHITE);
 			stringBuilder.deleteCharAt(3).trimToSize();
-			//Log.i("", "---deleteCharAt(3)---"+stringBuilder.toString());
 			
 		} else if(pin3EditText.getText().length()>0) {
 			pin3EditText.setText("");
 			pin3EditText.setBackgroundColor(Color.WHITE);
 			stringBuilder.deleteCharAt(2).trimToSize();
-			//Log.i("", "---deleteCharAt(2)---"+stringBuilder.toString());
 			
 		} else if(pin2EditText.getText().length()>0) {
 			pin2EditText.setText("");
 			pin2EditText.setBackgroundColor(Color.WHITE);
 			stringBuilder.deleteCharAt(1).trimToSize();
-			//Log.i("", "---deleteCharAt(1)---"+stringBuilder.toString());
 			
 		} else if(pin1EditText.getText().length()>0) {
 			stringBuilder.deleteCharAt(0).trimToSize();
@@ -302,7 +296,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 		
 	}
 	
-	private void checkPinWithEncap(final String code) {
+	private void finishActivation(final String code) {
 		
 		showProgressDialog();
 		

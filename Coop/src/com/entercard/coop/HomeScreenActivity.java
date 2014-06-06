@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,8 +19,7 @@ import com.entercard.coop.fragment.TransferFundsFragment;
 import com.entercard.coop.view.ParallexViewPager;
 
 
-public class HomeScreenActivity extends ActionBarActivity implements
-		ActionBar.TabListener {
+public class HomeScreenActivity extends BaseActivity implements ActionBar.TabListener {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ParallexViewPager parallexViewPager;
@@ -32,7 +31,7 @@ public class HomeScreenActivity extends ActionBarActivity implements
 		setContentView(R.layout.activity_homescreen);
 
 		actionBar = getSupportActionBar();
-		actionBar.setTitle("Demo App");
+		actionBar.setTitle("Coop");
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -76,9 +75,9 @@ public class HomeScreenActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onTabSelected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
+	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 		parallexViewPager.setCurrentItem(tab.getPosition());
+		Log.i("", "tab.getPosition()::::" + tab.getPosition());
 	}
 
 	@Override
@@ -103,12 +102,14 @@ public class HomeScreenActivity extends ActionBarActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			//Log.i("", "*************getItem is called::"+position);
-			if(position == 0) {
+			// Log.i("", "*************getItem is called::"+position);
+			if (position == 0) {
 				return TransactionsFragment.newInstance(0);
-			}else if(position == 1) {
+				
+			} else if (position == 1) {
 				return CardsFragment.newInstance();
-			}else if(position ==2) {
+				
+			} else if (position == 2) {
 				return TransferFundsFragment.newInstance();
 			}
 			return new TransactionsFragment();

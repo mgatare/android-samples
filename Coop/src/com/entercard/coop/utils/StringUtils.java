@@ -17,7 +17,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
-import android.util.Log;
 
 public class StringUtils {
 
@@ -138,6 +137,23 @@ public class StringUtils {
 					toBeSpannedText.length(), completeText.length() - 1,
 					Spannable.SPAN_POINT_POINT);
 		return wordtoSpan;
+	}
+	/**
+	 * 
+	 * @param source
+	 * @return
+	 */
+	public static String replaceNewlinesWithBreaks(String source) {
+	    return source != null ? source.replaceAll("(?:\n|\r\n)","<br>") : "";
+	}
+	/**
+	 * 
+	 * @param source
+	 * @return
+	 */
+	// remove HTML tags but preserve supported HTML text styling (if there is any)
+	public static CharSequence getStyledTextFromHtml(String source) {
+	    return android.text.Html.fromHtml(replaceNewlinesWithBreaks(source));
 	}
 
 	/**

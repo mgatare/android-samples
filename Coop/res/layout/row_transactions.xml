@@ -47,7 +47,7 @@
         android:layout_marginRight="@dimen/margin_ten_px"
         android:layout_marginTop="@dimen/margin_five_px"
         android:ellipsize="end"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_detail"
         android:textSize="@dimen/normal_font_size"
         android:textStyle="normal" />
 

@@ -1,4 +1,4 @@
-package com.entercard.coop.helpers;
+package com.entercard.coop.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;

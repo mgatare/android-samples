@@ -4,11 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,11 +22,10 @@ import android.widget.Toast;
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.StartActivationResult;
 import com.entercard.coop.ActivateAppActivity;
-import com.entercard.coop.EnterPINCodeActivity;
 import com.entercard.coop.R;
 import com.entercard.coop.R.style;
-import com.entercard.coop.helpers.AlertHelper;
-import com.entercard.coop.helpers.NetworkHelper;
+import com.entercard.coop.utils.AlertHelper;
+import com.entercard.coop.utils.NetworkHelper;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
     
     @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		setStyle(0, style.Theme_Cooptheme);
+		setStyle(0, style.Theme_Coopmedlem);
 				
 		parentActivity = (ActivateAppActivity) getActivity();
 		handler = new Handler();
@@ -57,8 +57,8 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 		actCodeEditText = (EditText) innerView.findViewById(R.id.actCodeEditText);
 		
 		return new AlertDialog.Builder(getActivity())
-				.setTitle("Enter your pin")
-				.setPositiveButton("Ok",
+				.setTitle(getResources().getString(R.string.enter_activation_code))
+				.setPositiveButton(getResources().getString(android.R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
@@ -83,12 +83,19 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 													parentActivity.hideProgressDialog();
 													Log.i("ENCAP","->>>startActivation onSuccess--->("+ result + ")");
 													
-													/*Start the PIN code Activity*/
+													/*Start the PIN code Activity
 													Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
 													intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-													parentActivity.startActivity(intent);
+													parentActivity.startActivity(intent);*/
 													
-													parentActivity.finish();
+													parentActivity.closeKeyBoard();
+										
+													FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
+													FragmentTransaction transaction = fragmentManager.beginTransaction();
+													transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+													transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
+													transaction.addToBackStack(null);
+													transaction.commit();
 												}
 											});
 									} else {
@@ -100,7 +107,7 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 								}
 							}
 						})
-				.setNegativeButton("Cancel",
+				.setNegativeButton(getResources().getString(android.R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {

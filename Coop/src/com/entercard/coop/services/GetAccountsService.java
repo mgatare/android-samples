@@ -13,7 +13,7 @@ import com.entercard.coop.R;
 import com.entercard.coop.entities.AccountsModel;
 import com.entercard.coop.entities.CardDataModel;
 import com.entercard.coop.entities.TransactionDataModel;
-import com.entercard.coop.helpers.CompatibilityUtils;
+import com.entercard.coop.utils.CompatibilityUtils;
 
 public class GetAccountsService extends BaseService {
 

@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.entercard.coop.ApplicationEx;
 import com.entercard.coop.R;
-import com.entercard.coop.helpers.NetworkHelper;
+import com.entercard.coop.utils.NetworkHelper;
 
 public abstract class BaseService implements Runnable {
 

@@ -1,4 +1,4 @@
-package com.entercard.coop.helpers;
+package com.entercard.coop.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

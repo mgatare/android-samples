@@ -12,9 +12,9 @@ import android.widget.ListView;
 
 import com.entercard.coop.adapters.AccountsAdapter;
 import com.entercard.coop.entities.AccountsModel;
-import com.entercard.coop.helpers.AlertHelper;
 import com.entercard.coop.services.GetAccountsService;
 import com.entercard.coop.services.GetAccountsService.GetAccountsListener;
+import com.entercard.coop.utils.AlertHelper;
 
 public class AllAccountsActivity extends BaseActivity implements GetAccountsListener {
 
@@ -49,7 +49,6 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
@@ -86,21 +85,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 				}
 			});
 		}
-	
-		
-		
 //		showDeveloperLog("", "ACCOUNT 1::"+accountArrayList.get(0).getAccountNumber());
 //		showDeveloperLog("", "ACCOUNT 2::"+accountArrayList.get(1).getAccountNumber());
-//		
-//		showDeveloperLog("", "ACCOUNT 2 CARDS NAME::"+accountArrayList.get(1).getCardDataArrayList().get(0).getCardholderName());
-//		
-//		
-//		showDeveloperLog("", "ACCOUNT 1 TRANSACTION::"+accountArrayList.get(0).getTransactionDataArraylist().size());
-//		showDeveloperLog("", "ACCOUNT 1 TRANSACTION::"+accountArrayList.get(0).getTransactionDataArraylist().get(0).getId());
-//		showDeveloperLog("", "ACCOUNT 1 TRANSACTION::"+accountArrayList.get(0).getTransactionDataArraylist().get(1).getId());
-//		
-//		showDeveloperLog("", "ACCOUNT 2 TRANSACTION::"+accountArrayList.get(1).getTransactionDataArraylist().size());
-//		showDeveloperLog("", "ACCOUNT 2 TRANSACTION::"+accountArrayList.get(1).getTransactionDataArraylist().get(0).getId());
-//		showDeveloperLog("", "ACCOUNT 2 TRANSACTION::"+accountArrayList.get(1).getTransactionDataArraylist().get(1).getId());
 	}
 }

@@ -12,7 +12,7 @@
         android:focusable="true"
         android:gravity="center"
         android:maxLength="6"
-        android:inputType="numberPassword" >
+        android:inputType="phone" >
     </EditText>
 
 </LinearLayout>

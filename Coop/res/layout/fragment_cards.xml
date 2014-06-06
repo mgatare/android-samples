@@ -37,7 +37,7 @@
 
         <Button
             android:id="@+id/btnIncreaseCreditLimit"
-            style="@style/Theme.CoopTheme.Button"
+            style="@style/Theme.Coopmedlem.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_ten_px"

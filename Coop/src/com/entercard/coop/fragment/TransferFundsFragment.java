@@ -2,7 +2,6 @@ package com.entercard.coop.fragment;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,8 +30,8 @@ public class TransferFundsFragment extends Fragment {
 		View parentView = inflater.inflate(R.layout.fragment_transfer_funds,
 				container, false);
 
-		ActionBar actionBar = getActivity().getActionBar();
-		actionBar.setTitle("Funds Transfer");
+//		ActionBar actionBar = getActivity().getActionBar();
+//		actionBar.setTitle("Funds Transfer");
 		return parentView;
 	}
 

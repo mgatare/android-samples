@@ -2,7 +2,10 @@ package com.entercard.coop.fragment;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -30,12 +33,17 @@ public class TransactionsFragment extends Fragment {
 	public TransactionsFragment() {
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_transactions,
 				container, false);
 
+//		ActionBar actionBar = getActivity().getActionBar();
+//		actionBar.setTitle("Transactions");
+		
 		listView = (ListView) rootView.findViewById(R.id.listView);
 		listView.setOnItemClickListener(new ListItemClickListener());
 		setData();

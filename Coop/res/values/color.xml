@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="text_white">#fff</color>
-    <color name="text_grey">#a5a5a5</color>
+    <color name="text_title">#00457D</color>
+    <color name="text_detail">#5683A9</color>
     <color name="light_grey">#808080</color>
     <color name="droid">#93ad43</color>
     <color name="screen_bg_grey_light">#F1F1F1</color>
@@ -13,5 +13,6 @@
     <color name="dialog_title_background_color">#333333</color>
     <color name="dialog_body_text_color">#333333</color>
     <color name="dialog_title_text_color">#ffffff</color>
-<!--     <color name="blue_coop_theme">#00A5E2</color> -->
-</resources>
+    <!-- <color name="blue_coop_theme">#00A5E2</color> -->
+
+</resources>
