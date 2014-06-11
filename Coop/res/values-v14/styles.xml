@@ -25,7 +25,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Coopmedlem</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Coopmedlem</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Coopmedlem</item>
-        <item name="actionBarTabTextStyle">@style/StackedTabText</item>
+        <item name="android:actionBarTabTextStyle">@style/StackedTabText</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Coopmedlem</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Coopmedlem</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_coopmedlem</item>
@@ -41,12 +41,12 @@
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">2</item>
         <item name="android:typeface">normal</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/text_heading</item>
     </style>
 
     <style name="ActionBar.Transparent.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar">

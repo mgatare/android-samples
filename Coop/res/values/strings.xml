@@ -13,7 +13,7 @@
     <string name="create_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
     <string name="tab_title_transaction">Transaction</string>
-    <string name="tab_title_credit_increase">Credit Line Increase</string>
+    <string name="tab_title_credit_increase">Cards</string>
     <string name="tab_title_transfer">Transfer</string>
     <string name="option_transactions">Transactions</string>
     <string name="option_transfer_funds">Funds Transfer</string>
@@ -32,7 +32,19 @@
     <string name="phone_number">Phone number</string>
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
-    <string name="no_internet_connection">Your data connection is currently disabled. Please enable from phone settings.</string>
+    <string name="spent">SPENT</string>
+    <string name="open_to_buy">OPEN TO BUY</string>
+    <string name="latest_transactions">LATEST TRANSACTIONS</string>
+    <string name="card_ending_with">Card number ending with:</string>
+    <string name="no_transactions_found">No transctions found for this account.</string>
+    
+    <string name="tag_position">position</string>
+    <string name="tag_open_to_buy">opentobuy</string>
+    <string name="tag_spent">spent</string>
+   
+    
+    
+    <string name="no_internet_connection">Your data connection is currently disabled. Please enable it from settings.</string>
 
     <!-- ENCAP Related -->
     <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>

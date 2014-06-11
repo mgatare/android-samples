@@ -10,7 +10,7 @@
         android:layout_margin="@dimen/title_layout_margin"
         android:gravity="center"
         android:textColor="#fff"
-        android:textSize="@dimen/title_screen_font_size"
+        android:textSize="@dimen/font_size_screen_title"
         android:textStyle="normal" />
 
 </LinearLayout>

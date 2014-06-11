@@ -2,27 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llMainRow"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/card_list"
+    android:layout_height="@dimen/row_height"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:weightSum="1" >
 
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_ten_px"
             android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
             android:layout_weight="0.5"
             android:ellipsize="end"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/normal_font_size"
+            android:text="aasd"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_size_normal"
             android:textStyle="normal" />
 
         <TextView
@@ -31,24 +31,26 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_ten_px"
             android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
             android:layout_weight="0.5"
             android:ellipsize="end"
+            android:text="aasd"
             android:gravity="right"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/normal_font_size"
-            android:textStyle="bold" />
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dateTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
-        android:layout_marginTop="@dimen/margin_five_px"
         android:ellipsize="end"
-        android:textColor="@color/text_detail"
-        android:textSize="@dimen/normal_font_size"
+        android:text="aasd"
+        android:textColor="@color/text_body"
+        android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
 
 </LinearLayout>

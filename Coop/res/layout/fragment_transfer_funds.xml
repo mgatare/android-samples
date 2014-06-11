@@ -19,7 +19,7 @@
             android:layout_margin="@dimen/view_usual_margin"
             android:gravity="center"
             android:text="@string/transfer_funds_title"
-            android:textSize="@dimen/normal_font_size"
+            android:textSize="@dimen/font_size_normal"
             android:textStyle="normal" />
 
         <include layout="@drawable/seperator" />
@@ -32,7 +32,7 @@
             android:background="@android:color/transparent"
             android:hint="@string/receiver_name"
             android:inputType="textPersonName"
-            android:textSize="@dimen/normal_font_size" >
+            android:textSize="@dimen/font_size_normal" >
         </EditText>
 
         <include layout="@drawable/seperator" />
@@ -45,7 +45,7 @@
             android:background="@android:color/transparent"
             android:hint="@string/account_number"
             android:inputType="number"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />
 
@@ -57,7 +57,7 @@
             android:background="@android:color/transparent"
             android:hint="@string/amount"
             android:inputType="number"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />
 
@@ -69,7 +69,7 @@
             android:background="@android:color/transparent"
             android:hint="@string/message_from_kid"
             android:inputType="text"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />
 
@@ -81,7 +81,7 @@
             android:layout_margin="@dimen/view_usual_margin"
             android:text="@string/option_transfer_funds"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
 </ScrollView>

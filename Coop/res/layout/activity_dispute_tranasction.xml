@@ -19,7 +19,7 @@
             android:gravity="left"
             android:text="@string/recognize_transaction"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
 
         <ToggleButton
             android:id="@+id/toggleButton1"
@@ -42,7 +42,7 @@
         android:inputType="text"
         android:maxLines="5"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/normal_font_size" />
+        android:textSize="@dimen/font_size_normal" />
 
     <include layout="@drawable/seperator" />
 
@@ -55,7 +55,7 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:maxLines="5"
-        android:textSize="@dimen/normal_font_size" />
+        android:textSize="@dimen/font_size_normal" />
 
     <include layout="@drawable/seperator" />
 
@@ -68,7 +68,7 @@
         android:hint="@string/phone_number"
         android:inputType="phone"
         android:maxLines="5"
-        android:textSize="@dimen/normal_font_size" />
+        android:textSize="@dimen/font_size_normal" />
 
     <include layout="@drawable/seperator" />
 
@@ -80,6 +80,6 @@
         android:layout_margin="@dimen/view_usual_margin"
         android:text="@string/option_transfer_funds"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/normal_font_size" />
+        android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>

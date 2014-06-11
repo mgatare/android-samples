@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/credit_limit"
-                android:textSize="@dimen/normal_font_size"
+                android:textSize="@dimen/font_size_normal"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,7 +45,7 @@
             android:layout_weight="0.5"
             android:text="+ Increase Credit Limt"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/normal_font_size" />
+            android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_marginRight="@dimen/margin_ten_px"
         android:layout_marginTop="@dimen/margin_ten_px"
         android:text="CARDS"
-        android:textSize="@dimen/normal_font_size" />
+        android:textSize="@dimen/font_size_normal" />
 
     <ListView
         android:id="@+id/allCardsListView"

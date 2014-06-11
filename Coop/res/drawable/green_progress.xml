@@ -1,0 +1,26 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="0dp" />
+
+            <gradient
+                android:angle="270"
+                android:endColor="@color/list_even"
+                android:startColor="@color/list_even" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="0dp" />
+
+                <gradient
+                    android:angle="0"
+                    android:endColor="@color/light_green"
+                    android:startColor="@color/light_green" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

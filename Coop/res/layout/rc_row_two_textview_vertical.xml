@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parentlinearlayout"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/card_list"
+    android:layout_height="@dimen/row_height"
     android:orientation="vertical" >
 
     <TextView
@@ -11,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_ten_px"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/normal_font_size"
+        android:layout_marginTop="@dimen/margin_ten_px"
+        android:textColor="@color/text_heading"
+        android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
 
     <TextView
@@ -20,9 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_ten_px"
-        android:layout_marginTop="@dimen/margin_five_px"
-        android:textColor="@color/text_detail"
-        android:textSize="@dimen/normal_font_size"
+        android:textColor="@color/text_body"
+        android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
 
 </LinearLayout>

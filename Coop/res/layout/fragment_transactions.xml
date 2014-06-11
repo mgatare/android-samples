@@ -3,6 +3,7 @@
     xmlns:card="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -19,18 +20,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
-            android:text="SPENT"
-            android:textSize="@dimen/normal_font_size"
-            android:textStyle="bold" />
+            android:text="@string/spent"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_normal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="right"
-            android:text="OPEN TO BUY"
-            android:textSize="@dimen/normal_font_size"
-            android:textStyle="bold" />
+            android:text="@string/open_to_buy"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,8 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
-            android:text="100"
-            android:textSize="@dimen/font_currency" />
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_currency"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/openbuyTextView"
@@ -57,15 +59,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="right"
-            android:text="25,000.00"
-            android:textSize="@dimen/font_currency" />
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_currency"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="10dp" -->
+    <!-- android:background="@color/button_green" -->
+    <!-- android:orientation="vertical" /> -->
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/header_orange"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:progress="0"
+        android:progressDrawable="@drawable/green_progress" />
 
     <TextView
         android:layout_width="match_parent"
@@ -73,19 +85,19 @@
         android:layout_marginBottom="@dimen/margin_five_px"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginTop="@dimen/margin_ten_px"
-        android:text="TRANSACTIONS"
-        android:textSize="@dimen/normal_font_size"
+        android:text="@string/latest_transactions"
+        android:textColor="@color/text_heading"
+        android:textSize="@dimen/font_size_normal"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_five_px"
         android:cacheColorHint="#00000000"
         android:clickable="true"
         android:divider="@android:color/transparent"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0dp"
         android:focusable="true"
         android:focusableInTouchMode="true" />
 

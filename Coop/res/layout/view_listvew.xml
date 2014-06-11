@@ -21,7 +21,7 @@
             android:layout_weight="0.5"
             android:gravity="left"
             android:text="SPENT"
-            android:textSize="@dimen/normal_font_size"
+            android:textSize="@dimen/font_size_normal"
             android:textStyle="bold" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_weight="0.5"
             android:gravity="right"
             android:text="OPEN TO BUY"
-            android:textSize="@dimen/normal_font_size"
+            android:textSize="@dimen/font_size_normal"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -65,7 +65,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/header_orange"
+        android:background="@color/light_green"
         android:orientation="vertical" />
 
     <TextView
@@ -75,7 +75,7 @@
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginTop="@dimen/margin_ten_px"
         android:text="TRANSACTIONS"
-        android:textSize="@dimen/normal_font_size"
+        android:textSize="@dimen/font_size_normal"
         android:textStyle="bold" />
 
     <ListView

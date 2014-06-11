@@ -18,7 +18,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Coopmedlem" parent="@style/Theme.AppCompat.Light">
         <item name="actionBarItemBackground">@drawable/selectable_background_coopmedlem</item>
@@ -64,6 +64,8 @@
 
     <style name="ActionBarTabStyle.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_coopmedlem</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
     </style>
 
     <style name="DropDownNav.Coopmedlem" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">

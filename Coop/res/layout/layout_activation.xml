@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_five_px"
-    tools:context="com.entercard.coop.EnterPinActivity_old"
+    android:background="@android:color/white"
     tools:ignore="MergeRootFrame" >
 
     <!-- <include -->
@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/view_margin_top"
         android:gravity="center"
-        android:textColor="@color/text_title"
-        android:textSize="@dimen/activate_font_size" />
+        android:textColor="@color/text_heading"
+        android:textSize="@dimen/font_size_screen_activate" />
 
     <ImageView
         android:id="@+id/imgIcon"
@@ -37,8 +37,8 @@
         android:layout_below="@+id/imgIcon"
         android:layout_marginTop="@dimen/margin_ten_px"
         android:gravity="center"
-        android:textColor="@color/text_detail"
-        android:textSize="@dimen/title_screen_font_size" />
+        android:textColor="@color/text_body"
+        android:textSize="@dimen/font_size_screen_title" />
 
     <Button
         android:id="@+id/btnOk"
@@ -48,6 +48,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/title_screen_font_size" />
+        android:textSize="@dimen/font_size_screen_title" />
 
 </RelativeLayout>
