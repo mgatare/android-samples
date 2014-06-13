@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.text.method.LinkMovementMethod;
@@ -20,7 +21,8 @@ import android.widget.TextView;
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.Controller;
 import com.encapsecurity.encap.android.client.api.LoadConfigResult;
-import com.entercard.coopmedlem.fragment.ActivateDialogFragment;
+import com.entercard.coopmedlem.fragment.ActivationDialogFragment;
+import com.entercard.coopmedlem.fragment.CreateActivationCodeFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
@@ -31,7 +33,6 @@ import com.entercard.coopmedlem.utils.StringUtils;
 public class ActivateAppActivity extends BaseActivity {
 
 	public Controller controller;
-	private PreferenceHelper preferenceHelper;
 	private ActionBar actionBar;
 
 	@SuppressLint("InlinedApi")
@@ -39,13 +40,22 @@ public class ActivateAppActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activate_app);
-		preferenceHelper = new PreferenceHelper(this);
+		PreferenceHelper preferenceHelper = new PreferenceHelper(this);
 		
 		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.lytContainer, new ActivateAppFragment())
-					.setCustomAnimations(R.anim.enter, R.anim.exit).commit();
-			
+
+			if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activation_code_verified)) == 1) {
+				getSupportFragmentManager()
+						.beginTransaction()
+						.add(R.id.lytContainer, new CreateActivationCodeFragment())
+						.addToBackStack(null)
+						.commit();
+			} else {
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.lytContainer, new ActivateAppFragment())
+						.setCustomAnimations(R.anim.enter, R.anim.exit)
+						.commit();
+			}
 		}
 
 		actionBar = getSupportActionBar();
@@ -63,6 +73,7 @@ public class ActivateAppActivity extends BaseActivity {
 				public void onFailure(Throwable arg0) {
 					hideProgressDialog();
 					//longToast(arg0.getLocalizedMessage());
+					showDeveloperLog("LoadConfig", "onFailure"+arg0.getLocalizedMessage());
 					AlertHelper.Alert(arg0.getLocalizedMessage(), ActivateAppActivity.this);
 				}
 				@Override
@@ -76,19 +87,6 @@ public class ActivateAppActivity extends BaseActivity {
 		}
 	}
 
-	
-//	@Override
-//	protected void onResume() {
-//		super.onResume();
-//		if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
-//			/* Start the PIN code Activity */
-//			Intent intent = new Intent(this, EnterPINCodeActivity.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			startActivity(intent);
-//			finish();
-//			
-//		}
-//	}
 	/**
 	 * The Class EnterPinFragment.
 	 */
@@ -117,8 +115,8 @@ public class ActivateAppActivity extends BaseActivity {
 			View parentView = inflater.inflate(R.layout.fragment_activate_app, container, false);
 			RelativeLayout layoutActivation = (RelativeLayout) parentView.findViewById(R.id.layoutActivation);
 
-			bodytextTextView = (TextView) layoutActivation.findViewById(R.id.bodytextTextView);
-			headerTextView = (TextView) layoutActivation.findViewById(R.id.headerTextView);
+			bodytextTextView = (TextView) layoutActivation.findViewById(R.id.lblBodytext);
+			headerTextView = (TextView) layoutActivation.findViewById(R.id.lblHeader);
 			imgIcon = (ImageView) layoutActivation.findViewById(R.id.imgIcon);
 			btnOk = (Button) layoutActivation.findViewById(R.id.btnOk);
 			
@@ -148,8 +146,9 @@ public class ActivateAppActivity extends BaseActivity {
 //				transaction.commit();
 				
 				if (NetworkHelper.isOnline(parentActivity)) {
-					DialogFragment newFragment = ActivateDialogFragment.newInstance(0);
-					FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+					DialogFragment newFragment = ActivationDialogFragment.newInstance(0);
+					FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
+					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 					newFragment.show(fragmentTransaction, "dialog_activate");
 				} else {
 					AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), parentActivity);

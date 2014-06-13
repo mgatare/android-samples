@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 
@@ -19,7 +20,10 @@ public class SplashScreenActivity extends FragmentActivity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				Log.i("", ">>FLAG>>"+preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)));
+				
 				if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
+					
 					/* Start the PIN code Activity */
 					Intent intent = new Intent(SplashScreenActivity.this, EnterPINCodeActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

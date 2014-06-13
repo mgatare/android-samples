@@ -22,6 +22,7 @@ import com.entercard.coopmedlem.adapters.TransactionsAdapter;
 import com.entercard.coopmedlem.entities.DataModel;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.StringUtils;
 
 public class TransactionsFragment extends Fragment {
 	
@@ -61,10 +62,10 @@ public class TransactionsFragment extends Fragment {
 
 		transactionsArrayList = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist();
 		
-		spentTextView = (TextView) rootView.findViewById(R.id.spentTextView);
-		openbuyTextView = (TextView) rootView.findViewById(R.id.openbuyTextView);
+		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
+		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenbuy);
 		
-		listView = (ListView) rootView.findViewById(R.id.listView);
+		listView = (ListView) rootView.findViewById(R.id.listTransaction);
 		listView.setOnItemClickListener(new ListItemClickListener());
 		
 		if (null != transactionsArrayList && transactionsArrayList.size() > 0) {
@@ -78,9 +79,9 @@ public class TransactionsFragment extends Fragment {
 
 	private void setData() {
 
-		spentTextView.setText(spentCash != null ? roundAmount(spentCash) : "?");
+		spentTextView.setText(spentCash != null ? StringUtils.formatCurrencyLocally(spentCash) : "?");
 		openbuyTextView
-				.setText(openToBuyCash != null ? roundAmount(openToBuyCash)
+				.setText(openToBuyCash != null ? StringUtils.formatCurrencyLocally(openToBuyCash)
 						: "?");
 
 		TransactionsAdapter transactionsAdapter = new TransactionsAdapter(
@@ -117,21 +118,5 @@ public class TransactionsFragment extends Fragment {
 //			}
 			AlertHelper.Alert("Functionality not implemented yet." , getActivity());
 		}
-	}
-	
-	/**
-	 * @param amount
-	 * @return
-	 */
-	private String roundAmount(String amount) {
-
-		// DecimalFormat df=new DecimalFormat("0.00");
-		// String formate = df.format(amount);
-		// double finalValue = (Double)df.parse(formate);
-		
-		double doubleAmount = Double.parseDouble(amount);
-		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
-		String finalTxt = String.valueOf(finalValue).replace('.', ',');
-		return String.valueOf(finalTxt);
 	}
 } 

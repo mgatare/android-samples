@@ -14,7 +14,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,35 +28,41 @@ import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
+import com.entercard.coopmedlem.utils.PreferenceHelper;
 
 /**
  * 
  * @author mgatare
  *
  */
-public class ActivateDialogFragment extends DialogFragment implements OnClickListener {
+public class ActivationDialogFragment extends DialogFragment {
 
 	private ActivateAppActivity parentActivity;
-	private Handler handler;
 	private EditText actCodeEditText;
 	
-    public static ActivateDialogFragment newInstance(int title) {
-        ActivateDialogFragment frag = new ActivateDialogFragment();
+    public static ActivationDialogFragment newInstance(int title) {
+        ActivationDialogFragment frag = new ActivationDialogFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
     
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    		Bundle savedInstanceState) {
+    	getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    	return super.onCreateView(inflater, container, savedInstanceState);
+    }
+    
+    @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    	
 		setStyle(0, style.Theme_Coopmedlem);
-				
 		parentActivity = (ActivateAppActivity) getActivity();
-		handler = new Handler();
 		
 		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
 		View innerView = layoutInflater.inflate(R.layout.view_single_textview, null);
-		actCodeEditText = (EditText) innerView.findViewById(R.id.actCodeEditText);
+		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(getResources().getString(R.string.enter_activation_code))
@@ -73,6 +81,7 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 									if(isNetworkAvailable) {
 									
 										parentActivity.showProgressDialog();
+										parentActivity.closeKeyBoard();
 										
 										parentActivity.controller.startActivation(code, new AsyncCallback<StartActivationResult>() {
 												@Override
@@ -86,17 +95,16 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 													parentActivity.hideProgressDialog();
 													Log.i("ENCAP","->>>startActivation onSuccess--->("+ result + ")");
 													
-													/*App is Activated sucessfully. Set the Flag to 1=ACTIVATED*/
-													//preferenceHelper = new PreferenceHelper(parentActivity);
-													//preferenceHelper.addInt(parentActivity.getResources().getString(R.string.pref_is_activated), 1);
+													PreferenceHelper helper = new PreferenceHelper(parentActivity);
 													
-													parentActivity.closeKeyBoard();
-										
+													//Flag stating the Activation code is VERIFIED by EnCap, and not needed to be done again
+													helper.addInt(parentActivity.getResources().getString(R.string.pref_is_activation_code_verified), 1);
+													
 													FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
 													FragmentTransaction transaction = fragmentManager.beginTransaction();
 													transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-													transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
 													transaction.addToBackStack(null);
+													transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
 													transaction.commit();
 												}
 											});
@@ -121,24 +129,19 @@ public class ActivateDialogFragment extends DialogFragment implements OnClickLis
 						.create();
 	}
     
-    @Override
-    public void onResume() {
-    	super.onResume();
-    	Log.i("", "onResume() calledddddddddddddddddddddddddddddddddddd");
-    	actCodeEditText.requestFocus();
-		actCodeEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// Get focus and show the Keyboard
-				InputMethodManager inputMgr = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-				inputMgr.toggleSoftInput(0, 0);
-			}
-		}, 200);
-    }
-    
-    @Override
-	public void onClick(View v) {
-		this.dismiss();
-	}
+//    @Override
+//    public void onResume() {
+//    	super.onResume();
+//    	Log.i("", "onResume() calledddddddddddddddddddddddddddddddddddd");
+//    	actCodeEditText.requestFocus();
+//		actCodeEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
+//		handler.postDelayed(new Runnable() {
+//			@Override
+//			public void run() {
+//				// Get focus and show the Keyboard
+//				InputMethodManager inputMgr = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+//				inputMgr.toggleSoftInput(0, 0);
+//			}
+//		}, 200);
+//    }
 }

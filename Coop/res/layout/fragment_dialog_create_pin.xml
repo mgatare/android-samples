@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/lblCreatePIN" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_marginTop="@dimen/margin_five_px" -->
+    <!-- android:gravity="center" -->
+    <!-- android:text="@string/create_four_digit_pin_code" -->
+    <!-- android:textColor="@android:color/black" -->
+    <!-- android:textSize="@dimen/font_size_normal" -->
+    <!-- android:textStyle="normal" /> -->
+
+    <EditText
+        android:id="@+id/txtCreatePIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:digits="1234567890"
+        android:gravity="center"
+        android:inputType="phone" />
+
+</LinearLayout>

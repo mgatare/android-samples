@@ -36,7 +36,7 @@ public class CardsAdapter extends ArrayAdapter<DataModel> {
 			holder.llMainOne = (LinearLayout) convertView.findViewById(R.id.parentlinearlayout);
 
 			holder.cardNametextView = (TextView) holder.llMainOne.findViewById(R.id.titleTextView);
-			holder.cardNumberTextView = (TextView) holder.llMainOne.findViewById(R.id.detailTextView);
+			holder.cardNumberTextView = (TextView) holder.llMainOne.findViewById(R.id.lblDetail);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();

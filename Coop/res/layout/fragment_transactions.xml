@@ -44,7 +44,7 @@
         android:weightSum="1" >
 
         <TextView
-            android:id="@+id/spentTextView"
+            android:id="@+id/lblSpent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -54,7 +54,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/openbuyTextView"
+            android:id="@+id/lblOpenToBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -71,7 +71,7 @@
     <!-- android:orientation="vertical" /> -->
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progSpent"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/listTransaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="#00000000"

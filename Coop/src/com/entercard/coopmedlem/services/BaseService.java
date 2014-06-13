@@ -41,14 +41,14 @@ public abstract class BaseService implements Runnable {
 	private static String BASE_URL = ""; //
 	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
-	
+	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
 	
 	
 	private static final boolean isStaging = false;
 	private static final int CONNECTION_TIMEOUT = 150000;
 
 	public static final int NETWORK_NOT_AVAILABLE = 2001;
-	public static final int EMPTY_RESPONSE = 204;
+	public static final int NO_CONTENT = 204;
 	public static final int BAD_REQUEST = 400;
 	public static final int USER_NOT_AUTHORIZED = 401;
 	public static final int FORBIDDEN = 403;
@@ -78,6 +78,10 @@ public abstract class BaseService implements Runnable {
 		headers.add(new BasicNameValuePair(name, value));
 	}
 
+	public String getHeaderAccept() {
+		return HTTP_HEADER_ACCEPT;
+	}
+	
 	/**
 	 * Execute the request based on the type of service
 	 */
@@ -187,6 +191,7 @@ public abstract class BaseService implements Runnable {
 	public int getStatusCode() {
 		return statusCode;
 	}
+	
 	/**
 	 * @param httpResponse
 	 */
@@ -227,9 +232,10 @@ public abstract class BaseService implements Runnable {
 		} else if(e instanceof IOException) {
 			return ApplicationEx.applicationEx.getString(R.string.exception_io_exception);
 		} else if(e instanceof Exception) {
+			Log.i("", "EXCEPTION MESSAGE :::: "+e.getMessage());
 			return e.getMessage();
 		} else {
-			return ApplicationEx.applicationEx.getString(R.string.exception_network_not_found);
+			return ApplicationEx.applicationEx.getString(R.string.exception_general);
 		}
 	}
 }

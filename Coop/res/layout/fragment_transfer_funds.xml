@@ -13,7 +13,7 @@
         <!-- layout="@layout/view_actionbar_title" /> -->
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/lblTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/view_usual_margin"
@@ -25,7 +25,7 @@
         <include layout="@drawable/seperator" />
 
         <EditText
-            android:id="@+id/edtReceiversName"
+            android:id="@+id/txtReceiversName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_ten_px"
@@ -38,7 +38,7 @@
         <include layout="@drawable/seperator" />
 
         <EditText
-            android:id="@+id/edtAccountNumber"
+            android:id="@+id/txtAccountNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_ten_px"
@@ -50,7 +50,7 @@
         <include layout="@drawable/seperator" />
 
         <EditText
-            android:id="@+id/edtAmount"
+            android:id="@+id/txtAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_ten_px"
@@ -62,7 +62,7 @@
         <include layout="@drawable/seperator" />
 
         <EditText
-            android:id="@+id/edtMessageOrKID"
+            android:id="@+id/txtMessageOrKID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_ten_px"

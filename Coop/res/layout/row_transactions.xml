@@ -12,7 +12,7 @@
         android:weightSum="1" >
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/lblDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_ten_px"
@@ -26,7 +26,7 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/priceTextView"
+            android:id="@+id/lblPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_ten_px"
@@ -42,7 +42,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_ten_px"

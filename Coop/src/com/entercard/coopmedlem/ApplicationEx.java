@@ -12,31 +12,70 @@ import com.encapsecurity.encap.android.client.api.AndroidControllerFactory;
 import com.encapsecurity.encap.android.client.api.Controller;
 import com.entercard.coopmedlem.entities.AccountsModel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationEx.
+ */
 public class ApplicationEx extends Application {
 
+	/** The Constant CORE_POOL_SIZE. */
 	private static final int CORE_POOL_SIZE = 6;
+	
+	/** The Constant MAXIMUM_POOL_SIZE. */
 	private static final int MAXIMUM_POOL_SIZE = 6;
+	
+	/** The operations queue. */
 	public static ThreadPoolExecutor operationsQueue;
+	
+	/** The application ex. */
 	public static ApplicationEx applicationEx;
+	
+	/** The controller. */
 	private Controller controller;
+	
+	/** The log tag. */
 	private String LOG_TAG = getClass().getName();
+	
+	/** The isdeveloper mode. */
 	boolean isdeveloperMode = true;//set to false on Deployment/Production
 	
 	/*All data*/
+	/** The accounts array list. */
 	private ArrayList<AccountsModel> accountsArrayList;
+	
+	/** The SAML txt. */
 	private String SAMLTxt;
+	
+	/** The session id. */
 	private String sessionID;
+	
+	/** The uuid. */
 	private String UUID;
+	
+	/** The cookie. */
 	private String cookie;
 	
+	/**
+	 * Gets the cookie.
+	 *
+	 * @return the cookie
+	 */
 	public String getCookie() {
 		return cookie;
 	}
 
+	/**
+	 * Sets the cookie.
+	 *
+	 * @param cookie the new cookie
+	 */
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Application#onCreate()
+	 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -45,10 +84,18 @@ public class ApplicationEx extends Application {
 		applicationEx = this;
 	}
 
+	/**
+	 * Gets the controller.
+	 *
+	 * @return the controller
+	 */
 	public Controller getController() {
 		return controller;
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		Log.d(LOG_TAG, "init()");
 		try {
@@ -64,6 +111,9 @@ public class ApplicationEx extends Application {
 		}
 	}
 	
+	/**
+	 * Initialize controller from preferences.
+	 */
 	public void initializeControllerFromPreferences() {
 		String serverUrl = getResources().getString(R.string.encap_server_url);
 		controller.setServerUrl(serverUrl);
@@ -93,42 +143,84 @@ public class ApplicationEx extends Application {
 	}
 
 	/**
-	 * @param publicKeyHashes
-	 * @throws Exception
+	 * Sets the public key hashes.
+	 *
+	 * @param publicKeyHashes the new public key hashes
+	 * @throws Exception the exception
 	 */
 	public void setPublicKeyHashes(String publicKeyHashes) throws Exception {
 		String[] hash = publicKeyHashes.split(",");
 		controller.setPublicKeyHashes(hash);
 	}
 
+	/**
+	 * Gets the accounts array list.
+	 *
+	 * @return the accounts array list
+	 */
 	public ArrayList<AccountsModel> getAccountsArrayList() {
 		return accountsArrayList;
 	}
 
+	/**
+	 * Sets the accounts array list.
+	 *
+	 * @param accountsArrayList the new accounts array list
+	 */
 	public void setAccountsArrayList(ArrayList<AccountsModel> accountsArrayList) {
 		this.accountsArrayList = accountsArrayList;
 	}
 
+	/**
+	 * Gets the SAML txt.
+	 *
+	 * @return the SAML txt
+	 */
 	public String getSAMLTxt() {
 		return SAMLTxt;
 	}
 
+	/**
+	 * Sets the SAML txt.
+	 *
+	 * @param sAMLTxt the new SAML txt
+	 */
 	public void setSAMLTxt(String sAMLTxt) {
 		SAMLTxt = sAMLTxt;
 	}
 
+	/**
+	 * Gets the session id.
+	 *
+	 * @return the session id
+	 */
 	public String getSessionID() {
 		return sessionID;
 	}
 
+	/**
+	 * Sets the session id.
+	 *
+	 * @param sessionID the new session id
+	 */
 	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
 	}
 
+	/**
+	 * Gets the uuid.
+	 *
+	 * @return the uuid
+	 */
 	public String getUUID() {
 		return UUID;
 	}
 
+	/**
+	 * Sets the uuid.
+	 *
+	 * @param uUID the new uuid
+	 */
 	public void setUUID(String uUID) {
 		UUID = uUID;
 	}

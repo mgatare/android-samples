@@ -6,25 +6,27 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/dummyEditText"
+        android:id="@+id/txtDummy"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:digits="1234567890"
         android:gravity="center"
-        android:maxLength="4"
-        android:inputType="numberPassword" >
+        android:inputType="numberPassword"
+        android:maxLength="4" >
     </EditText>
 
     <LinearLayout
+        android:id="@+id/layoutPinContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
         android:orientation="horizontal"
+        android:padding="@dimen/margin_five_px"
         android:weightSum="1" >
 
         <EditText
-            android:id="@+id/pin1EditText"
+            android:id="@+id/txtpinOne"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_five_px"
@@ -40,7 +42,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/pin2EditText"
+            android:id="@+id/txtpinTwo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_five_px"
@@ -56,7 +58,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/pin3EditText"
+            android:id="@+id/txtpinThree"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_five_px"
@@ -71,7 +73,7 @@
             android:textColor="@android:color/transparent" />
 
         <EditText
-            android:id="@+id/pin4EditText"
+            android:id="@+id/txtpinFour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
@@ -84,17 +86,5 @@
             android:maxLength="1"
             android:textColor="@android:color/transparent" />
     </LinearLayout>
-
-    <!-- <EditText -->
-    <!-- android:id="@+id/pinEditText" -->
-    <!-- android:layout_width="wrap_content" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_gravity="center_horizontal" -->
-    <!-- android:layout_margin="@dimen/margin_ten_px" -->
-    <!-- android:ems="10" -->
-    <!-- android:gravity="center" -->
-    <!-- android:inputType="numberPassword" -->
-    <!-- android:singleLine="true" > -->
-    <!-- </EditText> -->
 
 </LinearLayout>

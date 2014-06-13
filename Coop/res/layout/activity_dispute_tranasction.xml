@@ -32,7 +32,7 @@
     <include layout="@drawable/seperator" />
 
     <EditText
-        android:id="@+id/edtReasonDispute"
+        android:id="@+id/txtReasonDispute"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="@dimen/view_usual_margin"
@@ -47,7 +47,7 @@
     <include layout="@drawable/seperator" />
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/view_usual_margin"
@@ -60,7 +60,7 @@
     <include layout="@drawable/seperator" />
 
     <EditText
-        android:id="@+id/edtPhone"
+        android:id="@+id/txtPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/view_usual_margin"

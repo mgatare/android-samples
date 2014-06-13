@@ -101,7 +101,7 @@ public class BaseActivity extends ActionBarActivity {
 		progressDialog.setCancelable(false);
 
 		ImageView progressSpinner = (ImageView) dialogView
-				.findViewById(R.id.progress);
+				.findViewById(R.id.progSpent);
 
 		RotateAnimation anim = new RotateAnimation(0f, 350f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
@@ -159,4 +159,17 @@ public class BaseActivity extends ActionBarActivity {
 			windowFrameLayout.getForeground().setAlpha(0);
 		}
 	}
+	
+//	public String getErrorMsgForCode(String strCode) {
+//		int code = Integer.parseInt(strCode);
+//		
+//		switch (code) {
+//		case 4004:
+//			return "df"; 
+//
+//		default:
+//			break;
+//		}
+//		return "";
+//	}
 }

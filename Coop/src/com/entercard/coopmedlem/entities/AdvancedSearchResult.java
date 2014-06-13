@@ -1,4 +1,4 @@
-package com.entercard.coopmedlem.data.entities;
+package com.entercard.coopmedlem.entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import android.text.TextUtils;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
@@ -18,7 +18,6 @@ import com.entercard.coopmedlem.utils.CompatibilityUtils;
 public class GetAccountsService extends BaseService {
 
 	private static final String METHOD_ACCOUNTS = "accounts";
-	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
 	
 	private GetAccountsListener getAccountsListener;
 
@@ -31,10 +30,9 @@ public class GetAccountsService extends BaseService {
 	}
 	
 	@Override
-	void sentFailure(String code) {
-		Log.i("", "sentFailure::::"+getAccountsListener);
+	void sentFailure(String codeTxt) {
 		if (getAccountsListener != null) {
-			getAccountsListener.onGetAccountsFailed(code);
+			getAccountsListener.onGetAccountsFailed(codeTxt);
 		}
 	}
 	
@@ -44,8 +42,8 @@ public class GetAccountsService extends BaseService {
 
 	@Override
 	void executeRequest() {
-		
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_accept), HTTP_HEADER_ACCEPT);
+		//Add headers to HTTP Request
+		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_accept), getHeaderAccept());
 		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_saml), ApplicationEx.applicationEx.getSAMLTxt());
 		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_device_platform), "Android");
 		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_device_version), CompatibilityUtils.getAndroidVersion());
@@ -53,20 +51,27 @@ public class GetAccountsService extends BaseService {
 		try {
 			
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
+			
+			//String response = "{\"errorResponse\":{\"status\":\"NOK\",\"code\":\"4004\",\"reason\":\"Not Found\"}}";
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.applicationEx, "getAccountsResponse.txt");
 			//Log.i("", "RESPONSE::::"+response);
 			
-			//sentFailure(ApplicationEx.applicationEx.getString(R.string.exception_network_not_found));
-			ArrayList<AccountsModel> accountsArrayList = new ArrayList<AccountsModel>();
-			accountsArrayList = parseJSONResponse(response);
-
-			if (getAccountsListener != null) {
-				getAccountsListener.onGetAccountsFinished(accountsArrayList);
+			if(response == null) {
+				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
+			}else if(!TextUtils.isEmpty(response)) {
+				
+				ArrayList<AccountsModel> accountsArrayList = new ArrayList<AccountsModel>();
+				accountsArrayList = parseJSONResponse(response);
+				
+				if (getAccountsListener != null) {
+					getAccountsListener.onGetAccountsFinished(accountsArrayList);
+				}
+			} else {
+				sentFailure(ApplicationEx.applicationEx.getString(R.string.exception_general));
 			}
-			
 		} catch (Exception e) {
 			sentFailure(getExceptionType(e));
-		} 
+		}
 	}
 	
 	/**
@@ -82,17 +87,20 @@ public class GetAccountsService extends BaseService {
 		ArrayList<AccountsModel> arrayList = new ArrayList<AccountsModel>();
 		/**
 		 * { "error": { "code": String, "reason": String } }
+		 * ::{"errorResponse":{"status":"NOK","code":"4004","reason":"Not Found"}}
 		 **/
 		JSONObject responseJSON = new JSONObject(response);
-		if (responseJSON.has("error")) {
-
-			JSONObject errorJson = responseJSON.getJSONObject("error");
+		if (responseJSON.has("errorResponse")) {
+			
+			JSONObject errorJson = responseJSON.getJSONObject("errorResponse");
 			String code = null;
 			String reason = null;
-
-			if (errorJson.has("code")) {
+			
+			/*if (errorJson.has("code")) {
 				code = errorJson.getString("code");
-			}
+				throw new Exception(code);
+			}*/
+			
 			if (errorJson.has("reason")) {
 				reason = errorJson.getString("reason");
 				throw new Exception(reason);
@@ -197,13 +205,11 @@ public class GetAccountsService extends BaseService {
 					transactionList.add(transactionModel);
 					accountsModel.setTransactionDataArraylist(transactionList);
 				}
-				
 				arrayList.add(accountsModel);
 				//Log.i("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+arrayList.size());
 			}
 		}
 		//Log.i("", ":::::::::::SIZE OF ACCOUNTS ARRAY::::::::"+arrayList.size());
 		return arrayList;
-		
 	}
 }

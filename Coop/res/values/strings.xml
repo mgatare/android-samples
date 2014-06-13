@@ -7,10 +7,12 @@
     <string name="action_settings">Settings</string>
     <string name="title_enter_pin">Settings</string>
     <string name="activate_app">Activate the app</string>
-    <string name="enter_activation_code">Activation code</string>
+    <string name="enter_activation_code">Enter activation code</string>
+    <string name="create_four_digit_pin_code">Create your 4 digit PIN code</string>
+    <string name="pin_code">PIN code</string>
     <string name="activation_code_text">Get your activation code at \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nenter it below.</string>
-    <string name="create_four_digit_code">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you the next time</string>
-    <string name="create_pin_code">Create your PIN code</string>
+    <string name="please_create_pin_code_text">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you the next time</string>
+    <string name="create_your_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
     <string name="tab_title_transaction">Transaction</string>
     <string name="tab_title_credit_increase">Cards</string>
@@ -37,13 +39,11 @@
     <string name="latest_transactions">LATEST TRANSACTIONS</string>
     <string name="card_ending_with">Card number ending with:</string>
     <string name="no_transactions_found">No transctions found for this account.</string>
-    
+
+    <!-- TAGS -->
     <string name="tag_position">position</string>
     <string name="tag_open_to_buy">opentobuy</string>
     <string name="tag_spent">spent</string>
-   
-    
-    
     <string name="no_internet_connection">Your data connection is currently disabled. Please enable it from settings.</string>
 
     <!-- ENCAP Related -->
@@ -55,10 +55,11 @@
     <string name="encap_server_timeout">90000</string>
     <string name="encap_signing_key_size">2048</string>
 
-    <!-- Validation Messages -->
+    <!-- Validation/Error Messages -->
     <string name="please_enter_code">Please enter code</string>
+    <string name="encap_error">An error occurred. Please try again shortly.</string>
 
-    <!-- ENCAP RELATED -->
+    <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>
     <string name="pref_applicationId_key">EncapApplicationId</string>
     <string name="pref_apiKey_key">EncapApiKey</string>
@@ -69,6 +70,7 @@
     <string name="pref_registrationId_key">EncapRegistrationId</string>
     <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
     <string name="pref_is_activated">isActivated</string>
+    <string name="pref_is_activation_code_verified">isActivationCodeVerified</string>
 
     <!-- HTTP HEADERS -->
     <string name="http_header_accept_language">Accept-Language</string>
@@ -90,6 +92,6 @@
     <string name="exception_certificate_not_found">Certificate not found.</string>
     <string name="exception_io_exception">Server not reachable.</string>
     <string name="exception_network_not_found">Please check you network connection and try again.</string>
-    <string name="general_exception_occured">Error. Server returned incorrect response</string>
+    <string name="exception_general">Error. Server returned incorrect response</string>
 
 </resources>

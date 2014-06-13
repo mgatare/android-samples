@@ -12,19 +12,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.Controller;
-import com.encapsecurity.encap.android.client.api.FinishActivationResult;
 import com.encapsecurity.encap.android.client.api.FinishAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
-import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
 public class EnterPINCodeActivity extends BaseActivity{
@@ -33,10 +33,10 @@ public class EnterPINCodeActivity extends BaseActivity{
 	private EditText pin2EditText;
 	private EditText pin3EditText;
 	private EditText pin4EditText;
+	
+	private LinearLayout layoutPinContainer;
 	private String newPIN = null;
-	private int isActivated;
 	private Controller controller;
-	private PreferenceHelper preferenceHelper;
 	private EditText dummyEditText;
 	private String clientDate = null;
 	private StringBuilder stringBuilder;
@@ -46,26 +46,29 @@ public class EnterPINCodeActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_pin);
 
-		controller =  ((ApplicationEx) getApplication()).getController();
-		preferenceHelper = new PreferenceHelper(this);
-		stringBuilder = new StringBuilder();
-		
-		pin1EditText = (EditText) findViewById(R.id.pin1EditText);
-		pin2EditText = (EditText) findViewById(R.id.pin2EditText);
-		pin3EditText = (EditText) findViewById(R.id.pin3EditText);
-		pin4EditText = (EditText) findViewById(R.id.pin4EditText);
-		dummyEditText = (EditText) findViewById(R.id.dummyEditText);
+		init();
 		
 		getFocusToDummyEditText();
+	
+		if (NetworkHelper.isOnline(this)) {
+			startAuthentication();
+		} else {
+			AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), this);
+		}
+	}
+
+	private void init() {
 		
-		isActivated = preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated));
-		if (isActivated == 1) {
-			if (NetworkHelper.isOnline(this)) {
-				startAuthentication();
-			} else {
-				AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), this);
-			}
-		}	
+		controller =  ((ApplicationEx) getApplication()).getController();
+		stringBuilder = new StringBuilder();
+		
+		pin1EditText = (EditText) findViewById(R.id.txtpinOne);
+		pin2EditText = (EditText) findViewById(R.id.txtpinTwo);
+		pin3EditText = (EditText) findViewById(R.id.txtpinThree);
+		pin4EditText = (EditText) findViewById(R.id.txtpinFour);
+		dummyEditText = (EditText) findViewById(R.id.txtDummy);
+		layoutPinContainer = (LinearLayout) findViewById(R.id.layoutPinContainer);
+		
 	}
 
 	private void getFocusToDummyEditText() {
@@ -80,7 +83,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 		 */
 		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 		if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
-			dummyEditText.addTextChangedListener(new PINTextWatcher(dummyEditText));
+			dummyEditText.addTextChangedListener(new PINTextWatcher());
 		} 
 	}
 	
@@ -155,10 +158,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 	 */
 	private class PINTextWatcher implements TextWatcher {
 
-		private View view;
-
-		private PINTextWatcher(View view) {
-			this.view = view;
+		private PINTextWatcher() {
 		}
 
 		public void beforeTextChanged(CharSequence s, int start, int count,
@@ -197,14 +197,20 @@ public class EnterPINCodeActivity extends BaseActivity{
 				pin4EditText.setBackgroundColor(Color.GREEN);
 				stringBuilder.append(text.substring(3));
 				
-				Log.i("", "--------PIN CODE IS----" + stringBuilder.toString().trim());
-				newPIN = stringBuilder.toString().trim();
+				newPIN = pin1EditText.getText().toString()
+						+ pin2EditText.getText().toString()
+						+ pin3EditText.getText().toString()
+						+ pin4EditText.getText().toString();
 				
-				/*Is App is Already activated then Just Authenticate the PIN*/
-				if(isActivated != 1) 
-					finishActivation(newPIN);
-				else
-					finishAuthentication(newPIN);
+				Log.i("", "------afterTextChanged--PIN CODE IS----" + newPIN);
+				
+//				/*Is App is Already activated then Just Authenticate the PIN*/
+//				if(isActivated != 1) 
+//					finishActivation(newPIN);
+//				else
+				
+				//Finish the Authentication process
+				finishAuthentication(newPIN);
 				
 			}
 		}
@@ -235,14 +241,21 @@ public class EnterPINCodeActivity extends BaseActivity{
 			pin4EditText.setBackgroundColor(Color.GREEN);
 			stringBuilder.append(text);
 			
-			Log.i("", "--------PIN CODE IS----" + stringBuilder.toString().trim());
-			newPIN = stringBuilder.toString().trim();
+			newPIN = pin1EditText.getText().toString()
+					+ pin2EditText.getText().toString()
+					+ pin3EditText.getText().toString()
+					+ pin4EditText.getText().toString();
 			
-			/*Is App is Already activated then Just Authenticate the PIN*/
-			if(isActivated != 1) 
-				finishActivation(newPIN);
-			else
-				finishAuthentication(newPIN);
+			Log.i("", "-------setTextFromSoftKeyboard-PIN CODE IS----" + newPIN);
+			
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			//Finish the Authentication process
+			finishAuthentication(newPIN);
 		} 
 	}
 
@@ -250,17 +263,17 @@ public class EnterPINCodeActivity extends BaseActivity{
 		
 		if(pin4EditText.getText().length()>0) {
 			pin4EditText.setText("");
-			pin4EditText.setBackgroundColor(Color.WHITE);
+			pin4EditText.setBackgroundResource(android.R.drawable.edit_text);
 			stringBuilder.deleteCharAt(3).trimToSize();
 			
 		} else if(pin3EditText.getText().length()>0) {
 			pin3EditText.setText("");
-			pin3EditText.setBackgroundColor(Color.WHITE);
+			pin3EditText.setBackgroundResource(android.R.drawable.edit_text);
 			stringBuilder.deleteCharAt(2).trimToSize();
 			
 		} else if(pin2EditText.getText().length()>0) {
 			pin2EditText.setText("");
-			pin2EditText.setBackgroundColor(Color.WHITE);
+			pin2EditText.setBackgroundResource(android.R.drawable.edit_text);
 			stringBuilder.deleteCharAt(1).trimToSize();
 			
 		} else if(pin1EditText.getText().length()>0) {
@@ -280,52 +293,35 @@ public class EnterPINCodeActivity extends BaseActivity{
 	 * To reset the PIN fields
 	 */
 	private void resetPINFields() {
+		
 		pin1EditText.setText(null);
 		pin2EditText.setText(null);
 		pin3EditText.setText(null);
 		pin4EditText.setText(null);
 		dummyEditText.setText(null);
 		
-		pin1EditText.setBackgroundColor(Color.WHITE);
-		pin2EditText.setBackgroundColor(Color.WHITE);
-		pin3EditText.setBackgroundColor(Color.WHITE);
-		pin4EditText.setBackgroundColor(Color.WHITE);
+		pin1EditText.setBackgroundResource(android.R.drawable.edit_text);
+		pin2EditText.setBackgroundResource(android.R.drawable.edit_text);
+		pin3EditText.setBackgroundResource(android.R.drawable.edit_text);
+		pin4EditText.setBackgroundResource(android.R.drawable.edit_text);
 		
 	}
+	
+	//Shake funcation  for the PIN layout to be shaked if the user enters some wrong PIN
+	private void shakePINLayout() {
+		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+		layoutPinContainer.startAnimation(shake);
+	}
+	
 	/**
-	 * 
-	 * @param code
+	 * Start the Authenticatio of the applciation. This process will be done
+	 * each time the user starts the app
 	 */
-	private void finishActivation(final String code) {
-		
-		showProgressDialog();
-		
-		controller.finishActivation(code,
-				new AsyncCallback<FinishActivationResult>() {
-					@Override
-					public void onFailure(Throwable arg0) {
-						Log.i("", ">>>>Finish Activation onFailure" + arg0);
-						hideProgressDialog();
-						AlertHelper.Alert(arg0.getLocalizedMessage(), EnterPINCodeActivity.this);
-						
-						resetPINFields();
-					}
-
-					@Override
-					public void onSuccess(FinishActivationResult result) {
-						Log.i("", ">>>>finish Activation onSuccess" + result);
-						hideProgressDialog();
-						/*App is Activated sucessfully. Set the Flag to 1=ACTIVATED*/
-						preferenceHelper.addInt(getResources().getString(R.string.pref_is_activated), 1);
-						startAuthentication();
-					}
-				});
-	}
-
 	protected void startAuthentication() {
-		showProgressDialog();
 		
+		showProgressDialog();
 		/**
+		 * IMP !!
 		 * Need to set the Client only true as the Entercard Authentication is based on Client side setting true for all app authentication
 		 * as suggested by the support@encapsecurity.com
 		 */
@@ -335,7 +331,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 					public void onFailure(final Throwable throwable) {
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
-						AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+						AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						
 						resetPINFields();
 					}
@@ -343,14 +339,14 @@ public class EnterPINCodeActivity extends BaseActivity{
 					public void onSuccess(final StartAuthenticationResult result) {
 						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
-						
-						if(isActivated !=1) {
-							finishAuthentication(newPIN);
-						}
 					}
 				});
 	}
 	
+	/**
+	 * 
+	 * @param code
+	 */
 	protected void finishAuthentication(String code) {
 		showProgressDialog();
 		controller.finishAuthentication(code, new AsyncCallback<FinishAuthenticationResult>() {
@@ -361,17 +357,23 @@ public class EnterPINCodeActivity extends BaseActivity{
                  
                  if (throwable instanceof AuthenticationFailedException) {
                      final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
-                     //Log.i("COOP", "AuthenticationFailed. " + remainingAttempts);
-                     AlertHelper.Alert(throwable.getLocalizedMessage() +". Remaining attempts "+remainingAttempts,EnterPINCodeActivity.this);
+                     Log.i("COOP", "AuthenticationFailed. " + remainingAttempts);
+                     //AlertHelper.Alert(throwable.getLocalizedMessage() +". Remaining attempts "+remainingAttempts,EnterPINCodeActivity.this);
+                     
+                     shakePINLayout();
                      
                  } else if (throwable instanceof InputFormatException) {
-                	 //Log.i("COOP", ">>onFailure: throwable" + throwable);
-                	 AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+                	 Log.i("COOP", ">>onFailure: throwable" + throwable);
+                	 //AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+                	 
+                	 shakePINLayout();
                 	 
                  } else {
                      // Authentication error, cannot retry.
-                	 //Log.i("COOP", ">>Authentication error, cannot retry" + throwable);
-                	 AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+                	 Log.i("COOP", ">>Authentication error, cannot retry" + throwable);
+                	 AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
+                	 //TODO Do we need to Logout the app back to the Activate screen
+                	 
                  }
              }
              public void onSuccess(final FinishAuthenticationResult result) {
@@ -414,11 +416,9 @@ public class EnterPINCodeActivity extends BaseActivity{
 		startActivity(intent);
 
 		finish();
-		
 	}
 	
 	/**
-	 * 
 	 * @return
 	 */
 	protected String getClientDate() {

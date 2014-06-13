@@ -12,7 +12,7 @@
     <!-- layout="@layout/view_actionbar_title" /> -->
 
     <TextView
-        android:id="@+id/headerTextView"
+        android:id="@+id/lblHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/view_margin_top"
@@ -24,14 +24,14 @@
         android:id="@+id/imgIcon"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_below="@+id/headerTextView"
+        android:layout_below="@+id/lblHeader"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="70dp"
         android:contentDescription="@null" />
 
     <TextView
-        android:id="@+id/bodytextTextView"
+        android:id="@+id/lblBodytext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgIcon"

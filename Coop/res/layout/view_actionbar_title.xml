@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
 
     <TextView
-        android:id="@+id/title_text"
+        android:id="@+id/lblTitle_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/title_layout_margin"

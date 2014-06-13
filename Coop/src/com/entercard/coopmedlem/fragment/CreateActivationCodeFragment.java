@@ -1,9 +1,11 @@
 package com.entercard.coopmedlem.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ActivateAppActivity;
-import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
+import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.NetworkHelper;
 
 public class CreateActivationCodeFragment extends Fragment implements OnClickListener {
 
@@ -39,16 +42,16 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 		RelativeLayout layoutActivation = (RelativeLayout) parentView.findViewById(R.id.layoutActivation);
 
 		bodytextTextView = (TextView) layoutActivation
-				.findViewById(R.id.bodytextTextView);
+				.findViewById(R.id.lblBodytext);
 		headerTextView = (TextView) layoutActivation
-				.findViewById(R.id.headerTextView);
+				.findViewById(R.id.lblHeader);
 		imgIcon = (ImageView) layoutActivation
 				.findViewById(R.id.imgIcon);
 		btnAction = (Button) layoutActivation.findViewById(R.id.btnOk);
 
 		imgIcon.setImageResource(R.drawable.create_pin);
-		headerTextView.setText(R.string.create_pin_code);
-		bodytextTextView.setText(R.string.create_four_digit_code);
+		headerTextView.setText(R.string.create_your_pin_code);
+		bodytextTextView.setText(R.string.please_create_pin_code_text);
 		bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance());
 		bodytextTextView.setLinkTextColor(Color.WHITE);
 
@@ -63,15 +66,21 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 		switch (v.getId()) {
 		case R.id.btnOk:
 
-//			DialogFragment newFragment = ActivateDialogFragment.newInstance(0);
-//			FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-//			newFragment.show(fragmentTransaction, "dialog_activate");
+			if (NetworkHelper.isOnline(parentActivity)) {
+				
+				DialogFragment dialogFragment = CreatePINCodeDialogFragment.newInstance();
+				FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				dialogFragment.show(fragmentTransaction, "dialog_create_pin");
+				
+			} else {
+				AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), parentActivity);
+			}
 			
-			Intent intent = new Intent(getActivity(), EnterPINCodeActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			
-			parentActivity.finish();
+//			Intent intent = new Intent(getActivity(), EnterPINCodeActivity.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			startActivity(intent);
+//			parentActivity.finish();
 			
 			break;
 

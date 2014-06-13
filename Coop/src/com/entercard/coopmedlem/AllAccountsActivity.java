@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.entercard.coopmedlem.adapters.AccountsAdapter;
 import com.entercard.coopmedlem.entities.AccountsModel;
@@ -20,6 +21,9 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 
 	private GetAccountsService accountsService;
 	private ListView accountsListView;
+	private TextView textViewServerErrorMsg;
+//	private Button btnTryAgain;
+	
 	private ActionBar actionBar;
 	
 	@Override
@@ -29,11 +33,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		init();
 		
-		//Get all the accounts from service
-		accountsService = new GetAccountsService();
-		accountsService.setAccountsListener(this);
-		ApplicationEx.operationsQueue.execute(accountsService);
-		showProgressDialog();
+		callGetAccountsService();
 	}
 
 	private void init() {
@@ -41,7 +41,10 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		actionBar = getSupportActionBar();
 		actionBar.setTitle("Accounts");
 		
-		accountsListView = (ListView) findViewById(R.id.accountsListView);
+		textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
+		//btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+		
+		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
 		
 		accountsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -50,8 +53,8 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				
-				showDeveloperLog("COOP", ">>Account Position>>"+arg3);
-				showDeveloperLog("COOP", ">>Account Position>>"+arg2);
+				//showDeveloperLog("COOP", ">>Account Position>>"+arg3);
+				//showDeveloperLog("COOP", ">>Account Position>>"+arg2);
 				
 				String openToBuy =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getOpenToBuy();
 				String spent =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getSpent();
@@ -67,6 +70,15 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		});
 	}
 
+	private void callGetAccountsService() {
+		// Get all the accounts from service
+		showProgressDialog();
+		accountsService = new GetAccountsService();
+		accountsService.setAccountsListener(this);
+		ApplicationEx.operationsQueue.execute(accountsService);
+		
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -79,6 +91,8 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			@Override
 			public void run() {
 				AlertHelper.Alert(errorMsg, AllAccountsActivity.this);
+				accountsListView.setVisibility(View.GONE);
+				textViewServerErrorMsg.setVisibility(View.VISIBLE);
 			}
 		});
 	}

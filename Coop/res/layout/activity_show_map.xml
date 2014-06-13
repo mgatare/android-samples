@@ -5,30 +5,12 @@
     android:background="@drawable/background_gradient"
     android:orientation="vertical" >
 
-    <!-- <LinearLayout -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:orientation="vertical" > -->
-
-
-    <!-- <Button -->
-    <!-- android:id="@+id/btnClose" -->
-    <!-- style="?android:attr/buttonStyleSmall" -->
-    <!-- android:layout_width="30dp" -->
-    <!-- android:layout_height="30dp" -->
-    <!-- android:layout_margin="@dimen/margin_ten_px" -->
-    <!-- android:background="@color/droid" -->
-    <!-- android:text="X" -->
-    <!-- android:textColor="@android:color/black" -->
-    <!-- android:visibility="gone" /> -->
-    <!-- </LinearLayout> -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <FrameLayout
-            android:id="@+id/MapContainer"
+            android:id="@+id/lytMapContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </FrameLayout>
@@ -39,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/MapContainer"
+            android:layout_alignRight="@+id/lytMapContainer"
             android:layout_marginBottom="40dp"
             android:layout_marginRight="40dp"
             android:text=" Dispute " />

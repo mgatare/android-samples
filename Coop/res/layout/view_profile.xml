@@ -19,11 +19,11 @@
         android:layout_marginLeft="5dp" >
 
         <TextView
-            android:id="@+id/accountNumerTextView"
+            android:id="@+id/lblAccountNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/accountNameTextView"
+            android:layout_below="@+id/lblAccountName"
             android:layout_marginTop="15dp"
             android:text="Account Number"
             android:textColor="@android:color/black"
@@ -31,7 +31,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/accountNameTextView"
+            android:id="@+id/lblAccountName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

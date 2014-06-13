@@ -36,16 +36,16 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 
 			holder.llMainOne = (LinearLayout) convertView.findViewById(R.id.llMainRow);
 
-			holder.dateTextView = (TextView) holder.llMainOne.findViewById(R.id.dateTextView);
-			holder.priceTextView = (TextView) holder.llMainOne.findViewById(R.id.priceTextView);
-			holder.nameTextView = (TextView) holder.llMainOne.findViewById(R.id.nameTextView);
+			holder.dateTextView = (TextView) holder.llMainOne.findViewById(R.id.lblDate);
+			holder.priceTextView = (TextView) holder.llMainOne.findViewById(R.id.lblPrice);
+			holder.nameTextView = (TextView) holder.llMainOne.findViewById(R.id.lblName);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
 		holder.dateTextView.setText(getItem(position).getDate());
-		holder.priceTextView.setText(StringUtils.formatCurrency(getItem(position).getBillingAmount()));
+		holder.priceTextView.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
 		holder.nameTextView.setText(getItem(position).getDescription());
 
 		if (position % 2 == 0){

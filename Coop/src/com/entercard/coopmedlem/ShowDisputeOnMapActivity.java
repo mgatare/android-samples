@@ -56,7 +56,7 @@ public class ShowDisputeOnMapActivity extends FragmentActivity {
 
 	        } else {
 				getSupportFragmentManager().beginTransaction()
-						.add(R.id.MapContainer, CustomMapFragment.newInstance(new LatLng(19.100050, 72.920343)), "map_screen")
+						.add(R.id.lytMapContainer, CustomMapFragment.newInstance(new LatLng(19.100050, 72.920343)), "map_screen")
 						.commit();
 	        }
 		}

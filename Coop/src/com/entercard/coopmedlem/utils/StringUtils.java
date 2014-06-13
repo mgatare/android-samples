@@ -106,21 +106,6 @@ public class StringUtils {
 
 	/**
 	 * 
-	 * @param string
-	 * @return
-	 */
-	public static String formatCurrency(String string) {
-//		if (string.length() > 4) {
-//			DecimalFormat formatter = new DecimalFormat("00,000,00");
-//			return formatter.format(Double.valueOf(string));
-//		} else {
-			DecimalFormat formatter = new DecimalFormat("0,00");
-			return formatter.format(Double.valueOf(string));
-//		}
-	}
-
-	/**
-	 * 
 	 * @param toBeSpannedText
 	 * @param completeText
 	 * @param flag
@@ -138,22 +123,36 @@ public class StringUtils {
 					Spannable.SPAN_POINT_POINT);
 		return wordtoSpan;
 	}
+
 	/**
 	 * 
 	 * @param source
 	 * @return
 	 */
 	public static String replaceNewlinesWithBreaks(String source) {
-	    return source != null ? source.replaceAll("(?:\n|\r\n)","<br>") : "";
+		return source != null ? source.replaceAll("(?:\n|\r\n)", "<br>") : "";
 	}
+
 	/**
 	 * 
 	 * @param source
 	 * @return
 	 */
-	// remove HTML tags but preserve supported HTML text styling (if there is any)
+	// remove HTML tags but preserve supported HTML text styling (if there is
+	// any)
 	public static CharSequence getStyledTextFromHtml(String source) {
-	    return android.text.Html.fromHtml(replaceNewlinesWithBreaks(source));
+		return android.text.Html.fromHtml(replaceNewlinesWithBreaks(source));
+	}
+
+	/**
+	 * @param amount
+	 * @return
+	 */
+	public static String formatCurrencyLocally(String amount) {
+		double doubleAmount = Double.parseDouble(amount);
+		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
+		String finalTxt = String.valueOf(finalValue).replace('.', ',');
+		return String.valueOf(finalTxt);
 	}
 
 	/**
@@ -229,7 +228,7 @@ public class StringUtils {
 				for (int i = start; i < end; i++) {
 					if (!Character.isDigit(source.charAt(i))) {
 						return "";
-					} 
+					}
 				}
 				return null;
 			}
