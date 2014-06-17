@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,7 +34,18 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		init();
 		
-		callGetAccountsService();
+		Log.v("COOP", "ACCOUNTS SIZE::"+ApplicationEx.applicationEx.getAccountsArrayList());
+		
+		if(null!=ApplicationEx.applicationEx.getAccountsArrayList()
+				&& !ApplicationEx.applicationEx.getAccountsArrayList().isEmpty()) {
+			
+			AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.applicationEx.getAccountsArrayList());
+			accountsListView.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+			
+		}else {
+			callGetAccountsService();
+		}
 	}
 
 	private void init() {
@@ -53,16 +65,18 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				
-				//showDeveloperLog("COOP", ">>Account Position>>"+arg3);
-				//showDeveloperLog("COOP", ">>Account Position>>"+arg2);
-				
 				String openToBuy =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getOpenToBuy();
 				String spent =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getSpent();
 				
+				//Set these temporarily in BaseActivity all Class level
+				setOpenToBuy(openToBuy);
+				setSpent(spent);
+				setAccountPosition(arg2);
+				
+				showDeveloperLog(">>openToBuy>>"+openToBuy);
+				showDeveloperLog(">>spent>>"+spent);
+				
 				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
-				intent.putExtra(getResources().getString(R.string.tag_position), arg2);
-				intent.putExtra(getResources().getString(R.string.tag_open_to_buy), openToBuy);
-				intent.putExtra(getResources().getString(R.string.tag_spent), spent);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				

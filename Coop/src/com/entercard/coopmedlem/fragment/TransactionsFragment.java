@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ApplicationEx;
+import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.TransactionsAdapter;
-import com.entercard.coopmedlem.entities.DataModel;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
@@ -33,9 +33,9 @@ public class TransactionsFragment extends Fragment {
 	private int position;
 	private String openToBuyCash;
 	private String spentCash;
-	
-	private ArrayList<DataModel> arrayList;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
+	
+	private HomeScreenActivity parentActivity;
 	
 	public static TransactionsFragment newInstance(int sectionNumber) {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -53,22 +53,22 @@ public class TransactionsFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_transactions,
 				container, false);
 
-		position = getActivity().getIntent().getExtras().getInt(getResources().getString(R.string.tag_position)); 
-		openToBuyCash = getActivity().getIntent().getExtras().getString(getResources().getString(R.string.tag_open_to_buy));
-		spentCash = getActivity().getIntent().getExtras().getString(getResources().getString(R.string.tag_spent));
+		parentActivity = (HomeScreenActivity) getActivity();
+		parentActivity.showDeveloperLog("openToBuyCash>>"+openToBuyCash);
 		
-		// ActionBar actionBar = getActivity().getActionBar();
-		// actionBar.setTitle("Transactions");
-
+		position = parentActivity.getAccountPosition();
+		openToBuyCash = parentActivity.getOpenToBuy();
+		spentCash = parentActivity.getSpent();
+		 
 		transactionsArrayList = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist();
 		
 		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
-		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenbuy);
+		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
 		
 		listView = (ListView) rootView.findViewById(R.id.listTransaction);
 		listView.setOnItemClickListener(new ListItemClickListener());
 		
-		if (null != transactionsArrayList && transactionsArrayList.size() > 0) {
+		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
 		} else {
 			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found), getActivity());

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.entercard.coopmedlem.CreditLineIncreaseActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.CardsAdapter;
 import com.entercard.coopmedlem.entities.DataModel;
@@ -51,7 +53,11 @@ public class CardsFragment extends Fragment {
 		btnIncreaseCreditLimit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlertHelper.Alert("Functionality not implemented yet." , getActivity());
+				//AlertHelper.Alert("Functionality not implemented yet." , getActivity());
+				Intent intent = new Intent(getActivity(), CreditLineIncreaseActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				startActivity(intent);
+				
 			}
 		});
 		

@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem.utils;
 
+import com.entercard.coopmedlem.R;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,10 +17,8 @@ public class AlertHelper {
 	public static void Alert(String msg, Context context) {
 
 		builder = new AlertDialog.Builder(context);
-//		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-//		         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		builder.setMessage(msg)
-				.setTitle("Alert !")
+				.setTitle(context.getResources().getString(R.string.alert_title))
 				.setCancelable(true)
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
@@ -52,7 +52,7 @@ public class AlertHelper {
 
 		builder = new AlertDialog.Builder(context);
 		builder.setMessage(id)
-				.setTitle("Alert !")
+				.setTitle(context.getResources().getString(R.string.alert_title))
 				.setCancelable(true)
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {

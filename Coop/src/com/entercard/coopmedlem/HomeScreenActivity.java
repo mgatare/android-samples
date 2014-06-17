@@ -9,14 +9,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.entercard.coopmedlem.fragment.CardsFragment;
 import com.entercard.coopmedlem.fragment.TransactionsFragment;
 import com.entercard.coopmedlem.fragment.TransferFundsFragment;
-import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.view.ParallexViewPager;
 
 
@@ -31,9 +29,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homescreen);
 
-		AlertHelper.Alert("This is Dummy data. Actual functionality not implemented yet." , this);
-		
-		
 		actionBar = getSupportActionBar();
 		actionBar.setTitle("Transactions");
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -47,7 +42,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
         parallexViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
-						Log.i("", ">>>>>>>>TAB position>>>>>>>>>" + position);
 						actionBar.setSelectedNavigationItem(position);
 						switch (position) {
 						case 0:
@@ -59,7 +53,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 						case 2:
 							actionBar.setTitle("Transfer Funds");
 							break;
-
 						default:
 							actionBar.setTitle("Transactions");
 							break;

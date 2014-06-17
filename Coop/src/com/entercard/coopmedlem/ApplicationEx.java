@@ -224,5 +224,4 @@ public class ApplicationEx extends Application {
 	public void setUUID(String uUID) {
 		UUID = uUID;
 	}
-
 }

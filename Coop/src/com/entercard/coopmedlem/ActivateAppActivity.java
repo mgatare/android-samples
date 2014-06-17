@@ -73,7 +73,7 @@ public class ActivateAppActivity extends BaseActivity {
 				public void onFailure(Throwable arg0) {
 					hideProgressDialog();
 					//longToast(arg0.getLocalizedMessage());
-					showDeveloperLog("LoadConfig", "onFailure"+arg0.getLocalizedMessage());
+					showDeveloperLog("onFailure"+arg0.getLocalizedMessage());
 					AlertHelper.Alert(arg0.getLocalizedMessage(), ActivateAppActivity.this);
 				}
 				@Override

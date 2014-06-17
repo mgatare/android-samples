@@ -1,7 +1,10 @@
 package com.entercard.coopmedlem;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -26,28 +29,47 @@ public class BaseActivity extends ActionBarActivity {
 
 	/** The drawer content height. */
 	protected int drawerContentHeight;
-	
+
 	/** The userguide linear layout. */
 	protected LinearLayout userguideLinearLayout;
-	
+
 	/** The window frame layout. */
 	protected FrameLayout windowFrameLayout;
-	// private AlertDialog errorDialog;
+
 	/** The progress dialog. */
 	private Dialog progressDialog;
+	
+	/** The receiver. */
+	private BroadcastReceiver receiver;
+	
+	/** The account position. */
+	private static int accountPosition;
+	
+	/** The open to buy. */
+	private static String openToBuy;
+	
+	/** The spent. */
+	private static String spent;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
+		receiver = new ScreenUnlockReceiver();
+		registerReceiver(receiver, filter);
 	}
 
 	/**
 	 * Long toast.
-	 *
-	 * @param message the message
+	 * 
+	 * @param message
+	 *            the message
 	 */
 	public void longToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -55,24 +77,26 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Short toast.
-	 *
-	 * @param message the message
+	 * 
+	 * @param message
+	 *            the message
 	 */
 	public void shortToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	/**
 	 * Show developer log.
 	 *
-	 * @param tag the tag
-	 * @param msg the msg
+	 * @param msg            the msg
 	 */
-	void showDeveloperLog(String tag, String msg) {
-		Log.d(tag, msg);
+	public void showDeveloperLog(String msg) {
+		Log.d("Coop", msg);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.support.v4.app.FragmentActivity#onResume()
 	 */
 	@Override
@@ -159,17 +183,96 @@ public class BaseActivity extends ActionBarActivity {
 			windowFrameLayout.getForeground().setAlpha(0);
 		}
 	}
-	
-//	public String getErrorMsgForCode(String strCode) {
-//		int code = Integer.parseInt(strCode);
-//		
-//		switch (code) {
-//		case 4004:
-//			return "df"; 
-//
-//		default:
-//			break;
-//		}
-//		return "";
-//	}
+
+	/**
+	 * Gets the account position.
+	 *
+	 * @return the account position
+	 */
+	public int getAccountPosition() {
+		return accountPosition;
+	}
+
+	/**
+	 * Sets the account position.
+	 *
+	 * @param accountPosition the new account position
+	 */
+	public void setAccountPosition(int accountPosition) {
+		BaseActivity.accountPosition = accountPosition;
+	}
+
+	/**
+	 * Gets the open to buy.
+	 *
+	 * @return the open to buy
+	 */
+	public String getOpenToBuy() {
+		return openToBuy;
+	}
+
+	/**
+	 * Sets the open to buy.
+	 *
+	 * @param openToBuy the new open to buy
+	 */
+	public void setOpenToBuy(String openToBuy) {
+		BaseActivity.openToBuy = openToBuy;
+	}
+
+	/**
+	 * Gets the spent.
+	 *
+	 * @return the spent
+	 */
+	public String getSpent() {
+		return spent;
+	}
+
+	/**
+	 * Sets the spent.
+	 *
+	 * @param spent the new spent
+	 */
+	public void setSpent(String spent) {
+		BaseActivity.spent = spent;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		Log.e("COOP", ">>In Method: onSaveInstanceState()");
+	}
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onRestoreInstanceState(Bundle inState) {
+		Log.e("COOP", ">>In Method: onRestoreInstanceState()");
+	}
+
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onPause()
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.e("COOP", ">>In Method: onPause()");
+	}
+
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onDestroy()
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		Log.e("COOP", ">>In Method: onDestroy()");
+		if (receiver != null) {
+			unregisterReceiver(receiver);
+			receiver = null;
+		}
+	}
 }

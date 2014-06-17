@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.kobjects.base64.Base64;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -25,6 +27,7 @@ import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailed
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
+import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
 public class EnterPINCodeActivity extends BaseActivity{
@@ -332,8 +335,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
 						AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
-						
-						resetPINFields();
 					}
 					
 					public void onSuccess(final StartAuthenticationResult result) {
@@ -357,7 +358,7 @@ public class EnterPINCodeActivity extends BaseActivity{
                  
                  if (throwable instanceof AuthenticationFailedException) {
                      final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
-                     Log.i("COOP", "AuthenticationFailed. " + remainingAttempts);
+                     Log.i("COOP", throwable.getMessage()+">>>AuthenticationFailed. " + remainingAttempts);
                      //AlertHelper.Alert(throwable.getLocalizedMessage() +". Remaining attempts "+remainingAttempts,EnterPINCodeActivity.this);
                      
                      shakePINLayout();
@@ -372,7 +373,11 @@ public class EnterPINCodeActivity extends BaseActivity{
                      // Authentication error, cannot retry.
                 	 Log.i("COOP", ">>Authentication error, cannot retry" + throwable);
                 	 AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
-                	 //TODO Do we need to Logout the app back to the Activate screen
+                	 
+                	 /*
+                	  *  Logout the app back to the Activate Device screen and clear the shared preferences
+                	  */
+                	 retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
                 	 
                  }
              }
@@ -416,6 +421,39 @@ public class EnterPINCodeActivity extends BaseActivity{
 		startActivity(intent);
 
 		finish();
+	}
+	/**
+	 * 
+	 * @param msg
+	 */
+	private void retryErrorDialog(String msg) {
+		AlertDialog.Builder builder = null;
+		builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg)
+				.setTitle(getResources().getString(R.string.alert_title))
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+
+								//Clear the shared preference of all Activation related FLAGS
+								PreferenceHelper helper =new PreferenceHelper(EnterPINCodeActivity.this);
+								helper.clear();
+								
+								//Set the Client only to False again to Activate the app
+								controller.setClientOnly(false);
+								
+								dialog.dismiss();
+								finish();
+								
+								Intent intent = new Intent(EnterPINCodeActivity.this, ActivateAppActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
+								
+							}
+						}).show();
 	}
 	
 	/**

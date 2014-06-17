@@ -3,4 +3,4 @@
     android:duration="1000"
     android:fromXDelta="0"
     android:interpolator="@anim/shake_cycles"
-    android:toXDelta="10" />
+    android:toXDelta="20" />

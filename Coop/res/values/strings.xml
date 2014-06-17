@@ -3,8 +3,7 @@
 
     <string name="app_name">Coop medlem</string>
     <string name="action_search">Search</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="alert_title">Oops!</string>
     <string name="title_enter_pin">Settings</string>
     <string name="activate_app">Activate the app</string>
     <string name="enter_activation_code">Enter activation code</string>
@@ -39,6 +38,8 @@
     <string name="latest_transactions">LATEST TRANSACTIONS</string>
     <string name="card_ending_with">Card number ending with:</string>
     <string name="no_transactions_found">No transctions found for this account.</string>
+    <string name="desired_increase_in_credit">Desired increase in credit limit</string>
+    <string name="yearly_income">Yearly income</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
@@ -58,6 +59,7 @@
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Please enter code</string>
     <string name="encap_error">An error occurred. Please try again shortly.</string>
+    <string name="encap_authentication_error">You have enterd your PIN incorrectly too many times, and you will have to reactivate the device.</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>
