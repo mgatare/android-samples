@@ -1,0 +1,53 @@
+<!-- This is a common Row layout (Reusable Component RC). There may be more than one dependancy for this layout -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/linearContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_five_px"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/lblStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adults"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_small"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/lblStatusCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="0"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_currency"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="@dimen/button_plus_width"
+        android:layout_height="@dimen/button_plus_height"
+        android:layout_below="@+id/linearContainer"
+        android:layout_toRightOf="@+id/btnSubstract"
+        android:text="+"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnSubstract"
+        android:layout_width="@dimen/button_plus_width"
+        android:layout_height="@dimen/button_plus_height"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearContainer"
+        android:text="-"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+</RelativeLayout>

@@ -15,7 +15,7 @@ public class SplashScreenActivity extends FragmentActivity {
 		super.onCreate(savedInstance);
 		setContentView(R.layout.activity_splash);
 		preferenceHelper = new PreferenceHelper(this);
-		
+		//Log.i("", ">>>>>>>>>"+DateUtils.getCurrentTimeStamp());
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {

@@ -1,53 +1,209 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_five_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/margin_ten_px"
+        android:text="@string/desired_increase_in_credit"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/font_size_normal" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_marginBottom="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:orientation="horizontal"
+        android:weightSum="1" >
 
         <TextView
-            android:id="@+id/lblTitle"
-            android:layout_width="wrap_content"
+            android:id="@+id/lblIncreaseInCreditLimit"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/view_usual_margin"
-            android:text="@string/desired_increase_in_credit"
-            android:textSize="@dimen/font_size_normal"
-            android:textStyle="normal" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:text="5000"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_currency"
+            android:textStyle="bold" />
 
-        <include layout="@drawable/seperator" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/margin_ten_px"
-            android:weightSum="100" >
+            android:layout_weight="0.5"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="30"
-                android:gravity="left"
-                android:text="@string/yearly_income"
-                android:textSize="@dimen/font_size_normal"
-                android:textStyle="normal" />
+            <Button
+                android:id="@+id/btnPlusCreditLimit"
+                android:layout_width="@dimen/button_plus_width"
+                android:layout_height="@dimen/button_plus_height"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/sign_plus"
+                android:textColor="#000000"
+                android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/txtReceiversName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:background="@android:color/transparent"
-                android:gravity="right"
-                android:hint="@string/receiver_name"
-                android:textSize="@dimen/font_size_normal" >
-            </EditText>
-        </LinearLayout>
-
-        <include layout="@drawable/seperator" />
+            <Button
+                android:id="@+id/btnSubstractCreditLimit"
+                android:layout_width="@dimen/button_plus_width"
+                android:layout_height="@dimen/button_plus_height"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/btnPlusCreditLimit"
+                android:text="@string/sign_minus"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </LinearLayout>
 
-</RelativeLayout>
+    <include layout="@drawable/seperator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="left"
+            android:text="@string/yearly_income"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <EditText
+            android:id="@+id/txtReceiversName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="123"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_normal" >
+        </EditText>
+    </LinearLayout>
+
+    <include layout="@drawable/seperator" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="@dimen/margin_ten_px"
+        android:text="@string/household"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/font_size_normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/view_usual_margin"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/view_usual_margin"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <LinearLayout
+            android:id="@+id/linearHouseholdAdults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" >
+
+            <include layout="@layout/rc_plus_minus_buttons_layout" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearHouseholdChildren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right" >
+
+            <include layout="@layout/rc_plus_minus_buttons_layout" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@drawable/seperator" />
+
+    <LinearLayout
+        android:id="@+id/linearOccupancy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/lblOccupancyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:text="@string/occupancy"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <TextView
+            android:id="@+id/lblOccupancyType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right"
+            android:text="none"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_size_normal" />
+    </LinearLayout>
+
+    <include layout="@drawable/seperator" />
+
+    <LinearLayout
+        android:id="@+id/linearEmployment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/lblEmploymentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:text="@string/employment"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <TextView
+            android:id="@+id/lblEmploymentType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right"
+            android:text="none"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_size_normal" />
+    </LinearLayout>
+
+    <include layout="@drawable/seperator" />
+
+</LinearLayout>

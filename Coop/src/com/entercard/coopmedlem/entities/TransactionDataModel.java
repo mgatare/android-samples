@@ -13,6 +13,11 @@ public class TransactionDataModel {
 	private String date;
 	private String type;
 	private String isDisputable;
+	
+	private int page;
+	private int perPage;
+	private int total = -1;
+	
 
 	/**
 	 * { "billingAmount": 324, "billingCurrency": "NOK", "city": "Stockholm",
@@ -20,6 +25,11 @@ public class TransactionDataModel {
 	 * "amount": 324, "currency": "NOK", "date": "2013-07-02", "type": "Debit",
 	 * "isDisputable": true },
 	 **/
+	/**,"pagination": {
+    "page": Number, //Page number
+    "perPage": Number, //Transactions per page
+    "total": Number //Total number of transactions
+	}*/
 	public String getBillingAmount() {
 		return billingAmount;
 	}
@@ -106,5 +116,28 @@ public class TransactionDataModel {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getPerPage() {
+		return perPage;
+	}
+
+	public void setPerPage(int perPage) {
+		this.perPage = perPage;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 }

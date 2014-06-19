@@ -19,6 +19,7 @@
             android:layout_margin="@dimen/view_usual_margin"
             android:gravity="center"
             android:text="@string/transfer_funds_title"
+            android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal"
             android:textStyle="normal" />
 
@@ -28,10 +29,11 @@
             android:id="@+id/txtReceiversName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
             android:background="@android:color/transparent"
             android:hint="@string/receiver_name"
             android:inputType="textPersonName"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal" >
         </EditText>
 
@@ -41,10 +43,11 @@
             android:id="@+id/txtAccountNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
             android:background="@android:color/transparent"
             android:hint="@string/account_number"
             android:inputType="number"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />
@@ -53,10 +56,11 @@
             android:id="@+id/txtAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
             android:background="@android:color/transparent"
             android:hint="@string/amount"
             android:inputType="number"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />
@@ -65,10 +69,11 @@
             android:id="@+id/txtMessageOrKID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
             android:background="@android:color/transparent"
             android:hint="@string/message_from_kid"
             android:inputType="text"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal" />
 
         <include layout="@drawable/seperator" />

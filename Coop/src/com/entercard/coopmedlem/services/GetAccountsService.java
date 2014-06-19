@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
@@ -36,8 +37,8 @@ public class GetAccountsService extends BaseService {
 		}
 	}
 	
-	public void setAccountsListener(GetAccountsListener faqServiceListener) {
-		this.getAccountsListener = faqServiceListener;
+	public void setAccountsListener(GetAccountsListener serviceListener) {
+		this.getAccountsListener = serviceListener;
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class GetAccountsService extends BaseService {
 		if (responseJSON.has("errorResponse")) {
 			
 			JSONObject errorJson = responseJSON.getJSONObject("errorResponse");
-			String code = null;
+			//String code = null;
 			String reason = null;
 			
 			/*if (errorJson.has("code")) {

@@ -207,11 +207,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 				
 				Log.i("", "------afterTextChanged--PIN CODE IS----" + newPIN);
 				
-//				/*Is App is Already activated then Just Authenticate the PIN*/
-//				if(isActivated != 1) 
-//					finishActivation(newPIN);
-//				else
-				
 				//Finish the Authentication process
 				finishAuthentication(newPIN);
 				

@@ -61,7 +61,7 @@
     <!-- </style> -->
 
     <style name="Theme.Coopmedlem.Button" parent="android:Widget.Button">
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/button_background_green</item>
     </style>
 
 </resources>

@@ -5,52 +5,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 
 public class ServiceUtils {
-
-	public static DateTimeFormatter appDateTimeFormatter = DateTimeFormat
-			.forPattern("dd/MM/yyyy");
-	public static DateTimeFormatter yyyyMMddFormatter = DateTimeFormat
-			.forPattern("yyyy/MM/dd'T'HH:mm:ss");
-	public static DateTimeFormatter yyyyMMddWithTimeHyphenFormatter = DateTimeFormat
-			.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-	public static DateTimeFormatter ddMMyyyyFormatter = DateTimeFormat
-			.forPattern("dd/MM/yyyy'T'HH:mm:ss");
-	public static DateTimeFormatter yyyyMMddHyphenFormatter = DateTimeFormat
-			.forPattern("yyyy-MM-dd");
-
-	/**
-	 * 
-	 * @param date
-	 * @param dateTimeFormatter
-	 * @return
-	 */
-	public static String convertDate(String date,
-			DateTimeFormatter dateTimeFormatter) {
-		DateTime dateTime = DateTime.parse(date, dateTimeFormatter);
-		return appDateTimeFormatter.print(dateTime.getMillis());
-	}
-
-	/**
-	 * 
-	 * @param date
-	 * @param fromDateTimeFormatter
-	 * @param toDateTimeFormatter
-	 * @return
-	 */
-	public static String convertDateToSpecificFormat(String date,
-			DateTimeFormatter fromDateTimeFormatter,
-			DateTimeFormatter toDateTimeFormatter) {
-		DateTime dateTime = DateTime.parse(date, fromDateTimeFormatter);
-		return toDateTimeFormatter.print(dateTime.getMillis());
-	}
 
 	/**
 	 * 

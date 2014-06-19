@@ -40,6 +40,13 @@
     <string name="no_transactions_found">No transctions found for this account.</string>
     <string name="desired_increase_in_credit">Desired increase in credit limit</string>
     <string name="yearly_income">Yearly income</string>
+    <string name="household">Household</string>
+    <string name="adults">Adults</string>
+    <string name="children">Children</string>
+    <string name="sign_plus">+</string>
+    <string name="sign_minus">-</string>
+    <string name="occupancy">Occupancy</string>
+    <string name="employment">Employment</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
@@ -82,8 +89,11 @@
     <string name="http_header_device_platform ">devicePlatform</string>
     <string name="http_header_device_version">deviceVersion</string>
     <string name="http_header_uuid">UUID</string>
-    <string name="http_header_jsessionid">jsessionid</string>
+    <string name="http_header_jsessionid">JSESSIONID</string>
     <string name="http_header_content_type">Content-Type</string>
+    <string name="http_header_set_cookie">Cookie</string>
+    <!-- Set-Cookie -->
+
 
     <!-- Exception Error Messages -->
     <string name="exception_json_errorr">Incorrect JSON response received from server.</string>

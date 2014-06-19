@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +38,7 @@ public class DateUtils {
 	 *            the text
 	 * @return the string
 	 */
-	public static String formatToLocale(String text) {
+	public static String formatToLocaleUS(String text) {
 
 		double currency = Double.parseDouble(text);
 		// Format to US locale
@@ -46,6 +46,20 @@ public class DateUtils {
 		return format.format(currency);
 	}
 
+	@SuppressLint("SimpleDateFormat")
+	public static String getCurrentTimeStamp() {
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+			String currentTimeStamp = dateFormat.format(new Date());
+
+			return currentTimeStamp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	public static String getLocaleSpecifName() {
 
 		return Calendar.getInstance(Locale.getDefault()).getTimeZone()

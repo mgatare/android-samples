@@ -43,7 +43,6 @@ public abstract class BaseService implements Runnable {
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
 	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
 	
-	
 	private static final boolean isStaging = false;
 	private static final int CONNECTION_TIMEOUT = 150000;
 
@@ -151,6 +150,7 @@ public abstract class BaseService implements Runnable {
 				} else if (type == PUT) { // make put request
 					HttpPut httpPut = new HttpPut(url);
 					httpPut.setHeader("Content-Type", "application/json");
+					
 					
 					for (NameValuePair nameValuePair : headers) {
 						httpPut.setHeader(nameValuePair.getName(), nameValuePair.getValue());

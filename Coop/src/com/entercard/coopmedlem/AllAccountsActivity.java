@@ -75,6 +75,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 				
 				showDeveloperLog(">>openToBuy>>"+openToBuy);
 				showDeveloperLog(">>spent>>"+spent);
+				showDeveloperLog(">>Account number>>"+ ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getAccountNumber());
 				
 				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
