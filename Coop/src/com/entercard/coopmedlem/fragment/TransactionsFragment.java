@@ -33,18 +33,16 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private TextView openbuyTextView;
 	
 	private int position;
+	private int tranxCount;
 	private String openToBuyCashTxt;
 	private String spentCashTxt;
-	private String uuidTxt;
-	private String accountIDTxt;
-	private String sessionIDTxt;
 	
 	private LoadMoreListView listViewTransactions;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
 	private TransactionsAdapter transactionsAdapter;
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
-	private boolean isFirstCall;
+	private int pageNumber = 0; //TEST
 	
 	public static TransactionsFragment newInstance(int sectionNumber) {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -63,23 +61,10 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				container, false);
 
 		parentActivity = (HomeScreenActivity) getActivity();
-		parentActivity.showDeveloperLog("openToBuyCash>>"+openToBuyCashTxt);
 		
-		position = parentActivity.getAccountPosition();
-		openToBuyCashTxt = parentActivity.getOpenToBuy();
-		spentCashTxt = parentActivity.getSpent();
-		 
+		init(rootView);
+		
 		transactionsArrayList = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist();
-		
-		uuidTxt = ApplicationEx.applicationEx.getUUID();
-		accountIDTxt = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getAccountNumber();
-		sessionIDTxt = ApplicationEx.applicationEx.getCookie();
-		
-		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
-		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
-		
-		listViewTransactions = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
-		listViewTransactions.setOnItemClickListener(new ListItemClickListener());
 		
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
@@ -88,6 +73,22 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		}
 		
 		return rootView;
+	}
+
+	private void init(View rootView) {
+		
+		//Get Initial values for the account
+		position = parentActivity.getAccountPosition();
+		openToBuyCashTxt = parentActivity.getOpenToBuy();
+		spentCashTxt = parentActivity.getSpent();
+		tranxCount = parentActivity.getTransactionsCount();
+		
+		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
+		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
+		
+		listViewTransactions = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
+		listViewTransactions.setOnItemClickListener(new ListItemClickListener());
+		
 	}
 
 	private void setData() {
@@ -102,17 +103,25 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		listViewTransactions.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
 				
-				int pageNumber = transactionsArrayList.get(position).getPage();
+				/*int pageNumber = transactionsArrayList.get(position).getPage();
 				int perNumber = transactionsArrayList.get(position).getPerPage();
-				int total = transactionsArrayList.get(position).getTotal();
+				int total = transactionsArrayList.get(position).getTotal();*/
 				
-				Log.i("COOP", "PAGE::" + pageNumber + "::PERPAGE::" + perNumber + "::TOTAL::" + total);
+				//Log.e("COOP", "<PAGE>" + pageNumber + "<PERPAGE>" + perNumber + "<TOTAL>" + total);
+				//Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
 				
-				if (total > transactionsArrayList.size() && total == -1) {
+				if (transactionsArrayList.size() < tranxCount) {
+					
+					//Log.e("COOP", "<pageNumber>"+pageNumber);
+					
+					String uuidTxt = ApplicationEx.applicationEx.getUUID();
+					String accountIDTxt = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getAccountNumber();
+					String sessionIDTxt = ApplicationEx.applicationEx.getCookie();
 					
 					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, sessionIDTxt, accountIDTxt, pageNumber);
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
 					ApplicationEx.operationsQueue.execute(getMoreTransactionsService);
+					++pageNumber;
 					
 				} else {
 					listViewTransactions.onLoadMoreComplete();
@@ -158,6 +167,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				//TODO need to add the transaction to ArrayList so need not again make WS calls for next 50 tranx
+				//ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist().addAll(accountArrayList);
+				
 				transactionsArrayList.addAll(accountArrayList);
 				transactionsAdapter.notifyDataSetChanged();
 				listViewTransactions.onLoadMoreComplete();

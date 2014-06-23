@@ -31,35 +31,42 @@ import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BaseService.
+ */
 public abstract class BaseService implements Runnable {
 
 	private static final String TAG = "BaseService";
 	protected static final int GET = 10;
 	protected static final int POST = 11;
 	protected static final int PUT = 12;
-
 	private static String BASE_URL = ""; //
 	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
 	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
-	
 	private static final boolean isStaging = false;
 	private static final int CONNECTION_TIMEOUT = 150000;
-
-	public static final int NETWORK_NOT_AVAILABLE = 2001;
-	public static final int NO_CONTENT = 204;
-	public static final int BAD_REQUEST = 400;
-	public static final int USER_NOT_AUTHORIZED = 401;
-	public static final int FORBIDDEN = 403;
-	public static final int NOT_FOUND = 404;
-	public static final int INTERNAL_SERVER_ERROR = 500;
-	public static final int SERVICE_UNAVAILABLE = 503;
-	public static final int PERMISSION_DENIED = 550;
-	
+	protected static final int NETWORK_NOT_AVAILABLE = 2001;
+	protected static final int NO_CONTENT = 204;
+	protected static final int BAD_REQUEST = 400;
+	protected static final int USER_NOT_AUTHORIZED = 401;
+	protected static final int FORBIDDEN = 403;
+	protected static final int NOT_FOUND = 404;
+	protected static final int INTERNAL_SERVER_ERROR = 500;
+	protected static final int SERVICE_UNAVAILABLE = 503;
+	protected static final int PERMISSION_DENIED = 550;
 	protected int statusCode = -1;
+	
+	/** The header array. */
 	protected Header[] headerArray;
+	
+	/** The headers. */
 	private ArrayList<NameValuePair> headers;
 	
+	/**
+	 * Instantiates a new base service.
+	 */
 	public BaseService() {
 		headers = new ArrayList<NameValuePair>();
 		if (isStaging) {
@@ -68,43 +75,60 @@ public abstract class BaseService implements Runnable {
 			BASE_URL = DEV_URL;
 		}
 	}
+	
 	/**
-	 * 
-	 * @param name
-	 * @param value
+	 * Adds the header.
+	 *
+	 * @param name the name
+	 * @param value the value
 	 */
 	public void AddHeader(String name, String value) {
 		headers.add(new BasicNameValuePair(name, value));
 	}
 
+	/**
+	 * Gets the header accept.
+	 *
+	 * @return the header accept
+	 */
 	public String getHeaderAccept() {
 		return HTTP_HEADER_ACCEPT;
 	}
 	
 	/**
-	 * Execute the request based on the type of service
+	 * Execute the request based on the type of service.
 	 */
 	abstract void executeRequest();
 
+	/**
+	 * Sent failure.
+	 *
+	 * @param code the code
+	 */
 	void sentFailure(String code) {
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		executeRequest();
 	}
+	
 	/**
-	 * 
-	 * @param url
-	 * @param postData
-	 * @param type
-	 * @throws NoSuchAlgorithmException
-	 * @throws KeyStoreException
-	 * @throws CertificateException
-	 * @throws UnrecoverableKeyException
-	 * @throws KeyManagementException
-	 * @throws ClientProtocolException
-	 * @throws IOException
+	 * Make request.
+	 *
+	 * @param methodname the methodname
+	 * @param postData the post data
+	 * @param type the type
+	 * @return the string
+	 * @throws KeyStoreException the key store exception
+	 * @throws KeyManagementException the key management exception
+	 * @throws UnrecoverableKeyException the unrecoverable key exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws ClientProtocolException the client protocol exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public String makeRequest(String methodname, String postData, int type)
 			throws KeyStoreException, KeyManagementException,
@@ -136,6 +160,7 @@ public abstract class BaseService implements Runnable {
 					StringEntity input = new StringEntity(postData);
 					httppost.setEntity(input);
 					httpResponse = httpclient.execute(httppost);
+					
 				} else if (type == GET) { // make get request
 					HttpGet httpget = new HttpGet(url);
 					httpget.setHeader("Content-Type", "application/json");
@@ -151,7 +176,6 @@ public abstract class BaseService implements Runnable {
 					HttpPut httpPut = new HttpPut(url);
 					httpPut.setHeader("Content-Type", "application/json");
 					
-					
 					for (NameValuePair nameValuePair : headers) {
 						httpPut.setHeader(nameValuePair.getName(), nameValuePair.getValue());
 					}
@@ -166,7 +190,7 @@ public abstract class BaseService implements Runnable {
 				//Retrive the Headers from the Response
 				getHeadersFromResponse(httpResponse);
 				
-				if (statusCode == 204) {// 204 is empty response
+				if (statusCode == 204) {
 					return "";
 				}
 	
@@ -188,12 +212,20 @@ public abstract class BaseService implements Runnable {
 		}
 	}
 	
+	/**
+	 * Gets the status code.
+	 *
+	 * @return the status code
+	 */
 	public int getStatusCode() {
 		return statusCode;
 	}
 	
 	/**
-	 * @param httpResponse
+	 * Gets the headers from response.
+	 *
+	 * @param httpResponse the http response
+	 * @return the headers from response
 	 */
 	private void getHeadersFromResponse(HttpResponse httpResponse) {
 
@@ -211,10 +243,12 @@ public abstract class BaseService implements Runnable {
 				ApplicationEx.applicationEx.setCookie(header.getValue());
 		}
 	}
+	
 	/**
-	 * 
-	 * @param e
-	 * @return
+	 * Gets the exception type.
+	 *
+	 * @param e the e
+	 * @return the exception type
 	 */
 	public String getExceptionType(Exception e) {
 		if(e instanceof JSONException) {

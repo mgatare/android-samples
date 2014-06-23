@@ -52,10 +52,9 @@ public class GetAccountsService extends BaseService {
 		try {
 			
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
-			
 			//String response = "{\"errorResponse\":{\"status\":\"NOK\",\"code\":\"4004\",\"reason\":\"Not Found\"}}";
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.applicationEx, "getAccountsResponse.txt");
-			//Log.i("", "RESPONSE::::"+response);
+			Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
@@ -158,8 +157,8 @@ public class GetAccountsService extends BaseService {
 						cardModel.setCardNumberEndingWith(carrdJSONObj.getString("cardNumberEndingWith"));
 					}
 					cardList.add(cardModel);
-					accountsModel.setCardDataArrayList(cardList);
 				}
+				accountsModel.setCardDataArrayList(cardList);
 				
 				//Parse and add the Transactions array
 				JSONArray transactionJSONArray = accountsJSONObj.getJSONArray("transactions");
@@ -204,10 +203,10 @@ public class GetAccountsService extends BaseService {
 						transactionModel.setIsDisputable(transactionJSONObj.getString("isDisputable"));
 					}
 					transactionList.add(transactionModel);
-					accountsModel.setTransactionDataArraylist(transactionList);
 				}
+				accountsModel.setTransactionDataArraylist(transactionList);
 				arrayList.add(accountsModel);
-				//Log.i("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+arrayList.size());
+				//Log.i("", ":::::::::::transactionList ARRAYLIST SIZE:::::::"+transactionList.size());
 			}
 		}
 		//Log.i("", ":::::::::::SIZE OF ACCOUNTS ARRAY::::::::"+arrayList.size());

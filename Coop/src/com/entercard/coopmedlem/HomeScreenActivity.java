@@ -2,6 +2,10 @@ package com.entercard.coopmedlem;
 
 import java.util.Locale;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,29 +21,24 @@ import com.entercard.coopmedlem.fragment.TransactionsFragment;
 import com.entercard.coopmedlem.fragment.TransferFundsFragment;
 import com.entercard.coopmedlem.view.ParallexViewPager;
 
-
 public class HomeScreenActivity extends BaseActivity implements ActionBar.TabListener {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ParallexViewPager parallexViewPager;
 	private ActionBar actionBar;
+	private ActivityFinishReceiver finishReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homescreen);
 
-		actionBar = getSupportActionBar();
-		actionBar.setTitle("Transactions");
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		init();
 
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-		parallexViewPager = (ParallexViewPager) findViewById(R.id.pager);
-        parallexViewPager.set_max_pages(3);
-        parallexViewPager.setBackgroundAsset(R.drawable.back_three);
-        parallexViewPager.setAdapter(mSectionsPagerAdapter);
-
-        parallexViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		regActivityLogoutReceiver();
+		
+		parallexViewPager
+				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
@@ -66,6 +65,18 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+	}
+
+	private void init() {
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("Transactions");
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		parallexViewPager = (ParallexViewPager) findViewById(R.id.pager);
+        parallexViewPager.set_max_pages(3);
+        parallexViewPager.setBackgroundAsset(R.drawable.back_three);
+        parallexViewPager.setAdapter(mSectionsPagerAdapter);
 	}
 
 	@Override
@@ -114,7 +125,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 		@Override
 		public Fragment getItem(int position) {
-			// Log.i("", "*************getItem is called::"+position);
 			if (position == 0) {
 				return TransactionsFragment.newInstance(0);
 				
@@ -145,6 +155,36 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 				return getString(R.string.tab_title_transfer).toUpperCase(l);
 			}
 			return null;
+		}
+	}
+	
+	/**
+	 * Reg activity logout receiver.
+	 */
+	private void regActivityLogoutReceiver() {
+		finishReceiver = new ActivityFinishReceiver();
+	    IntentFilter intentFilter = new IntentFilter();
+	    intentFilter.addAction(getResources().getString(R.string.tag_act_finish));//ACTION.FINISH.LOGOUT
+	    
+	    registerReceiver(finishReceiver, intentFilter);
+	}
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(null != finishReceiver) { 
+			unregisterReceiver(finishReceiver);
+			finishReceiver = null;
+		}
+	}
+	/**
+	 * RECEIVER for finishing the activity.
+	 */
+	private class ActivityFinishReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(getResources().getString(R.string.tag_act_finish))) {
+				finish();
+			}
 		}
 	}
 }

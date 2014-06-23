@@ -16,7 +16,7 @@ public class TransactionDataModel {
 	
 	private int page;
 	private int perPage;
-	private int total = -1;
+	private int total;
 	
 
 	/**

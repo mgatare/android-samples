@@ -42,7 +42,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 	private Controller controller;
 	private EditText dummyEditText;
 	private String clientDate = null;
-	private StringBuilder stringBuilder;
+	private StringBuilder stringBuilder;//Will be used in JB and Up devices that will act for an softKeyboard from a TextWatcher
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 		dummyEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
 		
 		/**
-		 * For JelyBean and above devices we are not able to get the KeyEvents,
+		 * For JellyBean and above devices we are not able to get the KeyEvents,
 		 * so for this we need to have a TextWatcher that will act in place of
 		 * keyevents.
 		 * http://developer.android.com/reference/android/view/KeyEvent.html
@@ -174,7 +174,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
-			//Log.i("", "===text===" + text);
+			//Log.i("COOP", "===afterTextChanged===");
 			
 			if(stringBuilder.length() == 0) {
 				
@@ -210,6 +210,8 @@ public class EnterPINCodeActivity extends BaseActivity{
 				//Finish the Authentication process
 				finishAuthentication(newPIN);
 				
+			} else {
+				Log.i("COOP", "===IN ELSEEEE stringBuilder.length()=="+stringBuilder.length());
 			}
 		}
 	}
@@ -278,8 +280,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 			stringBuilder.deleteCharAt(0).trimToSize();
 			//Log.i("", "---deleteCharAt(0)---"+stringBuilder.toString());
 			
-			stringBuilder = new StringBuilder();
-			
 			resetPINFields();
 			
 		} else {
@@ -303,12 +303,15 @@ public class EnterPINCodeActivity extends BaseActivity{
 		pin3EditText.setBackgroundResource(android.R.drawable.edit_text);
 		pin4EditText.setBackgroundResource(android.R.drawable.edit_text);
 		
+		stringBuilder = new StringBuilder();
 	}
 	
 	//Shake funcation  for the PIN layout to be shaked if the user enters some wrong PIN
 	private void shakePINLayout() {
 		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 		layoutPinContainer.startAnimation(shake);
+		
+		resetPINFields();
 	}
 	
 	/**
@@ -354,7 +357,6 @@ public class EnterPINCodeActivity extends BaseActivity{
                  if (throwable instanceof AuthenticationFailedException) {
                      final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
                      Log.i("COOP", throwable.getMessage()+">>>AuthenticationFailed. " + remainingAttempts);
-                     //AlertHelper.Alert(throwable.getLocalizedMessage() +". Remaining attempts "+remainingAttempts,EnterPINCodeActivity.this);
                      
                      shakePINLayout();
                      

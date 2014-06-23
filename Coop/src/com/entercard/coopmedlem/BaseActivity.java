@@ -38,19 +38,23 @@ public class BaseActivity extends ActionBarActivity {
 
 	/** The progress dialog. */
 	private Dialog progressDialog;
-	
+
 	/** The receiver. */
 	private BroadcastReceiver receiver;
-	
+
 	/** The account position. */
 	private static int accountPosition;
-	
+
+	/** The account trnsactions. */
+	private static int transactionsCount;
+
 	/** The open to buy. */
 	private static String openToBuy;
-	
+
 	/** The spent. */
 	private static String spent;
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,9 +64,9 @@ public class BaseActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
-		receiver = new ScreenUnlockReceiver();
-		registerReceiver(receiver, filter);
+		regUnlockReceiver();
+		
+		///regActivityLogoutReceiver();
 	}
 
 	/**
@@ -87,8 +91,9 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Show developer log.
-	 *
-	 * @param msg            the msg
+	 * 
+	 * @param msg
+	 *            the msg
 	 */
 	public void showDeveloperLog(String msg) {
 		Log.d("Coop", msg);
@@ -186,7 +191,7 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Gets the account position.
-	 *
+	 * 
 	 * @return the account position
 	 */
 	public int getAccountPosition() {
@@ -195,16 +200,35 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Sets the account position.
-	 *
-	 * @param accountPosition the new account position
+	 * 
+	 * @param accountPosition
+	 *            the new account position
 	 */
 	public void setAccountPosition(int accountPosition) {
 		BaseActivity.accountPosition = accountPosition;
 	}
 
 	/**
-	 * Gets the open to buy.
+	 * Gets the transactions count.
 	 *
+	 * @return the transactions count
+	 */
+	public int getTransactionsCount() {
+		return transactionsCount;
+	}
+
+	/**
+	 * Sets the transactions count.
+	 *
+	 * @param transactionsCount the new transactions count
+	 */
+	public void setTransactionsCount(int transactionsCount) {
+		BaseActivity.transactionsCount = transactionsCount;
+	}
+
+	/**
+	 * Gets the open to buy.
+	 * 
 	 * @return the open to buy
 	 */
 	public String getOpenToBuy() {
@@ -213,8 +237,9 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Sets the open to buy.
-	 *
-	 * @param openToBuy the new open to buy
+	 * 
+	 * @param openToBuy
+	 *            the new open to buy
 	 */
 	public void setOpenToBuy(String openToBuy) {
 		BaseActivity.openToBuy = openToBuy;
@@ -222,7 +247,7 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Gets the spent.
-	 *
+	 * 
 	 * @return the spent
 	 */
 	public String getSpent() {
@@ -231,46 +256,67 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Sets the spent.
-	 *
-	 * @param spent the new spent
+	 * 
+	 * @param spent
+	 *            the new spent
 	 */
 	public void setSpent(String spent) {
 		BaseActivity.spent = spent;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os.Bundle)
+	/**
+	 * Reg unlock receiver.
+	 */
+	private void regUnlockReceiver() {
+		
+		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
+		receiver = new ScreenUnlockReceiver();
+		registerReceiver(receiver, filter);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
+	 * .Bundle)
 	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		Log.e("COOP", ">>In Method: onSaveInstanceState()");
+		Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
 	 */
 	@Override
 	public void onRestoreInstanceState(Bundle inState) {
-		Log.e("COOP", ">>In Method: onRestoreInstanceState()");
+		Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.support.v4.app.FragmentActivity#onPause()
 	 */
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.e("COOP", ">>In Method: onPause()");
+		Log.e("COOP", ">>BASE In Method: onPause()");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.support.v4.app.FragmentActivity#onDestroy()
 	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.e("COOP", ">>In Method: onDestroy()");
-		if (receiver != null) {
+		Log.e("COOP", ">>BASE In Method: onDestroy()");
+		if (null != receiver) {
 			unregisterReceiver(receiver);
 			receiver = null;
 		}

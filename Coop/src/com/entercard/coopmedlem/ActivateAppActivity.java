@@ -28,8 +28,6 @@ import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
 
-// TODO: Auto-generated Javadoc
-
 public class ActivateAppActivity extends BaseActivity {
 
 	public Controller controller;

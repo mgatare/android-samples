@@ -2,10 +2,12 @@ package com.entercard.coopmedlem;
 
 import java.util.ArrayList;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,7 +26,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	private ListView accountsListView;
 	private TextView textViewServerErrorMsg;
 //	private Button btnTryAgain;
-	
+	private com.entercard.coopmedlem.AllAccountsActivity.ActivityFinishReceiver finishReceiver;
 	private ActionBar actionBar;
 	
 	@Override
@@ -34,7 +36,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		init();
 		
-		Log.v("COOP", "ACCOUNTS SIZE::"+ApplicationEx.applicationEx.getAccountsArrayList());
+		regActivityFinishReceiver();
 		
 		if(null!=ApplicationEx.applicationEx.getAccountsArrayList()
 				&& !ApplicationEx.applicationEx.getAccountsArrayList().isEmpty()) {
@@ -43,7 +45,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			accountsListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 			
-		}else {
+		} else {
 			callGetAccountsService();
 		}
 	}
@@ -66,16 +68,19 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 					long arg3) {
 				
 				String openToBuy =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getOpenToBuy();
-				String spent =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getSpent();
+				String spent = ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getSpent();
+				int count = Integer.parseInt(ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getTransactionsCount());
 				
 				//Set these temporarily in BaseActivity all Class level
 				setOpenToBuy(openToBuy);
 				setSpent(spent);
 				setAccountPosition(arg2);
+				setTransactionsCount(count);
 				
-				showDeveloperLog(">>openToBuy>>"+openToBuy);
+				/*showDeveloperLog(">>openToBuy>>"+openToBuy);
 				showDeveloperLog(">>spent>>"+spent);
 				showDeveloperLog(">>Account number>>"+ ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getAccountNumber());
+				showDeveloperLog(">>count>>"+count);*/
 				
 				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -93,11 +98,6 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		ApplicationEx.operationsQueue.execute(accountsService);
 		
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
 
 	@Override
 	public void onGetAccountsFailed(final String errorMsg) {
@@ -114,11 +114,11 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 
 	@Override
 	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
+		
 		hideProgressDialog();
 		if(null!=accountArrayList && accountArrayList.size()!=0) {
 			
 			ApplicationEx.applicationEx.setAccountsArrayList(accountArrayList);
-			
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -130,6 +130,35 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		} else {
 			ApplicationEx.applicationEx.setAccountsArrayList(null);
 		}
-//		showDeveloperLog("", "ACCOUNT 1::"+accountArrayList.get(0).getAccountNumber());
+	}
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(null != finishReceiver) { 
+			unregisterReceiver(finishReceiver);
+			finishReceiver = null;
+		}
+	}
+	/**
+	 * Reg activity logout receiver.
+	 */
+	private void regActivityFinishReceiver() {
+		finishReceiver = new ActivityFinishReceiver();
+	    IntentFilter intentFilter = new IntentFilter();
+	    intentFilter.addAction(getResources().getString(R.string.tag_act_finish));//ACTION.FINISH.LOGOUT
+	    
+	    registerReceiver(finishReceiver, intentFilter);
+	}
+	
+	/**
+	 * RECEIVER for finishing the activity.
+	 */
+	private class ActivityFinishReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(getResources().getString(R.string.tag_act_finish))) {
+				finish();
+			}
+		}
 	}
 }

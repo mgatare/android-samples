@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="There was some error communicating with the server. Please try again later."
+        android:text="@string/error_in_communication"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/darker_gray"
         android:visibility="gone" />

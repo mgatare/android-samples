@@ -131,10 +131,10 @@ public class GetMoreTransactionsService extends BaseService {
 				page = paginationJSON.getInt("page");
 			}
 			if (paginationJSON.has("perPage")) {
-				page = paginationJSON.getInt("perPage");
+				perPage = paginationJSON.getInt("perPage");
 			}
 			if (paginationJSON.has("total")) {
-				page = paginationJSON.getInt("total");
+				total = paginationJSON.getInt("total");
 			}
 			Log.i("COOP", "PAGE::"+paginationJSON.getInt("page")+"::PERPAGE::"+ paginationJSON.getInt("perPage")+"::TOTAL::"+paginationJSON.getInt("total"));
 		}

@@ -47,6 +47,7 @@
     <string name="sign_minus">-</string>
     <string name="occupancy">Occupancy</string>
     <string name="employment">Employment</string>
+    <string name="tag_act_finish">ACTION_LOGOUT</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
@@ -57,7 +58,9 @@
     <!-- ENCAP Related -->
     <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>
     <string name="encap_app_id">encap</string>
-    <string name="encap_api_key">9f333c24-efa4-47b2-ac57-77540a8b2881</string>
+
+    <!-- Replace "-" with an "en dash" character (–, &#8211;) ? -->
+    <string name="encap_api_key">9f333c24&#8211;efa4&#8211;47b2&#8211;ac57&#8211;77540a8b2881</string>
     <string name="encap_public_key_hash_intermediate">sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=</string>
     <string name="encap_public_key_hash_leaf">sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=</string>
     <string name="encap_server_timeout">90000</string>
@@ -67,6 +70,7 @@
     <string name="please_enter_code">Please enter code</string>
     <string name="encap_error">An error occurred. Please try again shortly.</string>
     <string name="encap_authentication_error">You have enterd your PIN incorrectly too many times, and you will have to reactivate the device.</string>
+    <string name="error_in_communication">There was some error communicating with the server. Please try again later</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>
