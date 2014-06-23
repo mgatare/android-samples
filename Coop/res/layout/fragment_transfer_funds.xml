@@ -13,77 +13,155 @@
         <!-- layout="@layout/view_actionbar_title" /> -->
 
         <TextView
-            android:id="@+id/lblTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/view_usual_margin"
             android:gravity="center"
             android:text="@string/transfer_funds_title"
-            android:textColor="@color/text_heading"
+            android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal"
             android:textStyle="normal" />
 
         <include layout="@drawable/seperator" />
 
-        <EditText
-            android:id="@+id/txtReceiversName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/receiver_name"
-            android:inputType="textPersonName"
-            android:padding="@dimen/margin_ten_px"
-            android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" >
-        </EditText>
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="left"
+                android:text="@string/receiver_name"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtReceiversName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="aa"
+                android:inputType="textPersonName"
+                android:padding="@dimen/margin_ten_px"
+                android:textColor="@color/text_heading"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
 
         <include layout="@drawable/seperator" />
 
-        <EditText
-            android:id="@+id/txtAccountNumber"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/account_number"
-            android:inputType="number"
-            android:padding="@dimen/margin_ten_px"
-            android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" />
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="left"
+                android:text="@string/clearing"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtClearing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="132"
+                android:inputType="number"
+                android:padding="@dimen/margin_ten_px"
+                android:textColor="@color/text_heading"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
 
         <include layout="@drawable/seperator" />
 
-        <EditText
-            android:id="@+id/txtAmount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/amount"
-            android:inputType="number"
-            android:padding="@dimen/margin_ten_px"
-            android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" />
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/serial_number"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtSerialNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="000"
+                android:inputType="number"
+                android:padding="@dimen/margin_ten_px"
+                android:textColor="@color/text_heading"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
 
         <include layout="@drawable/seperator" />
 
-        <EditText
-            android:id="@+id/txtMessageOrKID"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/message_from_kid"
-            android:inputType="text"
-            android:padding="@dimen/margin_ten_px"
-            android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" />
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="left"
+                android:text="@string/amount"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="50000"
+                android:inputType="text"
+                android:padding="@dimen/margin_ten_px"
+                android:textColor="@color/text_heading"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
 
         <include layout="@drawable/seperator" />
 
         <Button
-            android:id="@+id/btnIncreaseCreditLimit"
+            android:id="@+id/btnFundsTransfer"
             style="@style/Theme.Coopmedlem.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/view_usual_margin"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/view_usual_margin"
             android:text="@string/option_transfer_funds"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_size_normal" />

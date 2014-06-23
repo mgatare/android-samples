@@ -16,7 +16,7 @@ import com.entercard.coopmedlem.utils.AlertHelper;
 
 public class TransferFundsFragment extends Fragment {
 
-	private Button btnIncreaseCreditLimit;
+	private Button btnFundsTransfer;
 	
 	public static TransferFundsFragment newInstance() {
 		TransferFundsFragment fragment = new TransferFundsFragment();
@@ -34,11 +34,8 @@ public class TransferFundsFragment extends Fragment {
 
 		View parentView = inflater.inflate(R.layout.fragment_transfer_funds,
 				container, false);
-		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
-//		ActionBar actionBar = getActivity().getActionBar();
-//		actionBar.setTitle("Funds Transfer");
-		
-		btnIncreaseCreditLimit.setOnClickListener(new OnClickListener() {
+		btnFundsTransfer = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
+		btnFundsTransfer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				AlertHelper.Alert("Functionality not implemented yet." , getActivity());

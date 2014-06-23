@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.entercard.coopmedlem.utils;
 
 import java.io.File;
@@ -9,38 +12,44 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Utils.
+ */
+@SuppressLint("SimpleDateFormat")
 public class Utils {
 
 	/**
-	 * Verify that Google Play services is available before making a request.
-	 * 
-	 * @return true if Google Play services is available, otherwise false
+	 * Services connected.
+	 *
+	 * @param context the context
+	 * @return true, if successful
 	 */
 	public static boolean servicesConnected(FragmentActivity context) {
 
-		// Check that Google Play services is available
+		// Check if Google Play services is available
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(context);
 
-		// If Google Play services is available
 		if (ConnectionResult.SUCCESS == resultCode) {
-			// In debug mode, log the status
-
-			// Continue
 			return true;
-			// Google Play services was not available for some reason
 		} else {
-			// Display an error dialog
+			// Display an error dialog if services not found/available
 			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
 					context, 0);
 			if (dialog != null) {
@@ -51,10 +60,11 @@ public class Utils {
 	}
 
 	/**
-	 * 
-	 * @param data
-	 * @param ctx
-	 * @param filename
+	 * Write to text file.
+	 *
+	 * @param data the data
+	 * @param ctx the ctx
+	 * @param filename the filename
 	 */
 	public static void writeToTextFile(String data, Context ctx, String filename) {
 		try {
@@ -72,10 +82,11 @@ public class Utils {
 	}
 
 	/**
-	 * 
-	 * @param context
-	 * @param filename
-	 * @return
+	 * Read response from assets file.
+	 *
+	 * @param context the context
+	 * @param filename the filename
+	 * @return the string
 	 */
 	public static String readResponseFromAssetsFile(Context context,
 			String filename) {
@@ -94,10 +105,11 @@ public class Utils {
 	}
 
 	/**
-	 * 
-	 * @param strdate1
-	 * @param strdate2
-	 * @return
+	 * Compare two dates.
+	 *
+	 * @param strdate1 the strdate1
+	 * @param strdate2 the strdate2
+	 * @return the int
 	 */
 	public static int compareTwoDates(String strdate1, String strdate2) {
 		try {
@@ -127,9 +139,11 @@ public class Utils {
 	}
 
 	/**
-	 * 
-	 * @param remainderdate
-	 * @param todaysDate
+	 * Gets the difference between dates.
+	 *
+	 * @param remainderdate the remainderdate
+	 * @param todaysDate the todays date
+	 * @return the difference between dates
 	 */
 	public static int getDifferenceBetweenDates(String remainderdate,
 			String todaysDate) {
@@ -148,5 +162,36 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	/**
+	 * Gets the map thumbnail from city name.
+	 *
+	 * @param name the name
+	 * @return the map thumbnail from city name
+	 */
+	public static Bitmap getMapThumbnailFromCityName(String name) {
+		String URL = "http://maps.google.com/maps/api/staticmap?center=" + name
+				+ "&zoom=14&size=500x500&sensor=false";
+		Bitmap bmp = null;
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet request = new HttpGet(URL);
+
+		InputStream in = null;
+		try {
+			in = httpclient.execute(request).getEntity().getContent();
+			bmp = BitmapFactory.decodeStream(in);
+			in.close();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bmp;
 	}
 }
