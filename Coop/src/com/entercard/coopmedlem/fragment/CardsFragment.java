@@ -19,7 +19,6 @@ import com.entercard.coopmedlem.CreditLineIncreaseActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.CardsAdapter;
 import com.entercard.coopmedlem.entities.DataModel;
-import com.entercard.coopmedlem.utils.AlertHelper;
 
 public class CardsFragment extends Fragment {
 

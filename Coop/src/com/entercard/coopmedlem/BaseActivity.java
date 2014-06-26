@@ -274,27 +274,27 @@ public class BaseActivity extends ActionBarActivity {
 		registerReceiver(receiver, filter);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
-	 * .Bundle)
-	 */
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
-	 */
-	@Override
-	public void onRestoreInstanceState(Bundle inState) {
-		Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
+//	 * .Bundle)
+//	 */
+//	@Override
+//	public void onSaveInstanceState(Bundle outState) {
+//		Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+//	 */
+//	@Override
+//	public void onRestoreInstanceState(Bundle inState) {
+//		Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
+//	}
 
 	/*
 	 * (non-Javadoc)

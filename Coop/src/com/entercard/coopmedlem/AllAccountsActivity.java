@@ -114,8 +114,8 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 
 	@Override
 	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
-		
 		hideProgressDialog();
+		
 		if(null!=accountArrayList && accountArrayList.size()!=0) {
 			
 			ApplicationEx.applicationEx.setAccountsArrayList(accountArrayList);
@@ -134,7 +134,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if(null != finishReceiver) { 
+		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;
 		}

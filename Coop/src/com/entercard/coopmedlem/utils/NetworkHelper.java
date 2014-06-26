@@ -8,40 +8,37 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NetworkHelper.
+ */
 public class NetworkHelper {
 
-//	public static boolean isNetworkAvailable(Context ctx) {
-//
-//		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-//		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-//		boolean isWifiConn = networkInfo.isConnected();
-//		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-//
-//		if (null != networkInfo) {
-//			boolean isMobileConn = networkInfo.isConnected();
-//			networkInfo = connMgr.getActiveNetworkInfo();
-//			boolean isActiveNetwork = (networkInfo != null && networkInfo.isConnected());
-//			return ((isWifiConn || isMobileConn) && isActiveNetwork);
-//		} else {
-//			networkInfo = connMgr.getActiveNetworkInfo();
-//			boolean isActiveNetwork = (networkInfo != null && networkInfo.isConnected());
-//			return ((isWifiConn) && isActiveNetwork);
-//		}
-//	}
-	
-	
+	/**
+	 * Checks if is online.
+	 *
+	 * @param cxt the cxt
+	 * @return true, if is online
+	 */
 	public static boolean isOnline(Context cxt) {
-		ConnectivityManager cm = (ConnectivityManager) cxt.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) cxt
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 			return true;
 		}
 		return false;
 	}
-	
 
+	/**
+	 * Check wifi.
+	 *
+	 * @param cxt the cxt
+	 * @return true, if successful
+	 */
 	public static boolean checkWIFI(Context cxt) {
-		WifiManager wifi = (WifiManager) cxt.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifi = (WifiManager) cxt
+				.getSystemService(Context.WIFI_SERVICE);
 		if ((wifi.isWifiEnabled() == true)) {
 
 			WifiInfo wifiInf = wifi.getConnectionInfo();
@@ -54,6 +51,12 @@ public class NetworkHelper {
 		}
 	}
 
+	/**
+	 * Start action call.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param cxt the cxt
+	 */
 	public static void startActionCall(String phoneNumber, Context cxt) {
 		Uri phoneNum = Uri.parse("tel:" + phoneNumber);
 		cxt.startActivity(new Intent(Intent.ACTION_CALL, phoneNum));

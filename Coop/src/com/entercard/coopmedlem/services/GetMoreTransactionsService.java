@@ -181,7 +181,7 @@ public class GetMoreTransactionsService extends BaseService {
 					transactionModel.setType(transactionJSONObj.getString("type"));
 				}
 				if (transactionJSONObj.has("isDisputable")) {
-					transactionModel.setIsDisputable(transactionJSONObj.getString("isDisputable"));
+					transactionModel.setIsDisputable(transactionJSONObj.getBoolean("isDisputable"));
 				}
 				
 				transactionModel.setPage(page);

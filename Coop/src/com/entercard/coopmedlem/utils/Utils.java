@@ -11,19 +11,29 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.entercard.coopmedlem.ApplicationEx;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -170,17 +180,32 @@ public class Utils {
 	 * @param name the name
 	 * @return the map thumbnail from city name
 	 */
-	public static Bitmap getMapThumbnailFromCityName(String name) {
-		String URL = "http://maps.google.com/maps/api/staticmap?center=" + name
-				+ "&zoom=14&size=500x500&sensor=false";
-		Bitmap bmp = null;
+	public static Bitmap getMapThumbnailFromCityName(String city, String country) {
+		
+		String params = null;
+		int zoomLevel = 5;
+		StringBuilder builder = new StringBuilder();
+		
+		if(!TextUtils.isEmpty(city)) {
+			builder.append(city);
+			zoomLevel = 15;
+		}
+		
+		if(TextUtils.isEmpty(country)) {
+			builder.append(country);
+		}
+		
+		params = builder.toString();
+		
+		String URL = "http://maps.google.com/maps/api/staticmap?center=" + params+ "&zoom=" + zoomLevel + "&size=500x500&maptype=roadmap&sensor=false";
+		Bitmap bitmap = null;
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet request = new HttpGet(URL);
 
 		InputStream in = null;
 		try {
 			in = httpclient.execute(request).getEntity().getContent();
-			bmp = BitmapFactory.decodeStream(in);
+			bitmap = BitmapFactory.decodeStream(in);
 			in.close();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -192,6 +217,36 @@ public class Utils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return bmp;
+		return bitmap;
+	}
+	/**
+	 * 
+	 * @param address
+	 * @return
+	 */
+	public static Location geoCodeAddress(String address) {
+		Geocoder geoCoder = new Geocoder(ApplicationEx.applicationEx, Locale.UK);;
+		try {
+			List<Address> addresses = geoCoder.getFromLocationName(address, 1);
+			if (addresses.size() > 0) {
+				
+				int lat = (int) (addresses.get(0).getLatitude() * 1E6);
+				int lon = (int) (addresses.get(0).getLongitude() * 1E6);
+				
+				double latitude = lat / 1E6;
+				double longtitude = lon / 1E6;
+				
+				Log.i("COOP", "getLatitude>>>"+latitude);
+				Log.i("COOP", "getLongitude"+longtitude);
+				
+				Location location = new Location("");
+				location.setLatitude(lat / 1E6);
+				location.setLongitude(lon / 1E6);
+			    return location;
+			}
+		} catch (Exception e) {
+			Log.e("ERR", "geoCodeAddress:::" + e.toString());
+		}
+		return null;
 	}
 }

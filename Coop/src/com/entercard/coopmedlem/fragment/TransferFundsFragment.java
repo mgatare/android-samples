@@ -34,14 +34,13 @@ public class TransferFundsFragment extends Fragment {
 
 		View parentView = inflater.inflate(R.layout.fragment_transfer_funds,
 				container, false);
-		btnFundsTransfer = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
+		btnFundsTransfer = (Button) parentView.findViewById(R.id.btnFundsTransfer);
 		btnFundsTransfer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				AlertHelper.Alert("Functionality not implemented yet." , getActivity());
 			}
 		});
-		
 		return parentView;
 	}
 }

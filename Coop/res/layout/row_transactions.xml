@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llMainRow"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/row_height"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -20,7 +20,6 @@
             android:layout_marginTop="@dimen/margin_ten_px"
             android:layout_weight="0.5"
             android:ellipsize="end"
-            android:text="aasd"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal"
             android:textStyle="normal" />
@@ -34,7 +33,6 @@
             android:layout_marginTop="@dimen/margin_ten_px"
             android:layout_weight="0.5"
             android:ellipsize="end"
-            android:text="aasd"
             android:gravity="right"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal"
@@ -45,12 +43,21 @@
         android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_ten_px"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
         android:ellipsize="end"
-        android:text="aasd"
         android:textColor="@color/text_body"
         android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
+
+    <ImageView
+        android:id="@+id/imgMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_up"
+        android:visibility="gone" />
 
 </LinearLayout>

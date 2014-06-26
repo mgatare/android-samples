@@ -14,11 +14,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.entercard.coopmedlem.fragment.CardsFragment;
 import com.entercard.coopmedlem.fragment.TransactionsFragment;
 import com.entercard.coopmedlem.fragment.TransferFundsFragment;
+import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.view.ParallexViewPager;
 
 public class HomeScreenActivity extends BaseActivity implements ActionBar.TabListener {
@@ -81,8 +83,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.pager_actions, menu);
-		return true;
+		 // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.activity_home_actions, menu);
+	    return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -90,12 +94,21 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-//		int id = item.getItemId();
-//		if (id == R.id.activity_chooser_view_content) {
-//			//showDialog(null, null);
-//			return true;
-//		}
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+        case R.id.action_account:
+            //AlertHelper.Alert("Accounts", HomeScreenActivity.this);
+        	
+        	Intent intent = new Intent(HomeScreenActivity.this, AllAccountsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+        	
+            return true;
+        /*case R.id.action_settings:
+            openSettings();
+            return true;*/
+        default:
+            return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override

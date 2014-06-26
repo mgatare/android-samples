@@ -45,6 +45,12 @@ public class EnterPINCodeActivity extends BaseActivity{
 	private StringBuilder stringBuilder;//Will be used in JB and Up devices that will act for an softKeyboard from a TextWatcher
 	
 	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.i("", "---onResume--");
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_pin);
@@ -148,6 +154,11 @@ public class EnterPINCodeActivity extends BaseActivity{
 	        case KeyEvent.KEYCODE_BACK:
 	        	Log.i("", "------------------BACK PRESSED-------------------");
 	    		finish();
+	            return true;
+	           
+	        case KeyEvent.KEYCODE_MENU:
+	        	Log.i("", "------------------MENU PRESSED-------------------");
+	        	getFocusToDummyEditText();
 	            return true;
 	            
 	        default:
@@ -328,13 +339,11 @@ public class EnterPINCodeActivity extends BaseActivity{
 		 */
 		controller.setClientOnly(true);
 		controller.startAuthentication(getClientDate(), new AsyncCallback<StartAuthenticationResult>() {
-			
 					public void onFailure(final Throwable throwable) {
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
 						AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 					}
-					
 					public void onSuccess(final StartAuthenticationResult result) {
 						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
@@ -348,59 +357,55 @@ public class EnterPINCodeActivity extends BaseActivity{
 	 */
 	protected void finishAuthentication(String code) {
 		showProgressDialog();
-		controller.finishAuthentication(code, new AsyncCallback<FinishAuthenticationResult>() {
-             public void onFailure(final Throwable throwable) {
-            	 
-            	 hideProgressDialog();
-            	 resetPINFields();
-                 
-                 if (throwable instanceof AuthenticationFailedException) {
-                     final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
-                     Log.i("COOP", throwable.getMessage()+">>>AuthenticationFailed. " + remainingAttempts);
-                     
-                     shakePINLayout();
-                     
-                 } else if (throwable instanceof InputFormatException) {
-                	 Log.i("COOP", ">>onFailure: throwable" + throwable);
-                	 //AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
-                	 
-                	 shakePINLayout();
-                	 
-                 } else {
-                     // Authentication error, cannot retry.
-                	 Log.i("COOP", ">>Authentication error, cannot retry" + throwable);
-                	 AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
-                	 
-                	 /*
-                	  *  Logout the app back to the Activate Device screen and clear the shared preferences
-                	  */
-                	 retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
-                	 
-                 }
-             }
-             public void onSuccess(final FinishAuthenticationResult result) {
-            	Log.d("COOP", ">>>finishAuthentication onSuccess"+ result);
-            	hideProgressDialog();
+		controller.finishAuthentication(code,
+				new AsyncCallback<FinishAuthenticationResult>() {
+					public void onFailure(final Throwable throwable) {
 
-		        if (result.hasResponseContent()) {
-		        	
-		        	String samlData = Base64.encode(result.getResponseContentAsBytes()).replaceAll("(\\r|\\n|\\t)", "");
-		        	Log.i("", "-----SAML Length-----"+samlData.length());
-		        	
-		        	closeKeyBoard();
-		        	
-		        	/* Add to TXT file for testing purposes. Remove on Staging/Deployment
-                     * Create the SAML token here by encoding the response to Base64 */
-		        	if(ApplicationEx.applicationEx.isdeveloperMode) {
-                    	Utils.writeToTextFile(samlData, EnterPINCodeActivity.this, "dump.tmp");
-		        	}
-                    startAccountsScreen(samlData);
-                    
-		        } else {
-		        	AlertHelper.Alert("SAML data not found.",EnterPINCodeActivity.this);
-		        }
-             }
-         });
+						hideProgressDialog();
+						resetPINFields();
+
+						if (throwable instanceof AuthenticationFailedException) {
+							final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
+							Log.i("COOP", throwable.getMessage()+ ">>>AuthenticationFailedException::: "+ remainingAttempts);
+
+							shakePINLayout();
+
+							if (remainingAttempts <= 1) {
+								// Logout the app back to the Activate Device screen and clear the shared preferences
+								retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
+							}
+						} else if (throwable instanceof InputFormatException) {
+							Log.i("COOP", ">>onFailure: throwable" + throwable);
+							AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+							shakePINLayout();
+						} else {
+							// Authentication error, cannot retry.
+							Log.i("COOP",">>Authentication error, cannot retry:::"+ throwable);
+							AlertHelper.Alert(getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
+						}
+					}
+					public void onSuccess(final FinishAuthenticationResult result) {
+						Log.d("COOP", ">>>finishAuthentication onSuccess"+ result);
+						hideProgressDialog();
+						if (result.hasResponseContent()) {
+
+							String samlData = Base64.encode(result.getResponseContentAsBytes()).replaceAll("(\\r|\\n|\\t)", "");
+							Log.i("","-----SAML Length-----" + samlData.length());
+							closeKeyBoard();
+							/*
+							 * Add to TXT file for testing purposes. Remove on
+							 * Staging/Deployment Create the SAML token here by
+							 * encoding the response to Base64
+							 */
+							if (ApplicationEx.applicationEx.isdeveloperMode) {
+								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
+							}
+							startAccountsScreen(samlData);
+						} else {
+							AlertHelper.Alert("SAML data not found.",EnterPINCodeActivity.this);
+						}
+					}
+				});
 	}
     /**
      * 
@@ -436,7 +441,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 									int whichButton) {
 
 								//Clear the shared preference of all Activation related FLAGS
-								PreferenceHelper helper =new PreferenceHelper(EnterPINCodeActivity.this);
+								PreferenceHelper helper = new PreferenceHelper(EnterPINCodeActivity.this);
 								helper.clear();
 								
 								//Set the Client only to False again to Activate the app

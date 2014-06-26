@@ -12,7 +12,7 @@ public class TransactionDataModel {
 	private String currency;
 	private String date;
 	private String type;
-	private String isDisputable;
+	private boolean isDisputable;
 	
 	private int page;
 	private int perPage;
@@ -94,11 +94,11 @@ public class TransactionDataModel {
 		this.type = type;
 	}
 
-	public String getIsDisputable() {
+	public boolean getIsDisputable() {
 		return isDisputable;
 	}
 
-	public void setIsDisputable(String isDisputable) {
+	public void setIsDisputable(boolean isDisputable) {
 		this.isDisputable = isDisputable;
 	}
 

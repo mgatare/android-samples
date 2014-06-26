@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
@@ -20,16 +21,23 @@ import android.widget.Button;
 /**
  * The Class Utils.
  */
+@SuppressLint("SimpleDateFormat")
 public class DateUtils {
 
 	/** The tag. */
 	public static String TAG = "Utils";
 
 	/** The date format. */
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat(
+			"HH:mm:ss", Locale.getDefault());
 
-	/** The locale. */
-	public static Locale locale = new Locale("US");
+	/**
+	 *  The locale.
+	 *
+	 * @param text the text
+	 * @return the string
+	 */
+	// public static Locale locale = new Locale("US");
 
 	/**
 	 * Format to locale.
@@ -46,10 +54,16 @@ public class DateUtils {
 		return format.format(currency);
 	}
 
+	/**
+	 * Gets the current time stamp.
+	 *
+	 * @return the current time stamp
+	 */
 	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentTimeStamp() {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+			SimpleDateFormat dateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss Z");
 			String currentTimeStamp = dateFormat.format(new Date());
 
 			return currentTimeStamp;
@@ -58,8 +72,12 @@ public class DateUtils {
 			return null;
 		}
 	}
-	
-	
+
+	/**
+	 * Gets the locale specif name.
+	 *
+	 * @return the locale specif name
+	 */
 	public static String getLocaleSpecifName() {
 
 		return Calendar.getInstance(Locale.getDefault()).getTimeZone()
@@ -118,6 +136,12 @@ public class DateUtils {
 		return formatedDate;
 	}
 
+	/**
+	 * Gets the formated time.
+	 *
+	 * @param time the time
+	 * @return the formated time
+	 */
 	public static String getFormatedTime(String time) {
 		// 2013-04-17 10:44:59
 		String formatedDate = "";
@@ -137,7 +161,12 @@ public class DateUtils {
 		return formatedDate;
 	}
 
-	/***/
+	/**
+	 * Gets the time from time stamp.
+	 *
+	 * @param time the time
+	 * @return the time from time stamp
+	 */
 	public static String getTimeFromTimeStamp(String time) {
 		// 2013-04-17 10:44:59
 		String formatedDate = "";
@@ -158,10 +187,10 @@ public class DateUtils {
 	}
 
 	/**
-	 * Convert 24 hour time format to 12 hour
-	 * 
-	 * @param time
-	 * @return
+	 * Convert 24 hour time format to 12 hour.
+	 *
+	 * @param _24Hourtime the _24 hourtime
+	 * @return the string
 	 */
 	public static String convertTime(String _24Hourtime) {
 		String formatedDate = "";
@@ -279,6 +308,15 @@ public class DateUtils {
 		}
 	}
 
+	/**
+	 * Dist from formulae.
+	 *
+	 * @param latFrom the lat from
+	 * @param longFrom the long from
+	 * @param latTo the lat to
+	 * @param longTo the long to
+	 * @return the double
+	 */
 	public static double distFromFormulae(double latFrom, double longFrom,
 			double latTo, double longTo) {
 
@@ -300,28 +338,35 @@ public class DateUtils {
 	}
 
 	/**
-	 * 
-	 * @param lat_a
-	 * @param lng_a
-	 * @param lat_b
-	 * @param lng_b
-	 * @return
+	 * Gps to meters.
+	 *
+	 * @param lat_a the lat_a
+	 * @param lng_a the lng_a
+	 * @param lat_b the lat_b
+	 * @param lng_b the lng_b
+	 * @return the double
 	 */
-	public static double gpsToMeters(double lat_a, double lng_a, double lat_b, double lng_b) {
+	public static double gpsToMeters(double lat_a, double lng_a, double lat_b,
+			double lng_b) {
 		double pk = (180 / 3.14169);
 		double a1 = lat_a / pk;
 		double a2 = lng_a / pk;
 		double b1 = lat_b / pk;
 		double b2 = lng_b / pk;
-		double t1 = Math.cos(a1) * Math.cos(a2) * Math.cos(b1)* Math.cos(b2);
-		double t2 = Math.cos(a1) * Math.sin(a2) * Math.cos(b1)* Math.sin(b2);
+		double t1 = Math.cos(a1) * Math.cos(a2) * Math.cos(b1) * Math.cos(b2);
+		double t2 = Math.cos(a1) * Math.sin(a2) * Math.cos(b1) * Math.sin(b2);
 		double t3 = Math.sin(a1) * Math.sin(b1);
 		double tt = Math.acos(t1 + t2 + t3);
 		DecimalFormat twoDForm = new DecimalFormat("#.##");
 		return Double.valueOf(twoDForm.format(6366000 * tt));
-		//return 6366000 * tt;
+		// return 6366000 * tt;
 	}
 
+	/**
+	 * Gets the UTC time.
+	 *
+	 * @return the UTC time
+	 */
 	public static String getUTCTime() {
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -330,6 +375,11 @@ public class DateUtils {
 		return dateNow;
 	}
 
+	/**
+	 * Gets the time.
+	 *
+	 * @return the time
+	 */
 	public static String getTime() {
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -337,6 +387,11 @@ public class DateUtils {
 		return dateNow;
 	}
 
+	/**
+	 * Gets the optimized date.
+	 *
+	 * @return the optimized date
+	 */
 	public static String getOptimizedDate() {
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -104,7 +104,6 @@ public class ActivateAppActivity extends BaseActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			parentActivity = (ActivateAppActivity) getActivity();
-			
 		}
 		
 		@Override
@@ -136,12 +135,14 @@ public class ActivateAppActivity extends BaseActivity {
 			switch (v.getId()) {
 			case R.id.btnOk:
 
-//				FragmentManager fragmentManager = getFragmentManager();
-//				FragmentTransaction transaction = fragmentManager.beginTransaction();
-//				transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-//				transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
-//				transaction.addToBackStack(null);
-//				transaction.commit();
+				// FragmentManager fragmentManager = getFragmentManager();
+				// FragmentTransaction transaction =
+				// fragmentManager.beginTransaction();
+				// transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+				// transaction.replace(R.id.lytContainer,new
+				// CreateActivationCodeFragment());
+				// transaction.addToBackStack(null);
+				// transaction.commit();
 				
 				if (NetworkHelper.isOnline(parentActivity)) {
 					DialogFragment newFragment = ActivationDialogFragment.newInstance(0);

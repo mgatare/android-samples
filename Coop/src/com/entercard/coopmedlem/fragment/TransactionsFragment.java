@@ -7,12 +7,9 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ApplicationEx;
@@ -43,6 +40,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
 	private int pageNumber = 0; //TEST
+	private boolean isMapNeeded = false;
 	
 	public static TransactionsFragment newInstance(int sectionNumber) {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -69,9 +67,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found), getActivity());
+			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),getActivity());
 		}
-		
 		return rootView;
 	}
 
@@ -87,7 +84,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
 		
 		listViewTransactions = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
-		listViewTransactions.setOnItemClickListener(new ListItemClickListener());
+		//listViewTransactions.setOnItemClickListener(new ListItemClickListener());
 		
 	}
 
@@ -136,25 +133,61 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		setHasOptionsMenu(true);
 	}
 	
-	
-	public class ListItemClickListener implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			Log.i("", "ItemClicked::" + arg2);
-//			if (null != arrayList && arrayList.size() > 0) {
-//				boolean isMapNeeded = arrayList.get(arg2).getShowMap();
-//				if (isMapNeeded) {
-//					Intent intent = new Intent(getActivity(),ShowDisputeOnMapActivity.class);
-//					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//					startActivity(intent);
-//					getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//				}
+	/**
+	 * @author mgatare
+	 */
+//	public class ListItemClickListener implements OnItemClickListener {
+//
+//		@Override
+//		public void onItemClick(AdapterView<?> adapterView, View view, int arg2,
+//				long arg3) {
+//			
+//			Log.i("", "ItemClicked::" + arg2);
+//			//View v = (View) view.getParent();
+//			ImageView imgMap = (ImageView) view.findViewById(R.id.imgMap);
+//			
+//			boolean isDisputable = transactionsArrayList.get(arg2).getIsDisputable();
+//			if(isDisputable) {
+//				imgMap.setVisibility(View.VISIBLE);
+//			} else {
+//				imgMap.setVisibility(View.GONE);
 //			}
-			AlertHelper.Alert("Functionality not implemented yet." , getActivity());
-		}
-	}
+//			transactionsAdapter.notifyDataSetChanged();
+//
+//			
+//			/*if (null != transactionsArrayList && transactionsArrayList.size() > 0) {
+//				boolean isDisputable = transactionsArrayList.get(arg2).getIsDisputable();
+//				
+//				if(isDisputable) {
+//					isMapNeeded = true;
+//				}
+//				
+//				if(isMapNeeded) {
+//					
+//					//Log.i("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//					imgMap = (ImageView) adapterView.findViewById(R.id.imgMap);
+//					Log.i("", "imgMap::: SHOWWW:::"+imgMap);
+//					imgMap.setVisibility(View.VISIBLE);
+//					
+//					isMapNeeded = false;
+//					
+//				} else {
+//					
+//					Log.i("", "imgMap:::GONEE:::"+imgMap);
+//					imgMap.setVisibility(View.GONE);
+//					
+//					isMapNeeded = true;
+//				}
+//				
+////				if (isDisputable) {
+////					Log.i("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+////					ImageView imgMap = (ImageView) arg0.findViewById(R.id.imgMap);
+////					Log.i("", "imgMap:::"+imgMap);
+////					imgMap.setVisibility(View.VISIBLE);
+////				}
+//			}*/
+//		}
+//	}
 
 	/*
 	 * (non-Javadoc)

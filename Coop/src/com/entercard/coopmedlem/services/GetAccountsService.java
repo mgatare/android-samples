@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
@@ -54,7 +53,7 @@ public class GetAccountsService extends BaseService {
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
 			//String response = "{\"errorResponse\":{\"status\":\"NOK\",\"code\":\"4004\",\"reason\":\"Not Found\"}}";
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.applicationEx, "getAccountsResponse.txt");
-			Log.i("", "RESPONSE::::"+response);
+			//Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
@@ -200,7 +199,7 @@ public class GetAccountsService extends BaseService {
 						transactionModel.setType(transactionJSONObj.getString("type"));
 					}
 					if (transactionJSONObj.has("isDisputable")) {
-						transactionModel.setIsDisputable(transactionJSONObj.getString("isDisputable"));
+						transactionModel.setIsDisputable(transactionJSONObj.getBoolean("isDisputable"));
 					}
 					transactionList.add(transactionModel);
 				}
