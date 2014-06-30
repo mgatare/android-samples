@@ -54,7 +54,6 @@ public class BaseActivity extends ActionBarActivity {
 	/** The spent. */
 	private static String spent;
 
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -65,8 +64,8 @@ public class BaseActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 
 		regUnlockReceiver();
-		
-		///regActivityLogoutReceiver();
+
+		// /regActivityLogoutReceiver();
 	}
 
 	/**
@@ -171,6 +170,12 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
+	public void showKeyBoard(View view) {
+		view.requestFocus();
+		InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		keyboard.showSoftInput(view, 0);
+	}
+
 	/**
 	 * Make window dim.
 	 */
@@ -210,7 +215,7 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Gets the transactions count.
-	 *
+	 * 
 	 * @return the transactions count
 	 */
 	public int getTransactionsCount() {
@@ -219,8 +224,9 @@ public class BaseActivity extends ActionBarActivity {
 
 	/**
 	 * Sets the transactions count.
-	 *
-	 * @param transactionsCount the new transactions count
+	 * 
+	 * @param transactionsCount
+	 *            the new transactions count
 	 */
 	public void setTransactionsCount(int transactionsCount) {
 		BaseActivity.transactionsCount = transactionsCount;
@@ -268,33 +274,33 @@ public class BaseActivity extends ActionBarActivity {
 	 * Reg unlock receiver.
 	 */
 	private void regUnlockReceiver() {
-		
+
 		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
 		receiver = new ScreenUnlockReceiver();
 		registerReceiver(receiver, filter);
 	}
-	
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see
-//	 * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
-//	 * .Bundle)
-//	 */
-//	@Override
-//	public void onSaveInstanceState(Bundle outState) {
-//		Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
-//	 */
-//	@Override
-//	public void onRestoreInstanceState(Bundle inState) {
-//		Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
-//	}
+
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see
+	// * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
+	// * .Bundle)
+	// */
+	// @Override
+	// public void onSaveInstanceState(Bundle outState) {
+	// Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
+	// }
+	//
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+	// */
+	// @Override
+	// public void onRestoreInstanceState(Bundle inState) {
+	// Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
+	// }
 
 	/*
 	 * (non-Javadoc)

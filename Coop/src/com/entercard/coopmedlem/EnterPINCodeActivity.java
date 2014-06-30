@@ -14,6 +14,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -152,15 +154,15 @@ public class EnterPINCodeActivity extends BaseActivity{
 	            return true;
 	            
 	        case KeyEvent.KEYCODE_BACK:
-	        	Log.i("", "------------------BACK PRESSED-------------------");
+	        	Log.d("", "------------------BACK PRESSED-------------------");
 	    		finish();
 	            return true;
 	           
 	        case KeyEvent.KEYCODE_MENU:
-	        	Log.i("", "------------------MENU PRESSED-------------------");
-	        	getFocusToDummyEditText();
-	            return true;
-	            
+				/*This works but still not a solution to stop the keyboard from hiding. return false not working*/
+				showKeyBoard(dummyEditText);
+				return true;
+
 	        default:
 	            return super.onKeyUp(keyCode, event);
 	    }
@@ -186,7 +188,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
 			//Log.i("COOP", "===afterTextChanged===");
-			
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
@@ -220,7 +221,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 				
 				//Finish the Authentication process
 				finishAuthentication(newPIN);
-				
 			} else {
 				Log.i("COOP", "===IN ELSEEEE stringBuilder.length()=="+stringBuilder.length());
 			}
@@ -466,5 +466,17 @@ public class EnterPINCodeActivity extends BaseActivity{
 			clientDate = new Date().toString();
 		}
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d("COOP", "-----onOptionsItemSelected-----");
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d("COOP", "-----onCreateOptionsMenu-----");
+		return super.onCreateOptionsMenu(menu);
 	}
 }

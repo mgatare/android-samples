@@ -7,6 +7,8 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +36,12 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private String openToBuyCashTxt;
 	private String spentCashTxt;
 	
-	private LoadMoreListView listViewTransactions;
+	private LoadMoreListView transactionListView;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
 	private TransactionsAdapter transactionsAdapter;
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
 	private int pageNumber = 0; //TEST
-	private boolean isMapNeeded = false;
 	
 	public static TransactionsFragment newInstance(int sectionNumber) {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -83,8 +84,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
 		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
 		
-		listViewTransactions = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
-		//listViewTransactions.setOnItemClickListener(new ListItemClickListener());
+		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 		
 	}
 
@@ -92,12 +92,12 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		spentTextView.setText(spentCashTxt != null ? StringUtils.formatCurrencyLocally(spentCashTxt) : "?");
 		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.formatCurrencyLocally(openToBuyCashTxt): "?");
-
+		/***/
 		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
-		listViewTransactions.setAdapter(transactionsAdapter);
+		transactionListView.setAdapter(transactionsAdapter);
 		transactionsAdapter.notifyDataSetChanged();
 		
-		listViewTransactions.setOnLoadMoreListener(new OnLoadMoreListener() {
+		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
 				
 				/*int pageNumber = transactionsArrayList.get(position).getPage();
@@ -105,12 +105,10 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				int total = transactionsArrayList.get(position).getTotal();*/
 				
 				//Log.e("COOP", "<PAGE>" + pageNumber + "<PERPAGE>" + perNumber + "<TOTAL>" + total);
-				//Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
+				Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
 				
 				if (transactionsArrayList.size() < tranxCount) {
-					
 					//Log.e("COOP", "<pageNumber>"+pageNumber);
-					
 					String uuidTxt = ApplicationEx.applicationEx.getUUID();
 					String accountIDTxt = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getAccountNumber();
 					String sessionIDTxt = ApplicationEx.applicationEx.getCookie();
@@ -121,7 +119,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					++pageNumber;
 					
 				} else {
-					listViewTransactions.onLoadMoreComplete();
+					transactionListView.onLoadMoreComplete();
 				}
 			}
 		});
@@ -132,63 +130,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
-	
-	/**
-	 * @author mgatare
-	 */
-//	public class ListItemClickListener implements OnItemClickListener {
-//
-//		@Override
-//		public void onItemClick(AdapterView<?> adapterView, View view, int arg2,
-//				long arg3) {
-//			
-//			Log.i("", "ItemClicked::" + arg2);
-//			//View v = (View) view.getParent();
-//			ImageView imgMap = (ImageView) view.findViewById(R.id.imgMap);
-//			
-//			boolean isDisputable = transactionsArrayList.get(arg2).getIsDisputable();
-//			if(isDisputable) {
-//				imgMap.setVisibility(View.VISIBLE);
-//			} else {
-//				imgMap.setVisibility(View.GONE);
-//			}
-//			transactionsAdapter.notifyDataSetChanged();
-//
-//			
-//			/*if (null != transactionsArrayList && transactionsArrayList.size() > 0) {
-//				boolean isDisputable = transactionsArrayList.get(arg2).getIsDisputable();
-//				
-//				if(isDisputable) {
-//					isMapNeeded = true;
-//				}
-//				
-//				if(isMapNeeded) {
-//					
-//					//Log.i("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-//					imgMap = (ImageView) adapterView.findViewById(R.id.imgMap);
-//					Log.i("", "imgMap::: SHOWWW:::"+imgMap);
-//					imgMap.setVisibility(View.VISIBLE);
-//					
-//					isMapNeeded = false;
-//					
-//				} else {
-//					
-//					Log.i("", "imgMap:::GONEE:::"+imgMap);
-//					imgMap.setVisibility(View.GONE);
-//					
-//					isMapNeeded = true;
-//				}
-//				
-////				if (isDisputable) {
-////					Log.i("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-////					ImageView imgMap = (ImageView) arg0.findViewById(R.id.imgMap);
-////					Log.i("", "imgMap:::"+imgMap);
-////					imgMap.setVisibility(View.VISIBLE);
-////				}
-//			}*/
-//		}
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -200,12 +141,14 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				Log.d("", "accountArrayList.size():::"+accountArrayList.size());
 				//TODO need to add the transaction to ArrayList so need not again make WS calls for next 50 tranx
-				//ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist().addAll(accountArrayList);
-				
 				transactionsArrayList.addAll(accountArrayList);
+				Log.d("", "AFTER ADDITION transactionsArrayList.size():::"+transactionsArrayList.size());
+
+				//transactionListView.setAdapter(transactionsAdapter);
 				transactionsAdapter.notifyDataSetChanged();
-				listViewTransactions.onLoadMoreComplete();
+				transactionListView.onLoadMoreComplete();
 			}
 		});
 	}
@@ -221,8 +164,13 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				AlertHelper.Alert(error, getActivity());
-				listViewTransactions.onLoadMoreComplete();
+				if (!TextUtils.isEmpty(error)) {
+					AlertHelper.Alert(error, getActivity());
+					transactionListView.onLoadMoreComplete();
+				} else {
+					AlertHelper.Alert(ApplicationEx.applicationEx.getString(R.string.exception_general), getActivity());
+					transactionListView.onLoadMoreComplete();
+				}
 			}
 		});
 	}

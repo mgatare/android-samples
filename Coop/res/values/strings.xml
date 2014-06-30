@@ -34,6 +34,7 @@
     <string name="phone_number">Phone number</string>
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
+    <string name="dispute">Dispute</string>
     <string name="spent">SPENT</string>
     <string name="open_to_buy">OPEN TO BUY</string>
     <string name="latest_transactions">LATEST TRANSACTIONS</string>

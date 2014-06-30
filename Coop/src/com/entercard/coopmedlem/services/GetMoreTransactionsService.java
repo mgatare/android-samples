@@ -12,7 +12,6 @@ import android.util.Log;
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
-import com.entercard.coopmedlem.utils.Utils;
 
 public class GetMoreTransactionsService extends BaseService {
 
@@ -72,12 +71,12 @@ public class GetMoreTransactionsService extends BaseService {
 			String url = TAG_ACCOUNTS + "/" + strAccountID + "/" + TAG_TRANSACTIONS + TAG_PAGE + pageNumber + TAG_PER_PAGE;
 			//Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
 			String response = makeRequest(url, null, GET);
-			Utils.writeToTextFile(response, ApplicationEx.applicationEx, "dumpData.tmp");
-			//Log.i("", "RESPONSE::::"+response);
+			//Utils.writeToTextFile(response, ApplicationEx.applicationEx, "dumpData.tmp");
+			//Log.d("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
-			}else if(!TextUtils.isEmpty(response)) {
+			} else if(!TextUtils.isEmpty(response)) {
 				
 				ArrayList<TransactionDataModel> transactionArrayList = new ArrayList<TransactionDataModel>();
 				transactionArrayList = parseJSONResponse(response);
@@ -113,7 +112,7 @@ public class GetMoreTransactionsService extends BaseService {
 			}
 		}
 
-		/**,"pagination": {
+		/**,"pagination": 
         "page": Number, //Page number
         "perPage": Number, //Transactions per page
         "total": Number //Total number of transactions
@@ -136,7 +135,7 @@ public class GetMoreTransactionsService extends BaseService {
 			if (paginationJSON.has("total")) {
 				total = paginationJSON.getInt("total");
 			}
-			Log.i("COOP", "PAGE::"+paginationJSON.getInt("page")+"::PERPAGE::"+ paginationJSON.getInt("perPage")+"::TOTAL::"+paginationJSON.getInt("total"));
+			Log.d("COOP", "PAGE::"+paginationJSON.getInt("page")+"::PERPAGE::"+ paginationJSON.getInt("perPage")+"::TOTAL::"+paginationJSON.getInt("total"));
 		}
 		
 		ArrayList<TransactionDataModel> arrayListTransaction = new ArrayList<TransactionDataModel>();
@@ -191,7 +190,7 @@ public class GetMoreTransactionsService extends BaseService {
 				arrayListTransaction.add(transactionModel);
 			}
 		}
-		//Log.i("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+ arrayListTransaction.size());
+		Log.d("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+ arrayListTransaction.size());
 		return arrayListTransaction;
 	}
 }

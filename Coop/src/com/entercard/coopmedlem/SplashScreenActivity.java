@@ -16,11 +16,9 @@ public class SplashScreenActivity extends FragmentActivity {
 		setContentView(R.layout.activity_splash);
 		preferenceHelper = new PreferenceHelper(this);
 		//Log.i("", ">>>>>>>>>"+DateUtils.getCurrentTimeStamp());
-		
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				//Log.i("", ">>FLAG>>"+preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)));
 				if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
 					
 					/* Start the PIN code Activity */

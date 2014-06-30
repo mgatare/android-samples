@@ -3,21 +3,26 @@ package com.entercard.coopmedlem.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
+import com.entercard.coopmedlem.utils.ImageLoader;
 import com.entercard.coopmedlem.utils.StringUtils;
+import com.entercard.coopmedlem.utils.Utils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,6 +41,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	
 	/** The current expanded position. */
 	private int currentExpandedPosition = -1;
+	
+	/** The image loader. */
+	private ImageLoader imageLoader;
 
 	/**
 	 * Instantiates a new transactions adapter.
@@ -44,43 +52,12 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	 * @param resource the resource
 	 * @param transactionsArrayList the transactions array list
 	 */
-	public TransactionsAdapter(Context context, int resource,
-			ArrayList<TransactionDataModel> transactionsArrayList) {
+	public TransactionsAdapter(Context context, int resource, ArrayList<TransactionDataModel> transactionsArrayList) {
 		super(context, resource, transactionsArrayList);
 		this.context = context;
+		
+		imageLoader = new ImageLoader(context);
 		dataModelList.addAll(transactionsArrayList);
-	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.ArrayAdapter#getCount()
-	 */
-	@Override
-	public int getCount() {
-		return dataModelList.size();
-	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.ArrayAdapter#getItem(int)
-	 */
-	@Override
-	public TransactionDataModel getItem(int position) {
-		return dataModelList.get(position);
-	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.ArrayAdapter#getItemId(int)
-	 */
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.ArrayAdapter#getPosition(java.lang.Object)
-	 */
-	@Override
-	public int getPosition(TransactionDataModel item) {
-		return super.getPosition(item);
 	}
 
 	/* (non-Javadoc)
@@ -97,7 +74,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		TextView dateTextView = (TextView) convertView.findViewById(R.id.lblDate);
 		TextView priceTextView = (TextView) convertView.findViewById(R.id.lblPrice);
 		TextView nameTextView = (TextView) convertView.findViewById(R.id.lblName);
-		ImageView imgView = (ImageView) convertView.findViewById(R.id.imgMap);
+		//ImageView imgMarker = (ImageView) convertView.findViewById(R.id.imgMarker);
+		
+		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
 
 		dateTextView.setText(getItem(position).getDate());
 		priceTextView.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
@@ -105,10 +84,10 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 
 		// nameTextView.setTag(position);
 		if (currentExpandedPosition == position) {
-			imgView.setVisibility(View.VISIBLE);
-			currentExpandedView = imgView;
+			relMapLayout.setVisibility(View.VISIBLE);
+			currentExpandedView = relMapLayout;
 		} else {
-			imgView.setVisibility(View.GONE);
+			relMapLayout.setVisibility(View.GONE);
 		}
 
 		if (position % 2 == 0) {
@@ -124,22 +103,43 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				int pos = (Integer) v.getTag();
 				
 				if (getItem(pos).getIsDisputable()) {
-
-					final ImageView imgView = (ImageView) v.findViewById(R.id.imgMap);
-					if (imgView.getVisibility() == View.VISIBLE) {
-						collapse(imgView);
+					
+					RelativeLayout relMapLayout = (RelativeLayout) v.findViewById(R.id.relativeLayoutMap);
+					ImageView imgView = (ImageView) v.findViewById(R.id.imgMap);
+					ImageView imgMarker = (ImageView) v.findViewById(R.id.imgMarker);
+					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
+					
+					String city = StringUtils.trimString(getItem(pos).getCity());
+					String country = StringUtils.trimString(getItem(pos).getCountry());
+					
+					String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
+					Log.i("COOP","SWED URL>>>>>"+strURL);
+					
+					if(!TextUtils.isEmpty(strURL))
+						imageLoader.DisplayImage(strURL, imgView);
+					
+					if (relMapLayout.getVisibility() == View.VISIBLE) {
+						
+						collapse(relMapLayout);
 						currentExpandedPosition = -1;
 						currentExpandedView = null;
+						imgMarker.setVisibility(View.VISIBLE);
+						btnDisputeOnMap.setVisibility(View.VISIBLE);
+						
 					} else {
 						if (currentExpandedView != null) {
 							collapse(currentExpandedView);
 							currentExpandedPosition = -1;
 							currentExpandedView = null;
-							expand(imgView);
+							expand(relMapLayout);
+							imgMarker.setVisibility(View.VISIBLE);
+							btnDisputeOnMap.setVisibility(View.VISIBLE);
 						} else {
-							expand(imgView);
+							expand(relMapLayout);
+							imgMarker.setVisibility(View.VISIBLE);
+							btnDisputeOnMap.setVisibility(View.VISIBLE);
 						}
-						currentExpandedView = imgView;
+						currentExpandedView = relMapLayout;
 						currentExpandedPosition = pos;
 					}
 				} else {
@@ -155,19 +155,21 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	/**
 	 * Expand.
 	 *
-	 * @param v the v
+	 * @param view the v
 	 */
-	public static void expand(final View v) {
-		v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		final int targtetHeight = v.getMeasuredHeight();
+	public static void expand(final View view) {
+		view.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		final int targtetHeight = view.getMeasuredHeight();
 
-		v.getLayoutParams().height = 0;
-		v.setVisibility(View.VISIBLE);
-		Animation a = new Animation() {
+		view.getLayoutParams().height = 0;
+		view.setVisibility(View.VISIBLE);
+		Animation animation = new Animation() {
 			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
-				v.getLayoutParams().height = interpolatedTime == 1 ? LayoutParams.WRAP_CONTENT: (int) (targtetHeight * interpolatedTime);
-				v.requestLayout();
+			protected void applyTransformation(float interpolatedTime,
+					Transformation t) {
+				view.getLayoutParams().height = interpolatedTime == 1 ? LayoutParams.WRAP_CONTENT
+						: (int) (targtetHeight * interpolatedTime);
+				view.requestLayout();
 			}
 
 			@Override
@@ -175,28 +177,29 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				return true;
 			}
 		};
-
-		// 1dp/ms
-		a.setDuration((int) (targtetHeight / v.getContext().getResources().getDisplayMetrics().density));
-		v.startAnimation(a);
+		animation.setDuration((int) (targtetHeight / view.getContext().getResources()
+				.getDisplayMetrics().density));
+		view.startAnimation(animation);
 	}
 
 	/**
 	 * Collapse.
 	 *
-	 * @param v the v
+	 * @param view the v
 	 */
-	public static void collapse(final View v) {
-		final int initialHeight = v.getMeasuredHeight();
+	public static void collapse(final View view) {
+		final int initialHeight = view.getMeasuredHeight();
 
-		Animation a = new Animation() {
+		Animation animation = new Animation() {
 			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
+			protected void applyTransformation(float interpolatedTime,
+					Transformation t) {
 				if (interpolatedTime == 1) {
-					v.setVisibility(View.GONE);
+					view.setVisibility(View.GONE);
 				} else {
-					v.getLayoutParams().height = initialHeight- (int) (initialHeight * interpolatedTime);
-					v.requestLayout();
+					view.getLayoutParams().height = initialHeight
+							- (int) (initialHeight * interpolatedTime);
+					view.requestLayout();
 				}
 			}
 
@@ -205,10 +208,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				return true;
 			}
 		};
-
-		// 1dp/ms
-		a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-		v.startAnimation(a);
+		animation.setDuration((int) (initialHeight / view.getContext().getResources()
+				.getDisplayMetrics().density));
+		view.startAnimation(animation);
 
 	}
 }

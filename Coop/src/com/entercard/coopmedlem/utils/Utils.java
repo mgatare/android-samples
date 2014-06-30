@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,16 +16,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -46,8 +40,9 @@ public class Utils {
 
 	/**
 	 * Services connected.
-	 *
-	 * @param context the context
+	 * 
+	 * @param context
+	 *            the context
 	 * @return true, if successful
 	 */
 	public static boolean servicesConnected(FragmentActivity context) {
@@ -71,10 +66,13 @@ public class Utils {
 
 	/**
 	 * Write to text file.
-	 *
-	 * @param data the data
-	 * @param ctx the ctx
-	 * @param filename the filename
+	 * 
+	 * @param data
+	 *            the data
+	 * @param ctx
+	 *            the ctx
+	 * @param filename
+	 *            the filename
 	 */
 	public static void writeToTextFile(String data, Context ctx, String filename) {
 		try {
@@ -93,9 +91,11 @@ public class Utils {
 
 	/**
 	 * Read response from assets file.
-	 *
-	 * @param context the context
-	 * @param filename the filename
+	 * 
+	 * @param context
+	 *            the context
+	 * @param filename
+	 *            the filename
 	 * @return the string
 	 */
 	public static String readResponseFromAssetsFile(Context context,
@@ -116,9 +116,11 @@ public class Utils {
 
 	/**
 	 * Compare two dates.
-	 *
-	 * @param strdate1 the strdate1
-	 * @param strdate2 the strdate2
+	 * 
+	 * @param strdate1
+	 *            the strdate1
+	 * @param strdate2
+	 *            the strdate2
 	 * @return the int
 	 */
 	public static int compareTwoDates(String strdate1, String strdate2) {
@@ -150,9 +152,11 @@ public class Utils {
 
 	/**
 	 * Gets the difference between dates.
-	 *
-	 * @param remainderdate the remainderdate
-	 * @param todaysDate the todays date
+	 * 
+	 * @param remainderdate
+	 *            the remainderdate
+	 * @param todaysDate
+	 *            the todays date
 	 * @return the difference between dates
 	 */
 	public static int getDifferenceBetweenDates(String remainderdate,
@@ -176,77 +180,113 @@ public class Utils {
 
 	/**
 	 * Gets the map thumbnail from city name.
-	 *
-	 * @param name the name
+	 * 
+	 * @param city
+	 *            the city
+	 * @param country
+	 *            the country
 	 * @return the map thumbnail from city name
 	 */
-	public static Bitmap getMapThumbnailFromCityName(String city, String country) {
-		
+	public static String getMapThumbnailFromCityOrCountry(String city, String country) {
+
 		String params = null;
+		String URL = null;
 		int zoomLevel = 5;
 		StringBuilder builder = new StringBuilder();
-		
-		if(!TextUtils.isEmpty(city)) {
-			builder.append(city);
-			zoomLevel = 15;
-		}
-		
-		if(TextUtils.isEmpty(country)) {
-			builder.append(country);
-		}
-		
-		params = builder.toString();
-		
-		String URL = "http://maps.google.com/maps/api/staticmap?center=" + params+ "&zoom=" + zoomLevel + "&size=500x500&maptype=roadmap&sensor=false";
-		Bitmap bitmap = null;
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet request = new HttpGet(URL);
 
-		InputStream in = null;
-		try {
-			in = httpclient.execute(request).getEntity().getContent();
-			bitmap = BitmapFactory.decodeStream(in);
-			in.close();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (!TextUtils.isEmpty(city)) {
+			builder.append(StringUtils.removeBlanks(city));
+			zoomLevel = 13;
 		}
-		return bitmap;
+
+		if (TextUtils.isEmpty(country)) {
+			builder.append(StringUtils.removeBlanks(country));
+		}
+
+		params = builder.toString();
+
+		if(!TextUtils.isEmpty(params)) {
+			Log.e("Coop", "zoomLevel>>"+zoomLevel);
+			
+			URL = "http://maps.google.com/maps/api/staticmap?center="+ params + "&zoom=" + zoomLevel 
+						+ "&size=550x300&maptype=roadmap&sensor=false";
+			
+		} else {
+			return null;
+		}
+		
+//		Bitmap bitmap = null;
+//		HttpClient httpclient = new DefaultHttpClient();
+//		HttpGet request = new HttpGet(URL);
+//
+//		InputStream in = null;
+//		try {
+//			in = httpclient.execute(request).getEntity().getContent();
+//			bitmap = BitmapFactory.decodeStream(in);
+//			in.close();
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (ClientProtocolException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		return URL;
 	}
+
 	/**
+	 * Geo code address.
 	 * 
 	 * @param address
-	 * @return
+	 *            the address
+	 * @return the location
 	 */
 	public static Location geoCodeAddress(String address) {
-		Geocoder geoCoder = new Geocoder(ApplicationEx.applicationEx, Locale.UK);;
+		Geocoder geoCoder = new Geocoder(ApplicationEx.applicationEx, Locale.UK);
+		;
 		try {
 			List<Address> addresses = geoCoder.getFromLocationName(address, 1);
 			if (addresses.size() > 0) {
-				
+
 				int lat = (int) (addresses.get(0).getLatitude() * 1E6);
 				int lon = (int) (addresses.get(0).getLongitude() * 1E6);
-				
+
 				double latitude = lat / 1E6;
 				double longtitude = lon / 1E6;
-				
-				Log.i("COOP", "getLatitude>>>"+latitude);
-				Log.i("COOP", "getLongitude"+longtitude);
-				
+
+				Log.i("COOP", "getLatitude>>>" + latitude);
+				Log.i("COOP", "getLongitude" + longtitude);
+
 				Location location = new Location("");
 				location.setLatitude(lat / 1E6);
 				location.setLongitude(lon / 1E6);
-			    return location;
+				return location;
 			}
 		} catch (Exception e) {
 			Log.e("ERR", "geoCodeAddress:::" + e.toString());
 		}
 		return null;
+	}
+
+	/**
+	 * Copy stream.
+	 * 
+	 * @param is
+	 *            the is
+	 * @param os
+	 *            the os
+	 */
+	public static void CopyStream(InputStream is, OutputStream os) {
+		final int buffer_size = 1024;
+		try {
+			byte[] bytes = new byte[buffer_size];
+			for (;;) {
+				int count = is.read(bytes, 0, buffer_size);
+				if (count == -1)
+					break;
+				os.write(bytes, 0, count);
+			}
+		} catch (Exception ex) {
+		}
 	}
 }
