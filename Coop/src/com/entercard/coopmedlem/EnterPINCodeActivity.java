@@ -27,6 +27,7 @@ import com.encapsecurity.encap.android.client.api.FinishAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
+import com.encapsecurity.encap.android.client.api.exception.LockedException;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
@@ -342,13 +343,34 @@ public class EnterPINCodeActivity extends BaseActivity{
 					public void onFailure(final Throwable throwable) {
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
-						AlertHelper.Alert(getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
+						
+						if (throwable instanceof LockedException) {
+							retryErrorDialog(getResources().getString(
+									R.string.encap_authentication_error));
+						} else {
+							AlertHelper.Alert(getResources().getString(
+											R.string.encap_error),EnterPINCodeActivity.this);
+						}
 					}
 					public void onSuccess(final StartAuthenticationResult result) {
 						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
 					}
 				});
+		
+		/**
+		 * 07-01 16:40:14.997: I/COOP(15162): >>>>startAuthentication
+		 * onFailure>>
+		 * com.encapsecurity.encap.android.client.api.exception.LockedException
+		 * [message=Device registration is under lock-down.,
+		 * errorCode=serverErrorLockedPinVerificationFailed,
+		 * cause=com.encapsecurity.da[message=Device registration is under
+		 * lock-down., errorCode=lockedPinVerificationFailed,
+		 * localizationKey=server.error.lockedPinVerificationFailed,
+		 * localizationArguments=[], com.encapsecurity.dd[fatal=true,
+		 * remainingAttempts=0]]]
+		 **/
+		
 	}
 	
 	/**
@@ -365,25 +387,29 @@ public class EnterPINCodeActivity extends BaseActivity{
 						resetPINFields();
 
 						if (throwable instanceof AuthenticationFailedException) {
+							
 							final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
-							Log.i("COOP", throwable.getMessage()+ ">>>AuthenticationFailedException::: "+ remainingAttempts);
+							Log.i("COOP", throwable.getMessage()+ ">>>AuthenticationFailedException>>"+ throwable);
+							//Log.i("COOP", throwable.getMessage()+ ">>>Attempt Remaining::: "+ remainingAttempts);
 
 							shakePINLayout();
 
-							if (remainingAttempts <= 1) {
-								// Logout the app back to the Activate Device screen and clear the shared preferences
-								retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
-							}
 						} else if (throwable instanceof InputFormatException) {
-							Log.i("COOP", ">>onFailure: throwable" + throwable);
+							
+							Log.i("COOP", ">>InputFormatException>>" + throwable);
 							AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
 							shakePINLayout();
+							
+						} else if (throwable instanceof LockedException) {
+							Log.i("COOP",">>LockedException>>"+ throwable);
+							retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
 						} else {
 							// Authentication error, cannot retry.
-							Log.i("COOP",">>Authentication error, cannot retry:::"+ throwable);
+							Log.i("COOP",">>Authentication error, cannot retry>>"+ throwable);
 							AlertHelper.Alert(getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
 						}
 					}
+
 					public void onSuccess(final FinishAuthenticationResult result) {
 						Log.d("COOP", ">>>finishAuthentication onSuccess"+ result);
 						hideProgressDialog();

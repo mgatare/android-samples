@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import com.entercard.coopmedlem.fragment.CardsFragment;
 import com.entercard.coopmedlem.fragment.TransactionsFragment;
 import com.entercard.coopmedlem.fragment.TransferFundsFragment;
-import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.view.ParallexViewPager;
 
 public class HomeScreenActivity extends BaseActivity implements ActionBar.TabListener {
@@ -49,10 +48,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 							actionBar.setTitle("Transactions");
 							break;
 						case 1:
-							actionBar.setTitle("Credit Line Increase");
+							actionBar.setTitle("Transfer Funds");
 							break;
 						case 2:
-							actionBar.setTitle("Transfer Funds");
+							actionBar.setTitle("Cards");
 							break;
 						default:
 							actionBar.setTitle("Transactions");
@@ -60,7 +59,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 						}
 					}
 				});
-
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			actionBar.addTab(actionBar.newTab()
@@ -71,7 +69,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	private void init() {
 		actionBar = getSupportActionBar();
-		actionBar.setTitle("Transactions");
+		actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -83,7 +81,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		 // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.activity_home_actions, menu);
 	    return super.onCreateOptionsMenu(menu);
@@ -95,19 +92,14 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-        case R.id.action_account:
-            //AlertHelper.Alert("Accounts", HomeScreenActivity.this);
-        	
-        	Intent intent = new Intent(HomeScreenActivity.this, AllAccountsActivity.class);
+		case R.id.action_account:
+			Intent intent = new Intent(HomeScreenActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-        	
-            return true;
-        /*case R.id.action_settings:
-            openSettings();
-            return true;*/
-        default:
-            return super.onOptionsItemSelected(item);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -139,13 +131,13 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		@Override
 		public Fragment getItem(int position) {
 			if (position == 0) {
-				return TransactionsFragment.newInstance(0);
+				return TransactionsFragment.newInstance();
 				
 			} else if (position == 1) {
-				return CardsFragment.newInstance();
+				return TransferFundsFragment.newInstance();
 				
 			} else if (position == 2) {
-				return TransferFundsFragment.newInstance();
+				return CardsFragment.newInstance();
 			}
 			return new TransactionsFragment();
 		}
@@ -161,11 +153,11 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.tab_title_transaction).toUpperCase(l);
+				return getString(R.string.tab_title_transaction).toLowerCase(l);
 			case 1:
-				return getString(R.string.tab_title_credit_increase).toUpperCase(l);
+				return getString(R.string.tab_title_transfer).toLowerCase(l);
 			case 2:
-				return getString(R.string.tab_title_transfer).toUpperCase(l);
+				return getString(R.string.tab_title_credit_increase).toLowerCase(l);
 			}
 			return null;
 		}
@@ -177,7 +169,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	private void regActivityLogoutReceiver() {
 		finishReceiver = new ActivityFinishReceiver();
 	    IntentFilter intentFilter = new IntentFilter();
-	    intentFilter.addAction(getResources().getString(R.string.tag_act_finish));//ACTION.FINISH.LOGOUT
+	    intentFilter.addAction(getResources().getString(R.string.tag_act_finish));//ACTION.LOGOUT
 	    
 	    registerReceiver(finishReceiver, intentFilter);
 	}

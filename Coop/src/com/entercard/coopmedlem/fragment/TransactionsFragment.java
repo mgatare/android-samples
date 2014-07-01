@@ -43,7 +43,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private GetMoreTransactionsService getMoreTransactionsService;
 	private int pageNumber = 0; //TEST
 	
-	public static TransactionsFragment newInstance(int sectionNumber) {
+	public static TransactionsFragment newInstance() {
 		TransactionsFragment fragment = new TransactionsFragment();
 		return fragment;
 	}
@@ -108,7 +108,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
 				
 				if (transactionsArrayList.size() < tranxCount) {
-					//Log.e("COOP", "<pageNumber>"+pageNumber);
+
 					String uuidTxt = ApplicationEx.applicationEx.getUUID();
 					String accountIDTxt = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getAccountNumber();
 					String sessionIDTxt = ApplicationEx.applicationEx.getCookie();
@@ -117,7 +117,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
 					ApplicationEx.operationsQueue.execute(getMoreTransactionsService);
 					++pageNumber;
-					
 				} else {
 					transactionListView.onLoadMoreComplete();
 				}
@@ -141,12 +140,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Log.d("", "accountArrayList.size():::"+accountArrayList.size());
 				//TODO need to add the transaction to ArrayList so need not again make WS calls for next 50 tranx
 				transactionsArrayList.addAll(accountArrayList);
-				Log.d("", "AFTER ADDITION transactionsArrayList.size():::"+transactionsArrayList.size());
-
-				//transactionListView.setAdapter(transactionsAdapter);
 				transactionsAdapter.notifyDataSetChanged();
 				transactionListView.onLoadMoreComplete();
 			}
