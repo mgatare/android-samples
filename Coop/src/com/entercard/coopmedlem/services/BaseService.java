@@ -119,7 +119,7 @@ public abstract class BaseService implements Runnable {
 	/**
 	 * Make request.
 	 *
-	 * @param methodname the methodname
+	 * @param methodURL the methodname
 	 * @param postData the post data
 	 * @param type the type
 	 * @return the string
@@ -130,7 +130,7 @@ public abstract class BaseService implements Runnable {
 	 * @throws ClientProtocolException the client protocol exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public String makeRequest(String methodname, String postData, int type)
+	public String makeRequest(String methodURL, String postData, int type)
 			throws KeyStoreException, KeyManagementException,
 			UnrecoverableKeyException, NoSuchAlgorithmException,
 			ClientProtocolException, IOException {
@@ -139,9 +139,9 @@ public abstract class BaseService implements Runnable {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		String url = null;
 		
-		if(NetworkHelper.isOnline(ApplicationEx.applicationEx)) {
+		if(NetworkHelper.isOnline(ApplicationEx.getInstance())) {
 			try {
-				url = BASE_URL + methodname;
+				url = BASE_URL + methodURL;
 				httpclient.getConnectionManager().getSchemeRegistry();//.register(sch);
 				HttpParams httpParams = new BasicHttpParams();
 				HttpConnectionParams.setConnectionTimeout(httpParams, CONNECTION_TIMEOUT);
@@ -234,13 +234,13 @@ public abstract class BaseService implements Runnable {
 			Log.i(TAG, "HEADER Key : " + header.getName() + " : Value : "+ header.getValue());
 
 			if (header.getName().equalsIgnoreCase("UUID"))
-				ApplicationEx.applicationEx.setUUID(header.getValue());
+				ApplicationEx.getInstance().setUUID(header.getValue());
 			
 			else if (header.getName().equalsIgnoreCase("jsessionid"))
-				ApplicationEx.applicationEx.setSessionID(header.getValue());
+				ApplicationEx.getInstance().setSessionID(header.getValue());
 			
 			else if (header.getName().equalsIgnoreCase("Set-Cookie"))
-				ApplicationEx.applicationEx.setCookie(header.getValue());
+				ApplicationEx.getInstance().setCookie(header.getValue());
 		}
 	}
 	
@@ -252,24 +252,24 @@ public abstract class BaseService implements Runnable {
 	 */
 	public String getExceptionType(Exception e) {
 		if(e instanceof JSONException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_json_errorr);
+			return ApplicationEx.getInstance().getString(R.string.exception_json_errorr);
 		} else if(e instanceof KeyManagementException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_key_management);
+			return ApplicationEx.getInstance().getString(R.string.exception_key_management);
 		} else if(e instanceof UnrecoverableKeyException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_unrecoverable_key);
+			return ApplicationEx.getInstance().getString(R.string.exception_unrecoverable_key);
 		} else if(e instanceof KeyStoreException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_keystore);
+			return ApplicationEx.getInstance().getString(R.string.exception_keystore);
 		} else if(e instanceof NoSuchAlgorithmException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_algorithm_not_found_exception);
+			return ApplicationEx.getInstance().getString(R.string.exception_algorithm_not_found_exception);
 		} else if(e instanceof CertificateException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_certificate_not_found);
+			return ApplicationEx.getInstance().getString(R.string.exception_certificate_not_found);
 		} else if(e instanceof IOException) {
-			return ApplicationEx.applicationEx.getString(R.string.exception_io_exception);
+			return ApplicationEx.getInstance().getString(R.string.exception_io_exception);
 		} else if(e instanceof Exception) {
 			Log.i("", "EXCEPTION MESSAGE :::: "+e.getMessage());
 			return e.getMessage();
 		} else {
-			return ApplicationEx.applicationEx.getString(R.string.exception_general);
+			return ApplicationEx.getInstance().getString(R.string.exception_general);
 		}
 	}
 }

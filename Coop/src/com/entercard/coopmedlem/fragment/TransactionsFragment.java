@@ -63,7 +63,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		init(rootView);
 		
-		transactionsArrayList = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getTransactionDataArraylist();
+		transactionsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getTransactionDataArraylist();
 		
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
@@ -109,9 +109,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				
 				if (transactionsArrayList.size() < tranxCount) {
 
-					String uuidTxt = ApplicationEx.applicationEx.getUUID();
-					String accountIDTxt = ApplicationEx.applicationEx.getAccountsArrayList().get(position).getAccountNumber();
-					String sessionIDTxt = ApplicationEx.applicationEx.getCookie();
+					String uuidTxt = ApplicationEx.getInstance().getUUID();
+					String accountIDTxt = ApplicationEx.getInstance().getAccountsArrayList().get(position).getAccountNumber();
+					String sessionIDTxt = ApplicationEx.getInstance().getCookie();
 					
 					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, sessionIDTxt, accountIDTxt, pageNumber);
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
@@ -163,7 +163,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					AlertHelper.Alert(error, getActivity());
 					transactionListView.onLoadMoreComplete();
 				} else {
-					AlertHelper.Alert(ApplicationEx.applicationEx.getString(R.string.exception_general), getActivity());
+					AlertHelper.Alert(ApplicationEx.getInstance().getString(R.string.exception_general), getActivity());
 					transactionListView.onLoadMoreComplete();
 				}
 			}

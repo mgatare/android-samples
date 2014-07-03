@@ -43,20 +43,19 @@ public class GetAccountsService extends BaseService {
 	@Override
 	void executeRequest() {
 		//Add headers to HTTP Request
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_accept), getHeaderAccept());
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_saml), ApplicationEx.applicationEx.getSAMLTxt());
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_device_platform), "Android");
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_device_version), CompatibilityUtils.getAndroidVersion());
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), ApplicationEx.getInstance().getSAMLTxt());
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_device_platform), "Android");
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_device_version), CompatibilityUtils.getAndroidVersion());
 		
 		try {
 			
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
-			//String response = "{\"errorResponse\":{\"status\":\"NOK\",\"code\":\"4004\",\"reason\":\"Not Found\"}}";
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.applicationEx, "getAccountsResponse.txt");
 			//Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
-				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
+				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
 			}else if(!TextUtils.isEmpty(response)) {
 				
 				ArrayList<AccountsModel> accountsArrayList = new ArrayList<AccountsModel>();
@@ -66,7 +65,7 @@ public class GetAccountsService extends BaseService {
 					getAccountsListener.onGetAccountsFinished(accountsArrayList);
 				}
 			} else {
-				sentFailure(ApplicationEx.applicationEx.getString(R.string.exception_general));
+				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));
 			}
 		} catch (Exception e) {
 			sentFailure(getExceptionType(e));

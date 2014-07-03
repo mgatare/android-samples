@@ -38,10 +38,10 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		regActivityFinishReceiver();
 		
-		if(null!=ApplicationEx.applicationEx.getAccountsArrayList()
-				&& !ApplicationEx.applicationEx.getAccountsArrayList().isEmpty()) {
+		if(null!=ApplicationEx.getInstance().getAccountsArrayList()
+				&& !ApplicationEx.getInstance().getAccountsArrayList().isEmpty()) {
 			
-			AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.applicationEx.getAccountsArrayList());
+			AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
 			accountsListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 			
@@ -67,9 +67,9 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				
-				String openToBuy =  ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getOpenToBuy();
-				String spent = ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getSpent();
-				int count = Integer.parseInt(ApplicationEx.applicationEx.getAccountsArrayList().get(arg2).getTransactionsCount());
+				String openToBuy =  ApplicationEx.getInstance().getAccountsArrayList().get(arg2).getOpenToBuy();
+				String spent = ApplicationEx.getInstance().getAccountsArrayList().get(arg2).getSpent();
+				int count = Integer.parseInt(ApplicationEx.getInstance().getAccountsArrayList().get(arg2).getTransactionsCount());
 				
 				//Set these temporarily in BaseActivity all Class level
 				setOpenToBuy(openToBuy);
@@ -118,17 +118,17 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		if(null!=accountArrayList && accountArrayList.size()!=0) {
 			
-			ApplicationEx.applicationEx.setAccountsArrayList(accountArrayList);
+			ApplicationEx.getInstance().setAccountsArrayList(accountArrayList);
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.applicationEx.getAccountsArrayList());
+					AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
 					accountsListView.setAdapter(adapter);
 					adapter.notifyDataSetChanged();
 				}
 			});
 		} else {
-			ApplicationEx.applicationEx.setAccountsArrayList(null);
+			ApplicationEx.getInstance().setAccountsArrayList(null);
 		}
 	}
 	@Override

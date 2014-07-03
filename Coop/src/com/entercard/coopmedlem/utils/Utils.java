@@ -242,7 +242,7 @@ public class Utils {
 	 * @return the location
 	 */
 	public static Location geoCodeAddress(String address) {
-		Geocoder geoCoder = new Geocoder(ApplicationEx.applicationEx, Locale.UK);
+		Geocoder geoCoder = new Geocoder(ApplicationEx.getInstance(), Locale.UK);
 		;
 		try {
 			List<Address> addresses = geoCoder.getFromLocationName(address, 1);

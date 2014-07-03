@@ -28,7 +28,7 @@ public class ApplicationEx extends Application {
 	public static ThreadPoolExecutor operationsQueue;
 	
 	/** The application ex. */
-	public static ApplicationEx applicationEx;
+	private static ApplicationEx applicationEx;
 	
 	/** The controller. */
 	private Controller controller;
@@ -55,6 +55,16 @@ public class ApplicationEx extends Application {
 	/** The cookie. */
 	private String cookie;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Application#onCreate()
+	 */
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		init();
+		operationsQueue = new ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE, 100000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+		applicationEx = (ApplicationEx) getApplicationContext();
+	}
 	/**
 	 * Gets the cookie.
 	 *
@@ -73,17 +83,14 @@ public class ApplicationEx extends Application {
 		this.cookie = cookie;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Application#onCreate()
-	 */
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		init();
-		operationsQueue = new ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE, 100000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-		applicationEx = this;
+	public static ApplicationEx getInstance() {
+		if(null!= applicationEx)
+			return applicationEx;
+		else
+			return new ApplicationEx();
 	}
-
+	
+	
 	/**
 	 * Gets the controller.
 	 *
@@ -124,7 +131,7 @@ public class ApplicationEx extends Application {
 		String apiKey = getResources().getString(R.string.encap_api_key);
 		controller.setApiKey(apiKey);
 
-		/*Suggested by Signicat Support(support@signicat.com) to use the Intermediate HASH key*/
+		/* Suggested by Signicat Support(support@signicat.com) to use the Intermediate HASH key*/
 		String publicKeyHashes = getResources().getString(R.string.encap_public_key_hash_intermediate);
 		
 		/*Intermediate (ThawteSSLCA): sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=

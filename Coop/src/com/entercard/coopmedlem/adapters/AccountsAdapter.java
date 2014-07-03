@@ -48,7 +48,7 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 				+ getItem(position).getProductName();
 		
 		holder.cardNameTextView.setText(product);
-		holder.cardNumberTextView.setText(ApplicationEx.applicationEx
+		holder.cardNumberTextView.setText(ApplicationEx.getInstance()
 				.getResources().getString(R.string.card_ending_with)
 				+ " "
 				+ getItem(position).getCardDataArrayList().get(0).getCardNumberEndingWith());
@@ -58,7 +58,6 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 		} else {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
 		}
-		
 		return convertView;
 	}
 

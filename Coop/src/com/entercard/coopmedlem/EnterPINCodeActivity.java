@@ -423,7 +423,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 							 * Staging/Deployment Create the SAML token here by
 							 * encoding the response to Base64
 							 */
-							if (ApplicationEx.applicationEx.isdeveloperMode) {
+							if (ApplicationEx.getInstance().isdeveloperMode) {
 								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
 							}
 							startAccountsScreen(samlData);
@@ -441,7 +441,7 @@ public class EnterPINCodeActivity extends BaseActivity{
      */
 	private void startAccountsScreen(String samlData) {
 		
-		ApplicationEx.applicationEx.setSAMLTxt(samlData);
+		ApplicationEx.getInstance().setSAMLTxt(samlData);
 		
 		/* Start the PIN code Activity */
 		Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);

@@ -56,10 +56,10 @@ public class GetMoreTransactionsService extends BaseService {
 	void executeRequest() {
 		
 		//Add headers to HTTP Request
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_accept), getHeaderAccept());
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_uuid), strUUID);
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_jsessionid), sessionID);
-		AddHeader(ApplicationEx.applicationEx.getResources().getString(R.string.http_header_set_cookie), sessionID);//Cookie == JSESSIONID
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), strUUID);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), sessionID);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), sessionID);//Cookie == JSESSIONID
 		
 		try {
 			Thread.sleep(3000);
@@ -75,7 +75,7 @@ public class GetMoreTransactionsService extends BaseService {
 			//Log.d("", "RESPONSE::::"+response);
 			
 			if(response == null) {
-				sentFailure(ApplicationEx.applicationEx.getString(R.string.no_internet_connection));
+				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
 			} else if(!TextUtils.isEmpty(response)) {
 				
 				ArrayList<TransactionDataModel> transactionArrayList = new ArrayList<TransactionDataModel>();
@@ -85,7 +85,7 @@ public class GetMoreTransactionsService extends BaseService {
 					getMoreTransactions.onGetMoreTransactionFinished(transactionArrayList);
 				}
 			} else {
-				sentFailure(ApplicationEx.applicationEx.getString(R.string.exception_general));
+				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));
 			}
 		} catch (Exception e) {
 			sentFailure(getExceptionType(e));
