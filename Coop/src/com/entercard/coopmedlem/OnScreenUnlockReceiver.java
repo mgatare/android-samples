@@ -6,7 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class ScreenUnlockReceiver extends BroadcastReceiver {
+public class OnScreenUnlockReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -26,6 +26,7 @@ public class ScreenUnlockReceiver extends BroadcastReceiver {
 			if (preferenceHelper.getInt(context.getResources().getString(R.string.pref_is_activated)) == 1) {
 				/* Start the PIN code Activity */
 				Intent enterPINIntent = new Intent(context, EnterPINCodeActivity.class);
+				enterPINIntent.putExtra(context.getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
 				enterPINIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(enterPINIntent);
 				

@@ -14,8 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -28,12 +26,14 @@ import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.encapsecurity.encap.android.client.api.exception.LockedException;
+import com.entercard.coopmedlem.services.FundsTransferService;
+import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
-public class EnterPINCodeActivity extends BaseActivity{
+public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener{
 
 	private EditText pin1EditText;
 	private EditText pin2EditText;
@@ -45,7 +45,10 @@ public class EnterPINCodeActivity extends BaseActivity{
 	private Controller controller;
 	private EditText dummyEditText;
 	private String clientDate = null;
+	private int ACTIVITY_RESULT_STATE;
 	private StringBuilder stringBuilder;//Will be used in JB and Up devices that will act for an softKeyboard from a TextWatcher
+	
+	private FundsTransferService fundsTransferService;
 	
 	@Override
 	protected void onResume() {
@@ -59,6 +62,8 @@ public class EnterPINCodeActivity extends BaseActivity{
 		setContentView(R.layout.activity_enter_pin);
 
 		init();
+		
+		ACTIVITY_RESULT_STATE = getIntent().getExtras().getInt(getResources().getString(R.string.pref_verify_pin));
 		
 		getFocusToDummyEditText();
 	
@@ -370,7 +375,6 @@ public class EnterPINCodeActivity extends BaseActivity{
 		 * localizationArguments=[], com.encapsecurity.dd[fatal=true,
 		 * remainingAttempts=0]]]
 		 **/
-		
 	}
 	
 	/**
@@ -390,7 +394,7 @@ public class EnterPINCodeActivity extends BaseActivity{
 							
 							final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
 							Log.i("COOP", throwable.getMessage()+ ">>>AuthenticationFailedException>>"+ throwable);
-							//Log.i("COOP", throwable.getMessage()+ ">>>Attempt Remaining::: "+ remainingAttempts);
+							Log.i("COOP", throwable.getMessage()+ ">>>Attempt Remaining::: "+ remainingAttempts);
 
 							shakePINLayout();
 
@@ -426,29 +430,86 @@ public class EnterPINCodeActivity extends BaseActivity{
 							if (ApplicationEx.getInstance().isdeveloperMode) {
 								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
 							}
-							startAccountsScreen(samlData);
+							/*
+							 * Store the SAML data as required for the rest of the WS calls and move to the next screen
+							 */
+							ApplicationEx.getInstance().setSAMLTxt(samlData);
+							selectNextActivity(ACTIVITY_RESULT_STATE);
+							
 						} else {
 							AlertHelper.Alert("SAML data not found.",EnterPINCodeActivity.this);
 						}
 					}
 				});
 	}
+	
+	/*
+	private void returnResult() {
+		setResult(RESULT_OK);
+		finish();
+	}*/
+	
     /**
      * 
-     * @param samlData 
-     * @param samlClientDate 
-     * @param samlTxt
+     * @param samlData
+     * @param activityStatus
      */
-	private void startAccountsScreen(String samlData) {
+	private void selectNextActivity(int activityStatus) {
 		
-		ApplicationEx.getInstance().setSAMLTxt(samlData);
+		Log.i("", "---activityStatus-->>>>"+activityStatus);
 		
-		/* Start the PIN code Activity */
-		Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
+		switch (activityStatus) {
+		case BaseActivity.NO_STATE:
+			/* Start the PIN code Activity */
+			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
 
-		finish();
+			finish();
+			break;
+
+		case BaseActivity.DISPUTE:
+			
+			setResult(RESULT_OK);
+			finish();
+			break;
+			
+		case BaseActivity.TRANSFER_FUNDS:
+			/**
+			 * Make Webservice call here
+			 */
+			String uuidTxt = ApplicationEx.getInstance().getUUID();
+			String accountIDTxt = ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getAccountNumber();
+			String sessionIDTxt = ApplicationEx.getInstance().getCookie();
+			String samlIDTxt = ApplicationEx.getInstance().getSAMLTxt();
+			
+			Log.i("", "---getAccountPosition-->>>>"+getAccountPosition());
+			
+			String accountNumberTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAccNumer();
+			String messageTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsMessage();
+			int amountTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAmount();
+			String benificiaryNameTxt = BaseActivity.getSingletonUserDataModel().get(0).getBeneficiaryName();
+			
+			showProgressDialog();
+			fundsTransferService = new FundsTransferService(uuidTxt, sessionIDTxt, 
+					samlIDTxt, accountIDTxt, accountNumberTxt, messageTxt, 
+					amountTxt, benificiaryNameTxt);
+			
+			fundsTransferService.setTransactionListener(EnterPINCodeActivity.this);
+			ApplicationEx.operationsQueue.execute(fundsTransferService);
+			break;
+
+		case BaseActivity.CLI:
+			
+			//setResult(RESULT_OK);
+			//finish();
+			break;
+
+		default:
+			break;
+		}
+		
+		
 	}
 	/**
 	 * 
@@ -493,16 +554,41 @@ public class EnterPINCodeActivity extends BaseActivity{
 		}
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
 	}
-	
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		Log.d("COOP", "-----onOptionsItemSelected-----");
+//		return super.onOptionsItemSelected(item);
+//	}
+//	
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		Log.d("COOP", "-----onCreateOptionsMenu-----");
+//		return super.onCreateOptionsMenu(menu);
+//	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d("COOP", "-----onOptionsItemSelected-----");
-		return super.onOptionsItemSelected(item);
+	public void onFundsTransferSuccess(String resp) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----success-----"+RESULT_OK);
+				setResult(RESULT_OK);
+				finish();
+			}
+		});
 	}
-	
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.d("COOP", "-----onCreateOptionsMenu-----");
-		return super.onCreateOptionsMenu(menu);
+	public void onFundsTransferFailed(final String error) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----error-----"+error);
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
 	}
 }

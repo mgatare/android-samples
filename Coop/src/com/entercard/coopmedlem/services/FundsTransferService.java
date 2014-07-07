@@ -1,30 +1,17 @@
 package com.entercard.coopmedlem.services;
 
-import java.util.ArrayList;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
 
 public class FundsTransferService extends BaseService {
-
-	/**http://127.0.0.1:9393/accounts/5299369000100666/fundsTransfer
-
-request.headers={
-    Accept = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
-    "Accept-Language" = "en;q=1, fr;q=0.9, de;q=0.8, zh-Hans;q=0.7, zh-Hant;q=0.6, ja;q=0.5";
-    "Content-Type" = "application/json; charset=utf-8";
-    SAML = "PHNhbWwyOkFzc2QXNzZXJ0aW9uPg==";
-    UUID = "051cf03a-1184-4401-bdec-8afde58b2008";
-    "User-Agent" = "Remember/558.15 (iPhone Simulator; iOS 7.1; Scale/2.00)";
-    jsessionid = "2014-05-30 14:20:51 +0530";
-}
-**/
 	
-	private final String TAG_FUNDS_TRANSFER= "/fundsTransfer";
+	private final String TAG_FUNDS_TRANSFER= "fundsTransfer";
 	private final String TAG_ACCOUNTS= "accounts";
 	private FundsTransferListener fundsTransferListener;
 	
@@ -34,17 +21,17 @@ request.headers={
 	private String accountNum;
 	private String beneficiaryAccountNumber;
 	private String message;
-	private String amount;
+	private int amount;
 	private String beneficiaryName;
 	
 	public interface FundsTransferListener {
-		void onFundsTransferFinished(ArrayList<String> arrayList);
+		void onFundsTransferSuccess(String resp);
 		void onFundsTransferFailed(String error);
 	}
 
 	public FundsTransferService(String uuid, String sessionID, String saml,
 			String accountNum, String beneficiaryAccountNumber, String message,
-			String amount, String beneficiaryName) {
+			int amount, String beneficiaryName) {
 		
 		this.uuid = uuid;
 		this.jsessionID = sessionID;
@@ -75,21 +62,26 @@ request.headers={
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), saml);
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), uuid);
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), jsessionID);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), jsessionID);
 		
 		try {
 			
 			String url = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_FUNDS_TRANSFER;
 			//Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
 			String response = makeRequest(url, getRequestJSONString(), POST);
+			Log.i("COOP", ">>>>RESPONSE>>>>>"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
-			} else if(!TextUtils.isEmpty(response)) {
 				
-				ArrayList<String> transactionArrayList = new ArrayList<String>();
-				
-				if (fundsTransferListener != null) {
-					fundsTransferListener.onFundsTransferFinished(transactionArrayList);
+			} else if (statusCode == 204) {// SINCE THE RESPONSE IN EMPTY SENT FROM WS
+				if (null != fundsTransferListener) {
+					fundsTransferListener.onFundsTransferSuccess("");
+				}
+			} else if (!TextUtils.isEmpty(response)) { //WILL BE NEEDED FOR ERROR CHECKING FORM RESPONS
+				String resp = parseResponseJSON(response);
+				if (null != fundsTransferListener) {
+					fundsTransferListener.onFundsTransferSuccess(resp);
 				}
 			} else {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));
@@ -98,28 +90,47 @@ request.headers={
 			sentFailure(getExceptionType(e));
 		}
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	private String getRequestJSONString() {
-		/**
-		 * request.body={"fundsTransfer":{"beneficiaryAccountNumber":
-		 * "11111111111"
-		 * ,"message":"asdas","amount":1111,"beneficiaryName":"Amits"}}
-		 **/
 		JSONObject fundsTransferJsonObject = new JSONObject();
 		try {
-
-			JSONObject innerJsonObject = new JSONObject();
-
-			innerJsonObject.put("beneficiaryAccountNumber", beneficiaryAccountNumber);
-			innerJsonObject.put("message", message);
-			innerJsonObject.put("amount", amount);
-			innerJsonObject.put("beneficiaryName", beneficiaryName);
 			
-			fundsTransferJsonObject.put("fundsTransfer", innerJsonObject.toString());
+			JSONObject innerJsonObject = new JSONObject();
+			innerJsonObject.put("amount", amount);
+			innerJsonObject.put("message", message);
+			innerJsonObject.put("beneficiaryName", beneficiaryName);
+			innerJsonObject.put("beneficiaryAccountNumber", beneficiaryAccountNumber);
+			
+			fundsTransferJsonObject.put("fundsTransfer", innerJsonObject);
 			
 		} catch (Exception e) {
 			sentFailure(getExceptionType(e));
 		}
+		//Log.i("COOP", ">>>>>>>>fundsTransferJsonObject.toString()>>>>>>>>>"+fundsTransferJsonObject);
 		return fundsTransferJsonObject.toString();
+	}
+	/**
+	 * 
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 * @throws JSONException
+	 */
+	private String parseResponseJSON(String response) throws Exception, JSONException {
+
+		JSONObject responseJSON = new JSONObject(response);
+		
+		if (responseJSON.has("error")) {
+			JSONObject errorJson = responseJSON.getJSONObject("error");
+			String reason = null;
+			if (errorJson.has("reason")) {
+				reason = errorJson.getString("reason");
+				throw new Exception(reason);
+			}
+		}
+		return "";
 	}
 }

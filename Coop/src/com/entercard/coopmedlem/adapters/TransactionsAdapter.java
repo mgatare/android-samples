@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
+import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.ImageLoader;
 import com.entercard.coopmedlem.utils.StringUtils;
 import com.entercard.coopmedlem.utils.Utils;
@@ -78,7 +79,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		
 		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
 
-		dateTextView.setText(getItem(position).getDate());
+		String date = DateUtils.getTransactionDate(getItem(position).getDate());
+		dateTextView.setText(date);
+		
 		priceTextView.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
 		nameTextView.setText(getItem(position).getDescription());
 

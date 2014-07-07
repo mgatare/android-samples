@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem;
 
+import java.util.ArrayList;
+
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,6 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.entercard.coopmedlem.entities.SingletonUserDataModel;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -54,6 +58,14 @@ public class BaseActivity extends ActionBarActivity {
 	/** The spent. */
 	private static String spent;
 
+	//private static HashMap<String, String> customerFundsData;
+	private static ArrayList<SingletonUserDataModel> singletonUserDataModel;
+	
+	public static final  int NO_STATE = 110;
+	public static final int DISPUTE = 111; 
+	public static final int TRANSFER_FUNDS = 112; 
+	public static final int CLI = 113;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -65,9 +77,23 @@ public class BaseActivity extends ActionBarActivity {
 
 		regUnlockReceiver();
 
-		// /regActivityLogoutReceiver();
 	}
 
+//	public enum ActivityState {
+//		NO_STATE(110),
+//		DISPUTE(111), 
+//		TRANSFER_FUNDS(112), 
+//		CLI(113); 
+//		//DELETED("D");
+//		private int status;
+//		private ActivityState(int i) {
+//			status = i;
+//		}
+//		public Integer getStatusCode() {
+//			return status;
+//		}
+//	}
+	
 	/**
 	 * Long toast.
 	 * 
@@ -276,7 +302,7 @@ public class BaseActivity extends ActionBarActivity {
 	private void regUnlockReceiver() {
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
-		receiver = new ScreenUnlockReceiver();
+		receiver = new OnScreenUnlockReceiver();
 		registerReceiver(receiver, filter);
 	}
 
@@ -327,4 +353,20 @@ public class BaseActivity extends ActionBarActivity {
 			receiver = null;
 		}
 	}
+
+	public static ArrayList<SingletonUserDataModel> getSingletonUserDataModel() {
+		return singletonUserDataModel;
+	}
+
+	public static void setSingletonUserDataModel(ArrayList<SingletonUserDataModel> singletonUserDataModel) {
+		BaseActivity.singletonUserDataModel = singletonUserDataModel;
+	}
+
+//	public static HashMap<String, String> getCustomerFundsData() {
+//		return customerFundsData;
+//	}
+//
+//	public static void setCustomerFundsData(HashMap<String, String> customerFundsData) {
+//		BaseActivity.customerFundsData = customerFundsData;
+//	}
 }

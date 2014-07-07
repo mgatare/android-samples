@@ -11,7 +11,7 @@
     <dimen name="button_plus_width">45dp</dimen>
     
     <dimen name="font_size_small">13sp</dimen>
-    <dimen name="font_size_normal">17sp</dimen>
+    <dimen name="font_size_normal">16sp</dimen>
     <dimen name="font_size_screen_title">19sp</dimen>
     <dimen name="font_size_screen_activate">20sp</dimen>
     <dimen name="font_currency">25sp</dimen>

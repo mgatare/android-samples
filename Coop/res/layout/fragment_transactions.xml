@@ -51,7 +51,7 @@
             android:gravity="left"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_currency"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/lblOpenToBuy"
@@ -61,7 +61,7 @@
             android:gravity="right"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_currency"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
     </LinearLayout>
 
     <!-- <LinearLayout -->

@@ -91,36 +91,10 @@ public class DateUtils {
 	 *            the date
 	 * @return the formated date
 	 */
-	public static String getFormatedDate(String date) {
-		// 2013-04-17 10:44:59
+	public static String getTransactionDate(String date) {
+		// 2013-09-18 -- COOP
 		String formatedDate = "";
-		String oldFormat = "yyyy-MM-dd HH:mm:ss";
-		String newFormat = "dd-MM-yyyy";
-
-		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
-		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
-
-		try {
-			formatedDate = sdf2.format(sdf1.parse(date));
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return formatedDate;
-	}
-
-	/**
-	 * Gets the formated date.
-	 * 
-	 * @param date
-	 *            the date
-	 * @return the formated date
-	 */
-	public static String getTripFormatedDate(String date) {
-		// 2013-04-17 10:44:59
-		String formatedDate = "";
-		String oldFormat = "yyyy-MM-dd HH:mm:ss";
+		String oldFormat = "yyyy-MM-dd";
 		String newFormat = "dd/MM/yyyy";
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);

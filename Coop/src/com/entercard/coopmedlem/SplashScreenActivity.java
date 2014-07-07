@@ -24,6 +24,7 @@ public class SplashScreenActivity extends FragmentActivity {
 					/* Start the PIN code Activity */
 					Intent intent = new Intent(SplashScreenActivity.this, EnterPINCodeActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
 					SplashScreenActivity.this.startActivity(intent);
 					SplashScreenActivity.this.finish();
 					

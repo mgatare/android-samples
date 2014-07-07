@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.FinishActivationResult;
 import com.entercard.coopmedlem.ActivateAppActivity;
+import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.R.style;
@@ -98,6 +99,7 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 												
 												Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
 												intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+												intent.putExtra(parentActivity.getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
 												parentActivity.startActivity(intent);
 												parentActivity.finish();
 											}

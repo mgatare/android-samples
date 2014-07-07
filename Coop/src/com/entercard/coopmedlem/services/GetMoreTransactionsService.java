@@ -81,7 +81,7 @@ public class GetMoreTransactionsService extends BaseService {
 				ArrayList<TransactionDataModel> transactionArrayList = new ArrayList<TransactionDataModel>();
 				transactionArrayList = parseJSONResponse(response);
 				
-				if (getMoreTransactions != null) {
+				if (null!=transactionArrayList && null!=getMoreTransactions) {
 					getMoreTransactions.onGetMoreTransactionFinished(transactionArrayList);
 				}
 			} else {

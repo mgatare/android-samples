@@ -59,10 +59,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 						}
 					}
 				});
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			actionBar.addTab(actionBar.newTab()
-					.setText(mSectionsPagerAdapter.getPageTitle(i))
+			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
 	}
@@ -109,13 +109,11 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	}
 
 	@Override
-	public void onTabUnselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
+	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 	}
 
 	@Override
-	public void onTabReselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
+	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 	}
 
 	/**
