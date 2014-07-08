@@ -488,7 +488,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			String accountNumberTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAccNumer();
 			String messageTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsMessage();
 			int amountTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAmount();
-			String benificiaryNameTxt = BaseActivity.getSingletonUserDataModel().get(0).getBeneficiaryName();
+			String benificiaryNameTxt = BaseActivity.getSingletonUserDataModel().get(0).getBenificiaryName();
 			
 			showProgressDialog();
 			fundsTransferService = new FundsTransferService(uuidTxt, sessionIDTxt, 

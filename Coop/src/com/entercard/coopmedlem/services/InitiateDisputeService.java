@@ -2,12 +2,14 @@ package com.entercard.coopmedlem.services;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.text.TextUtils;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
 
-public class DisputeRaiseService extends BaseService {
+public class InitiateDisputeService extends BaseService {
 	
 	/***http://127.0.0.1:9393/accounts/5299369000100666/transactions/165/dispute
 request.headers={
@@ -35,7 +37,7 @@ request.headers={
 		void onRaiseDisputeFailed(String error);
 	}
 
-	public DisputeRaiseService(String uuid, String saml, String acountNumber, String transNumber, String jsessionID) {
+	public InitiateDisputeService(String uuid, String saml, String acountNumber, String transNumber, String jsessionID) {
 		this.struuid = uuid;
 		this.strSAML = saml;
 		this.strAccountNumer = acountNumber;
@@ -83,5 +85,37 @@ request.headers={
 		} catch (Exception e) {
 			sentFailure(getExceptionType(e));
 		}
+	}
+	
+	private String getRequestJSONString() {
+		/**{
+	    "dispute": {
+	        "billingAmount": Number,
+	        "description": String,
+	        "email": String,
+	        "knownTransaction": boolean,
+	        "mobile": String,
+	        "reason": String,
+	        "transactionDate": String
+	    }
+	}**/
+		JSONObject requestJSON = new JSONObject();
+
+		try {
+
+			JSONObject innerJSON = new JSONObject();
+			innerJSON.put("billingAmount", "");
+			innerJSON.put("description", "");
+			innerJSON.put("email", "");
+			innerJSON.put("knownTransaction", "");
+			innerJSON.put("mobile", "");
+			innerJSON.put("reason", "");
+			innerJSON.put("transactionDate", "");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 }

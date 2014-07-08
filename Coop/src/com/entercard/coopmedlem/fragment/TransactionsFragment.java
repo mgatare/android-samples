@@ -56,36 +56,37 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_transactions,
-				container, false);
 
-		parentActivity = (HomeScreenActivity) getActivity();
-		
+		View rootView = inflater.inflate(R.layout.fragment_transactions,container, false);
 		init(rootView);
-		
-		transactionsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getTransactionDataArraylist();
-		
+
+		transactionsArrayList = ApplicationEx.getInstance()
+				.getAccountsArrayList().get(position)
+				.getTransactionDataArraylist();
+
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),getActivity());
+			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),
+					getActivity());
 		}
 		return rootView;
 	}
 
 	private void init(View rootView) {
-		
-		//Get Initial values for the account
+
+		parentActivity = (HomeScreenActivity) getActivity();
+		// Get Initial values for the account
 		position = parentActivity.getAccountPosition();
 		openToBuyCashTxt = parentActivity.getOpenToBuy();
 		spentCashTxt = parentActivity.getSpent();
 		tranxCount = parentActivity.getTransactionsCount();
-		
+
 		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
 		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
-		
-		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
-		
+
+		transactionListView = (LoadMoreListView) rootView
+				.findViewById(R.id.listTransaction);
 	}
 
 	private void setData() {

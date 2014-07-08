@@ -44,7 +44,11 @@ public class CardsAdapter extends ArrayAdapter<DataModel> {
 
 		holder.cardNametextView.setText(getItem(position).getName());
 		holder.cardNumberTextView.setText("Card number: "+getItem(position).getId());
-
+		if (position % 2 == 0) {
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
+		} else {
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
+		}
 		return convertView;
 	}
 

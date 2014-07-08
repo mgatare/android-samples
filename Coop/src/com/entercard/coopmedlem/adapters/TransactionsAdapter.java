@@ -3,6 +3,7 @@ package com.entercard.coopmedlem.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,9 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.entercard.coopmedlem.BaseActivity;
+import com.entercard.coopmedlem.DisputeTransactionActivity;
+import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.DateUtils;
@@ -65,7 +69,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,6 +79,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		TextView dateTextView = (TextView) convertView.findViewById(R.id.lblDate);
 		TextView priceTextView = (TextView) convertView.findViewById(R.id.lblPrice);
 		TextView nameTextView = (TextView) convertView.findViewById(R.id.lblName);
+		Button btnDisputeOnMap = (Button) convertView.findViewById(R.id.btnDisputeOnMap);
 		//ImageView imgMarker = (ImageView) convertView.findViewById(R.id.imgMarker);
 		
 		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
@@ -151,7 +156,20 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				}
 			}
 		});
-
+		
+		btnDisputeOnMap.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Log.e("COOP", ":::::AMOUNT:::::"+getItem(position).getBillingAmount());
+				Log.e("COOP", ":::::DESCRIPTION:::::"+getItem(position).getDescription());
+				Log.e("COOP", ":::::DATE:::::"+getItem(position).getDate());
+				
+				Intent intent = new Intent(context, DisputeTransactionActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(intent);
+				
+			}
+		});
+		
 		return convertView;
 	}
 

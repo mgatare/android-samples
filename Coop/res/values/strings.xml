@@ -51,6 +51,8 @@
     <string name="occupancy">Occupancy</string>
     <string name="employment">Employment</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
+    <string name="btn_increase_credit_limit">+ Increase Credit Limt</string>
+    <string name="cards">CARDS</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
@@ -79,6 +81,10 @@
     <string name="account_number_length">Account number must be 11 digits.</string>
     <string name="amount_incorrect">Amount must be atleast 500.</string>
     <string name="funds_transfer_success">The funds were transferred successfully.</string>
+    <string name="dispute_validation">Reason is missing.\nE-mail is missing.\nPhone number is missing.</string>
+    <string name="reason_is_missing">Reason is missing.</string>
+    <string name="email_is_missing">E-mail is missing.</string>
+    <string name="phone_is_missing">Phone number is missing.</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>

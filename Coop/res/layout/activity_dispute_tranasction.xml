@@ -2,11 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_ten_px"
         android:orientation="horizontal"
         android:weightSum="1" >
 
@@ -14,61 +16,104 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/view_usual_margin"
             android:layout_weight="0.6"
             android:gravity="left"
             android:text="@string/recognize_transaction"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text_dark"
             android:textSize="@dimen/font_size_normal" />
 
         <ToggleButton
-            android:id="@+id/toggleButton1"
+            android:id="@+id/toogleTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
-            android:text="ToggleButton" />
+            android:text="@null" />
     </LinearLayout>
 
     <include layout="@drawable/seperator" />
 
-    <EditText
-        android:id="@+id/txtReasonDispute"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="@dimen/view_usual_margin"
-        android:background="@android:color/transparent"
-        android:gravity="left"
-        android:hint="@string/reason_for_dispute"
-        android:inputType="text"
-        android:maxLines="5"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font_size_normal" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_ten_px"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/reason_for_dispute"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <EditText
+            android:id="@+id/txtReasonDispute"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/margin_fifteen_px"
+            android:background="@android:color/transparent"
+            android:gravity="left"
+            android:inputType="text"
+            android:maxLines="5"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+    </LinearLayout>
 
     <include layout="@drawable/seperator" />
 
-    <EditText
-        android:id="@+id/txtEmail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/view_usual_margin"
-        android:background="@android:color/transparent"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:maxLines="5"
-        android:textSize="@dimen/font_size_normal" />
+        android:layout_margin="@dimen/margin_ten_px"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/email"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:inputType="textEmailAddress"
+            android:maxLines="5"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+    </LinearLayout>
 
     <include layout="@drawable/seperator" />
 
-    <EditText
-        android:id="@+id/txtPhone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/view_usual_margin"
-        android:background="@android:color/transparent"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:maxLines="5"
-        android:textSize="@dimen/font_size_normal" />
+        android:layout_margin="@dimen/margin_ten_px"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/phone_number"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <EditText
+            android:id="@+id/txtPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:background="@android:color/transparent"
+            android:inputType="phone"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+    </LinearLayout>
 
     <include layout="@drawable/seperator" />
 
@@ -77,8 +122,15 @@
         style="@style/Theme.Coopmedlem.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/view_usual_margin"
-        android:text="@string/option_transfer_funds"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/view_usual_margin"
+        android:drawableLeft="@drawable/dispute_triangle"
+        android:drawablePadding="-20dp"
+        android:gravity="center"
+        android:paddingLeft="60dip"
+        android:paddingRight="60dip"
+        android:text="@string/dispute_transaction"
         android:textColor="@android:color/white"
         android:textSize="@dimen/font_size_normal" />
 

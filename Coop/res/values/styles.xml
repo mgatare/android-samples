@@ -41,7 +41,7 @@
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">2</item>
         <item name="android:typeface">normal</item>

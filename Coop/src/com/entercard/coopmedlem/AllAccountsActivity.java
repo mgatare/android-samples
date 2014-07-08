@@ -118,15 +118,32 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		
 		if(null!=accountArrayList && accountArrayList.size()!=0) {
 			
-			ApplicationEx.getInstance().setAccountsArrayList(accountArrayList);
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
-					accountsListView.setAdapter(adapter);
-					adapter.notifyDataSetChanged();
-				}
-			});
+			/*If Just one account then directly move the user to the transactions screen*/
+			if(accountArrayList.size()>1) {
+				ApplicationEx.getInstance().setAccountsArrayList(accountArrayList);
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
+						accountsListView.setAdapter(adapter);
+						adapter.notifyDataSetChanged();
+					}
+				});
+			} else {
+				String openToBuy =  ApplicationEx.getInstance().getAccountsArrayList().get(0).getOpenToBuy();
+				String spent = ApplicationEx.getInstance().getAccountsArrayList().get(0).getSpent();
+				int count = Integer.parseInt(ApplicationEx.getInstance().getAccountsArrayList().get(0).getTransactionsCount());
+				
+				//Set these temporarily in BaseActivity all Class level
+				setOpenToBuy(openToBuy);
+				setSpent(spent);
+				setAccountPosition(0);
+				setTransactionsCount(count);
+				
+				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			}
 		} else {
 			ApplicationEx.getInstance().setAccountsArrayList(null);
 		}

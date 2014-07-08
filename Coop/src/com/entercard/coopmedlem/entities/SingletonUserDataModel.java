@@ -9,10 +9,13 @@ public class SingletonUserDataModel {
 	private String occupancy;
 	private String employment;
 
-	private String identifyTransc;
+	private boolean isKnownTransaction;
 	private String disputeReason;
 	private String disputeEmail;
 	private String disputePhone;
+	private String disputebillingAmount;
+	private String disputedescription;
+	private String disputetransactionDate;
 
 	private String benificiaryName;
 	private String fundsAccNumer;
@@ -68,12 +71,12 @@ public class SingletonUserDataModel {
 		this.employment = employment;
 	}
 
-	public String getIdentifyTransc() {
-		return identifyTransc;
+	public boolean getIsKnownTransaction() {
+		return isKnownTransaction;
 	}
 
-	public void setIdentifyTransc(String identifyTransc) {
-		this.identifyTransc = identifyTransc;
+	public void setIsKnownTransaction(boolean isKnownTransaction) {
+		this.isKnownTransaction = isKnownTransaction;
 	}
 
 	public String getDisputeReason() {
@@ -100,7 +103,31 @@ public class SingletonUserDataModel {
 		this.disputePhone = disputePhone;
 	}
 
-	public String getBeneficiaryName() {
+	public String getDisputebillingAmount() {
+		return disputebillingAmount;
+	}
+
+	public void setDisputebillingAmount(String disputebillingAmount) {
+		this.disputebillingAmount = disputebillingAmount;
+	}
+
+	public String getDisputedescription() {
+		return disputedescription;
+	}
+
+	public void setDisputedescription(String disputedescription) {
+		this.disputedescription = disputedescription;
+	}
+
+	public String getDisputetransactionDate() {
+		return disputetransactionDate;
+	}
+
+	public void setDisputetransactionDate(String disputetransactionDate) {
+		this.disputetransactionDate = disputetransactionDate;
+	}
+
+	public String getBenificiaryName() {
 		return benificiaryName;
 	}
 

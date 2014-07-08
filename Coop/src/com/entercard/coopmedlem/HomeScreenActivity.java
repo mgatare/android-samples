@@ -45,7 +45,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 						actionBar.setSelectedNavigationItem(position);
 						switch (position) {
 						case 0:
-							actionBar.setTitle("Transactions");
+							actionBar.setTitle("Transaction");
 							break;
 						case 1:
 							actionBar.setTitle("Transfer Funds");
@@ -81,8 +81,11 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.activity_home_actions, menu);
+		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
+		if(accountsCount>1) {
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.activity_home_actions, menu);
+		}
 	    return super.onCreateOptionsMenu(menu);
 	}
 

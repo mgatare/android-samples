@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,14 +25,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/credit_limit"
+                android:textColor="@color/text_heading"
                 android:textSize="@dimen/font_size_normal"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
             <TextView
+                android:id="@+id/lblCreditlimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="20,000"
+                android:textColor="@color/text_heading"
                 android:textSize="@dimen/font_currency"
                 android:textStyle="normal" />
         </LinearLayout>
@@ -44,7 +47,7 @@
             android:layout_marginRight="@dimen/margin_ten_px"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="0.5"
-            android:text="+ Increase Credit Limt"
+            android:text="@string/btn_increase_credit_limit"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
@@ -55,8 +58,10 @@
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
         android:layout_marginTop="@dimen/margin_ten_px"
-        android:text="CARDS"
-        android:textSize="@dimen/font_size_normal" />
+        android:text="@string/cards"
+        android:textColor="@color/text_heading"
+        android:textSize="@dimen/font_size_normal"
+        android:textStyle="normal" />
 
     <ListView
         android:id="@+id/allCardsListView"
@@ -66,9 +71,8 @@
         android:cacheColorHint="#00000000"
         android:clickable="true"
         android:divider="@android:color/transparent"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0dp"
         android:focusable="true"
-        android:focusableInTouchMode="true" >
-    </ListView>
+        android:focusableInTouchMode="true" />
 
 </LinearLayout>
