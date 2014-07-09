@@ -164,6 +164,10 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				Log.e("COOP", ":::::DATE:::::"+getItem(position).getDate());
 				
 				Intent intent = new Intent(context, DisputeTransactionActivity.class);
+				intent.putExtra("amount", getItem(position).getBillingAmount());
+				intent.putExtra("desc", getItem(position).getDescription());
+				intent.putExtra("date", getItem(position).getDate());
+				intent.putExtra("id", getItem(position).getId());
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(intent);
 				

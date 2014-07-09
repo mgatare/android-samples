@@ -16,6 +16,7 @@ public class SingletonUserDataModel {
 	private String disputebillingAmount;
 	private String disputedescription;
 	private String disputetransactionDate;
+	private String disputetransactionId;
 
 	private String benificiaryName;
 	private String fundsAccNumer;
@@ -71,11 +72,11 @@ public class SingletonUserDataModel {
 		this.employment = employment;
 	}
 
-	public boolean getIsKnownTransaction() {
+	public boolean isKnownTransaction() {
 		return isKnownTransaction;
 	}
 
-	public void setIsKnownTransaction(boolean isKnownTransaction) {
+	public void setKnownTransaction(boolean isKnownTransaction) {
 		this.isKnownTransaction = isKnownTransaction;
 	}
 
@@ -127,6 +128,14 @@ public class SingletonUserDataModel {
 		this.disputetransactionDate = disputetransactionDate;
 	}
 
+	public String getDisputetransactionId() {
+		return disputetransactionId;
+	}
+
+	public void setDisputetransactionId(String disputetransactionId) {
+		this.disputetransactionId = disputetransactionId;
+	}
+
 	public String getBenificiaryName() {
 		return benificiaryName;
 	}
@@ -166,5 +175,4 @@ public class SingletonUserDataModel {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-
 }

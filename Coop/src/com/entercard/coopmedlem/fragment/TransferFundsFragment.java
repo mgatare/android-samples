@@ -96,10 +96,10 @@ public class TransferFundsFragment extends Fragment {
 				arrayList.add(userDataModel);
 				
 				/*Clear old contents*/
-				if(null!=BaseActivity.getSingletonUserDataModel())
-					BaseActivity.getSingletonUserDataModel().clear();
+				if(null!=BaseActivity.getSingletonUserDataModelArrayList())
+					BaseActivity.getSingletonUserDataModelArrayList().clear();
 				
-				BaseActivity.setSingletonUserDataModel(arrayList);
+				BaseActivity.setSingletonUserDataModelList(arrayList);
 				
 				Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -109,30 +109,10 @@ public class TransferFundsFragment extends Fragment {
 		});
 		return parentView;
 	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-	    if (requestCode == 1) {
-			if (resultCode == Activity.RESULT_OK) {
-				Log.d("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-				/**
-				 * TODO: WORK HERE MAYUR FOR WS CALLS...
-				 */
-				AlertHelper.Alert(getResources().getString(R.string.funds_transfer_success), parentActivity);
-
-				txtReceiversName.setText(null);
-				txtAccountNumber.setText(null);
-				txtAmount.setText(null);
-				txtMessage.setText(null);
-			}
-	        if (resultCode == Activity.RESULT_CANCELED) {
-	            AlertHelper.Alert(getResources().getString(R.string.exception_general), parentActivity);
-	        }
-	    }
-	}
-	
+	/**
+	 * 
+	 * @param view
+	 */
 	private void init(View view) {
 
 		parentActivity = (HomeScreenActivity) getActivity();
@@ -147,5 +127,25 @@ public class TransferFundsFragment extends Fragment {
 		lblHeading.setMovementMethod(LinkMovementMethod.getInstance());
 		lblHeading.setLinkTextColor(getResources().getColor(R.color.text_body));
 		
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == 1) {
+			if (resultCode == Activity.RESULT_OK) {
+				Log.d("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				/**
+				 * TODO: WORK HERE MAYUR FOR WS CALLS...
+				 */
+				AlertHelper.Alert(getResources().getString(R.string.funds_transfer_success), parentActivity);
+
+				txtReceiversName.setText(null);
+				txtAccountNumber.setText(null);
+				txtAmount.setText(null);
+				txtMessage.setText(null);
+			}
+	        if (resultCode == Activity.RESULT_CANCELED) {
+	            AlertHelper.Alert(getResources().getString(R.string.exception_general), parentActivity);
+	        }
+	    }
 	}
 }

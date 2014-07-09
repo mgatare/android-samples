@@ -1,5 +1,6 @@
 package com.entercard.coopmedlem;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
@@ -27,13 +28,15 @@ import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailed
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.encapsecurity.encap.android.client.api.exception.LockedException;
 import com.entercard.coopmedlem.services.FundsTransferService;
+import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener;
+import com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
-public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener{
+public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener, InitiateDisputeListener{
 
 	private EditText pin1EditText;
 	private EditText pin2EditText;
@@ -49,6 +52,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	private StringBuilder stringBuilder;//Will be used in JB and Up devices that will act for an softKeyboard from a TextWatcher
 	
 	private FundsTransferService fundsTransferService;
+	private InitiateDisputeService initiateDisputeService;
 	
 	@Override
 	protected void onResume() {
@@ -457,6 +461,50 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	private void selectNextActivity(int activityStatus) {
 		
 		Log.i("", "---activityStatus-->>>>"+activityStatus);
+		String accountNumberTxt = null;
+		String messageTxt= null;
+		int amountTxt = 0;
+		String benificiaryNameTxt = null;
+		String transactionID = null;
+		String billingAmount = null;
+		String description = null;
+		String email = null;
+		boolean knownTransaction = false;
+		String mobile = null;
+		String reason = null;
+		String transactionDate = null;
+		
+		if (null != BaseActivity.getSingletonUserDataModelArrayList()
+				&& !BaseActivity.getSingletonUserDataModelArrayList().isEmpty()) {
+
+			accountNumberTxt = BaseActivity
+					.getSingletonUserDataModelArrayList().get(0)
+					.getFundsAccNumer();
+			messageTxt = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getFundsMessage();
+			amountTxt = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getFundsAmount();
+			benificiaryNameTxt = BaseActivity
+					.getSingletonUserDataModelArrayList().get(0)
+					.getBenificiaryName();
+			transactionID = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getDisputetransactionId();
+			billingAmount = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getDisputebillingAmount();
+			description = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getDisputedescription();
+			email = BaseActivity.getSingletonUserDataModelArrayList().get(0)
+					.getDisputeEmail();
+			knownTransaction = BaseActivity
+					.getSingletonUserDataModelArrayList().get(0)
+					.isKnownTransaction();
+			mobile = BaseActivity.getSingletonUserDataModelArrayList().get(0)
+					.getDisputeEmail();
+			reason = BaseActivity.getSingletonUserDataModelArrayList().get(0)
+					.getDisputeReason();
+			transactionDate = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getDisputetransactionDate();
+		}
 		
 		switch (activityStatus) {
 		case BaseActivity.NO_STATE:
@@ -478,21 +526,12 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			/**
 			 * Make Webservice call here
 			 */
-			String uuidTxt = ApplicationEx.getInstance().getUUID();
-			String accountIDTxt = ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getAccountNumber();
-			String sessionIDTxt = ApplicationEx.getInstance().getCookie();
-			String samlIDTxt = ApplicationEx.getInstance().getSAMLTxt();
-			
-			Log.i("", "---getAccountPosition-->>>>"+getAccountPosition());
-			
-			String accountNumberTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAccNumer();
-			String messageTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsMessage();
-			int amountTxt = BaseActivity.getSingletonUserDataModel().get(0).getFundsAmount();
-			String benificiaryNameTxt = BaseActivity.getSingletonUserDataModel().get(0).getBenificiaryName();
-			
 			showProgressDialog();
-			fundsTransferService = new FundsTransferService(uuidTxt, sessionIDTxt, 
-					samlIDTxt, accountIDTxt, accountNumberTxt, messageTxt, 
+			fundsTransferService = new FundsTransferService(ApplicationEx.getInstance().getUUID(), 
+					ApplicationEx.getInstance().getCookie(), 
+					ApplicationEx.getInstance().getSAMLTxt(), 
+					ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getAccountNumber(), 
+					accountNumberTxt, messageTxt, 
 					amountTxt, benificiaryNameTxt);
 			
 			fundsTransferService.setTransactionListener(EnterPINCodeActivity.this);
@@ -501,15 +540,18 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 		case BaseActivity.CLI:
 			
-			//setResult(RESULT_OK);
-			//finish();
+			showProgressDialog();
+			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
+					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getSessionID(), 
+					accountNumberTxt, transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
+			
+			initiateDisputeService.setInitiateDisputeListener(EnterPINCodeActivity.this);
+			ApplicationEx.operationsQueue.execute(initiateDisputeService);
 			break;
-
+			
 		default:
 			break;
 		}
-		
-		
 	}
 	/**
 	 * 
@@ -540,7 +582,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								Intent intent = new Intent(EnterPINCodeActivity.this, ActivateAppActivity.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
-								
 							}
 						}).show();
 	}
@@ -581,6 +622,32 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 	@Override
 	public void onFundsTransferFailed(final String error) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----error-----"+error);
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
+	}
+
+	@Override
+	public void onInitiateDisputeFinished(String resp) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----success-----"+RESULT_OK);
+				setResult(RESULT_OK);
+				finish();
+			}
+		});
+	}
+
+	@Override
+	public void onInitiateDisputeFailed(final String error) {
 		hideProgressDialog();
 		runOnUiThread(new Runnable() {
 			@Override

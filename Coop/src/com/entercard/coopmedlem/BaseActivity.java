@@ -59,7 +59,7 @@ public class BaseActivity extends ActionBarActivity {
 	private static String spent;
 
 	//private static HashMap<String, String> customerFundsData;
-	private static ArrayList<SingletonUserDataModel> singletonUserDataModel;
+	private static ArrayList<SingletonUserDataModel> singletonUserDataModelArrayList;
 	
 	public static final  int NO_STATE = 110;
 	public static final int DISPUTE = 111; 
@@ -354,12 +354,12 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
-	public static ArrayList<SingletonUserDataModel> getSingletonUserDataModel() {
-		return singletonUserDataModel;
+	public static ArrayList<SingletonUserDataModel> getSingletonUserDataModelArrayList() {
+		return singletonUserDataModelArrayList;
 	}
 
-	public static void setSingletonUserDataModel(ArrayList<SingletonUserDataModel> singletonUserDataModel) {
-		BaseActivity.singletonUserDataModel = singletonUserDataModel;
+	public static void setSingletonUserDataModelList(ArrayList<SingletonUserDataModel> singletonUserDataModel) {
+		BaseActivity.singletonUserDataModelArrayList = singletonUserDataModel;
 	}
 
 //	public static HashMap<String, String> getCustomerFundsData() {

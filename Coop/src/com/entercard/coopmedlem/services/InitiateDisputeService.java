@@ -1,7 +1,6 @@
 package com.entercard.coopmedlem.services;
 
-import java.util.ArrayList;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
@@ -21,40 +20,55 @@ request.headers={
     jsessionid = "2014-05-30 14:20:51 +0530";
 }*/
 
-	private final String METHOD_DISPUTE = "/dispute";
-	private final String TAG_TRANSACTION = "/transactions";
+	private final String METHOD_DISPUTE = "dispute";
+	private final String TAG_TRANSACTION = "transactions";
 	private final String TAG_ACCOUNTS= "accounts";
-	private String struuid;
-	private String strSAML;
-	private String strAccountNumer;
-	private String strTransNumber;
-	private String strJSessionID;
+	private String uuidTxt;
+	private String samlTxt;
+	private String jSessionIDTxt;
+	private String accountNum;
+	private String transactionID;
+	private String billingAmountTxt;
+	private String descriptionTxt;
+	private String email;
+	private boolean knownTransaction; 
+	private String mobile;
+	private String reason;
+	private String transactionDate;
 	
-	private DisputeRaiseListener disputeRaiseListener;
+	private InitiateDisputeListener disputeRaiseListener;
 
-	public interface DisputeRaiseListener {
-		void onRaiseDisputeFinished(ArrayList<String> arrayList);
-		void onRaiseDisputeFailed(String error);
+	public interface InitiateDisputeListener {
+		void onInitiateDisputeFinished(String response);
+		void onInitiateDisputeFailed(String error);
 	}
 
-	public InitiateDisputeService(String uuid, String saml, String acountNumber, String transNumber, String jsessionID) {
-		this.struuid = uuid;
-		this.strSAML = saml;
-		this.strAccountNumer = acountNumber;
-		this.strTransNumber= transNumber;
-		this.strJSessionID = jsessionID;
-		
+	public InitiateDisputeService(String uuid, String saml, String jsessionID, 
+			String accountNum, String transactionID, String billingAmount, String description, String email, boolean knownTransaction, 
+			String mobile, String reason, String transactionDate) {
+		this.uuidTxt = uuid;
+		this.samlTxt = saml;
+		this.jSessionIDTxt = jsessionID;
+		this.accountNum = accountNum;
+		this.transactionID = transactionID;
+		this.billingAmountTxt = billingAmount;
+		this.descriptionTxt= description;
+		this.email = email;
+		this.knownTransaction= knownTransaction;
+		this.mobile = mobile;
+		this.reason= reason;
+		this.transactionDate = transactionDate;
 	}
 	
 	@Override
 	void sentFailure(String codeTxt) {
 		if (disputeRaiseListener != null) {
-			disputeRaiseListener.onRaiseDisputeFailed(codeTxt);
+			disputeRaiseListener.onInitiateDisputeFailed(codeTxt);
 		}
 	}
 	
-	public void setAccountsListener(DisputeRaiseListener serviceListener) {
-		this.disputeRaiseListener = serviceListener;
+	public void setInitiateDisputeListener(InitiateDisputeListener listener) {
+		this.disputeRaiseListener = listener;
 	}
 
 	@Override
@@ -62,22 +76,27 @@ request.headers={
 		
 		//Add headers to HTTP Request
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), strSAML);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), struuid);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), strJSessionID);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), samlTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), uuidTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), jSessionIDTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), jSessionIDTxt);
 		
 		try {
-			String strURL = TAG_ACCOUNTS + "/" + strAccountNumer + "/" + TAG_TRANSACTION + "/" + strTransNumber + "/" + METHOD_DISPUTE;
-			String response = makeRequest(strURL, null, GET);
+			String strURL = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_TRANSACTION + "/" + transactionID + "/" + METHOD_DISPUTE;
+			String response = makeRequest(strURL, getRequestJSONString(), POST);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
-			}else if(!TextUtils.isEmpty(response)) {
+			} else if(statusCode == 204) {
+				if (disputeRaiseListener != null) {
+					disputeRaiseListener.onInitiateDisputeFinished("");
+				}
+			} else if(!TextUtils.isEmpty(response)) {
 				
-				ArrayList<String> accountsArrayList = new ArrayList<String>();
+				String parsedResponse = parseResponseJSON(response);
 				
 				if (disputeRaiseListener != null) {
-					disputeRaiseListener.onRaiseDisputeFinished(accountsArrayList);
+					disputeRaiseListener.onInitiateDisputeFinished(parsedResponse);
 				}
 			} else {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));
@@ -104,18 +123,41 @@ request.headers={
 		try {
 
 			JSONObject innerJSON = new JSONObject();
-			innerJSON.put("billingAmount", "");
-			innerJSON.put("description", "");
-			innerJSON.put("email", "");
-			innerJSON.put("knownTransaction", "");
-			innerJSON.put("mobile", "");
-			innerJSON.put("reason", "");
-			innerJSON.put("transactionDate", "");
+			innerJSON.put("billingAmount", billingAmountTxt);
+			innerJSON.put("description", descriptionTxt);
+			innerJSON.put("email", email);
+			innerJSON.put("knownTransaction", knownTransaction);
+			innerJSON.put("mobile", mobile);
+			innerJSON.put("reason", reason);
+			innerJSON.put("transactionDate", transactionDate);
 
+			requestJSON.put("dispute", innerJSON);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		return requestJSON.toString();
+	}
+	/**
+	 * 
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 * @throws JSONException
+	 */
+	private String parseResponseJSON(String response) throws Exception, JSONException {
+
+		JSONObject responseJSON = new JSONObject(response);
+		
+		if (responseJSON.has("error")) {
+			JSONObject errorJson = responseJSON.getJSONObject("error");
+			String reason = null;
+			if (errorJson.has("reason")) {
+				reason = errorJson.getString("reason");
+				throw new Exception(reason);
+			}
+		}
 		return "";
 	}
 }
