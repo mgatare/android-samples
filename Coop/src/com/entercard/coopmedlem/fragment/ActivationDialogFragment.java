@@ -56,7 +56,7 @@ public class ActivationDialogFragment extends DialogFragment {
 		parentActivity = (ActivateAppActivity) getActivity();
 		
 		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-		View innerView = layoutInflater.inflate(R.layout.view_single_textview, null);
+		View innerView = layoutInflater.inflate(R.layout.view_single_edittextview, null);
 		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 		
 		return new AlertDialog.Builder(getActivity())

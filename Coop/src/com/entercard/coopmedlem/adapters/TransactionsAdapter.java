@@ -19,9 +19,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.DisputeTransactionActivity;
-import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.DateUtils;

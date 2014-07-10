@@ -44,7 +44,7 @@ public abstract class BaseService implements Runnable {
 	private static String BASE_URL = ""; //
 	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
-	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
+	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";//application/vnd.no.entercard.coop-medlem+json; version=2.0
 	private static final boolean isStaging = false;
 	private static final int CONNECTION_TIMEOUT = 150000;
 	protected static final int NETWORK_NOT_AVAILABLE = 2001;

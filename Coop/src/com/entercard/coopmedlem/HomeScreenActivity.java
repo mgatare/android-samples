@@ -177,7 +177,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if(null != finishReceiver) { 
+		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;
 		}

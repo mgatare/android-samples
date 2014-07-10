@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
@@ -18,6 +19,8 @@ request.headers={
     SAML = "PHNhbWQXNzZXJ0aW9uPg==";
     UUID = "051cf03a-1184-4401-bdec-8afde58b2008";
     jsessionid = "2014-05-30 14:20:51 +0530";
+    
+    /accounts/{accountNumber}/transactions/{transactionId}/dispute
 }*/
 
 	private final String METHOD_DISPUTE = "dispute";
@@ -28,7 +31,7 @@ request.headers={
 	private String jSessionIDTxt;
 	private String accountNum;
 	private String transactionID;
-	private String billingAmountTxt;
+	private float billingAmountTxt;
 	private String descriptionTxt;
 	private String email;
 	private boolean knownTransaction; 
@@ -51,7 +54,7 @@ request.headers={
 		this.jSessionIDTxt = jsessionID;
 		this.accountNum = accountNum;
 		this.transactionID = transactionID;
-		this.billingAmountTxt = billingAmount;
+		this.billingAmountTxt = Float.parseFloat(billingAmount);
 		this.descriptionTxt= description;
 		this.email = email;
 		this.knownTransaction= knownTransaction;
@@ -83,7 +86,9 @@ request.headers={
 		
 		try {
 			String strURL = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_TRANSACTION + "/" + transactionID + "/" + METHOD_DISPUTE;
+			Log.d("", ">>URLLLLLLLLLL>>"+strURL);
 			String response = makeRequest(strURL, getRequestJSONString(), POST);
+			Log.d("", ">>RESPONSE>>"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
@@ -108,16 +113,16 @@ request.headers={
 	
 	private String getRequestJSONString() {
 		/**{
-	    "dispute": {
-	        "billingAmount": Number,
-	        "description": String,
-	        "email": String,
-	        "knownTransaction": boolean,
-	        "mobile": String,
-	        "reason": String,
-	        "transactionDate": String
-	    }
-	}**/
+		    "dispute": {
+		        "billingAmount": Number,
+		        "description": String,
+		        "email": String,
+		        "knownTransaction": boolean,
+		        "mobile": String,
+		        "reason": String,
+		        "transactionDate": String
+		    }
+		}**/
 		JSONObject requestJSON = new JSONObject();
 
 		try {
@@ -136,7 +141,7 @@ request.headers={
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		Log.i("COOP", ">>>>>>>>fundsTransferJsonObject.toString()>>>>>>>>>"+requestJSON.toString());
 		return requestJSON.toString();
 	}
 	/**

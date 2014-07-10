@@ -1,6 +1,5 @@
 package com.entercard.coopmedlem;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
@@ -28,8 +27,8 @@ import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailed
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.encapsecurity.encap.android.client.api.exception.LockedException;
 import com.entercard.coopmedlem.services.FundsTransferService;
-import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener;
+import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
@@ -499,7 +498,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 					.getSingletonUserDataModelArrayList().get(0)
 					.isKnownTransaction();
 			mobile = BaseActivity.getSingletonUserDataModelArrayList().get(0)
-					.getDisputeEmail();
+					.getDisputePhone();
 			reason = BaseActivity.getSingletonUserDataModelArrayList().get(0)
 					.getDisputeReason();
 			transactionDate = BaseActivity.getSingletonUserDataModelArrayList()
@@ -508,6 +507,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		
 		switch (activityStatus) {
 		case BaseActivity.NO_STATE:
+			
 			/* Start the PIN code Activity */
 			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -518,8 +518,13 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 		case BaseActivity.DISPUTE:
 			
-			setResult(RESULT_OK);
-			finish();
+			showProgressDialog();
+			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
+					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getSessionID(), 
+					accountNumberTxt, transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
+			
+			initiateDisputeService.setInitiateDisputeListener(EnterPINCodeActivity.this);
+			ApplicationEx.operationsQueue.execute(initiateDisputeService);
 			break;
 			
 		case BaseActivity.TRANSFER_FUNDS:
@@ -539,14 +544,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			break;
 
 		case BaseActivity.CLI:
-			
-			showProgressDialog();
-			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
-					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getSessionID(), 
-					accountNumberTxt, transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
-			
-			initiateDisputeService.setInitiateDisputeListener(EnterPINCodeActivity.this);
-			ApplicationEx.operationsQueue.execute(initiateDisputeService);
+			//TODO:
 			break;
 			
 		default:

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
@@ -117,6 +118,7 @@ public class GetAccountsService extends BaseService {
 				
 				if (accountsJSONObj.has("accountNumber")) {
 					accountsModel.setAccountNumber(accountsJSONObj.getString("accountNumber"));
+					Log.i("COOP", "accountsJSONObj.getString(\"accountNumber\")--->>"+accountsJSONObj.getString("accountNumber"));
 				}
 				if (accountsJSONObj.has("creditLimit")) {
 					accountsModel.setCreditLimit(accountsJSONObj.getString("creditLimit"));

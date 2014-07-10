@@ -53,6 +53,11 @@
     <string name="tag_act_finish">ACTION_LOGOUT</string>
     <string name="btn_increase_credit_limit">+ Increase Credit Limt</string>
     <string name="cards">CARDS</string>
+    <string name="accept_terms_and_condition">Accept terms and conditions</string>
+    <string name="accept_terms_conditions_text">I hereby declare that the information stated is true and correct. If the police investigates the case, I am aware that the card issuer will give the police the information they need in the investigation.</string>
+    <string name="i_accept">I accept</string>
+    <string name="dispute_sent">I accept</string>
+    <string name="you_will_hear_from_us">You will hear from us shortly</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
@@ -84,6 +89,7 @@
     <string name="dispute_validation">Reason is missing.\nE-mail is missing.\nPhone number is missing.</string>
     <string name="reason_is_missing">Reason is missing.</string>
     <string name="email_is_missing">E-mail is missing.</string>
+    <string name="email_is_invalid">E-mail address is in wrong format.</string>
     <string name="phone_is_missing">Phone number is missing.</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
