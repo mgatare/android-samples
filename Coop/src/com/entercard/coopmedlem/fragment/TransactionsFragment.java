@@ -112,9 +112,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 					String uuidTxt = ApplicationEx.getInstance().getUUID();
 					String accountIDTxt = ApplicationEx.getInstance().getAccountsArrayList().get(position).getAccountNumber();
-					String sessionIDTxt = ApplicationEx.getInstance().getCookie();
+					String cookieTxt = ApplicationEx.getInstance().getCookie();
 					
-					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, sessionIDTxt, accountIDTxt, pageNumber);
+					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, cookieTxt, accountIDTxt, pageNumber);
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
 					ApplicationEx.operationsQueue.execute(getMoreTransactionsService);
 					++pageNumber;

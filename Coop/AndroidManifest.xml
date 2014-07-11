@@ -54,6 +54,7 @@
         <activity
             android:name="com.entercard.coopmedlem.BaseActivity"
             android:configChanges="keyboardHidden"
+            android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
@@ -68,6 +69,7 @@
         <activity
             android:name="com.entercard.coopmedlem.HomeScreenActivity"
             android:configChanges="keyboardHidden"
+            android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem"
@@ -93,6 +95,7 @@
         <activity
             android:name="com.entercard.coopmedlem.ShowDisputeOnMapActivity"
             android:configChanges="keyboardHidden"
+            android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
@@ -100,26 +103,30 @@
         <activity
             android:name="com.entercard.coopmedlem.AllAccountsActivity"
             android:configChanges="keyboardHidden"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
             android:name="com.entercard.coopmedlem.EnterPINCodeActivity"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
         <activity
             android:name="com.entercard.coopmedlem.CreditLineIncreaseActivity"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
-          <activity
+        <activity
             android:name="com.entercard.coopmedlem.DisputeTransactionActivity"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
-        
+
         <!-- Google Maps Related -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

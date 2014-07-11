@@ -15,7 +15,6 @@ import com.entercard.coopmedlem.entities.AccountsModel;
 import com.entercard.coopmedlem.entities.CardDataModel;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.CompatibilityUtils;
-import com.entercard.coopmedlem.utils.Utils;
 
 public class GetAccountsService extends BaseService {
 

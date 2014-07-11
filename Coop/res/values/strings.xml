@@ -56,7 +56,7 @@
     <string name="accept_terms_and_condition">Accept terms and conditions</string>
     <string name="accept_terms_conditions_text">I hereby declare that the information stated is true and correct. If the police investigates the case, I am aware that the card issuer will give the police the information they need in the investigation.</string>
     <string name="i_accept">I accept</string>
-    <string name="dispute_sent">I accept</string>
+    <string name="dispute_sent">Dispute Sent</string>
     <string name="you_will_hear_from_us">You will hear from us shortly</string>
 
     <!-- TAGS -->

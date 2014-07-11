@@ -64,23 +64,7 @@ public class ApplicationEx extends Application {
 		init();
 		operationsQueue = new ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE, 100000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 		applicationEx = (ApplicationEx) getApplicationContext();
-	}
-	/**
-	 * Gets the cookie.
-	 *
-	 * @return the cookie
-	 */
-	public String getCookie() {
-		return cookie;
-	}
-
-	/**
-	 * Sets the cookie.
-	 *
-	 * @param cookie the new cookie
-	 */
-	public void setCookie(String cookie) {
-		this.cookie = cookie;
+		//applicationEx = this;
 	}
 
 	public static ApplicationEx getInstance() {
@@ -180,7 +164,7 @@ public class ApplicationEx extends Application {
 
 	/**
 	 * Gets the SAML txt.
-	 *
+	 * 
 	 * @return the SAML txt
 	 */
 	public String getSAMLTxt() {
@@ -189,13 +173,32 @@ public class ApplicationEx extends Application {
 
 	/**
 	 * Sets the SAML txt.
-	 *
-	 * @param sAMLTxt the new SAML txt
+	 * 
+	 * @param sAMLTxt
+	 *            the new SAML txt
 	 */
 	public void setSAMLTxt(String sAMLTxt) {
 		SAMLTxt = sAMLTxt;
 	}
 
+	/**
+	 * Gets the cookie.
+	 * 
+	 * @return the cookie
+	 */
+	public String getCookie() {
+		return cookie;
+	}
+
+	/**
+	 * Sets the cookie.
+	 * 
+	 * @param cookie
+	 *            the new cookie
+	 */
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
+	}
 	/**
 	 * Gets the session id.
 	 *
@@ -230,5 +233,16 @@ public class ApplicationEx extends Application {
 	 */
 	public void setUUID(String uUID) {
 		UUID = uUID;
+	}
+	/**
+	 * 
+	 */
+	public void clearGlobalContents() {
+		setAccountsArrayList(null);
+		//controller = null;
+		setCookie(null);
+		setSAMLTxt(null);
+		setSessionID(null);
+		setUUID(null);
 	}
 }

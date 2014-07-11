@@ -15,8 +15,6 @@ import com.entercard.coopmedlem.entities.TransactionDataModel;
 
 public class GetMoreTransactionsService extends BaseService {
 
-	//http://127.0.0.1:9393/accounts/5299369000100666/transactions?page=3&perPage=50
-	
 	private final String TAG_TRANSACTIONS= "/transactions";
 	private final String TAG_ACCOUNTS= "accounts";
 	private String TAG_PER_PAGE = "&perPage=50";
@@ -25,8 +23,7 @@ public class GetMoreTransactionsService extends BaseService {
 	
 	private String strAccountID;
 	private String strUUID;
-	private String sessionID;
-	private int perNumber;
+	private String cookieTxt;
 	private int pageNumber;
 
 	public interface GetMoreTransaction {
@@ -34,9 +31,9 @@ public class GetMoreTransactionsService extends BaseService {
 		void onGetMoreTransactionFailed(String error);
 	}
 
-	public GetMoreTransactionsService(String uuid, String sessionID, String accountID, int pageNumber) {
+	public GetMoreTransactionsService(String uuid, String cookie, String accountID, int pageNumber) {
 		this.strUUID = uuid;
-		this.sessionID = sessionID;
+		this.cookieTxt = cookie;
 		this.strAccountID = accountID;
 		this.pageNumber = pageNumber;
 	}
@@ -58,9 +55,10 @@ public class GetMoreTransactionsService extends BaseService {
 		//Add headers to HTTP Request
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), strUUID);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), sessionID);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), sessionID);//Cookie == JSESSIONID
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), cookieTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), cookieTxt);//Cookie == JSESSIONID
 		
+		//Sleep for loading the Progress dialog
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -69,7 +67,6 @@ public class GetMoreTransactionsService extends BaseService {
 		try {
 			
 			String url = TAG_ACCOUNTS + "/" + strAccountID + "/" + TAG_TRANSACTIONS + TAG_PAGE + pageNumber + TAG_PER_PAGE;
-			//Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
 			String response = makeRequest(url, null, GET);
 			//Utils.writeToTextFile(response, ApplicationEx.applicationEx, "dumpData.tmp");
 			//Log.d("", "RESPONSE::::"+response);
@@ -111,17 +108,11 @@ public class GetMoreTransactionsService extends BaseService {
 				throw new Exception(reason);
 			}
 		}
-
-		/**,"pagination": 
-        "page": Number, //Page number
-        "perPage": Number, //Transactions per page
-        "total": Number //Total number of transactions
-    	}*/
 		
 		int page = 0;
 		int perPage = 0;
 		int total = 0;
-		
+		//Get the pagination details
 		if (responseJSON.has("pagination")) {
 			
 			JSONObject paginationJSON = responseJSON.getJSONObject("pagination");
@@ -182,15 +173,13 @@ public class GetMoreTransactionsService extends BaseService {
 				if (transactionJSONObj.has("isDisputable")) {
 					transactionModel.setIsDisputable(transactionJSONObj.getBoolean("isDisputable"));
 				}
-				
 				transactionModel.setPage(page);
 				transactionModel.setPerPage(perPage);
 				transactionModel.setTotal(total);
-				
 				arrayListTransaction.add(transactionModel);
 			}
 		}
-		Log.d("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+ arrayListTransaction.size());
+		//Log.d("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+ arrayListTransaction.size());
 		return arrayListTransaction;
 	}
 }

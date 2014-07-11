@@ -3,8 +3,10 @@ package com.entercard.coopmedlem;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -21,7 +23,7 @@ import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import com.entercard.coopmedlem.entities.SingletonUserDataModel;
-import com.entercard.coopmedlem.fragment.TermsAndConditionsDialogFragment;
+import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
 
@@ -103,6 +105,9 @@ public class DisputeTransactionActivity extends BaseActivity {
 				}
 
 				Log.d("COOP", "::amount::" + amount + "::transID::" + transID);
+				
+				Log.i("", "btnIncreaseCreditLimit>>>>"+ApplicationEx.getInstance().getCookie());
+				Log.i("", "btnIncreaseCreditLimit>>>>>"+ApplicationEx.getInstance().getUUID());
 
 				// MAKE WS CALL HERE
 				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
@@ -126,7 +131,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 				arrayList.add(userDataModel);
 				BaseActivity.setSingletonUserDataModelList(arrayList);
 
-				DialogFragment termsDialogFragment = TermsAndConditionsDialogFragment.newInstance(0);
+				DialogFragment termsDialogFragment = AcceptTermsAndConditionDialogFragment.newInstance(0);
 				FragmentManager fragmentManager = getSupportFragmentManager();
 				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 				termsDialogFragment.show(fragmentTransaction,
@@ -164,27 +169,32 @@ public class DisputeTransactionActivity extends BaseActivity {
 		if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d("", "---RESULT_OK----");
-				AlertHelper.Alert(
-						getResources().getString(R.string.dispute_sent),
-						getResources()
-								.getString(R.string.you_will_hear_from_us),
-								getApplicationContext());
-				finish();
+				showDialog();
 			}
 			if (resultCode == Activity.RESULT_CANCELED) {
-				AlertHelper.Alert(
-						getResources().getString(R.string.exception_general),
-						getApplicationContext());
-				Log.d("", "---RESULT_CANCELED----");
-				finish();
+				longToast(getResources().getString(R.string.exception_general));
 			}
 		} else {
 			Log.d("", "---RESULT_NOT FOUND----");
-			AlertHelper.Alert(
-					getResources().getString(R.string.exception_general),
-					getApplicationContext());
-			finish();
+			longToast(getResources().getString(R.string.exception_general));
 		}
+	}
+	
+	private void showDialog() {
+		AlertDialog.Builder builder = null;
+		builder = new AlertDialog.Builder(DisputeTransactionActivity.this);
+		builder.setMessage(getResources().getString(R.string.you_will_hear_from_us))
+				.setTitle(getResources().getString(R.string.dispute_sent))
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+								finish();
+							}
+						}).show();
 	}
 
 	/**

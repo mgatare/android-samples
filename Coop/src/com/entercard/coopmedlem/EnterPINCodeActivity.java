@@ -78,7 +78,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 
 	private void init() {
-		
+		//
 		controller =  ((ApplicationEx) getApplication()).getController();
 		stringBuilder = new StringBuilder();
 		
@@ -326,7 +326,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		stringBuilder = new StringBuilder();
 	}
 	
-	//Shake funcation  for the PIN layout to be shaked if the user enters some wrong PIN
+	//Shake function  for the PIN layout to be shaked if the user enters some wrong PIN
 	private void shakePINLayout() {
 		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 		layoutPinContainer.startAnimation(shake);
@@ -335,7 +335,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 	
 	/**
-	 * Start the Authenticatio of the applciation. This process will be done
+	 * Start the Authentication of the application. This process will be done
 	 * each time the user starts the app
 	 */
 	protected void startAuthentication() {
@@ -365,19 +365,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						hideProgressDialog();
 					}
 				});
-		
-		/**
-		 * 07-01 16:40:14.997: I/COOP(15162): >>>>startAuthentication
-		 * onFailure>>
-		 * com.encapsecurity.encap.android.client.api.exception.LockedException
-		 * [message=Device registration is under lock-down.,
-		 * errorCode=serverErrorLockedPinVerificationFailed,
-		 * cause=com.encapsecurity.da[message=Device registration is under
-		 * lock-down., errorCode=lockedPinVerificationFailed,
-		 * localizationKey=server.error.lockedPinVerificationFailed,
-		 * localizationArguments=[], com.encapsecurity.dd[fatal=true,
-		 * remainingAttempts=0]]]
-		 **/
 	}
 	
 	/**
@@ -445,13 +432,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 					}
 				});
 	}
-	
-	/*
-	private void returnResult() {
-		setResult(RESULT_OK);
-		finish();
-	}*/
-	
     /**
      * 
      * @param samlData
@@ -520,7 +500,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 			showProgressDialog();
 			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
-					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getSessionID(), 
+					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getCookie(), 
 					accountNumberTxt, transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
 			
 			initiateDisputeService.setInitiateDisputeListener(EnterPINCodeActivity.this);
@@ -552,7 +532,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 	}
 	/**
-	 * 
+	 * a silent hug means a thousand words to the unhappy heart
+	 * a silent hug means a thousand words to the unhappy heart
 	 * @param msg
 	 */
 	private void retryErrorDialog(String msg) {
@@ -593,17 +574,18 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
 	}
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		Log.d("COOP", "-----onOptionsItemSelected-----");
-//		return super.onOptionsItemSelected(item);
-//	}
-//	
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		Log.d("COOP", "-----onCreateOptionsMenu-----");
-//		return super.onCreateOptionsMenu(menu);
-//	}
+
+	// @Override
+	// public boolean onOptionsItemSelected(MenuItem item) {
+	// Log.d("COOP", "-----onOptionsItemSelected-----");
+	// return super.onOptionsItemSelected(item);
+	// }
+	//
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// Log.d("COOP", "-----onCreateOptionsMenu-----");
+	// return super.onCreateOptionsMenu(menu);
+	// }
 
 	@Override
 	public void onFundsTransferSuccess(String resp) {

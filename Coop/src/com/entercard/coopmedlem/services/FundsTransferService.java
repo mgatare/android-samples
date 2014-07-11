@@ -57,6 +57,8 @@ public class FundsTransferService extends BaseService {
 	@Override
 	void executeRequest() {
 		
+		Log.i("", "FundsTransferService ID"+jsessionID);
+		
 		//Add headers to HTTP Request
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), saml);

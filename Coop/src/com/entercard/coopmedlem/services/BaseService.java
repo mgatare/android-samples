@@ -44,7 +44,7 @@ public abstract class BaseService implements Runnable {
 	private static String BASE_URL = ""; //
 	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
-	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";//application/vnd.no.entercard.coop-medlem+json; version=2.0
+	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
 	private static final boolean isStaging = false;
 	private static final int CONNECTION_TIMEOUT = 150000;
 	protected static final int NETWORK_NOT_AVAILABLE = 2001;
@@ -231,14 +231,11 @@ public abstract class BaseService implements Runnable {
 
 		Header[] headers = httpResponse.getAllHeaders();
 		for (Header header : headers) {
-			Log.i(TAG, "HEADER Key : " + header.getName() + " : Value : "+ header.getValue());
-
+			Log.i(TAG, "HEADER Key ::: " + header.getName() + " : Value ::: "+ header.getValue());
 			if (header.getName().equalsIgnoreCase("UUID"))
 				ApplicationEx.getInstance().setUUID(header.getValue());
-			
 			else if (header.getName().equalsIgnoreCase("jsessionid"))
 				ApplicationEx.getInstance().setSessionID(header.getValue());
-			
 			else if (header.getName().equalsIgnoreCase("Set-Cookie"))
 				ApplicationEx.getInstance().setCookie(header.getValue());
 		}
@@ -266,7 +263,7 @@ public abstract class BaseService implements Runnable {
 		} else if(e instanceof IOException) {
 			return ApplicationEx.getInstance().getString(R.string.exception_io_exception);
 		} else if(e instanceof Exception) {
-			Log.i("", "EXCEPTION MESSAGE :::: "+e.getMessage());
+			Log.e("", "EXCEPTION MESSAGE :::: "+e.getMessage());
 			return e.getMessage();
 		} else {
 			return ApplicationEx.getInstance().getString(R.string.exception_general);

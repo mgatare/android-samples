@@ -4,54 +4,114 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.R;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InitiateDisputeService.
+ */
 public class InitiateDisputeService extends BaseService {
 	
-	/***http://127.0.0.1:9393/accounts/5299369000100666/transactions/165/dispute
-request.headers={
-    Accept = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
-    "Accept-Language" = "en;q=1, fr;q=0.9, de;q=0.8, zh-Hans;q=0.7, zh-Hant;q=0.6, ja;q=0.5";
-    "Content-Type" = "application/json; charset=utf-8";
-    SAML = "PHNhbWQXNzZXJ0aW9uPg==";
-    UUID = "051cf03a-1184-4401-bdec-8afde58b2008";
-    jsessionid = "2014-05-30 14:20:51 +0530";
-    
-    /accounts/{accountNumber}/transactions/{transactionId}/dispute
-}*/
-
+	/** The method dispute. */
 	private final String METHOD_DISPUTE = "dispute";
+	
+	/** The tag transaction. */
 	private final String TAG_TRANSACTION = "transactions";
+	
+	/** The tag accounts. */
 	private final String TAG_ACCOUNTS= "accounts";
+	
+	/** The uuid txt. */
 	private String uuidTxt;
+	
+	/** The saml txt. */
 	private String samlTxt;
-	private String jSessionIDTxt;
+	
+	/** The cookie txt. */
+	private String cookieTxt;
+	
+	/** The account num. */
 	private String accountNum;
+	
+	/** The transaction id. */
 	private String transactionID;
+	
+	/** The billing amount txt. */
 	private float billingAmountTxt;
+	
+	/** The description txt. */
 	private String descriptionTxt;
+	
+	/** The email. */
 	private String email;
+	
+	/** The known transaction. */
 	private boolean knownTransaction; 
+	
+	/** The mobile. */
 	private String mobile;
+	
+	/** The reason. */
 	private String reason;
+	
+	/** The transaction date. */
 	private String transactionDate;
 	
+	/** The dispute raise listener. */
 	private InitiateDisputeListener disputeRaiseListener;
 
+	/**
+	 * The listener interface for receiving initiateDispute events.
+	 * The class that is interested in processing a initiateDispute
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addInitiateDisputeListener<code> method. When
+	 * the initiateDispute event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see InitiateDisputeEvent
+	 */
 	public interface InitiateDisputeListener {
+		
+		/**
+		 * On initiate dispute finished.
+		 *
+		 * @param response the response
+		 */
 		void onInitiateDisputeFinished(String response);
+		
+		/**
+		 * On initiate dispute failed.
+		 *
+		 * @param error the error
+		 */
 		void onInitiateDisputeFailed(String error);
 	}
 
-	public InitiateDisputeService(String uuid, String saml, String jsessionID, 
+	/**
+	 * Instantiates a new initiate dispute service.
+	 *
+	 * @param uuid the uuid
+	 * @param saml the saml
+	 * @param cookie the cookie
+	 * @param accountNum the account num
+	 * @param transactionID the transaction id
+	 * @param billingAmount the billing amount
+	 * @param description the description
+	 * @param email the email
+	 * @param knownTransaction the known transaction
+	 * @param mobile the mobile
+	 * @param reason the reason
+	 * @param transactionDate the transaction date
+	 */
+	public InitiateDisputeService(String uuid, String saml, String cookie, 
 			String accountNum, String transactionID, String billingAmount, String description, String email, boolean knownTransaction, 
 			String mobile, String reason, String transactionDate) {
 		this.uuidTxt = uuid;
 		this.samlTxt = saml;
-		this.jSessionIDTxt = jsessionID;
+		this.cookieTxt = cookie;
 		this.accountNum = accountNum;
 		this.transactionID = transactionID;
 		this.billingAmountTxt = Float.parseFloat(billingAmount);
@@ -63,6 +123,9 @@ request.headers={
 		this.transactionDate = transactionDate;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.BaseService#sentFailure(java.lang.String)
+	 */
 	@Override
 	void sentFailure(String codeTxt) {
 		if (disputeRaiseListener != null) {
@@ -70,10 +133,18 @@ request.headers={
 		}
 	}
 	
+	/**
+	 * Sets the initiate dispute listener.
+	 *
+	 * @param listener the new initiate dispute listener
+	 */
 	public void setInitiateDisputeListener(InitiateDisputeListener listener) {
 		this.disputeRaiseListener = listener;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.BaseService#executeRequest()
+	 */
 	@Override
 	void executeRequest() {
 		
@@ -81,14 +152,13 @@ request.headers={
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), samlTxt);
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), uuidTxt);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), jSessionIDTxt);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), jSessionIDTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), cookieTxt);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), cookieTxt);
 		
 		try {
 			String strURL = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_TRANSACTION + "/" + transactionID + "/" + METHOD_DISPUTE;
-			Log.d("", ">>URLLLLLLLLLL>>"+strURL);
 			String response = makeRequest(strURL, getRequestJSONString(), POST);
-			Log.d("", ">>RESPONSE>>"+response);
+			//Log.d("", ">>RESPONSE>>"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
@@ -111,22 +181,14 @@ request.headers={
 		}
 	}
 	
+	/**
+	 * Gets the request json string.
+	 *
+	 * @return the request json string
+	 */
 	private String getRequestJSONString() {
-		/**{
-		    "dispute": {
-		        "billingAmount": Number,
-		        "description": String,
-		        "email": String,
-		        "knownTransaction": boolean,
-		        "mobile": String,
-		        "reason": String,
-		        "transactionDate": String
-		    }
-		}**/
 		JSONObject requestJSON = new JSONObject();
-
 		try {
-
 			JSONObject innerJSON = new JSONObject();
 			innerJSON.put("billingAmount", billingAmountTxt);
 			innerJSON.put("description", descriptionTxt);
@@ -135,21 +197,21 @@ request.headers={
 			innerJSON.put("mobile", mobile);
 			innerJSON.put("reason", reason);
 			innerJSON.put("transactionDate", transactionDate);
-
 			requestJSON.put("dispute", innerJSON);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.i("COOP", ">>>>>>>>fundsTransferJsonObject.toString()>>>>>>>>>"+requestJSON.toString());
+		//Log.i("COOP", ">>>>>>>>fundsTransferJsonObject.toString()>>>>>>>>>"+requestJSON.toString());
 		return requestJSON.toString();
 	}
+	
 	/**
-	 * 
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 * @throws JSONException
+	 * Parses the response json.
+	 *
+	 * @param response the response
+	 * @return the string
+	 * @throws Exception the exception
+	 * @throws JSONException the JSON exception
 	 */
 	private String parseResponseJSON(String response) throws Exception, JSONException {
 

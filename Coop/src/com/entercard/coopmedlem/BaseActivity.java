@@ -78,21 +78,6 @@ public class BaseActivity extends ActionBarActivity {
 		regUnlockReceiver();
 
 	}
-
-//	public enum ActivityState {
-//		NO_STATE(110),
-//		DISPUTE(111), 
-//		TRANSFER_FUNDS(112), 
-//		CLI(113); 
-//		//DELETED("D");
-//		private int status;
-//		private ActivityState(int i) {
-//			status = i;
-//		}
-//		public Integer getStatusCode() {
-//			return status;
-//		}
-//	}
 	
 	/**
 	 * Long toast.
@@ -300,7 +285,6 @@ public class BaseActivity extends ActionBarActivity {
 	 * Reg unlock receiver.
 	 */
 	private void regUnlockReceiver() {
-
 		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
 		receiver = new OnScreenUnlockReceiver();
 		registerReceiver(receiver, filter);
@@ -327,17 +311,6 @@ public class BaseActivity extends ActionBarActivity {
 	// public void onRestoreInstanceState(Bundle inState) {
 	// Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
 	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentActivity#onPause()
-	 */
-	@Override
-	protected void onPause() {
-		super.onPause();
-		Log.e("COOP", ">>BASE In Method: onPause()");
-	}
 
 	/*
 	 * (non-Javadoc)

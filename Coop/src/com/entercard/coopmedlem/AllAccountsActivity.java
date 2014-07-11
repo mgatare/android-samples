@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,6 +38,8 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		init();
 		
 		regActivityFinishReceiver();
+		
+		//Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
 		
 		if(null!=ApplicationEx.getInstance().getAccountsArrayList()
 				&& !ApplicationEx.getInstance().getAccountsArrayList().isEmpty()) {
@@ -151,10 +154,18 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		Log.d("COOP", "################onDestroy ALL ACCOUNTS###########");
 		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Log.d("COOP", "#######ON BACK PRESSED FOR ALL ACCOUNTS###########");
+		ApplicationEx.getInstance().clearGlobalContents();
 	}
 	/**
 	 * Reg activity logout receiver.
