@@ -13,19 +13,31 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.CreditLineIncreaseActivity;
+import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.CardsAdapter;
-import com.entercard.coopmedlem.entities.DataModel;
+import com.entercard.coopmedlem.entities.CardDataModel;
 
 public class CardsFragment extends Fragment {
 
+	private HomeScreenActivity parentActivity;
+	
 	private CardsAdapter cardsAdapter;
 	private ListView allCardsListView;
-	private String [] cardHolderName = {"Mayur G", "Mayuresh G", "Mayur G"};
 	private Button btnIncreaseCreditLimit;
+	private TextView lblCreditlimit;
+	
+	private ArrayList<CardDataModel> cardsArrayList;
+	private int position;
+	private String creditLimitTxt;
+	private LinearLayout linearCardService;
+	private LinearLayout linearBlockCard;
 	
 	public static CardsFragment newInstance() {
 		CardsFragment fragment = new CardsFragment();
@@ -42,41 +54,58 @@ public class CardsFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View parentView = inflater.inflate(R.layout.fragment_cards, container, false);
-		allCardsListView = (ListView) parentView.findViewById(R.id.allCardsListView);
-		setData();
 		
-//		ActionBar actionBar = getActivity().getActionBar();
-//		actionBar.setTitle("Cards");
-		
-		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
-		btnIncreaseCreditLimit.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//AlertHelper.Alert("Functionality not implemented yet." , getActivity());
-				Intent intent = new Intent(getActivity(), CreditLineIncreaseActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				startActivity(intent);
-				
-			}
-		});
+		setData(parentView);
 		
 		return parentView;
 	}
 
-	private void setData() {
-
-		ArrayList<DataModel> arrayList = new ArrayList<DataModel>();
-
-		for (int i = 0; i < 3; i++) {
-			
-			DataModel dataModel = new DataModel();
-			dataModel.setId("XXXX XXXX XXXX 120"+ i+1);
-			dataModel.setName(""+cardHolderName[i]);
-			arrayList.add(dataModel);
-		}
-
-		cardsAdapter = new CardsAdapter(getActivity(), 0, arrayList);
+	private void setData(View parentView) {
+		
+		parentActivity = (HomeScreenActivity) getActivity();
+		allCardsListView = (ListView) parentView.findViewById(R.id.allCardsListView);
+		lblCreditlimit = (TextView) parentView.findViewById(R.id.lblCreditlimit);
+		linearCardService = (LinearLayout) parentView.findViewById(R.id.linearCardService);
+		linearBlockCard = (LinearLayout) parentView.findViewById(R.id.linearBlockCard);
+		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
+		
+		position = parentActivity.getAccountPosition();
+		cardsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getCardDataArrayList();
+		creditLimitTxt= ApplicationEx.getInstance().getAccountsArrayList().get(position).getCreditLimit();
+		
+		lblCreditlimit.setText(creditLimitTxt);
+		
+		cardsAdapter = new CardsAdapter(parentActivity, 0, cardsArrayList);
 		allCardsListView.setAdapter(cardsAdapter);
 		cardsAdapter.notifyDataSetChanged();
+		
+		btnIncreaseCreditLimit.setOnClickListener(viewOnCLickListener);
+		linearCardService.setOnClickListener(viewOnCLickListener);
+		linearBlockCard.setOnClickListener(viewOnCLickListener);
 	}
+	
+	/**
+	 * OnCLick Listener for the Numbers of Service Center
+	 */
+	OnClickListener viewOnCLickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.linearCardService:
+
+				break;
+			case R.id.linearBlockCard:
+
+				break;
+			case R.id.btnIncreaseCreditLimit:
+				Intent intent = new Intent(getActivity(), CreditLineIncreaseActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				startActivity(intent);
+				break;
+			default:
+				break;
+			}
+
+		}
+	};
 }

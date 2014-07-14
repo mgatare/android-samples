@@ -38,6 +38,8 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 			holder.llMainOne = (LinearLayout) convertView.findViewById(R.id.parentlinearlayout);
 
 			holder.cardNameTextView = (TextView) holder.llMainOne.findViewById(R.id.titleTextView);
+			holder.cardNameTextView.setTextColor(context.getResources().getColor(R.color.text_heading));
+			
 			holder.cardNumberTextView = (TextView) holder.llMainOne.findViewById(R.id.lblDetail);
 			convertView.setTag(holder);
 			

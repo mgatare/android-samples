@@ -27,7 +27,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	private ListView accountsListView;
 	private TextView textViewServerErrorMsg;
 //	private Button btnTryAgain;
-	private com.entercard.coopmedlem.AllAccountsActivity.ActivityFinishReceiver finishReceiver;
+	private ActivityFinishReceiver finishReceiver;
 	private ActionBar actionBar;
 	
 	@Override

@@ -1,5 +1,8 @@
 package com.entercard.coopmedlem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -14,23 +17,20 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
-public class CreditLineIncreaseActivity extends BaseActivity {
+public class EmploymentActivity extends BaseActivity {
 
 	private ActivityFinishReceiver finishReceiver;
-	private LinearLayout linearEmployment;
-	private Button btnApplyCLI;
+	private ArrayList<String> employmentArrayList;
+	private ListView singleListView;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_creditline_increase);
+		setContentView(R.layout.rc_listview);
 
 		init();
 		
@@ -44,40 +44,22 @@ public class CreditLineIncreaseActivity extends BaseActivity {
 	}
 	
 	private void init() {
-		// TODO Auto-generated method stub
 		
+		singleListView = (ListView) findViewById(R.id.singleListView);
+		String[] arrays = getResources().getStringArray(R.array.array_employment);
+		employmentArrayList = (ArrayList<String>) Arrays.asList(arrays);
 	}
 
 	/**
 	 * OnCLick Listener for the Numbers of Service Center
 	 */
-	OnClickListener viewOnCLickListener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-			
-			case R.id.linearEmployment:
-				
-				Intent intent = new Intent(CreditLineIncreaseActivity.this, EmploymentActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				startActivity(intent);
-				break;
-				
-			case R.id.btnApplyCLI:
-				break;
-				
-			default:
-				break;
-			}
-		}
-	};
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			Intent upIntent = new Intent(this, HomeScreenActivity.class);
+			Intent upIntent = new Intent(this, CreditLineIncreaseActivity.class);
 			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
 				TaskStackBuilder.from(this).addNextIntent(upIntent)
 						.startActivities();
@@ -92,7 +74,7 @@ public class CreditLineIncreaseActivity extends BaseActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.d("COOP", "##### onDestroy CLI  #####");
+		Log.d("COOP", "##### onDestroy EmploymentActivity  #####");
 		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;

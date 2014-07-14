@@ -1,5 +1,6 @@
 <LinearLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lytCLIContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -34,7 +35,7 @@
             android:text="5000"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_currency"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -50,7 +51,7 @@
                 android:layout_alignParentTop="true"
                 android:text="@string/sign_plus"
                 android:textColor="#000000"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btnSubstractCreditLimit"
@@ -60,7 +61,7 @@
                 android:layout_toLeftOf="@+id/btnPlusCreditLimit"
                 android:text="@string/sign_minus"
                 android:textColor="#000000"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -71,26 +72,103 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
-        android:orientation="horizontal"
-        android:weightSum="1" >
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
             android:gravity="left"
             android:text="@string/yearly_income"
             android:textColor="@color/text_dark"
             android:textSize="@dimen/font_size_normal" />
 
         <EditText
-            android:id="@+id/txtReceiversName"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtYearlyIncome"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:background="@android:color/transparent"
             android:gravity="right"
-            android:hint="123"
+            android:inputType="number"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_normal" >
+        </EditText>
+    </LinearLayout>
+
+    <!-- <include layout="@drawable/seperator" /> -->
+    <!-- <TextView -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:gravity="left" -->
+    <!-- android:padding="@dimen/margin_ten_px" -->
+    <!-- android:text="@string/household" -->
+    <!-- android:textColor="@color/text_dark" -->
+    <!-- android:textSize="@dimen/font_size_normal" /> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_marginBottom="@dimen/view_usual_margin" -->
+    <!-- android:layout_marginLeft="@dimen/margin_ten_px" -->
+    <!-- android:layout_marginRight="@dimen/margin_ten_px" -->
+    <!-- android:layout_marginTop="@dimen/view_usual_margin" -->
+    <!-- android:baselineAligned="false" -->
+    <!-- android:orientation="horizontal" -->
+    <!-- android:weightSum="1" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:id="@+id/linearHouseholdAdults" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="0.5" > -->
+
+
+    <!-- <include layout="@layout/rc_plus_minus_buttons_layout" /> -->
+    <!-- </LinearLayout> -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:id="@+id/linearHouseholdChildren" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="0.5" -->
+    <!-- android:gravity="right" > -->
+
+
+    <!-- <include layout="@layout/rc_plus_minus_buttons_layout" /> -->
+    <!-- </LinearLayout> -->
+    <!-- </LinearLayout> -->
+
+    <include layout="@drawable/seperator" />
+
+    <LinearLayout
+        android:id="@+id/linearOccupancy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/lblOccupancyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/mortgage"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/font_size_normal" />
+
+        <EditText
+            android:id="@+id/txtMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:inputType="number"
             android:padding="@dimen/margin_ten_px"
             android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal" >
@@ -99,77 +177,35 @@
 
     <include layout="@drawable/seperator" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:padding="@dimen/margin_ten_px"
-        android:text="@string/household"
-        android:textColor="@color/text_dark"
-        android:textSize="@dimen/font_size_normal" />
-
     <LinearLayout
+        android:id="@+id/linearOtherLoans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/view_usual_margin"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
-        android:layout_marginTop="@dimen/view_usual_margin"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:weightSum="1" >
-
-        <LinearLayout
-            android:id="@+id/linearHouseholdAdults"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" >
-
-            <include layout="@layout/rc_plus_minus_buttons_layout" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearHouseholdChildren"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="right" >
-
-            <include layout="@layout/rc_plus_minus_buttons_layout" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <include layout="@drawable/seperator" />
-
-    <LinearLayout
-        android:id="@+id/linearOccupancy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
-        android:layout_marginLeft="@dimen/margin_ten_px"
-        android:layout_marginRight="@dimen/margin_ten_px"
-        android:orientation="horizontal"
-        android:weightSum="1" >
+        android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/lblOccupancyTitle"
+            android:id="@+id/lblOtherLoansTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:gravity="left"
-            android:text="@string/occupancy"
+            android:text="@string/other_loans"
             android:textColor="@color/text_dark"
             android:textSize="@dimen/font_size_normal" />
 
-        <TextView
-            android:id="@+id/lblOccupancyType"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/txtOtherLoans"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="0.7"
+            android:background="@android:color/transparent"
             android:gravity="right"
-            android:text="none"
-            android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:inputType="number"
+            android:padding="@dimen/margin_ten_px"
+            android:textColor="@color/text_heading"
+            android:textSize="@dimen/font_size_normal" >
+        </EditText>
     </LinearLayout>
 
     <include layout="@drawable/seperator" />
@@ -178,17 +214,14 @@
         android:id="@+id/linearEmployment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
-        android:orientation="horizontal"
-        android:weightSum="1" >
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/lblEmploymentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:gravity="left"
             android:text="@string/employment"
             android:textColor="@color/text_dark"
@@ -196,15 +229,35 @@
 
         <TextView
             android:id="@+id/lblEmploymentType"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="right"
-            android:text="none"
+            android:padding="@dimen/margin_ten_px"
+            android:text="None"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_size_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text=">"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
     <include layout="@drawable/seperator" />
+
+    <Button
+        android:id="@+id/btnApplyCLI"
+        style="@style/Theme.Coopmedlem.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_fifteen_px"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/btn_apply_credit_line_increase"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>

@@ -126,6 +126,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
+        <activity
+            android:name="com.entercard.coopmedlem.EmploymentActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Coopmedlem" >
+        </activity>
 
         <!-- Google Maps Related -->
         <meta-data

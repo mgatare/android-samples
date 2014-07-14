@@ -11,14 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.R;
-import com.entercard.coopmedlem.entities.DataModel;
+import com.entercard.coopmedlem.entities.CardDataModel;
 
-public class CardsAdapter extends ArrayAdapter<DataModel> {
+
+public class CardsAdapter extends ArrayAdapter<CardDataModel> {
 
 	private Context context;
-	private ArrayList<DataModel> dataModelList = new ArrayList<DataModel>();;
+	private ArrayList<CardDataModel> dataModelList = new ArrayList<CardDataModel>();;
 
-	public CardsAdapter(Context context, int resource, ArrayList<DataModel> arrayList) {
+	public CardsAdapter(Context context, int resource, ArrayList<CardDataModel> arrayList) {
 		super(context, resource, arrayList);
 		this.context = context;
 		dataModelList.addAll(arrayList);
@@ -42,8 +43,9 @@ public class CardsAdapter extends ArrayAdapter<DataModel> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.cardNametextView.setText(getItem(position).getName());
-		holder.cardNumberTextView.setText("Card number: "+getItem(position).getId());
+		holder.cardNametextView.setText(getItem(position).getCardholderName());
+		holder.cardNametextView.setTextColor(context.getResources().getColor(R.color.text_body));
+		holder.cardNumberTextView.setText(context.getResources().getString(R.string.card_ending_with)+" "+getItem(position).getCardNumberEndingWith());
 		if (position % 2 == 0) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
 		} else {
