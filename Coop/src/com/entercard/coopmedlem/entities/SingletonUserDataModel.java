@@ -3,10 +3,13 @@ package com.entercard.coopmedlem.entities;
 public class SingletonUserDataModel {
 
 	private String increaseInCreditLimit;
-	private String yearlyIncome;
-	private String adult;
-	private String child;
-	private String occupancy;
+	// private String adult;
+	// private String child;
+	// private String occupancy;
+	private int yearlyIncome;
+	private int mortgage;
+	private int otherLoans;
+	private int amountApplied;
 	private String employment;
 
 	private boolean isKnownTransaction;
@@ -22,7 +25,8 @@ public class SingletonUserDataModel {
 	private String fundsAccNumer;
 	private int fundsAmount;
 	private String fundsMessage;
-	private String amount;
+
+	// private String amount;
 
 	public String getIncreaseInCreditLimit() {
 		return increaseInCreditLimit;
@@ -30,38 +34,6 @@ public class SingletonUserDataModel {
 
 	public void setIncreaseInCreditLimit(String increaseInCreditLimit) {
 		this.increaseInCreditLimit = increaseInCreditLimit;
-	}
-
-	public String getYearlyIncome() {
-		return yearlyIncome;
-	}
-
-	public void setYearlyIncome(String yearlyIncome) {
-		this.yearlyIncome = yearlyIncome;
-	}
-
-	public String getAdult() {
-		return adult;
-	}
-
-	public void setAdult(String adult) {
-		this.adult = adult;
-	}
-
-	public String getChild() {
-		return child;
-	}
-
-	public void setChild(String child) {
-		this.child = child;
-	}
-
-	public String getOccupancy() {
-		return occupancy;
-	}
-
-	public void setOccupancy(String occupancy) {
-		this.occupancy = occupancy;
 	}
 
 	public String getEmployment() {
@@ -168,11 +140,43 @@ public class SingletonUserDataModel {
 		this.fundsMessage = fundsMessage;
 	}
 
-	public String getAmount() {
-		return amount;
+	public int getYearlyIncome() {
+		return yearlyIncome;
 	}
 
-	public void setAmount(String amount) {
-		this.amount = amount;
+	public void setYearlyIncome(int yearlyIncome) {
+		this.yearlyIncome = yearlyIncome;
 	}
+
+	public int getMortgage() {
+		return mortgage;
+	}
+
+	public void setMortgage(int mortgageTxt) {
+		this.mortgage = mortgageTxt;
+	}
+
+	public int getOtherLoans() {
+		return otherLoans;
+	}
+
+	public void setOtherLoans(int otherLoans) {
+		this.otherLoans = otherLoans;
+	}
+
+	public int getAmountApplied() {
+		return amountApplied;
+	}
+
+	public void setAmountApplied(int amountApplied) {
+		this.amountApplied = amountApplied;
+	}
+
+	// public String getAmount() {
+	// return amount;
+	// }
+	//
+	// public void setAmount(String amount) {
+	// this.amount = amount;
+	// }
 }

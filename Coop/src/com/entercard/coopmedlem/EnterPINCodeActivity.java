@@ -26,6 +26,8 @@ import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.encapsecurity.encap.android.client.api.exception.LockedException;
+import com.entercard.coopmedlem.services.CreditLineIncreaseService;
+import com.entercard.coopmedlem.services.CreditLineIncreaseService.CreditLineIncreaseListener;
 import com.entercard.coopmedlem.services.FundsTransferService;
 import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener;
 import com.entercard.coopmedlem.services.InitiateDisputeService;
@@ -35,7 +37,7 @@ import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
-public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener, InitiateDisputeListener{
+public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener, InitiateDisputeListener, CreditLineIncreaseListener{
 
 	private EditText pin1EditText;
 	private EditText pin2EditText;
@@ -52,6 +54,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	
 	private FundsTransferService fundsTransferService;
 	private InitiateDisputeService initiateDisputeService;
+	private CreditLineIncreaseService creditLineIncreaseService;
 	
 	@Override
 	protected void onResume() {
@@ -440,9 +443,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	private void selectNextActivity(int activityStatus) {
 		
 		Log.i("", "---activityStatus-->>>>"+activityStatus);
-		String accountNumberTxt = null;
+		String fundsTransferAccountNoTxt = null;
 		String messageTxt= null;
-		int amountTxt = 0;
+		int amount = 0;
 		String benificiaryNameTxt = null;
 		String transactionID = null;
 		String billingAmount = null;
@@ -453,15 +456,21 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		String reason = null;
 		String transactionDate = null;
 		
+		int yearlyIncome = 0;
+		int mortgage = 0;
+		int otherLoans = 0;
+		int creditAmountAplied = 0;
+		String employmentType = null;
+		
 		if (null != BaseActivity.getSingletonUserDataModelArrayList()
 				&& !BaseActivity.getSingletonUserDataModelArrayList().isEmpty()) {
 
-			accountNumberTxt = BaseActivity
+			fundsTransferAccountNoTxt = BaseActivity
 					.getSingletonUserDataModelArrayList().get(0)
 					.getFundsAccNumer();
 			messageTxt = BaseActivity.getSingletonUserDataModelArrayList()
 					.get(0).getFundsMessage();
-			amountTxt = BaseActivity.getSingletonUserDataModelArrayList()
+			amount = BaseActivity.getSingletonUserDataModelArrayList()
 					.get(0).getFundsAmount();
 			benificiaryNameTxt = BaseActivity
 					.getSingletonUserDataModelArrayList().get(0)
@@ -483,6 +492,17 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 					.getDisputeReason();
 			transactionDate = BaseActivity.getSingletonUserDataModelArrayList()
 					.get(0).getDisputetransactionDate();
+			
+			yearlyIncome = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getYearlyIncome();
+			mortgage = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getMortgage();
+			otherLoans = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getOtherLoans();
+			creditAmountAplied = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getAmountApplied();
+			employmentType = BaseActivity.getSingletonUserDataModelArrayList()
+					.get(0).getEmployment();
 		}
 		
 		switch (activityStatus) {
@@ -501,7 +521,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			showProgressDialog();
 			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
 					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getCookie(), 
-					accountNumberTxt, transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
+					ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getAccountNumber(),
+					transactionID, billingAmount, description, email, knownTransaction, mobile, reason, transactionDate);
 			
 			initiateDisputeService.setInitiateDisputeListener(EnterPINCodeActivity.this);
 			ApplicationEx.operationsQueue.execute(initiateDisputeService);
@@ -516,15 +537,27 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 					ApplicationEx.getInstance().getCookie(), 
 					ApplicationEx.getInstance().getSAMLTxt(), 
 					ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getAccountNumber(), 
-					accountNumberTxt, messageTxt, 
-					amountTxt, benificiaryNameTxt);
+					fundsTransferAccountNoTxt, messageTxt, 
+					amount, benificiaryNameTxt);
 			
 			fundsTransferService.setTransactionListener(EnterPINCodeActivity.this);
 			ApplicationEx.operationsQueue.execute(fundsTransferService);
 			break;
 
 		case BaseActivity.CLI:
-			//TODO:
+			
+			showProgressDialog();
+			creditLineIncreaseService = new CreditLineIncreaseService(
+					ApplicationEx.getInstance().getUUID(), ApplicationEx
+							.getInstance().getCookie(), ApplicationEx
+							.getInstance().getSAMLTxt(), ApplicationEx
+							.getInstance().getAccountsArrayList()
+							.get(getAccountPosition()).getAccountNumber(),
+					mortgage, creditAmountAplied, yearlyIncome, otherLoans,
+					employmentType);
+			
+			creditLineIncreaseService.setTransactionListener(EnterPINCodeActivity.this);
+			ApplicationEx.operationsQueue.execute(creditLineIncreaseService);
 			break;
 			
 		default:
@@ -628,6 +661,32 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 	@Override
 	public void onInitiateDisputeFailed(final String error) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----error-----"+error);
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
+	}
+
+	@Override
+	public void onCreditLineIncreaseSuccess(String resp) {
+		hideProgressDialog();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("COOP", "-----success-----"+RESULT_OK);
+				setResult(RESULT_OK);
+				finish();
+			}
+		});
+	}
+
+	@Override
+	public void onCreditLineIncreaseFailed(final String error) {
 		hideProgressDialog();
 		runOnUiThread(new Runnable() {
 			@Override

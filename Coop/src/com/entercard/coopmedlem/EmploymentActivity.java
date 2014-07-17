@@ -1,31 +1,39 @@
 package com.entercard.coopmedlem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.entercard.coopmedlem.adapters.EmploymentDetailsAdapter;
 
 public class EmploymentActivity extends BaseActivity {
 
 	private ActivityFinishReceiver finishReceiver;
 	private ArrayList<String> employmentArrayList;
-	private ListView singleListView;
-
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private ListView listViewEmployment;
+	private EmploymentDetailsAdapter employmentAdapter;
+	private EmploymentTypeListener employmentTypeListener;
+	private String employmentTxt = null;
+	
+	protected interface EmploymentTypeListener {
+		public void onReturnEmploymentType(String type);
+	}
+	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,38 +46,72 @@ public class EmploymentActivity extends BaseActivity {
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(true);
+		actionBar.setTitle("Employment");
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
+		
+		listViewEmployment.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		listViewEmployment.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				
+				TextView txtLabel = (TextView) arg1.findViewById(R.id.lblEmploymentName);
+				employmentTxt = txtLabel.getText().toString();
+				employmentAdapter.setPosition(arg2);
+				employmentAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 	
 	private void init() {
 		
-		singleListView = (ListView) findViewById(R.id.singleListView);
+		listViewEmployment = (ListView) findViewById(R.id.singleListView);
 		String[] arrays = getResources().getStringArray(R.array.array_employment);
-		employmentArrayList = (ArrayList<String>) Arrays.asList(arrays);
+		
+		employmentArrayList = new ArrayList<String>(arrays.length);
+		Collections.addAll(employmentArrayList, arrays);
+		
+		employmentAdapter = new EmploymentDetailsAdapter(EmploymentActivity.this, 0, employmentArrayList);
+		listViewEmployment.setAdapter(employmentAdapter);
+		
+        try {
+        	employmentTypeListener = (EmploymentTypeListener) new CreditLineIncreaseActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.getMessage());
+        }
 	}
 
 	/**
 	 * OnCLick Listener for the Numbers of Service Center
 	 */
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			Intent upIntent = new Intent(this, CreditLineIncreaseActivity.class);
+			/*Intent upIntent = new Intent(this, CreditLineIncreaseActivity.class);
 			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-				TaskStackBuilder.from(this).addNextIntent(upIntent)
-						.startActivities();
+				TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
+				//TaskStackBuilder.create(this).addNextIntent(upIntent).startActivities();
+				setResult(RESULT_OK);
 				finish();
 			} else {
 				NavUtils.navigateUpTo(this, upIntent);
+				setResult(RESULT_OK);
+			}*/
+//			Intent upIntent = new Intent();
+//			upIntent.putExtra("ID", "MAYURRRR");
+//			setResult(RESULT_OK, upIntent);
+			
+			if(null!=employmentTypeListener) {
+				employmentTypeListener.onReturnEmploymentType(employmentTxt);
 			}
+			finish();
 			return true;
+		default:
+            return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 	@Override
 	public void onDestroy() {
@@ -78,6 +120,13 @@ public class EmploymentActivity extends BaseActivity {
 		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;
+		}
+	}
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		if(null!=employmentTypeListener) {
+			employmentTypeListener.onReturnEmploymentType(employmentTxt);
 		}
 	}
 	/**

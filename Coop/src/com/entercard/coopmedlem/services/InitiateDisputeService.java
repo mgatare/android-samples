@@ -171,7 +171,7 @@ public class InitiateDisputeService extends BaseService {
 				String parsedResponse = parseResponseJSON(response);
 				
 				if (disputeRaiseListener != null) {
-					disputeRaiseListener.onInitiateDisputeFinished(parsedResponse);
+					disputeRaiseListener.onInitiateDisputeFailed(parsedResponse);
 				}
 			} else {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));

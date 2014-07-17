@@ -134,9 +134,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 				DialogFragment termsDialogFragment = AcceptTermsAndConditionDialogFragment.newInstance(0);
 				FragmentManager fragmentManager = getSupportFragmentManager();
 				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				termsDialogFragment.show(fragmentTransaction,
-						"dailog_terms_and_condition");
-
+				termsDialogFragment.show(fragmentTransaction,"dailog_terms_and_condition");
 			}
 		});
 	}

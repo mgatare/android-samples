@@ -1,0 +1,26 @@
+<!-- This is a common Row layout (Reusable Component RC). There may be more than one dependancy for this layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentlinearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/row_height"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/margin_ten_px"
+        android:textSize="@dimen/font_size_normal"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/lblDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:textColor="@color/text_body"
+        android:textSize="@dimen/font_size_normal"
+        android:textStyle="normal" />
+
+</LinearLayout>

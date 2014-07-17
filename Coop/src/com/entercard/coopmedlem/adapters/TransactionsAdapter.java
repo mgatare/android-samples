@@ -115,8 +115,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 					ImageView imgMarker = (ImageView) v.findViewById(R.id.imgMarker);
 					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
 					
-					String city = StringUtils.trimString(getItem(pos).getCity());
-					String country = StringUtils.trimString(getItem(pos).getCountry());
+					String city = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCity());
+					String country = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCountry());
 					
 					String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
 					Log.i("COOP","SWED URL>>>>>"+strURL);

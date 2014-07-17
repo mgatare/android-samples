@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.CardsAdapter;
 import com.entercard.coopmedlem.entities.CardDataModel;
+import com.entercard.coopmedlem.utils.StringUtils;
 
 public class CardsFragment extends Fragment {
 
@@ -32,6 +35,8 @@ public class CardsFragment extends Fragment {
 	private ListView allCardsListView;
 	private Button btnIncreaseCreditLimit;
 	private TextView lblCreditlimit;
+	private TextView lblCardServiceNumber;
+	private TextView lblBlockCardNumber;
 	
 	private ArrayList<CardDataModel> cardsArrayList;
 	private int position;
@@ -69,6 +74,9 @@ public class CardsFragment extends Fragment {
 		linearBlockCard = (LinearLayout) parentView.findViewById(R.id.linearBlockCard);
 		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
 		
+		lblCardServiceNumber = (TextView) parentView.findViewById(R.id.lblCardServiceNumber);
+		lblBlockCardNumber = (TextView) parentView.findViewById(R.id.lblBlockCardNumber);
+		
 		position = parentActivity.getAccountPosition();
 		cardsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getCardDataArrayList();
 		creditLimitTxt= ApplicationEx.getInstance().getAccountsArrayList().get(position).getCreditLimit();
@@ -92,20 +100,38 @@ public class CardsFragment extends Fragment {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.linearCardService:
-
+				makeCall(lblCardServiceNumber.getText().toString());
 				break;
+				
 			case R.id.linearBlockCard:
-
+				makeCall(lblBlockCardNumber.getText().toString());
 				break;
+			/**
+			 * Intent LaunchIntent =
+			 * getPackageManager().getLaunchIntentForPackage
+			 * ("com.package.address"); startActivity(LaunchIntent);
+			 **/
 			case R.id.btnIncreaseCreditLimit:
 				Intent intent = new Intent(getActivity(), CreditLineIncreaseActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				break;
 			default:
 				break;
 			}
+		}
 
+		private void makeCall(String string) {
+			/*Check if Phone calling is supported or not then initiate the phone call*/
+			PackageManager packageManager = parentActivity.getPackageManager();
+			boolean canCall = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
+			if (canCall) {		
+				Intent intent = new Intent(Intent.ACTION_DIAL);
+				intent.setData(Uri.parse("tel:" + StringUtils.trimStringOnly(string)));
+				startActivity(intent);
+			} else {
+				parentActivity.longToast("This device does not support telephonic facility.");
+			}
 		}
 	};
 }

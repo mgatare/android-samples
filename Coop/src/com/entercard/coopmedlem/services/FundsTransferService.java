@@ -17,7 +17,7 @@ public class FundsTransferService extends BaseService {
 	
 	private String saml;
 	private String uuid;
-	private String jsessionID;
+	private String cookie;
 	private String accountNum;
 	private String beneficiaryAccountNumber;
 	private String message;
@@ -29,12 +29,12 @@ public class FundsTransferService extends BaseService {
 		void onFundsTransferFailed(String error);
 	}
 
-	public FundsTransferService(String uuid, String sessionID, String saml,
+	public FundsTransferService(String uuid, String cookie, String saml,
 			String accountNum, String beneficiaryAccountNumber, String message,
 			int amount, String beneficiaryName) {
 		
 		this.uuid = uuid;
-		this.jsessionID = sessionID;
+		this.cookie = cookie;
 		this.saml = saml;
 		this.accountNum = accountNum;
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
@@ -57,14 +57,14 @@ public class FundsTransferService extends BaseService {
 	@Override
 	void executeRequest() {
 		
-		Log.i("", "FundsTransferService ID"+jsessionID);
+		Log.i("", "FundsTransferService ID"+cookie);
 		
 		//Add headers to HTTP Request
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_accept), getHeaderAccept());
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_saml), saml);
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_uuid), uuid);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), jsessionID);
-		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), jsessionID);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_jsessionid), cookie);
+		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), cookie);
 		
 		try {
 			
@@ -83,7 +83,7 @@ public class FundsTransferService extends BaseService {
 			} else if (!TextUtils.isEmpty(response)) { //WILL BE NEEDED FOR ERROR CHECKING FORM RESPONS
 				String resp = parseResponseJSON(response);
 				if (null != fundsTransferListener) {
-					fundsTransferListener.onFundsTransferSuccess(resp);
+					fundsTransferListener.onFundsTransferFailed(resp);
 				}
 			} else {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.exception_general));

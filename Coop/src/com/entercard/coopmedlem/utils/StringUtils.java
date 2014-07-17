@@ -114,8 +114,12 @@ public class StringUtils {
 	 * @param string the string
 	 * @return the string
 	 */
-	public static String trimString(String string) {
+	public static String trimStringAndReplaceNumbers(String string) {
 		return string.replaceAll("(\\r|\\n|\\t)", "").replaceAll("[0-9]","").trim();
+	}
+	
+	public static String trimStringOnly(String string) {
+		return string.replaceAll("(\\r|\\n|\\t)", "").trim();
 	}
 	
 	/**
