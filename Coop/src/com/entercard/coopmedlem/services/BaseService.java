@@ -37,25 +37,64 @@ import com.entercard.coopmedlem.utils.NetworkHelper;
  */
 public abstract class BaseService implements Runnable {
 
+	/** The Constant TAG. */
 	private static final String TAG = "BaseService";
+	
+	/** The Constant GET. */
 	protected static final int GET = 10;
+	
+	/** The Constant POST. */
 	protected static final int POST = 11;
+	
+	/** The Constant PUT. */
 	protected static final int PUT = 12;
-	private static String BASE_URL = ""; //
-	private static final String DEV_URL = "https://mobappt.entercard.com/ecmobile/";
+	
+	/** The base url. */
+	private static String BASE_URL = "";
+	
+	/** The Constant DEVELOPMENT_URL. */
+	private static final String DEVELOPMENT_URL = "https://mobappt.entercard.com/ecmobile/";
+	
+	/** The Constant STAGING_URL. */
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
+	
+	/** The http header accept. */
 	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
+	
+	/** The Constant isStaging. */
 	private static final boolean isStaging = false;
+	
+	/** The Constant CONNECTION_TIMEOUT. */
 	private static final int CONNECTION_TIMEOUT = 150000;
+	
+	/** The Constant NETWORK_NOT_AVAILABLE. */
 	protected static final int NETWORK_NOT_AVAILABLE = 2001;
+	
+	/** The Constant NO_CONTENT. */
 	protected static final int NO_CONTENT = 204;
+	
+	/** The Constant BAD_REQUEST. */
 	protected static final int BAD_REQUEST = 400;
+	
+	/** The Constant USER_NOT_AUTHORIZED. */
 	protected static final int USER_NOT_AUTHORIZED = 401;
+	
+	/** The Constant FORBIDDEN. */
 	protected static final int FORBIDDEN = 403;
+	
+	/** The Constant NOT_FOUND. */
 	protected static final int NOT_FOUND = 404;
+	
+	/** The Constant INTERNAL_SERVER_ERROR. */
 	protected static final int INTERNAL_SERVER_ERROR = 500;
+	
+	/** The Constant SERVICE_UNAVAILABLE. */
 	protected static final int SERVICE_UNAVAILABLE = 503;
+	
+	/** The Constant PERMISSION_DENIED. */
 	protected static final int PERMISSION_DENIED = 550;
+	
+	/** The status code. */
 	protected int statusCode = -1;
 	
 	/** The header array. */
@@ -72,7 +111,7 @@ public abstract class BaseService implements Runnable {
 		if (isStaging) {
 			BASE_URL = STAGING_URL;
 		} else {
-			BASE_URL = DEV_URL;
+			BASE_URL = DEVELOPMENT_URL;
 		}
 	}
 	
@@ -119,7 +158,7 @@ public abstract class BaseService implements Runnable {
 	/**
 	 * Make request.
 	 *
-	 * @param methodURL the methodname
+	 * @param methodURL the method url
 	 * @param postData the post data
 	 * @param type the type
 	 * @return the string
@@ -263,7 +302,7 @@ public abstract class BaseService implements Runnable {
 		} else if(e instanceof IOException) {
 			return ApplicationEx.getInstance().getString(R.string.exception_io_exception);
 		} else if(e instanceof Exception) {
-			Log.e("", "EXCEPTION MESSAGE :::: "+e.getMessage());
+			Log.e(TAG, "EXCEPTION MESSAGE :::: "+e.getMessage());
 			return e.getMessage();
 		} else {
 			return ApplicationEx.getInstance().getString(R.string.exception_general);

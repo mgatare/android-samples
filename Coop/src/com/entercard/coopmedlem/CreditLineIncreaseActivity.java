@@ -158,7 +158,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					return;
 				}
 				
-				/**
+				/*
 				 * MAKE WS CALLS HERE
 				 */
 				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
