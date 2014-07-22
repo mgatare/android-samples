@@ -54,7 +54,7 @@ public class GetAccountsService extends BaseService {
 			
 //			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
 			String response = Utils.readResponseFromAssetsFile(ApplicationEx.getInstance(), "getAccountsResponse.txt");
-			//Log.i("", "RESPONSE::::"+response);
+//			Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
@@ -85,22 +85,16 @@ public class GetAccountsService extends BaseService {
 			throws Exception, JSONException {
 		
 		ArrayList<AccountsModel> arrayList = new ArrayList<AccountsModel>();
-		/**
-		 * { "error": { "code": String, "reason": String } }
-		 * ::{"errorResponse":{"status":"NOK","code":"4004","reason":"Not Found"}}
-		 **/
 		JSONObject responseJSON = new JSONObject(response);
 		if (responseJSON.has("errorResponse")) {
 			
 			JSONObject errorJson = responseJSON.getJSONObject("errorResponse");
 			//String code = null;
 			String reason = null;
-			
 			/*if (errorJson.has("code")) {
 				code = errorJson.getString("code");
 				throw new Exception(code);
 			}*/
-			
 			if (errorJson.has("reason")) {
 				reason = errorJson.getString("reason");
 				throw new Exception(reason);

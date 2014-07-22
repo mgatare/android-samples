@@ -129,8 +129,7 @@ public class BaseActivity extends ActionBarActivity {
 		View dialogView = LayoutInflater.from(this).inflate(
 				R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		progressDialog.getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
 				WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
 		progressDialog.getWindow().setBackgroundDrawableResource(

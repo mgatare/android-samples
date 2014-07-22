@@ -109,6 +109,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 		parallexViewPager.setCurrentItem(tab.getPosition());
+		closeKeyBoard();
 	}
 
 	@Override

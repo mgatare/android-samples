@@ -95,7 +95,7 @@ public class DateUtils {
 		// 2013-09-18 -- COOP
 		String formatedDate = "";
 		String oldFormat = "yyyy-MM-dd";
-		String newFormat = "dd/MM/yyyy";
+		String newFormat = "dd.MM.yyyy";
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
 		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
@@ -121,31 +121,6 @@ public class DateUtils {
 		String formatedDate = "";
 		String oldFormat = "yyyy-MM-dd HH:mm:ss";
 		String newFormat = "HH:mm";
-
-		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
-		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
-
-		try {
-			formatedDate = sdf2.format(sdf1.parse(time));
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return formatedDate;
-	}
-
-	/**
-	 * Gets the time from time stamp.
-	 *
-	 * @param time the time
-	 * @return the time from time stamp
-	 */
-	public static String getTimeFromTimeStamp(String time) {
-		// 2013-04-17 10:44:59
-		String formatedDate = "";
-		String oldFormat = "yyyy-MM-dd HH:mm:ss";
-		String newFormat = "HH:mm:ss";
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
 		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);

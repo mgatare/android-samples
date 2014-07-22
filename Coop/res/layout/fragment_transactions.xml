@@ -76,8 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="false"
-        android:progress="30"
-        android:progressDrawable="@drawable/green_progress" />
+        android:progress="10"
+        android:progressDrawable="@drawable/green_seek_bar" />
 
     <TextView
         android:layout_width="match_parent"

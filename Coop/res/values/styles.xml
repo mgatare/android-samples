@@ -31,6 +31,7 @@
         <item name="actionModeBackground">@drawable/cab_background_top_coopmedlem</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_coopmedlem</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Coopmedlem</item>
+<!--         <item name="android:typeface">serif</item> -->
     </style>
 
     <style name="ActionBar.Solid.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -38,6 +39,11 @@
         <item name="backgroundStacked">@drawable/ab_stacked_solid_coopmedlem</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_coopmedlem</item>
         <item name="progressBarStyle">@style/ProgressBar.Coopmedlem</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+    </style>
+
+    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">

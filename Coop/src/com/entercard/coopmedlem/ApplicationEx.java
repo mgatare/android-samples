@@ -74,7 +74,6 @@ public class ApplicationEx extends Application {
 			return new ApplicationEx();
 	}
 	
-	
 	/**
 	 * Gets the controller.
 	 *
@@ -89,6 +88,7 @@ public class ApplicationEx extends Application {
 	 */
 	private void init() {
 		Log.d(LOG_TAG, "init()");
+		//TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/Roboto-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
 		try {
 			if (getController() != null) {
 				Log.d(LOG_TAG, "Already initialized!");

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ApplicationEx;
@@ -35,6 +36,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private int tranxCount;
 	private String openToBuyCashTxt;
 	private String spentCashTxt;
+	private ProgressBar progSpent;
 	
 	private LoadMoreListView transactionListView;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
@@ -67,15 +69,20 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
 			setData();
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),
-					getActivity());
+			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),getActivity());
 		}
+		setProgressBarValue();
 		return rootView;
 	}
 
+	/**
+	 * 
+	 * @param rootView
+	 */
 	private void init(View rootView) {
 
 		parentActivity = (HomeScreenActivity) getActivity();
+		
 		// Get Initial values for the account
 		position = parentActivity.getAccountPosition();
 		openToBuyCashTxt = parentActivity.getOpenToBuy();
@@ -84,16 +91,16 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
 		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
+		progSpent = (ProgressBar) rootView.findViewById(R.id.progSpent);
 
-		transactionListView = (LoadMoreListView) rootView
-				.findViewById(R.id.listTransaction);
+		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 	}
 
 	private void setData() {
-
+		
 		spentTextView.setText(spentCashTxt != null ? StringUtils.formatCurrencyLocally(spentCashTxt) : "?");
 		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.formatCurrencyLocally(openToBuyCashTxt): "?");
-		/***/
+		
 		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
 		transactionListView.setAdapter(transactionsAdapter);
 		transactionsAdapter.notifyDataSetChanged();
@@ -117,7 +124,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, cookieTxt, accountIDTxt, pageNumber);
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
 					ApplicationEx.operationsQueue.execute(getMoreTransactionsService);
-					++pageNumber;
+					++pageNumber; 
 				} else {
 					transactionListView.onLoadMoreComplete();
 				}
@@ -130,6 +137,26 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
+	
+	private void setProgressBarValue() {
+		
+		double otb = Double.parseDouble(openToBuyCashTxt);
+		double spent = Double.parseDouble(spentCashTxt);
+		
+		int otbValue = (int)Math.round(otb);
+		int spentValue = (int)Math.round(spent);
+		
+		int percentageDiff = (int)(otbValue * 100 / spentValue);
+		Log.e("COOP", "DIFFERENCE---->>"+percentageDiff);
+		//7 = x * 100 / 2305;
+		
+		if (otbValue == spentValue) {
+			progSpent.setProgress(100);
+		} else {
+			progSpent.setProgress(percentageDiff);
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

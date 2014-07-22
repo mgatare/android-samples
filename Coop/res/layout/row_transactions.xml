@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1" >
-<!-- SHOW BOX FOR CREDIT AND CANNOT DISPUTE IT -->
+
+        <!-- SHOW BOX FOR CREDIT AND CANNOT DISPUTE IT -->
+
         <TextView
             android:id="@+id/lblDate"
             android:layout_width="wrap_content"
@@ -53,6 +55,21 @@
         android:textColor="@color/text_body"
         android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/lblNameBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginRight="@dimen/margin_ten_px"
+        android:background="@drawable/credit_tectview_background"
+        android:ellipsize="end"
+        android:text="box"
+        android:textColor="@color/text_heading"
+        android:textSize="@dimen/font_size_normal"
+        android:textStyle="normal"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutMap"

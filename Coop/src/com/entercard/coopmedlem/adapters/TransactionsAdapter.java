@@ -74,25 +74,36 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 			convertView = layoutInflater.inflate(R.layout.row_transactions,parent, false);
 		}
 
-		TextView dateTextView = (TextView) convertView.findViewById(R.id.lblDate);
-		TextView priceTextView = (TextView) convertView.findViewById(R.id.lblPrice);
-		TextView nameTextView = (TextView) convertView.findViewById(R.id.lblName);
+		TextView lblDate = (TextView) convertView.findViewById(R.id.lblDate);
+		TextView lblPrice = (TextView) convertView.findViewById(R.id.lblPrice);
+		TextView lblName = (TextView) convertView.findViewById(R.id.lblName);
+		TextView lblNameBox = (TextView) convertView.findViewById(R.id.lblNameBox);
 		Button btnDisputeOnMap = (Button) convertView.findViewById(R.id.btnDisputeOnMap);
 		//ImageView imgMarker = (ImageView) convertView.findViewById(R.id.imgMarker);
 		
 		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
 
 		String date = DateUtils.getTransactionDate(getItem(position).getDate());
-		dateTextView.setText(date);
+		lblDate.setText(date.substring(0, 6));
 		
-		priceTextView.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
-		nameTextView.setText(getItem(position).getDescription());
-
-		// nameTextView.setTag(position);
+		lblPrice.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
+		if(getItem(position).getType().equalsIgnoreCase("Credit")){
+			lblName.setVisibility(View.GONE);
+			lblNameBox.setVisibility(View.VISIBLE);
+			lblNameBox.setText(getItem(position).getDescription());
+		} else {
+			lblName.setVisibility(View.VISIBLE);
+			lblNameBox.setVisibility(View.GONE);
+			lblName.setText(getItem(position).getDescription());
+		}	
+			
+		// IS THIS USEFUL??
 		if (currentExpandedPosition == position) {
 			relMapLayout.setVisibility(View.VISIBLE);
 			currentExpandedView = relMapLayout;
+			lblDate.setText(date);
 		} else {
+			lblDate.setText(date.substring(0, 6));
 			relMapLayout.setVisibility(View.GONE);
 		}
 
@@ -111,10 +122,12 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				if (getItem(pos).getIsDisputable()) {
 					
 					RelativeLayout relMapLayout = (RelativeLayout) v.findViewById(R.id.relativeLayoutMap);
+					TextView lblDate = (TextView) v.findViewById(R.id.lblDate);
 					ImageView imgView = (ImageView) v.findViewById(R.id.imgMap);
 					ImageView imgMarker = (ImageView) v.findViewById(R.id.imgMarker);
 					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
 					
+					String date = DateUtils.getTransactionDate(getItem(pos).getDate());
 					String city = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCity());
 					String country = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCountry());
 					
@@ -131,6 +144,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 						currentExpandedView = null;
 						imgMarker.setVisibility(View.VISIBLE);
 						btnDisputeOnMap.setVisibility(View.VISIBLE);
+						lblDate.setText(date.substring(0, 6));
 						
 					} else {
 						if (currentExpandedView != null) {
@@ -140,10 +154,12 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 							expand(relMapLayout);
 							imgMarker.setVisibility(View.VISIBLE);
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
+							lblDate.setText(date);
 						} else {
 							expand(relMapLayout);
 							imgMarker.setVisibility(View.VISIBLE);
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
+							lblDate.setText(date);
 						}
 						currentExpandedView = relMapLayout;
 						currentExpandedPosition = pos;
@@ -157,10 +173,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		
 		btnDisputeOnMap.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Log.e("COOP", ":::::AMOUNT:::::"+getItem(position).getBillingAmount());
-				Log.e("COOP", ":::::DESCRIPTION:::::"+getItem(position).getDescription());
-				Log.e("COOP", ":::::DATE:::::"+getItem(position).getDate());
-				
+				//Log.e("COOP", ":::::AMOUNT:::::"+getItem(position).getBillingAmount());
+				//Log.e("COOP", ":::::DESCRIPTION:::::"+getItem(position).getDescription());
+				//Log.e("COOP", ":::::DATE:::::"+getItem(position).getDate());
 				Intent intent = new Intent(context, DisputeTransactionActivity.class);
 				intent.putExtra("amount", getItem(position).getBillingAmount());
 				intent.putExtra("desc", getItem(position).getDescription());
@@ -168,7 +183,6 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				intent.putExtra("id", getItem(position).getId());
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(intent);
-				
 			}
 		});
 		
