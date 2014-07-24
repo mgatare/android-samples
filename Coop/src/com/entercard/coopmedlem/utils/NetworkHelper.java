@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 // TODO: Auto-generated Javadoc
@@ -41,7 +40,7 @@ public class NetworkHelper {
 				.getSystemService(Context.WIFI_SERVICE);
 		if ((wifi.isWifiEnabled() == true)) {
 
-			WifiInfo wifiInf = wifi.getConnectionInfo();
+			//WifiInfo wifiInf = wifi.getConnectionInfo();
 			/* Get the MAC ADD of WIFI */
 			// Commons.MAC_ID = wifiInf.getMacAddress();
 			return true;

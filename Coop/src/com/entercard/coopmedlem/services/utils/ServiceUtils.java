@@ -84,6 +84,7 @@ public class ServiceUtils {
 		if (!status) {
 			if (responseJsonObj.has("errors")) {
 				JSONObject errorJSON = responseJsonObj.getJSONObject("errors");
+				@SuppressWarnings("rawtypes")
 				Iterator iterator = errorJSON.keys();
 				while (iterator.hasNext()) {
 					String key = (String) iterator.next();

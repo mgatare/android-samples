@@ -68,7 +68,7 @@ public class CompatibilityUtils {
 	private CompatibilityUtils() {
 	}
 
-	private static boolean isSDCardPresent() {
+	public static boolean isSDCardPresent() {
 		return android.os.Environment.getExternalStorageState().equals(
 				android.os.Environment.MEDIA_MOUNTED);
 	}

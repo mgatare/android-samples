@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -203,25 +202,26 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
-				pin1EditText.setBackgroundColor(Color.GREEN);
+				//pin1EditText.setBackgroundColor(Color.GREEN);
+				pin1EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 				stringBuilder.append(text);
 				
 			} else if(stringBuilder.length() == 1) {
 				
 				pin2EditText.setText(text.substring(1));
-				pin2EditText.setBackgroundColor(Color.GREEN);
+				pin2EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 				stringBuilder.append(text.substring(1));
 				
 			} else if(stringBuilder.length() == 2) {
 				
 				pin3EditText.setText(text.substring(2));
-				pin3EditText.setBackgroundColor(Color.GREEN);
+				pin3EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 				stringBuilder.append(text.substring(2));
 				
 			} else if(stringBuilder.length() == 3) {
 				
 				pin4EditText.setText(text.substring(3));
-				pin4EditText.setBackgroundColor(Color.GREEN);
+				pin4EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 				stringBuilder.append(text.substring(3));
 				
 				newPIN = pin1EditText.getText().toString()
@@ -246,22 +246,22 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		
 		if(pin1EditText.getText().length()==0) {
 			pin1EditText.setText(text);
-			pin1EditText.setBackgroundColor(Color.GREEN);
+			pin1EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 			stringBuilder.append(text);
 			
 		}else if(pin2EditText.getText().length()==0) {
 			pin2EditText.setText(text);
-			pin2EditText.setBackgroundColor(Color.GREEN);
+			pin2EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 			stringBuilder.append(text);
 			
 		}else if(pin3EditText.getText().length()==0) {
 			pin3EditText.setText(text);
-			pin3EditText.setBackgroundColor(Color.GREEN);
+			pin3EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 			stringBuilder.append(text);
 			
 		}else if(pin4EditText.getText().length()==0) {
 			pin4EditText.setText(text);
-			pin4EditText.setBackgroundColor(Color.GREEN);
+			pin4EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 			stringBuilder.append(text);
 			
 			newPIN = pin1EditText.getText().toString()
@@ -286,17 +286,17 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		
 		if(pin4EditText.getText().length()>0) {
 			pin4EditText.setText("");
-			pin4EditText.setBackgroundResource(android.R.drawable.edit_text);
+			pin4EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
 			stringBuilder.deleteCharAt(3).trimToSize();
 			
 		} else if(pin3EditText.getText().length()>0) {
 			pin3EditText.setText("");
-			pin3EditText.setBackgroundResource(android.R.drawable.edit_text);
+			pin3EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
 			stringBuilder.deleteCharAt(2).trimToSize();
 			
 		} else if(pin2EditText.getText().length()>0) {
 			pin2EditText.setText("");
-			pin2EditText.setBackgroundResource(android.R.drawable.edit_text);
+			pin2EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
 			stringBuilder.deleteCharAt(1).trimToSize();
 			
 		} else if(pin1EditText.getText().length()>0) {
@@ -321,10 +321,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		pin4EditText.setText(null);
 		dummyEditText.setText(null);
 		
-		pin1EditText.setBackgroundResource(android.R.drawable.edit_text);
-		pin2EditText.setBackgroundResource(android.R.drawable.edit_text);
-		pin3EditText.setBackgroundResource(android.R.drawable.edit_text);
-		pin4EditText.setBackgroundResource(android.R.drawable.edit_text);
+		pin1EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
+		pin2EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
+		pin3EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
+		pin4EditText.setBackgroundResource(R.drawable.view_circular_background_transparent);
 		
 		stringBuilder = new StringBuilder();
 	}
