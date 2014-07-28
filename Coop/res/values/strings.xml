@@ -4,7 +4,7 @@
     <string name="app_name">Coop medlem</string>
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
-    <string name="title_enter_pin">Settings</string>
+    <string name="settings">Settings</string>
     <string name="activate_app">Activate the app</string>
     <string name="enter_activation_code">Enter activation code</string>
     <string name="create_four_digit_pin_code">Create your 4 digit PIN code</string>
@@ -25,6 +25,7 @@
     <string name="transfer_funds_title">You can transfer up to the available balance on the card (including fees).\nFor the current rate and fees, see \n&lt;a href="http://www.google.com/">price list&lt;/a>".</string>
     <string name="receiver_name">Receiver\'s name</string>
     <string name="clearing">Clearing</string>
+    <string name="clearing_number_must_be">Clearing number must be 4 or 5 digits.</string>
     <string name="amount">Amount</string>
     <string name="account_number">Account number</string>
     <string name="message_or_kid">Message or KID</string>
@@ -65,6 +66,7 @@
     <string name="accept_terms_conditions_dispute">I hereby declare that the information stated is true and correct. If the police investigates the case, I am aware that the card issuer will give the police the information they need in the investigation.</string>
     <string name="accept_terms_condition_cli">I agree that the information supplied is complete and accurate. I accept that a standard credit check will be performed, where information about my credit history will be collected. If the granted line of credit after the credit check is lower than the amount I applied for, I hereby accept the lower line of credit. When applying for a higher line of credit the re:member Terms and Conditions previously entered into apply. The Terms and Conditions are available at remembercard.se or by calling +46 771 150 015. Please keep in mind that increasing your line of credit could result in additional strain on your finances.</string>
     
+    <string name="cancel">Cancel</string>
     <string name="i_accept">I accept</string>
     <string name="dispute_sent">Dispute Sent</string>
     <string name="you_will_hear_from_us">You will hear from us shortly</string>
@@ -92,6 +94,7 @@
     <string name="encap_authentication_error">You have enterd your PIN incorrectly too many times, and you will have to reactivate the device.</string>
     <string name="error_in_communication">There was some error communicating with the server. Please try again later</string>
     <string name="transfer_funds_validation">Receiver\'s name is missing.\nAccount number must be 11 digits.\nAmount must be atleast 500.</string>
+    <string name="amount_cannot_be_higher_than_otb">Amount cannot be higher than your open to buy amount</string>
     <string name="receiver_name_missing">Receiver\'s name is missing.FS</string>
     <string name="account_number_length">Account number must be 11 digits.</string>
     <string name="amount_incorrect">Amount must be atleast 500.</string>

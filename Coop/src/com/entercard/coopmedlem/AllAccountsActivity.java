@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +28,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	private GetAccountsService accountsService;
 	private ListView accountsListView;
 	private TextView textViewServerErrorMsg;
-//	private Button btnTryAgain;
+	private Button btnTryAgain;
 	private ActivityFinishReceiver finishReceiver;
 	private ActionBar actionBar;
 	
@@ -59,10 +61,19 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 		actionBar.setTitle("Accounts");
 		
 		textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
-		//btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+		btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
 		
 		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
+		
+		btnTryAgain.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				btnTryAgain.setVisibility(View.GONE);
+				textViewServerErrorMsg.setVisibility(View.GONE);
+				callGetAccountsService();
+			}
+		});
 		
 		accountsListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -111,6 +122,7 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 				AlertHelper.Alert(errorMsg, AllAccountsActivity.this);
 				accountsListView.setVisibility(View.GONE);
 				textViewServerErrorMsg.setVisibility(View.VISIBLE);
+				btnTryAgain.setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -118,7 +130,6 @@ public class AllAccountsActivity extends BaseActivity implements GetAccountsList
 	@Override
 	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
 		hideProgressDialog();
-		
 		if(null!=accountArrayList && accountArrayList.size()!=0) {
 			
 			/*If Just one account then directly move the user to the transactions screen*/

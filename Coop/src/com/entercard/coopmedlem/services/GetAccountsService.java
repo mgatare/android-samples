@@ -53,7 +53,7 @@ public class GetAccountsService extends BaseService {
 			
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.getInstance(), "getAccountsResponse.txt");
-			//Log.i("", "RESPONSE::::"+response);
+			Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
@@ -86,8 +86,20 @@ public class GetAccountsService extends BaseService {
 		ArrayList<AccountsModel> arrayList = new ArrayList<AccountsModel>();
 		JSONObject responseJSON = new JSONObject(response);
 		if (responseJSON.has("errorResponse")) {
-			
+			/**07-28 16:13:08.914: I/(3874): RESPONSE::::{"error":{"code":"2003","reason":"An error occurred. Please try again shortly."}}**/
 			JSONObject errorJson = responseJSON.getJSONObject("errorResponse");
+			//String code = null;
+			String reason = null;
+			/*if (errorJson.has("code")) {
+				code = errorJson.getString("code");
+				throw new Exception(code);
+			}*/
+			if (errorJson.has("reason")) {
+				reason = errorJson.getString("reason");
+				throw new Exception(reason);
+			}
+		} else if(responseJSON.has("error")) {
+			JSONObject errorJson = responseJSON.getJSONObject("error");
 			//String code = null;
 			String reason = null;
 			/*if (errorJson.has("code")) {

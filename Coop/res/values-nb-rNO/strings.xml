@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Coop medlem</string>
+    <string name="action_search">Search</string>
+    <string name="alert_title">Oops!</string>
+    <string name="settings">Innstillinger</string>
+    <string name="activate_app">Aktiver app</string>
+    <string name="enter_activation_code">Skriv den Aktiveringskode</string>
+    <string name="create_four_digit_pin_code">Lag en 4-sifret PIN-kode</string>
+    <string name="pin_code">PIN-kode</string>
+    <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", og \nskriv den inn under.</string>
+    <string name="please_create_pin_code_text">Du må opprette en firesifret PIN-kode. Dette vil bli brukt hver gang du starter programmet, slik at vi kan identifisere deg neste gang.</string>
+    <string name="create_your_pin_code">Lag din PIN-kode</string>
+    <string name="btn_create_pin">Lag din PIN-kode</string>
+    <string name="tab_title_transaction">Transaksjons</string>
+    <string name="tab_title_credit_increase">Kort</string>
+    <string name="tab_title_transfer">Overføre penger</string>
+    <string name="option_transactions">transaksjoner</string>
+    <string name="option_transfer_funds">Overføring av midler</string>
+    <string name="transfer_funds">Overføre penger</string>
+    <string name="option_credit_line_increase">Økning av kredittgrensen</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer).\nFor aktuell rente og gebyr, se \n&lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
+        
+    <string name="receiver_name">Mottakerens navn</string>
+    <string name="clearing">Clearing</string>
+    <string name="clearing_number_must_be">Clearingnummeret må være 4 eller 5 siffer.</string>
+    <string name="amount">Beløp</string>
+    <string name="account_number">Kontonummer</string>
+    <string name="message_or_kid">Melding eller KID</string>
+    <string name="credit_limit">CREDIT LIMIT</string>
+    <string name="recognize_transaction">Jeg kjenner igjen denne transaksjonen</string>
+    <string name="reason_for_dispute">Årsak til tvist</string>
+    <string name="email">E-post</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="dispute_transaction">Dispute transaksjon</string>
+    <string name="searchable_hint">Søk transaksjoner</string>
+    <string name="dispute">Tvist</string>
+    <string name="spent">BRUKT</string>
+    <string name="open_to_buy">ÅPEN FOR KJØP</string>
+    <string name="latest_transactions">TRANSAKSJONER</string>
+    <string name="card_ending_with">Kortnummer slutter på:</string>
+    <string name="desired_increase_in_credit">Ønsket økning i kreditt</string>
+    <string name="yearly_income">Årsinntekt</string>
+    <string name="household">Husholdningenes</string>
+    <string name="adults">Voksne</string>
+    <string name="children">Barn</string>
+    <string name="sign_plus">+</string>
+    <string name="sign_minus">-</string>
+    <string name="mortgage">Boliglån</string>
+    <string name="other_loans">Andre lån</string>
+    <string name="occupancy">Belegg</string>
+    <string name="employment">Sysselsetting</string>
+    <string name="tag_act_finish">ACTION_LOGOUT</string>
+    <string name="btn_increase_credit_limit">+ Øk kredittgrense</string>
+    <string name="btn_apply_credit_line_increase">Søk om en kredittgrense øke</string>
+    <string name="cards">Kort</string>
+    <string name="customer_service">Kundeservice</string>
+    <string name="card_service">Kortservice</string>
+    <string name="card_service_number">23 33 83 32</string>
+    <string name="block_card">Sperre kort</string>
+    <string name="block_card_number">815 00 701</string>
+    <string name="accept_terms_and_condition">Akseptere vilkår</string>
+    <string name="application_been_sent">Din søknad har blitt sendt.</string>
+    <string name="accept_terms_conditions_dispute">Jeg erklærer at ovenstående opplysninger er korrekte. Hvis politiet etterforsker saken, er jeg inneforstått med, at kortutsteder gir politiet de opplysninger de har bruk for i forbindelse med saken.</string>
+    <string name="accept_terms_condition_cli">Jag försäkrar att de uppgifter som lämnats är fullständiga och riktiga. Jag godkänner att ansökan kommer att genomgå sedvanlig kreditprövning varvid kreditupplysning kommer att inhämtas. Om den beviljade krediten efter kreditprövningen är lägre än den jag har ansökt om godkänner jag härmed även den lägre krediten.För höjning av kreditgräns tillämpas tidigare ingånget avtal, villkor för re:member. Villkoren finns även tillgängliga på remembercard.se eller genom att ringa kortservice på telefon +46 771 150 015.Observera att en höjning av köp- och kreditgränsen kan innebära en ökad belastning på din ekonomi.</string>
+    
+     <string name="cancel">Avbryt</string>
+    <string name="i_accept">Jeg aksepterer</string>
+    <string name="dispute_sent">Reklamasjonen er sendt</string>
+    <string name="you_will_hear_from_us">Du hører fra oss snart.</string>
+
+    <!-- TAGS -->
+    <string name="tag_position">position</string>
+    <string name="tag_open_to_buy">opentobuy</string>
+    <string name="tag_spent">spent</string>
+    <string name="no_internet_connection">Datatilkoblingen er deaktivert. Vennligst aktiver det fra innstillinger.</string>
+
+    <!-- ENCAP Related -->
+    <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>
+    <string name="encap_app_id">encap</string>
+
+    <!-- Replace "-" with an "en dash" character (–, &#8211;) ? -->
+    <string name="encap_api_key">9f333c24&#8211;efa4&#8211;47b2&#8211;ac57&#8211;77540a8b2881</string>
+    <string name="encap_public_key_hash_intermediate">sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=</string>
+    <string name="encap_public_key_hash_leaf">sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=</string>
+    <string name="encap_server_timeout">90000</string>
+    <string name="encap_signing_key_size">2048</string>
+
+    <!-- Validation/Error Messages -->
+    <string name="please_enter_code">Vennligst skriv inn koden.</string>
+    <string name="encap_error">Det oppstod en feil. Vennligst prøv igjen om kort tid.</string>
+    <string name="encap_authentication_error">Du har tastet feil PIN-kode for mange ganger, og du blir nødt til å re-aktivere enheten.</string>
+    <string name="error_in_communication">Det var noen feil med kommunikasjonen med serveren. Vennligst prøv igjen senere</string>
+    <string name="transfer_funds_validation">Mottakerens navn mangler.\nKontonummer må være 11 siffer.\nBeløp må være minst 500.</string>
+    <string name="receiver_name_missing">Mottakerens navn mangler.</string>
+    <string name="account_number_length">Kontonummer må være 11 siffer.</string>
+    <string name="amount_incorrect">Beløp må være minst 500.</string>
+    <string name="amount_cannot_be_higher_than_otb">Beløpet kan ikke være høyere enn tilgjengelig beløp.</string>
+    <string name="funds_transfer_success">Din overføring har blitt sendt.</string>
+    <string name="dispute_validation">Årsak mangler.\nE-postadressen mangler.\nTelefonnummer mangler.</string>
+    <string name="reason_is_missing">Årsak mangler.</string>
+    <string name="email_is_missing">E-postadressen mangler.</string>
+    <string name="email_is_invalid">E-postadressen er skrevet i feil format.</string>
+    <string name="phone_is_missing">Telefonnummer mangler.</string>
+    <string name="no_transactions_found">Ingen transaksjoner funnet for denne kontoen.</string>
+    <string name="credit_line_details_missing">Årlig inntekt mangler.\nBoliglån mangler.\nAndre lån mangler.\nStillingstype mangler.</string>
+    <string name="yearly_income_missing">Årlig inntekt mangler.</string>
+    <string name="mortgage_missing">Boliglån mangler.</string>
+    <string name="other_loans_missing">Andre lån mangler.</string>
+    <string name="employment_is_missing">Stillingstype mangler.</string>
+
+    <!-- ENCAP PREFERENCE STORE RELATED -->
+    <string name="pref_serverUrl_key">EncapServerUrl</string>
+    <string name="pref_applicationId_key">EncapApplicationId</string>
+    <string name="pref_apiKey_key">EncapApiKey</string>
+    <string name="pref_publicKeyHashes_key">EncapPublicKeyHashes</string>
+    <string name="pref_timeout_key">EncapTimeout</string>
+    <string name="pref_signingEnabled_key">EncapSigningEnabled</string>
+    <string name="pref_signingKeySize_key">EncapSigningKeySize</string>
+    <string name="pref_registrationId_key">EncapRegistrationId</string>
+    <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
+    <string name="pref_is_activated">isActivated</string>
+    <string name="pref_is_activation_code_verified">isActivationCodeVerified</string>
+    <string name="pref_verify_pin">isPinVerified</string>
+
+    <!-- HTTP HEADERS -->
+    <string name="http_header_accept_language">Accept-Language</string>
+    <string name="http_header_accept">Accept</string>
+    <string name="http_header_saml">SAML</string>
+    <string name="http_header_user_agent">User-Agent</string>
+    <string name="http_header_device_platform ">devicePlatform</string>
+    <string name="http_header_device_version">deviceVersion</string>
+    <string name="http_header_uuid">UUID</string>
+    <string name="http_header_jsessionid">JSESSIONID</string>
+    <string name="http_header_content_type">Content-Type</string>
+    <string name="http_header_set_cookie">Cookie</string>
+    <!-- Set-Cookie -->
+
+    <!-- Exception Error Messages -->
+    <string name="exception_json_errorr">Incorrect JSON response received from server.</string>
+    <string name="exception_key_management">Error processing key value.</string>
+    <string name="exception_unrecoverable_key">Error recovering a key from a KeyStore.</string>
+    <string name="exception_keystore">General Keystore error.</string>
+    <string name="exception_algorithm_not_found_exception">Requested algorithm could not be found.</string>
+    <string name="exception_certificate_not_found">Certificate not found.</string>
+    <string name="exception_io_exception">Server not reachable.</string>
+    <string name="exception_network_not_found">Please check you network connection and try again.</string>
+    <string name="exception_general">Error. Server returned incorrect response</string>
+
+</resources>

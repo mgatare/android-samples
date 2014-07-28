@@ -5,12 +5,6 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <!-- <ExpandableListView -->
-    <!-- android:id="@+id/lvExp" -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="match_parent" -->
-    <!-- android:cacheColorHint="#00000000" /> -->
-
     <ListView
         android:id="@+id/listViewAccounts"
         android:layout_width="match_parent"
@@ -22,14 +16,6 @@
         android:focusable="true"
         android:focusableInTouchMode="true" />
 
-    <!-- <Button -->
-    <!-- android:id="@+id/btnTryAgain" -->
-    <!-- android:layout_width="wrap_content" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_gravity="center" -->
-    <!-- android:text="Try Again" -->
-    <!-- android:visibility="gone" /> -->
-
     <TextView
         android:id="@+id/lblServerErrorMsg"
         android:layout_width="wrap_content"
@@ -40,6 +26,16 @@
         android:text="@string/error_in_communication"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/darker_gray"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnTryAgain"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/lblServerErrorMsg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/ic_menu_rotate"
         android:visibility="gone" />
 
 </RelativeLayout>

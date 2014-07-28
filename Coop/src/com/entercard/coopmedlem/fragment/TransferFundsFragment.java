@@ -62,6 +62,7 @@ public class TransferFundsFragment extends Fragment {
 				//AlertHelper.Alert("Functionality not implemented yet." , getActivity());
 				
 				int amount = 0;
+				double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
 				String receiverNameTxt = txtReceiversName.getText().toString();
 				String accountNumberTxt = txtAccountNumber.getText().toString();
 				String messageTxt = txtMessage.getText().toString();
@@ -86,6 +87,10 @@ public class TransferFundsFragment extends Fragment {
 					AlertHelper.Alert(getResources().getString(R.string.amount_incorrect), parentActivity);
 					return;
 				}
+//				if (amount < otbAmount) {
+//					AlertHelper.Alert(getResources().getString(R.string.amount_cannot_be_higher_than_otb), parentActivity);
+//					return;
+//				}
 				
 				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
 				SingletonUserDataModel userDataModel = new SingletonUserDataModel();
