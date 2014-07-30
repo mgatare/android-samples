@@ -4,13 +4,13 @@
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
     <string name="settings">Innstillinger</string>
-    <string name="activate_app">Aktiver app</string>
+    <string name="activate_app">Aktivere appen</string>
     <string name="enter_activation_code">Skriv den Aktiveringskode</string>
     <string name="create_four_digit_pin_code">Lag en 4-sifret PIN-kode</string>
     <string name="pin_code">PIN-kode</string>
     <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", og \nskriv den inn under.</string>
-    <string name="please_create_pin_code_text">Du må opprette en firesifret PIN-kode. Dette vil bli brukt hver gang du starter programmet, slik at vi kan identifisere deg neste gang.</string>
-    <string name="create_your_pin_code">Lag din PIN-kode</string>
+    <string name="please_create_pin_code_text">Vennligst lag en firesifret PIN-kode. Denne vil bli brukt hver gang du starter appen, slik at vi kan identifisere deg.</string>
+    <string name="create_your_pin_code">Velg en PIN-kod</string>
     <string name="btn_create_pin">Lag din PIN-kode</string>
     <string name="tab_title_transaction">Transaksjons</string>
     <string name="tab_title_credit_increase">Kort</string>
@@ -29,19 +29,19 @@
     <string name="amount">Beløp</string>
     <string name="account_number">Kontonummer</string>
     <string name="message_or_kid">Melding eller KID</string>
-    <string name="credit_limit">CREDIT LIMIT</string>
-    <string name="recognize_transaction">Jeg kjenner igjen denne transaksjonen</string>
-    <string name="reason_for_dispute">Årsak til tvist</string>
+    <string name="credit_limit">Kreditgrense</string>
+    <string name="recognize_transaction">Jeg kjenner igjen transaksjonen</string>
+    <string name="reason_for_dispute">Hvorfor vil du reklamere transaksjonen?</string>
     <string name="email">E-post</string>
     <string name="phone_number">Telefonnummer</string>
-    <string name="dispute_transaction">Dispute transaksjon</string>
+    <string name="dispute_transaction">Reklamere transaksjon</string>
     <string name="searchable_hint">Søk transaksjoner</string>
-    <string name="dispute">Tvist</string>
+    <string name="dispute">Reklamasjon</string>
     <string name="spent">BRUKT</string>
-    <string name="open_to_buy">ÅPEN FOR KJØP</string>
+    <string name="open_to_buy">Tilgjengelig</string>
     <string name="latest_transactions">TRANSAKSJONER</string>
     <string name="card_ending_with">Kortnummer slutter på:</string>
-    <string name="desired_increase_in_credit">Ønsket økning i kreditt</string>
+    <string name="desired_increase_in_credit">Ønsket kredittforhøyning</string>
     <string name="yearly_income">Årsinntekt</string>
     <string name="household">Husholdningenes</string>
     <string name="adults">Voksne</string>
@@ -91,6 +91,7 @@
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Vennligst skriv inn koden.</string>
     <string name="encap_error">Det oppstod en feil. Vennligst prøv igjen om kort tid.</string>
+    <string name="encap_unknown_registration_error">Unknown registration exception. You will have to reactivate the device.</string>
     <string name="encap_authentication_error">Du har tastet feil PIN-kode for mange ganger, og du blir nødt til å re-aktivere enheten.</string>
     <string name="error_in_communication">Det var noen feil med kommunikasjonen med serveren. Vennligst prøv igjen senere</string>
     <string name="transfer_funds_validation">Mottakerens navn mangler.\nKontonummer må være 11 siffer.\nBeløp må være minst 500.</string>

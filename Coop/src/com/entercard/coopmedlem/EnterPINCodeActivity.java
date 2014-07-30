@@ -25,6 +25,7 @@ import com.encapsecurity.encap.android.client.api.StartAuthenticationResult;
 import com.encapsecurity.encap.android.client.api.exception.AuthenticationFailedException;
 import com.encapsecurity.encap.android.client.api.exception.InputFormatException;
 import com.encapsecurity.encap.android.client.api.exception.LockedException;
+import com.encapsecurity.encap.android.client.api.exception.UnknownRegistrationException;
 import com.entercard.coopmedlem.services.CreditLineIncreaseService;
 import com.entercard.coopmedlem.services.CreditLineIncreaseService.CreditLineIncreaseListener;
 import com.entercard.coopmedlem.services.FundsTransferService;
@@ -350,21 +351,25 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		 * as suggested by the support@encapsecurity.com
 		 */
 		controller.setClientOnly(true);
-		controller.startAuthentication(getClientDate(), new AsyncCallback<StartAuthenticationResult>() {
+		controller.startAuthentication(getClientDate(),
+				new AsyncCallback<StartAuthenticationResult>() {
 					public void onFailure(final Throwable throwable) {
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
-						
 						if (throwable instanceof LockedException) {
 							retryErrorDialog(getResources().getString(
 									R.string.encap_authentication_error));
+						} else if (throwable instanceof UnknownRegistrationException) {
+							retryErrorDialog(getResources().getString(
+									R.string.encap_unknown_registration_error));
 						} else {
-							AlertHelper.Alert(getResources().getString(
-											R.string.encap_error),EnterPINCodeActivity.this);
+							AlertHelper.Alert(getResources().getString(R.string.encap_error),
+									EnterPINCodeActivity.this);
 						}
 					}
 					public void onSuccess(final StartAuthenticationResult result) {
-						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
+						Log.i("COOP", ">>>startAuthentication onSuccess>>"
+								+ result);
 						hideProgressDialog();
 					}
 				});

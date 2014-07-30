@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_five_px"
         android:gravity="center"
         android:text="@string/error_in_communication"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:textColor="@android:color/darker_gray"
         android:visibility="gone" />
 

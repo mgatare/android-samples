@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -163,6 +164,16 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			}
 			return null;
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Log.e("COOP", "######On BACKKK PRESSED HomeScreen######ARRAY="+ApplicationEx.getInstance().getAccountsArrayList().size());
+		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
+		if(accountsCount==1) {
+			ApplicationEx.getInstance().clearGlobalContents();
+		}
+		super.onBackPressed();
 	}
 	
 	/**

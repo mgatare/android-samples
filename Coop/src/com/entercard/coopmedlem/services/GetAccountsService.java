@@ -53,7 +53,7 @@ public class GetAccountsService extends BaseService {
 			
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
 			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.getInstance(), "getAccountsResponse.txt");
-			Log.i("", "RESPONSE::::"+response);
+			//Log.i("", "RESPONSE::::"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
@@ -61,6 +61,7 @@ public class GetAccountsService extends BaseService {
 				
 				ArrayList<AccountsModel> accountsArrayList = new ArrayList<AccountsModel>();
 				accountsArrayList = parseJSONResponse(response);
+				ApplicationEx.getInstance().setAccountsArrayList(accountsArrayList);
 				
 				if (getAccountsListener != null) {
 					getAccountsListener.onGetAccountsFinished(accountsArrayList);

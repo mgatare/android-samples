@@ -225,7 +225,7 @@ public abstract class BaseService implements Runnable {
 					httpResponse = httpclient.execute(httpPut);
 				}
 				statusCode = httpResponse.getStatusLine().getStatusCode();
-				
+				Log.i(TAG, "HTTPCODE::"+statusCode);
 				//Retrive the Headers from the Response
 				getHeadersFromResponse(httpResponse);
 				

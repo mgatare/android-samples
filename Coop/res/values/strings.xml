@@ -10,7 +10,7 @@
     <string name="create_four_digit_pin_code">Create your 4 digit PIN code</string>
     <string name="pin_code">PIN code</string>
     <string name="activation_code_text">Get your activation code at \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nenter it below.</string>
-    <string name="please_create_pin_code_text">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you the next time</string>
+    <string name="please_create_pin_code_text">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you.</string>
     <string name="create_your_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
     <string name="tab_title_transaction">Transaction</string>
@@ -91,6 +91,7 @@
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Please enter code</string>
     <string name="encap_error">An error occurred. Please try again shortly.</string>
+    <string name="encap_unknown_registration_error">Unknown registration exception. You will have to reactivate the device.</string>
     <string name="encap_authentication_error">You have enterd your PIN incorrectly too many times, and you will have to reactivate the device.</string>
     <string name="error_in_communication">There was some error communicating with the server. Please try again later</string>
     <string name="transfer_funds_validation">Receiver\'s name is missing.\nAccount number must be 11 digits.\nAmount must be atleast 500.</string>
