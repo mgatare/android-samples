@@ -1,15 +1,15 @@
 package com.entercard.coopmedlem.utils;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.Spannable;
@@ -21,7 +21,7 @@ import android.text.style.StyleSpan;
 /**
  * The Class StringUtils.
  */
-public class StringUtils {
+@SuppressLint("DefaultLocale") public class StringUtils {
 
 	/** The Constant EMPTY. */
 	public final static String EMPTY = "";
@@ -114,7 +114,7 @@ public class StringUtils {
 	 * @param string the string
 	 * @return the string
 	 */
-	public static String trimStringAndReplaceNumbers(String string) {
+	public static String trimStringAndDigits(String string) {
 		return string.replaceAll("(\\r|\\n|\\t)", "").replaceAll("[0-9]","").trim();
 	}
 	
@@ -132,19 +132,19 @@ public class StringUtils {
 		return isEmpty(str) ? EMPTY : str;
 	}
 
-	/**
-	 * Format to locale.
-	 *
-	 * @param text the text
-	 * @return the string
-	 */
-	public static String formatToLocale(String text) {
-
-		double currency = Double.parseDouble(text);
-		// Format to US locale
-		NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
-		return format.format(currency);
-	}
+//	/**
+//	 * Format to locale.
+//	 *
+//	 * @param text the text
+//	 * @return the string
+//	 */
+//	public static String formatToLocale(String text) {
+//
+//		double currency = Double.parseDouble(text);
+//		// Format to US locale
+//		NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
+//		return format.format(currency);
+//	}
 
 	/**
 	 * validate your email address format. Ex-akhi@mani.com
@@ -226,7 +226,31 @@ public class StringUtils {
 		String finalTxt = String.valueOf(finalValue).replace('.', ',');
 		return String.valueOf(finalTxt);
 	}
-
+	
+	/**
+	 * 
+	 * @param currency
+	 * @return
+	 */
+	public static String formatStringCurrencyAddNorwegianCode(String currency) {
+		BigInteger number = new BigInteger(currency);
+		String amountTxt = (String.format("%,d", number));// .replace(',',' ')
+		// Add code
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("NOK ");
+		buffer.append(amountTxt);
+		return buffer.toString();
+	}
+	
+	/**
+	 * 
+	 * @param amount
+	 * @return
+	 */
+	public static String removeCurrencyFormat(String amount) {
+		String finalTxt = amount.replace(",", "").replace("NOK", "").trim();
+		return finalTxt;
+	}
 	/**
 	 * Gets the aplhabets input filter.
 	 *
@@ -238,29 +262,6 @@ public class StringUtils {
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
 					if (source.charAt(i) != ' '
-							&& !Character.isLetter(source.charAt(i))) {
-						return "";
-					}
-				}
-				return null;
-			}
-		};
-		return filter;
-	}
-
-	/**
-	 * Gets the address aplhabets input filter.
-	 *
-	 * @return the address aplhabets input filter
-	 */
-	public static InputFilter getAddressAplhabetsInputFilter() {
-		InputFilter filter = new InputFilter() {
-			public CharSequence filter(CharSequence source, int start, int end,
-					Spanned dest, int dstart, int dend) {
-				for (int i = start; i < end; i++) {
-					if (source.charAt(i) != ' ' && source.charAt(i) != '('
-							&& source.charAt(i) != ')'
-							&& source.charAt(i) != '*'
 							&& !Character.isLetter(source.charAt(i))) {
 						return "";
 					}
@@ -303,27 +304,6 @@ public class StringUtils {
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
 					if (!Character.isDigit(source.charAt(i))) {
-						return "";
-					}
-				}
-				return null;
-			}
-		};
-		return filter;
-	}
-
-	/**
-	 * Gets the numbers input filter landline numbers.
-	 *
-	 * @return the numbers input filter landline numbers
-	 */
-	public static InputFilter getNumbersInputFilterLandlineNumbers() {
-		InputFilter filter = new InputFilter() {
-			public CharSequence filter(CharSequence source, int start, int end,
-					Spanned dest, int dstart, int dend) {
-				for (int i = start; i < end; i++) {
-					if (source.charAt(i) != '-'
-							&& !Character.isDigit(source.charAt(i))) {
 						return "";
 					}
 				}

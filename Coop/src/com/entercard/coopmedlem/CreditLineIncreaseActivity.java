@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -32,6 +33,7 @@ import com.entercard.coopmedlem.EmploymentActivity.EmploymentTypeListener;
 import com.entercard.coopmedlem.entities.SingletonUserDataModel;
 import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.StringUtils;
 
 public class CreditLineIncreaseActivity extends BaseActivity implements EmploymentTypeListener {
 
@@ -68,7 +70,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle("Credit Line Increase");
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
+		
 	}
 	
 	private void init() {
@@ -92,6 +94,10 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		btnApplyCLI.setOnClickListener(viewOnCLickListener);
 		btnPlusCreditLimit.setOnClickListener(viewOnCLickListener);
 		btnSubstractCreditLimit.setOnClickListener(viewOnCLickListener);
+		
+		txtYearlyIncome.setOnFocusChangeListener(focusChangeListener);
+		txtMortgage.setOnFocusChangeListener(focusChangeListener);
+		txtOtherLoans.setOnFocusChangeListener(focusChangeListener);
 	}
 
 	/**
@@ -128,9 +134,9 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				
 			case R.id.btnApplyCLI:
 				
-				String yearlyIncomeTxt = txtYearlyIncome.getText().toString();
-				String mortgageTxt = txtMortgage.getText().toString();
-				String otherLoansTxt = txtOtherLoans.getText().toString();
+				String yearlyIncomeTxt = StringUtils.removeCurrencyFormat(txtYearlyIncome.getText().toString());
+				String mortgageTxt = StringUtils.removeCurrencyFormat(txtMortgage.getText().toString());
+				String otherLoansTxt = StringUtils.removeCurrencyFormat(txtOtherLoans.getText().toString());
 				String empTypeTxt = lblEmploymentType.getText().toString();
 				
 				if (TextUtils.isEmpty(yearlyIncomeTxt)
@@ -158,6 +164,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					return;
 				}
 				
+				//Toast.makeText(CreditLineIncreaseActivity.this, "ALL MILAAAAAAAAAA", Toast.LENGTH_LONG).show();
+				
 				/*
 				 * MAKE WS CALLS HERE
 				 */
@@ -184,6 +192,59 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				
 				break;
 				
+			default:
+				break;
+			}
+		}
+	};
+	
+	OnFocusChangeListener focusChangeListener = new OnFocusChangeListener() {
+		@Override
+		public void onFocusChange(View v, boolean hasFocus) {
+			switch (v.getId()) {
+			case R.id.txtYearlyIncome:
+	        	String yearlyAmountTxt = txtYearlyIncome.getText().toString();
+	        	if(!TextUtils.isEmpty(yearlyAmountTxt)) {
+		            if(hasFocus) {
+		            	yearlyAmountTxt = StringUtils.removeCurrencyFormat(yearlyAmountTxt);
+		            	txtYearlyIncome.setText(yearlyAmountTxt);
+		            	txtYearlyIncome.setSelection(txtYearlyIncome.getText().length());
+		            } else {
+		            	yearlyAmountTxt = StringUtils.formatStringCurrencyAddNorwegianCode(yearlyAmountTxt);
+		            	txtYearlyIncome.setText(yearlyAmountTxt);
+		            	txtYearlyIncome.setSelection(txtYearlyIncome.getText().length());
+		            }
+	        	}
+				break;
+
+			case R.id.txtMortgage:
+				String mortgageTxt = txtMortgage.getText().toString();
+	        	if(!TextUtils.isEmpty(mortgageTxt)) {
+		            if(hasFocus) {
+		            	mortgageTxt = StringUtils.removeCurrencyFormat(mortgageTxt);
+		            	txtMortgage.setText(mortgageTxt);
+		            	txtMortgage.setSelection(txtMortgage.getText().length());
+		            } else {
+		            	mortgageTxt = StringUtils.formatStringCurrencyAddNorwegianCode(mortgageTxt);
+		            	txtMortgage.setText(mortgageTxt);
+		            	txtMortgage.setSelection(txtMortgage.getText().length());
+		            }
+	        	}
+				break;
+			case R.id.txtOtherLoans:
+				String otherLoansTxt = txtOtherLoans.getText().toString();
+	        	if(!TextUtils.isEmpty(otherLoansTxt)) {
+		            if(hasFocus) {
+		            	otherLoansTxt = StringUtils.removeCurrencyFormat(otherLoansTxt);
+		            	txtOtherLoans.setText(otherLoansTxt);
+		            	txtOtherLoans.setSelection(txtOtherLoans.getText().length());
+		            } else {
+		            	otherLoansTxt = StringUtils.formatStringCurrencyAddNorwegianCode(otherLoansTxt);
+		            	txtOtherLoans.setText(otherLoansTxt);
+		            	txtOtherLoans.setSelection(txtOtherLoans.getText().length());
+		            }
+	        	}
+				break;
 			default:
 				break;
 			}
@@ -219,6 +280,9 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		txtYearlyIncome.clearFocus();
+		txtMortgage.clearFocus();
+		txtOtherLoans.clearFocus();
 	    if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d("", " CLI MILAAAAAAAA");

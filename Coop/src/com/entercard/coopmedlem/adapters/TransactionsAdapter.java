@@ -128,8 +128,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
 					
 					String date = DateUtils.getTransactionDate(getItem(pos).getDate());
-					String city = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCity());
-					String country = StringUtils.trimStringAndReplaceNumbers(getItem(pos).getCountry());
+					String city = StringUtils.trimStringAndDigits(getItem(pos).getCity());
+					String country = StringUtils.trimStringAndDigits(getItem(pos).getCountry());
 					
 					String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
 					Log.i("COOP","SWED URL>>>>>"+strURL);

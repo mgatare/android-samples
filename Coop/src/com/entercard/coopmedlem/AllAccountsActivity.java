@@ -57,12 +57,12 @@ public class AllAccountsActivity extends BaseActivity implements
 		} else {
 			callGetAccountsService();
 		}
+		
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("Accounts");
 	}
 
 	private void init() {
-
-		actionBar = getSupportActionBar();
-		actionBar.setTitle("Accounts");
 
 		textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
 		btnTryAgain = (Button) findViewById(R.id.btnTryAgain);

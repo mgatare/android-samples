@@ -11,10 +11,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,19 +56,38 @@ public class TransferFundsFragment extends Fragment {
 		
 		init(parentView);
 		
+		txtAmount.setOnFocusChangeListener(new OnFocusChangeListener() {
+	        public void onFocusChange(View v, boolean hasFocus) {
+	        	
+	        	String amountTxt = txtAmount.getText().toString();
+	        	
+	        	if(!TextUtils.isEmpty(amountTxt)) {
+		            if(hasFocus) {
+		            	amountTxt = StringUtils.removeCurrencyFormat(amountTxt);
+		            	txtAmount.setText(amountTxt);
+		            	txtAmount.setSelection(txtAmount.getText().length());
+		            } else {
+		            	amountTxt = StringUtils.formatStringCurrencyAddNorwegianCode(amountTxt);
+		            	txtAmount.setText(amountTxt);
+		            	txtAmount.setSelection(txtAmount.getText().length());
+		            }
+	        	}
+	        }
+	    });
+		
 		btnFundsTransfer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				//AlertHelper.Alert("Functionality not implemented yet." , getActivity());
 				
 				int amount = 0;
-				double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
+				//double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
 				String receiverNameTxt = txtReceiversName.getText().toString();
 				String accountNumberTxt = txtAccountNumber.getText().toString();
 				String messageTxt = txtMessage.getText().toString();
 				
-				if(!TextUtils.isEmpty(txtAmount.getText().toString()))
-					amount = Integer.parseInt(txtAmount.getText().toString());
+				if(!TextUtils.isEmpty(StringUtils.removeCurrencyFormat(txtAmount.getText().toString())))
+					amount = Integer.parseInt(StringUtils.removeCurrencyFormat(txtAmount.getText().toString()));
 				
 				if (accountNumberTxt.length() < 11 && amount <= 500
 						&& TextUtils.isEmpty(receiverNameTxt)) {
@@ -87,10 +106,15 @@ public class TransferFundsFragment extends Fragment {
 					AlertHelper.Alert(getResources().getString(R.string.amount_incorrect), parentActivity);
 					return;
 				}
-//				if (amount < otbAmount) {
+				/*
+				 * EXCEPTION caused by INT to DOUBLE. Check this
+				 */
+//				if (amount > otbAmount) {
 //					AlertHelper.Alert(getResources().getString(R.string.amount_cannot_be_higher_than_otb), parentActivity);
 //					return;
 //				}
+				
+				//Toast.makeText(getActivity(), "ALL MILAAAAAAAAAA", Toast.LENGTH_LONG).show();
 				
 				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
 				SingletonUserDataModel userDataModel = new SingletonUserDataModel();
@@ -114,6 +138,7 @@ public class TransferFundsFragment extends Fragment {
 		});
 		return parentView;
 	}
+	
 	/**
 	 * 
 	 * @param view
@@ -137,7 +162,7 @@ public class TransferFundsFragment extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
-				Log.d("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				//Log.d("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				/**
 				 * TODO: WORK HERE MAYUR FOR WS CALLS...
 				 */
