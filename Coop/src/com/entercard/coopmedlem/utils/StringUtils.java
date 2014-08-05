@@ -220,11 +220,12 @@ import android.text.style.StyleSpan;
 	 * @param amount the amount
 	 * @return the string
 	 */
-	public static String formatCurrencyLocally(String amount) {
+	public static String roundAndFormatCurrency(String amount) {
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
-		String finalTxt = String.valueOf(finalValue).replace('.', ',');
-		return String.valueOf(finalTxt);
+		String amountTxt = (String.format("%,.2f", finalValue));
+		return amountTxt;
+		
 	}
 	
 	/**

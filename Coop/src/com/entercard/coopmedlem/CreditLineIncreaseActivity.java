@@ -16,8 +16,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -85,8 +83,11 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		btnSubstractCreditLimit= (Button) findViewById(R.id.btnSubstractCreditLimit);
 
 		//max limit will be 150K - Credit Limit for that ACCOUNT
-		//originalCredit = Integer.parseInt(ApplicationEx.getInstance().getAccountsArrayList().get(getAccountPosition()).getCreditLimit());
-		originalCredit = 13000;
+		int position = getAccountPosition();
+		double mAccountCredit = Double.parseDouble(ApplicationEx.getInstance()
+				.getAccountsArrayList().get(position).getCreditLimit());
+		
+		originalCredit = (int) Math.round(mAccountCredit);
 		adjustedCreditLimit = 150000 - originalCredit;
 		lblCreditAmountApplied.setText("5000");
 		
@@ -314,45 +315,23 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 						}).show();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			Intent upIntent = new Intent(this, HomeScreenActivity.class);
-			if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-				TaskStackBuilder.from(this).addNextIntent(upIntent)
-						.startActivities();
-				finish();
-			} else {
-				NavUtils.navigateUpTo(this, upIntent);
-			}
+			Log.d("COOP", "### android.R.id.home CLI:####");
+			finish();
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.d("COOP", "##### onDestroy CLI  #####");
-		employmentTxt = null;
-		if(null != finishReceiver) {
-			unregisterReceiver(finishReceiver);
-			finishReceiver = null;
-		}
+	public void onReturnEmploymentType(final String type) {
+		employmentTxt = type;
+		Log.d("COOP", "###employmentTxt##"+employmentTxt);
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.d("COOP", "### onResume() ##"+employmentTxt);
-		if (!TextUtils.isEmpty(employmentTxt))
-			lblEmploymentType.setText(employmentTxt);
-		else
-			lblEmploymentType.setText("None");
-	}
-	
 	/**
 	 * Reg activity logout receiver.
 	 */
@@ -377,8 +356,23 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	}
 	
 	@Override
-	public void onReturnEmploymentType(final String type) {
-		employmentTxt = type;
-		Log.d("COOP", "###employmentTxt##"+employmentTxt);
+	public void onDestroy() {
+		super.onDestroy();
+		Log.d("COOP", "##### onDestroy CLI  #####");
+		employmentTxt = null;
+		if(null != finishReceiver) {
+			unregisterReceiver(finishReceiver);
+			finishReceiver = null;
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d("COOP", "### onResume() ##"+employmentTxt);
+		if (!TextUtils.isEmpty(employmentTxt))
+			lblEmploymentType.setText(employmentTxt);
+		else
+			lblEmploymentType.setText("None");
 	}
 }

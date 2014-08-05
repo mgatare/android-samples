@@ -199,7 +199,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
-			//Log.i("COOP", "===afterTextChanged===");
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
@@ -272,11 +271,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 			Log.i("", "-------setTextFromSoftKeyboard-PIN CODE IS----" + newPIN);
 			
-			try {
-				Thread.sleep(1500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(800);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			
 			//Finish the Authentication process
 			finishAuthentication(newPIN);
@@ -516,6 +515,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			/* Start the PIN code Activity */
 			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 			startActivity(intent);
 
 			finish();

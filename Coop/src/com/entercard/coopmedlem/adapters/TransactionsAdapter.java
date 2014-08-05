@@ -86,7 +86,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		String date = DateUtils.getTransactionDate(getItem(position).getDate());
 		lblDate.setText(date.substring(0, 6));
 		
-		lblPrice.setText(StringUtils.formatCurrencyLocally(getItem(position).getBillingAmount()));
+		lblPrice.setText(StringUtils.roundAndFormatCurrency(getItem(position).getBillingAmount()));
+		
 		if(getItem(position).getType().equalsIgnoreCase("Credit")){
 			lblName.setVisibility(View.GONE);
 			lblNameBox.setVisibility(View.VISIBLE);
@@ -131,8 +132,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 					String city = StringUtils.trimStringAndDigits(getItem(pos).getCity());
 					String country = StringUtils.trimStringAndDigits(getItem(pos).getCountry());
 					
+					//Make HTTP call
 					String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
-					Log.i("COOP","SWED URL>>>>>"+strURL);
+					Log.i("COOP","URL>>>>>"+strURL);
 					
 					if(!TextUtils.isEmpty(strURL))
 						imageLoader.DisplayImage(strURL, imgView);
@@ -142,7 +144,11 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 						collapse(relMapLayout);
 						currentExpandedPosition = -1;
 						currentExpandedView = null;
-						imgMarker.setVisibility(View.VISIBLE);
+						if(!TextUtils.isEmpty(city))
+							imgMarker.setVisibility(View.VISIBLE);
+						else
+							imgMarker.setVisibility(View.GONE);
+						
 						btnDisputeOnMap.setVisibility(View.VISIBLE);
 						lblDate.setText(date.substring(0, 6));
 						
@@ -152,12 +158,18 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 							currentExpandedPosition = -1;
 							currentExpandedView = null;
 							expand(relMapLayout);
-							imgMarker.setVisibility(View.VISIBLE);
+							if(!TextUtils.isEmpty(city))
+								imgMarker.setVisibility(View.VISIBLE);
+							else
+								imgMarker.setVisibility(View.GONE);
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
 							lblDate.setText(date);
 						} else {
 							expand(relMapLayout);
-							imgMarker.setVisibility(View.VISIBLE);
+							if(!TextUtils.isEmpty(city))
+								imgMarker.setVisibility(View.VISIBLE);
+							else
+								imgMarker.setVisibility(View.GONE);
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
 							lblDate.setText(date);
 						}
@@ -182,6 +194,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				intent.putExtra("date", getItem(position).getDate());
 				intent.putExtra("id", getItem(position).getId());
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				context.startActivity(intent);
 			}
 		});

@@ -1,10 +1,11 @@
 package com.entercard.coopmedlem;
 
-import com.entercard.coopmedlem.utils.PreferenceHelper;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import com.entercard.coopmedlem.utils.PreferenceHelper;
 
 public class OnScreenUnlockReceiver extends BroadcastReceiver {
 
@@ -12,18 +13,19 @@ public class OnScreenUnlockReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 
 		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(context.getResources().getString(
-				R.string.tag_act_finish));
+		broadcastIntent.setAction(context.getResources().getString(R.string.tag_act_finish));
 		context.sendBroadcast(broadcastIntent);
 
 		if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
-//			// Log.v("COOP", "In Method:  ACTION_USER_PRESENT::"+context);
-//			Intent newIntent = new Intent(context, EnterPINCodeActivity.class);
-//			newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			context.startActivity(newIntent);
+			 Log.v("COOP", "onReceive ACTION_USER_PRESENT::"+context);
 			
 			PreferenceHelper preferenceHelper = new PreferenceHelper(context);
 			if (preferenceHelper.getInt(context.getResources().getString(R.string.pref_is_activated)) == 1) {
+				
+				if(null!=ApplicationEx.getInstance()) {
+					ApplicationEx.getInstance().clearGlobalContents();
+					Log.e("RECEIVER", "ALL CLEAREDDD!!!!!!!!!!");
+				}
 				/* Start the PIN code Activity */
 				Intent enterPINIntent = new Intent(context, EnterPINCodeActivity.class);
 				enterPINIntent.putExtra(context.getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
@@ -32,7 +34,7 @@ public class OnScreenUnlockReceiver extends BroadcastReceiver {
 				
 			} else {
 				/* Start the Activate app Activity */
-				Intent mainIntent = new Intent(context,ActivateAppActivity.class);
+				Intent mainIntent = new Intent(context, ActivateAppActivity.class);
 				mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(mainIntent);
 			}

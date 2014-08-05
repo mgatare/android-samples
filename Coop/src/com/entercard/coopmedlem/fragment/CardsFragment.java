@@ -81,7 +81,7 @@ public class CardsFragment extends Fragment {
 		cardsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getCardDataArrayList();
 		creditLimitTxt= ApplicationEx.getInstance().getAccountsArrayList().get(position).getCreditLimit();
 		
-		lblCreditlimit.setText(creditLimitTxt);
+		lblCreditlimit.setText(StringUtils.roundAndFormatCurrency(creditLimitTxt));
 		
 		cardsAdapter = new CardsAdapter(parentActivity, 0, cardsArrayList);
 		allCardsListView.setAdapter(cardsAdapter);
@@ -125,7 +125,7 @@ public class CardsFragment extends Fragment {
 			/*Check if Phone calling is supported or not then initiate the phone call*/
 			PackageManager packageManager = parentActivity.getPackageManager();
 			boolean canCall = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
-			if (canCall) {		
+			if (canCall) {
 				Intent intent = new Intent(Intent.ACTION_DIAL);
 				intent.setData(Uri.parse("tel:" + StringUtils.trimStringOnly(string)));
 				startActivity(intent);

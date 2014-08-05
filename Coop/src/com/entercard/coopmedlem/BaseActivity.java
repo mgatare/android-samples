@@ -74,7 +74,7 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 		regUnlockReceiver();
 
 	}
@@ -333,12 +333,4 @@ public class BaseActivity extends ActionBarActivity {
 	public static void setSingletonUserDataModelList(ArrayList<SingletonUserDataModel> singletonUserDataModel) {
 		BaseActivity.singletonUserDataModelArrayList = singletonUserDataModel;
 	}
-
-//	public static HashMap<String, String> getCustomerFundsData() {
-//		return customerFundsData;
-//	}
-//
-//	public static void setCustomerFundsData(HashMap<String, String> customerFundsData) {
-//		BaseActivity.customerFundsData = customerFundsData;
-//	}
 }

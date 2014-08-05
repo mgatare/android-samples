@@ -1,7 +1,5 @@
 package com.entercard.coopmedlem;
 
-import java.util.Locale;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,15 +19,14 @@ import android.view.MenuItem;
 import com.entercard.coopmedlem.fragment.CardsFragment;
 import com.entercard.coopmedlem.fragment.TransactionsFragment;
 import com.entercard.coopmedlem.fragment.TransferFundsFragment;
-import com.entercard.coopmedlem.view.ParallexViewPager;
 
 public class HomeScreenActivity extends BaseActivity implements ActionBar.TabListener {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ParallexViewPager parallexViewPager;
+	private ViewPager viewPager;
 	private ActionBar actionBar;
 	private ActivityFinishReceiver finishReceiver;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,23 +36,23 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 		regActivityLogoutReceiver();
 		
-		parallexViewPager
+		viewPager
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
 						switch (position) {
 						case 0:
-							actionBar.setTitle("Transaction");
+							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
 							break;
 						case 1:
-							actionBar.setTitle("Transfer Funds");
+							actionBar.setTitle(getResources().getString(R.string.tab_title_transfer));
 							break;
 						case 2:
-							actionBar.setTitle("Cards");
+							actionBar.setTitle(getResources().getString(R.string.tab_title_cards));
 							break;
 						default:
-							actionBar.setTitle("Transactions");
+							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
 							break;
 						}
 					}
@@ -74,10 +71,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-		parallexViewPager = (ParallexViewPager) findViewById(R.id.pager);
-        parallexViewPager.set_max_pages(3);
-        parallexViewPager.setBackgroundAsset(R.drawable.back_three);
-        parallexViewPager.setAdapter(mSectionsPagerAdapter);
+		viewPager = (ViewPager) findViewById(R.id.pager);
+        //parallexViewPager.set_max_pages(3);
+        //parallexViewPager.setBackgroundAsset(R.drawable.back_three);
+        viewPager.setAdapter(mSectionsPagerAdapter);
 	}
 
 	@Override
@@ -109,7 +106,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-		parallexViewPager.setCurrentItem(tab.getPosition());
+		viewPager.setCurrentItem(tab.getPosition());
 		closeKeyBoard();
 	}
 
@@ -153,14 +150,14 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
+			//Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.tab_title_transaction).toLowerCase(l);
+				return getString(R.string.tab_title_transaction);
 			case 1:
-				return getString(R.string.tab_title_transfer).toLowerCase(l);
+				return getString(R.string.tab_title_transfer);
 			case 2:
-				return getString(R.string.tab_title_credit_increase).toLowerCase(l);
+				return getString(R.string.tab_title_cards);
 			}
 			return null;
 		}
@@ -186,9 +183,11 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	    
 	    registerReceiver(finishReceiver, intentFilter);
 	}
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		Log.e("COOP", ">>HOMESCREEN In Method: onDestroy()"+finishReceiver);
 		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;

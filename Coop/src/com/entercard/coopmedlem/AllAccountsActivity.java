@@ -108,9 +108,9 @@ public class AllAccountsActivity extends BaseActivity implements
 				 * showDeveloperLog(">>count>>"+count);
 				 */
 
-				Intent intent = new Intent(AllAccountsActivity.this,
-						HomeScreenActivity.class);
+				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				startActivity(intent);
 
 			}
@@ -174,9 +174,11 @@ public class AllAccountsActivity extends BaseActivity implements
 				setSpent(spent);
 				setAccountPosition(0);
 				setTransactionsCount(count);
-
+				
+				//Move to HomeScreen directly without showing Acounts screen
 				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				startActivity(intent);
 				finish();// Need to finish the ACCOUNTS screen as there is only one account
 			}
@@ -208,8 +210,7 @@ public class AllAccountsActivity extends BaseActivity implements
 	private void regActivityFinishReceiver() {
 		finishReceiver = new ActivityFinishReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(getResources()
-				.getString(R.string.tag_act_finish));// ACTION.FINISH.LOGOUT
+		intentFilter.addAction(getResources().getString(R.string.tag_act_finish));// ACTION.FINISH.LOGOUT
 
 		registerReceiver(finishReceiver, intentFilter);
 	}

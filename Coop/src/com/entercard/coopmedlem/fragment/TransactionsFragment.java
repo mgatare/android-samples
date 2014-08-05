@@ -6,12 +6,15 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,6 +47,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
 	private int pageNumber = 0; //TEST
+	private Handler handler;
+	private ProgressBarAnimation barAnimation;
 	
 	public static TransactionsFragment newInstance() {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -76,7 +81,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	}
 
 	/**
-	 * 
 	 * @param rootView
 	 */
 	private void init(View rootView) {
@@ -94,12 +98,15 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		progSpent = (ProgressBar) rootView.findViewById(R.id.progSpent);
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
+		
+		//Currency Animations
+		handler = new Handler();
 	}
 
 	private void setData() {
 		
-		spentTextView.setText(spentCashTxt != null ? StringUtils.formatCurrencyLocally(spentCashTxt) : "?");
-		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.formatCurrencyLocally(openToBuyCashTxt): "?");
+		spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
+		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
 		
 		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
 		transactionListView.setAdapter(transactionsAdapter);
@@ -107,10 +114,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
-				
-				/*int pageNumber = transactionsArrayList.get(position).getPage();
-				int perNumber = transactionsArrayList.get(position).getPerPage();
-				int total = transactionsArrayList.get(position).getTotal();*/
 				
 				//Log.e("COOP", "<PAGE>" + pageNumber + "<PERPAGE>" + perNumber + "<TOTAL>" + total);
 				Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
@@ -138,6 +141,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		setHasOptionsMenu(true);
 	}
 	
+	@SuppressLint("NewApi")
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
 	private void setProgressBarValue() {
 		
 		double otb = Double.parseDouble(openToBuyCashTxt);
@@ -145,15 +150,146 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		int otbValue = (int)Math.round(otb);
 		int spentValue = (int)Math.round(spent);
+		//int spentValue = 0;
 		
-		int percentageDiff = (int)(otbValue * 100 / spentValue);
+		int TOTAL = otbValue + spentValue;
+		int percentageDiff = (int)(otbValue * 100 / TOTAL);
+		
+		//Log.e("COOP", "otbValue---->>"+otbValue);
+		//Log.e("COOP", "spentValue---->>"+spentValue);
 		Log.e("COOP", "DIFFERENCE---->>"+percentageDiff);
-		//7 = x * 100 / 2305;
 		
 		if (otbValue == spentValue) {
-			progSpent.setProgress(100);
+			barAnimation = new ProgressBarAnimation(progSpent, 0, 100);
 		} else {
-			progSpent.setProgress(percentageDiff);
+			barAnimation = new ProgressBarAnimation(progSpent, 0, percentageDiff);
+		}
+		
+		/* FOR PROGRESS BAR ANIMATION*/
+		barAnimation.setDuration(1000);
+		progSpent.startAnimation(barAnimation);
+		
+		/* RUNNABLES FOR SpentCredit TEXTVIEWS ANIMATIONS*/
+		SpentCreditRunnable runnableLblSpent = new SpentCreditRunnable(handler, spentTextView, spentValue);
+		if (runnableLblSpent != null) {
+			handler.removeCallbacks(runnableLblSpent);
+		}
+		handler.post(runnableLblSpent);
+		
+		/* RUNNABLES FOR OpenToBuyCredit TEXTVIEWS ANIMATIONS*/
+		OpenToBuyCreditRunnable newTextTwoUpdateRunnable = new OpenToBuyCreditRunnable(handler, openbuyTextView, otbValue);
+		if (newTextTwoUpdateRunnable != null) {
+			handler.removeCallbacks(newTextTwoUpdateRunnable);
+		}
+		handler.post(newTextTwoUpdateRunnable);
+	}
+	/**
+	 * 
+	 * @author mgatare
+	 *
+	 */
+	private class SpentCreditRunnable implements Runnable {
+		private int LIMIT;
+		private int count;
+		private Handler handler;
+		private TextView textView;
+
+		public SpentCreditRunnable(Handler handler, TextView textView, int limit) {
+			this.handler = handler;
+			this.textView = textView;
+			this.LIMIT = limit;
+		}
+
+		public void run() {
+			if (textView != null) {
+				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
+				if(LIMIT <= 10000)
+					count = count + 1000;
+				else if(LIMIT <= 50000)
+					count = count + 1000;
+				else if(LIMIT <= 100000)
+					count = count + 5000;
+				else if(LIMIT <= 500000)
+					count = count + 10000;
+				else if(LIMIT <= 1000000)
+					count = count + 100000;
+				else 
+					count = count + 100000;
+
+				if (handler != null && count <= LIMIT) {
+					handler.postDelayed(this, 50);
+				} else {
+					textView.setText(StringUtils.roundAndFormatCurrency(spentCashTxt));
+				}
+			}
+		}
+	};
+	/**
+	 * 
+	 * @author mgatare
+	 *
+	 */
+	private class OpenToBuyCreditRunnable implements Runnable {
+		private int LIMIT = 0;
+		private int count = 0;
+		private Handler handler;
+		private TextView textView;
+
+		public OpenToBuyCreditRunnable(Handler handler, TextView textView, int limit) {
+			this.handler = handler;
+			this.textView = textView;
+			this.LIMIT = limit;
+		}
+
+		public void run() {
+			if (textView != null) {
+				
+				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
+				//count = count + 800;
+				if(LIMIT <= 10000)
+					count = count + 500;
+				else if(LIMIT <= 50000)
+					count = count + 1000;
+				else if(LIMIT <= 100000)
+					count = count + 5000;
+				else if(LIMIT <= 500000)
+					count = count + 10000;
+				else if(LIMIT <= 1000000)
+					count = count + 100000;
+				else 
+					count = count + 100000;
+				
+				if (handler != null && count <= LIMIT) {
+					handler.postDelayed(this, 30);
+				} else {
+					textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
+				}
+			}
+		}
+	};
+	/**
+	 * 
+	 * @author mgatare
+	 *
+	 */
+	public class ProgressBarAnimation extends Animation {
+		private ProgressBar progressBar;
+		private float FROM;
+		private float TO;
+
+		public ProgressBarAnimation(ProgressBar progressBar, float from,
+				float to) {
+			super();
+			this.progressBar = progressBar;
+			this.FROM = from;
+			this.TO = to;
+		}
+
+		@Override
+		protected void applyTransformation(float interpolatedTime,Transformation transformation) {
+			super.applyTransformation(interpolatedTime, transformation);
+			float progressValue = FROM + (TO - FROM) * interpolatedTime;
+			progressBar.setProgress((int) progressValue);
 		}
 	}
 	

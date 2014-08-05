@@ -191,15 +191,16 @@ public class Utils {
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 5;
+		int zoomLevel = 7;
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {
 			builder.append(StringUtils.removeBlanks(city));
-			zoomLevel = 13;
+			builder.append(",");
+			//zoomLevel = 10;
 		}
 
-		if (TextUtils.isEmpty(country)) {
+		if (!TextUtils.isEmpty(country)) {
 			builder.append(StringUtils.removeBlanks(country));
 		}
 
@@ -207,10 +208,8 @@ public class Utils {
 
 		if(!TextUtils.isEmpty(params)) {
 			Log.e("Coop", "zoomLevel>>"+zoomLevel);
-			
 			URL = "http://maps.google.com/maps/api/staticmap?center="+ params + "&zoom=" + zoomLevel 
-						+ "&size=550x300&maptype=roadmap&sensor=false";
-			
+						+ "&size=570x350&maptype=roadmap&sensor=false";
 		} else {
 			return null;
 		}

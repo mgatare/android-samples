@@ -13,7 +13,7 @@
     <string name="create_your_pin_code">Velg en PIN-kod</string>
     <string name="btn_create_pin">Lag din PIN-kode</string>
     <string name="tab_title_transaction">Transaksjons</string>
-    <string name="tab_title_credit_increase">Kort</string>
+    <string name="tab_title_cards">Kort</string>
     <string name="tab_title_transfer">Overføre penger</string>
     <string name="option_transactions">transaksjoner</string>
     <string name="option_transfer_funds">Overføring av midler</string>

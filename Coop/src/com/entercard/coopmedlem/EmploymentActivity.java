@@ -103,8 +103,8 @@ public class EmploymentActivity extends BaseActivity {
 //			Intent upIntent = new Intent();
 //			upIntent.putExtra("ID", "MAYURRRR");
 //			setResult(RESULT_OK, upIntent);
-			
-			if(null!=employmentTypeListener) {
+			Log.d("COOP", "### android.R.id.home:####");
+			if (null != employmentTypeListener) {
 				employmentTypeListener.onReturnEmploymentType(employmentTxt);
 			}
 			finish();
