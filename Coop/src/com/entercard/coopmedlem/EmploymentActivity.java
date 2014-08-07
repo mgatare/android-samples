@@ -47,7 +47,7 @@ public class EmploymentActivity extends BaseActivity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
-		actionBar.setTitle("Employment");
+		actionBar.setTitle(getResources().getString(R.string.employment));
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		
 		listViewEmployment.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

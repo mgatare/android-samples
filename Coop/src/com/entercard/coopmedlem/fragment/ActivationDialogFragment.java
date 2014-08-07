@@ -123,20 +123,4 @@ public class ActivationDialogFragment extends DialogFragment {
 						.setView(innerView)
 						.create();
 	}
-    
-//    @Override
-//    public void onResume() {
-//    	super.onResume();
-//    	Log.i("", "onResume() calledddddddddddddddddddddddddddddddddddd");
-//    	actCodeEditText.requestFocus();
-//		actCodeEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-//		handler.postDelayed(new Runnable() {
-//			@Override
-//			public void run() {
-//				// Get focus and show the Keyboard
-//				InputMethodManager inputMgr = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-//				inputMgr.toggleSoftInput(0, 0);
-//			}
-//		}, 200);
-//    }
 }

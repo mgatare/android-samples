@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.EmploymentActivity.EmploymentTypeListener;
-import com.entercard.coopmedlem.entities.SingletonUserDataModel;
+import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
@@ -160,7 +160,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					AlertHelper.Alert(getResources().getString(R.string.other_loans_missing), CreditLineIncreaseActivity.this);
 					return;
 				}
-				if(TextUtils.isEmpty(empTypeTxt) && empTypeTxt.equalsIgnoreCase("None")) {
+				if(TextUtils.isEmpty(empTypeTxt) || empTypeTxt.equalsIgnoreCase("None")) {
 					AlertHelper.Alert(getResources().getString(R.string.employment_is_missing), CreditLineIncreaseActivity.this);
 					return;
 				}
@@ -170,8 +170,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				/*
 				 * MAKE WS CALLS HERE
 				 */
-				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
-				SingletonUserDataModel userDataModel = new SingletonUserDataModel();
+				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
+				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				
 				userDataModel.setYearlyIncome(Integer.parseInt(yearlyIncomeTxt));
 				userDataModel.setMortgage(Integer.parseInt(mortgageTxt));

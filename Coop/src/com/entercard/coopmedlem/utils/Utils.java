@@ -17,19 +17,15 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.entercard.coopmedlem.ApplicationEx;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,24 +41,24 @@ public class Utils {
 	 *            the context
 	 * @return true, if successful
 	 */
-	public static boolean servicesConnected(FragmentActivity context) {
-
-		// Check if Google Play services is available
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(context);
-
-		if (ConnectionResult.SUCCESS == resultCode) {
-			return true;
-		} else {
-			// Display an error dialog if services not found/available
-			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
-					context, 0);
-			if (dialog != null) {
-				dialog.show();
-			}
-		}
-		return false;
-	}
+//	public static boolean servicesConnected(FragmentActivity context) {
+//
+//		// Check if Google Play services is available
+//		int resultCode = GooglePlayServicesUtil
+//				.isGooglePlayServicesAvailable(context);
+//
+//		if (ConnectionResult.SUCCESS == resultCode) {
+//			return true;
+//		} else {
+//			// Display an error dialog if services not found/available
+//			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
+//					context, 0);
+//			if (dialog != null) {
+//				dialog.show();
+//			}
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Write to text file.
@@ -191,7 +187,7 @@ public class Utils {
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 7;
+		int zoomLevel = 9;
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {

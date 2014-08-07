@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.entercard.coopmedlem.entities.SingletonUserDataModel;
+import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -57,13 +57,24 @@ public class BaseActivity extends ActionBarActivity {
 
 	/** The spent. */
 	private static String spent;
+	
+	/** The is first visit. */
+	private static boolean isFirstVisit;
 
 	//private static HashMap<String, String> customerFundsData;
-	private static ArrayList<SingletonUserDataModel> singletonUserDataModelArrayList;
+	/** The singleton user data model array list. */
+	private static ArrayList<SingletonWebservicesDataModel> singletonUserDataModelArrayList;
 	
+	/** The Constant NO_STATE. */
 	public static final  int NO_STATE = 110;
+	
+	/** The Constant DISPUTE. */
 	public static final int DISPUTE = 111; 
+	
+	/** The Constant TRANSFER_FUNDS. */
 	public static final int TRANSFER_FUNDS = 112; 
+	
+	/** The Constant CLI. */
 	public static final int CLI = 113;
 	
 	/*
@@ -180,6 +191,11 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
+	/**
+	 * Show key board.
+	 *
+	 * @param view the view
+	 */
 	public void showKeyBoard(View view) {
 		view.requestFocus();
 		InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -281,6 +297,24 @@ public class BaseActivity extends ActionBarActivity {
 	}
 
 	/**
+	 * Checks if is first visit.
+	 *
+	 * @return true, if is first visit
+	 */
+	public static boolean isFirstVisit() {
+		return isFirstVisit;
+	}
+
+	/**
+	 * Sets the first visit.
+	 *
+	 * @param isFirstVisit the new first visit
+	 */
+	public static void setFirstVisit(boolean isFirstVisit) {
+		BaseActivity.isFirstVisit = isFirstVisit;
+	}
+	
+	/**
 	 * Reg unlock receiver.
 	 */
 	private void regUnlockReceiver() {
@@ -326,11 +360,21 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
-	public static ArrayList<SingletonUserDataModel> getSingletonUserDataModelArrayList() {
+	/**
+	 * Gets the singleton user data model array list.
+	 *
+	 * @return the singleton user data model array list
+	 */
+	public static ArrayList<SingletonWebservicesDataModel> getSingletonUserDataModelArrayList() {
 		return singletonUserDataModelArrayList;
 	}
 
-	public static void setSingletonUserDataModelList(ArrayList<SingletonUserDataModel> singletonUserDataModel) {
+	/**
+	 * Sets the singleton user data model list.
+	 *
+	 * @param singletonUserDataModel the new singleton user data model list
+	 */
+	public static void setSingletonUserDataModelList(ArrayList<SingletonWebservicesDataModel> singletonUserDataModel) {
 		BaseActivity.singletonUserDataModelArrayList = singletonUserDataModel;
 	}
 }

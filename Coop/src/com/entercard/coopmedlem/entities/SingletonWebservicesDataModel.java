@@ -1,6 +1,6 @@
 package com.entercard.coopmedlem.entities;
 
-public class SingletonUserDataModel {
+public class SingletonWebservicesDataModel {
 
 	private String increaseInCreditLimit;
 	// private String adult;

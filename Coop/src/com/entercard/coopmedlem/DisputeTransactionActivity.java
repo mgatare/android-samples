@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import com.entercard.coopmedlem.entities.SingletonUserDataModel;
+import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
@@ -110,8 +110,8 @@ public class DisputeTransactionActivity extends BaseActivity {
 				Log.i("", "btnIncreaseCreditLimit>>>>>"+ApplicationEx.getInstance().getUUID());
 
 				// MAKE WS CALL HERE
-				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
-				SingletonUserDataModel userDataModel = new SingletonUserDataModel();
+				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
+				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				userDataModel.setFundsAccNumer(ApplicationEx.getInstance()
 						.getAccountsArrayList().get(getAccountPosition())
 						.getAccountNumber());// NEED TO CHANGE THIS LOGIC

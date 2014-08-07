@@ -88,7 +88,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		
 		lblPrice.setText(StringUtils.roundAndFormatCurrency(getItem(position).getBillingAmount()));
 		
-		if(getItem(position).getType().equalsIgnoreCase("Credit")){
+		if (getItem(position).getType().equalsIgnoreCase("Credit")) {
 			lblName.setVisibility(View.GONE);
 			lblNameBox.setVisibility(View.VISIBLE);
 			lblNameBox.setText(getItem(position).getDescription());

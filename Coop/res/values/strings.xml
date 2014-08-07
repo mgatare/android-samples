@@ -13,6 +13,7 @@
     <string name="please_create_pin_code_text">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you.</string>
     <string name="create_your_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
+    <string name="create_account">Create account</string>
     <string name="tab_title_transaction">Transaction</string>
     <string name="tab_title_cards">Cards</string>
     <string name="tab_title_transfer">Transfer Funds</string>

@@ -8,6 +8,7 @@
     <string name="enter_activation_code">Skriv den Aktiveringskode</string>
     <string name="create_four_digit_pin_code">Lag en 4-sifret PIN-kode</string>
     <string name="pin_code">PIN-kode</string>
+     <string name="create_account">Opprett konto</string>
     <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", og \nskriv den inn under.</string>
     <string name="please_create_pin_code_text">Vennligst lag en firesifret PIN-kode. Denne vil bli brukt hver gang du starter appen, slik at vi kan identifisere deg.</string>
     <string name="create_your_pin_code">Velg en PIN-kod</string>

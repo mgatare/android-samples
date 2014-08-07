@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ApplicationEx;
+import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.adapters.TransactionsAdapter;
@@ -105,8 +106,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 	private void setData() {
 		
-		spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
-		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
+//		spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
+//		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
 		
 		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
 		transactionListView.setAdapter(transactionsAdapter);
@@ -165,23 +166,39 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			barAnimation = new ProgressBarAnimation(progSpent, 0, percentageDiff);
 		}
 		
-		/* FOR PROGRESS BAR ANIMATION*/
-		barAnimation.setDuration(1000);
-		progSpent.startAnimation(barAnimation);
-		
-		/* RUNNABLES FOR SpentCredit TEXTVIEWS ANIMATIONS*/
-		SpentCreditRunnable runnableLblSpent = new SpentCreditRunnable(handler, spentTextView, spentValue);
-		if (runnableLblSpent != null) {
-			handler.removeCallbacks(runnableLblSpent);
+		if(BaseActivity.isFirstVisit()) {
+			
+			/* FOR PROGRESS BAR ANIMATION*/
+			barAnimation.setDuration(1000);
+			progSpent.startAnimation(barAnimation);
+			
+			/* RUNNABLES FOR SpentCredit TEXTVIEWS ANIMATIONS*/
+			SpentCreditRunnable runnableLblSpent = new SpentCreditRunnable(handler, spentTextView, spentValue);
+			if (runnableLblSpent != null) {
+				handler.removeCallbacks(runnableLblSpent);
+			}
+			handler.post(runnableLblSpent);
+			
+			/* RUNNABLES FOR OpenToBuyCredit TEXTVIEWS ANIMATIONS*/
+			OpenToBuyCreditRunnable newTextTwoUpdateRunnable = new OpenToBuyCreditRunnable(handler, openbuyTextView, otbValue);
+			if (newTextTwoUpdateRunnable != null) {
+				handler.removeCallbacks(newTextTwoUpdateRunnable);
+			}
+			handler.post(newTextTwoUpdateRunnable);
+			
+			//Toggle States to not allow animation again
+			BaseActivity.setFirstVisit(false);
+			
+		} else {
+			//
+			spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
+			openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
+			if (otbValue == spentValue) {
+				progSpent.setProgress(100);
+			} else {
+				progSpent.setProgress(percentageDiff);
+			}
 		}
-		handler.post(runnableLblSpent);
-		
-		/* RUNNABLES FOR OpenToBuyCredit TEXTVIEWS ANIMATIONS*/
-		OpenToBuyCreditRunnable newTextTwoUpdateRunnable = new OpenToBuyCreditRunnable(handler, openbuyTextView, otbValue);
-		if (newTextTwoUpdateRunnable != null) {
-			handler.removeCallbacks(newTextTwoUpdateRunnable);
-		}
-		handler.post(newTextTwoUpdateRunnable);
 	}
 	/**
 	 * 
@@ -249,11 +266,11 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				if(LIMIT <= 10000)
 					count = count + 500;
 				else if(LIMIT <= 50000)
-					count = count + 1000;
-				else if(LIMIT <= 100000)
 					count = count + 5000;
-				else if(LIMIT <= 500000)
+				else if(LIMIT <= 100000)
 					count = count + 10000;
+				else if(LIMIT <= 500000)
+					count = count + 50000;
 				else if(LIMIT <= 1000000)
 					count = count + 100000;
 				else 

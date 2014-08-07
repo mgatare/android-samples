@@ -41,20 +41,20 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
-						switch (position) {
-						case 0:
-							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
-							break;
-						case 1:
-							actionBar.setTitle(getResources().getString(R.string.tab_title_transfer));
-							break;
-						case 2:
-							actionBar.setTitle(getResources().getString(R.string.tab_title_cards));
-							break;
-						default:
-							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
-							break;
-						}
+//						switch (position) {
+//						case 0:
+//							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
+//							break;
+//						case 1:
+//							actionBar.setTitle(getResources().getString(R.string.tab_title_transfer));
+//							break;
+//						case 2:
+//							actionBar.setTitle(getResources().getString(R.string.tab_title_cards));
+//							break;
+//						default:
+//							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
+//							break;
+//						}
 					}
 				});
 		

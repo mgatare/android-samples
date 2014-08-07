@@ -515,9 +515,14 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			/* Start the PIN code Activity */
 			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 			startActivity(intent);
-
+			
+			/**
+			 * This is a workaround FLAG for animation on the homescreen to be shown only once in a session
+			 **/
+			
+			BaseActivity.setFirstVisit(true);
+			
 			finish();
 			break;
 

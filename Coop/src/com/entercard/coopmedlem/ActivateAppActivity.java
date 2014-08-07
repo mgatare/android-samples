@@ -1,6 +1,7 @@
 package com.entercard.coopmedlem;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -57,9 +58,9 @@ public class ActivateAppActivity extends BaseActivity {
 		}
 
 		actionBar = getSupportActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayUseLogoEnabled(false);
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setTitle(getResources().getString(R.string.create_account));
 		
 		// Gets only one instance
 		controller = ((ApplicationEx) getApplication()).getController();
@@ -135,15 +136,6 @@ public class ActivateAppActivity extends BaseActivity {
 			switch (v.getId()) {
 			case R.id.btnOk:
 
-				// FragmentManager fragmentManager = getFragmentManager();
-				// FragmentTransaction transaction =
-				// fragmentManager.beginTransaction();
-				// transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-				// transaction.replace(R.id.lytContainer,new
-				// CreateActivationCodeFragment());
-				// transaction.addToBackStack(null);
-				// transaction.commit();
-				
 				if (NetworkHelper.isOnline(parentActivity)) {
 					DialogFragment newFragment = ActivationDialogFragment.newInstance(0);
 					FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();

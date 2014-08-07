@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem.fragment;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
@@ -24,7 +26,7 @@ import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
-import com.entercard.coopmedlem.entities.SingletonUserDataModel;
+import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
 
@@ -61,27 +63,26 @@ public class TransferFundsFragment extends Fragment {
 	        	
 	        	String amountTxt = txtAmount.getText().toString();
 	        	
-	        	if(!TextUtils.isEmpty(amountTxt)) {
-		            if(hasFocus) {
-		            	amountTxt = StringUtils.removeCurrencyFormat(amountTxt);
-		            	txtAmount.setText(amountTxt);
-		            	txtAmount.setSelection(txtAmount.getText().length());
-		            } else {
-		            	amountTxt = StringUtils.formatStringCurrencyAddNorwegianCode(amountTxt);
-		            	txtAmount.setText(amountTxt);
-		            	txtAmount.setSelection(txtAmount.getText().length());
-		            }
-	        	}
+				if (!TextUtils.isEmpty(amountTxt)) {
+					if (hasFocus) {
+						amountTxt = StringUtils.removeCurrencyFormat(amountTxt);
+						txtAmount.setText(amountTxt);
+						txtAmount.setSelection(txtAmount.getText().length());
+					} else {
+						amountTxt = StringUtils.formatStringCurrencyAddNorwegianCode(amountTxt);
+						txtAmount.setText(amountTxt);
+						txtAmount.setSelection(txtAmount.getText().length());
+					}
+				}
 	        }
 	    });
 		
 		btnFundsTransfer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//AlertHelper.Alert("Functionality not implemented yet." , getActivity());
 				
 				int amount = 0;
-				//double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
+				double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
 				String receiverNameTxt = txtReceiversName.getText().toString();
 				String accountNumberTxt = txtAccountNumber.getText().toString();
 				String messageTxt = txtMessage.getText().toString();
@@ -106,25 +107,27 @@ public class TransferFundsFragment extends Fragment {
 					AlertHelper.Alert(getResources().getString(R.string.amount_incorrect), parentActivity);
 					return;
 				}
-				/*
-				 * EXCEPTION caused by INT to DOUBLE. Check this
+				/**
+				 * EXCEPTION caused for Larger value. Check this.
 				 */
-//				if (amount > otbAmount) {
-//					AlertHelper.Alert(getResources().getString(R.string.amount_cannot_be_higher_than_otb), parentActivity);
-//					return;
-//				}
+				BigInteger bigIntegerOTB = new BigDecimal(otbAmount).toBigInteger();
+				BigInteger bigInt = new BigInteger(String.valueOf(amount));
+				if (bigInt.intValue() > bigIntegerOTB.intValue()) {
+					AlertHelper.Alert(getResources().getString(R.string.amount_cannot_be_higher_than_otb), parentActivity);
+					return;
+				}
 				
 				//Toast.makeText(getActivity(), "ALL MILAAAAAAAAAA", Toast.LENGTH_LONG).show();
 				
-				ArrayList<SingletonUserDataModel> arrayList = new ArrayList<SingletonUserDataModel>();
-				SingletonUserDataModel userDataModel = new SingletonUserDataModel();
+				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
+				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				userDataModel.setBenificiaryName(receiverNameTxt);
 				userDataModel.setFundsAccNumer(accountNumberTxt);
 				userDataModel.setFundsAmount(amount);
 				userDataModel.setFundsMessage(messageTxt);
 				arrayList.add(userDataModel);
 				
-				/*Clear old contents*/
+				/* Clear old contents */
 				if(null!=BaseActivity.getSingletonUserDataModelArrayList())
 					BaseActivity.getSingletonUserDataModelArrayList().clear();
 				
@@ -140,7 +143,6 @@ public class TransferFundsFragment extends Fragment {
 	}
 	
 	/**
-	 * 
 	 * @param view
 	 */
 	private void init(View view) {
@@ -158,16 +160,12 @@ public class TransferFundsFragment extends Fragment {
 		lblHeading.setLinkTextColor(getResources().getColor(R.color.text_body));
 		
 	}
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
-				//Log.d("", "MILAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-				/**
-				 * TODO: WORK HERE MAYUR FOR WS CALLS...
-				 */
 				AlertHelper.Alert(getResources().getString(R.string.funds_transfer_success), parentActivity);
-
 				txtReceiversName.setText(null);
 				txtAccountNumber.setText(null);
 				txtAmount.setText(null);

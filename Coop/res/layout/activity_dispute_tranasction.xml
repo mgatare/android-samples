@@ -1,138 +1,143 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
-        android:orientation="horizontal"
-        android:weightSum="1" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.6"
-            android:gravity="left"
-            android:text="@string/recognize_transaction"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-
-        <ToggleButton
-            android:id="@+id/toogleTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="@null" />
-    </LinearLayout>
-
-    <include layout="@drawable/seperator" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
+        android:background="@android:color/white"
         android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="@string/reason_for_dispute"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-
-        <EditText
-            android:id="@+id/txtReasonDispute"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="@dimen/margin_fifteen_px"
-            android:background="@android:color/transparent"
-            android:gravity="left"
-            android:inputType="text"
-            android:maxLines="5"
-            android:textColor="@color/text_dark"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_ten_px"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.6"
+                android:gravity="left"
+                android:text="@string/recognize_transaction"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <ToggleButton
+                android:id="@+id/toogleTransaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="@null" />
+        </LinearLayout>
+
+        <include layout="@drawable/seperator" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_ten_px"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/reason_for_dispute"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtReasonDispute"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/margin_fifteen_px"
+                android:background="@android:color/transparent"
+                android:gravity="left"
+                android:inputType="text"
+                android:maxLines="5"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
+
+        <include layout="@drawable/seperator" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_ten_px"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/email"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:inputType="textEmailAddress"
+                android:maxLines="5"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
+
+        <include layout="@drawable/seperator" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_ten_px"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/phone_number"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:inputType="number"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
+
+        <include layout="@drawable/seperator" />
+
+        <Button
+            android:id="@+id/btnIncreaseCreditLimit"
+            style="@style/Theme.Coopmedlem.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginTop="@dimen/view_usual_margin"
+            android:drawableLeft="@drawable/dispute_triangle"
+            android:drawablePadding="-20dp"
+            android:gravity="center"
+            android:paddingLeft="60dip"
+            android:paddingRight="60dip"
+            android:text="@string/dispute_transaction"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/font_size_normal" />
     </LinearLayout>
 
-    <include layout="@drawable/seperator" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="@string/email"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-
-        <EditText
-            android:id="@+id/txtEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:background="@android:color/transparent"
-            android:gravity="right"
-            android:inputType="textEmailAddress"
-            android:maxLines="5"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-    </LinearLayout>
-
-    <include layout="@drawable/seperator" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="@string/phone_number"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-
-        <EditText
-            android:id="@+id/txtPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:gravity="right"
-            android:background="@android:color/transparent"
-            android:inputType="number"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/font_size_normal" />
-    </LinearLayout>
-
-    <include layout="@drawable/seperator" />
-
-    <Button
-        android:id="@+id/btnIncreaseCreditLimit"
-        style="@style/Theme.Coopmedlem.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_ten_px"
-        android:layout_marginRight="@dimen/margin_ten_px"
-        android:layout_marginTop="@dimen/view_usual_margin"
-        android:drawableLeft="@drawable/dispute_triangle"
-        android:drawablePadding="-20dp"
-        android:gravity="center"
-        android:paddingLeft="60dip"
-        android:paddingRight="60dip"
-        android:text="@string/dispute_transaction"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font_size_normal" />
-
-</LinearLayout>
+</ScrollView>
