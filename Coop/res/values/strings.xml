@@ -97,7 +97,7 @@
     <string name="error_in_communication">There was some error communicating with the server. Please try again later</string>
     <string name="transfer_funds_validation">Receiver\'s name is missing.\nAccount number must be 11 digits.\nAmount must be atleast 500.</string>
     <string name="amount_cannot_be_higher_than_otb">Amount cannot be higher than your open to buy amount</string>
-    <string name="receiver_name_missing">Receiver\'s name is missing.FS</string>
+    <string name="receiver_name_missing">Receiver\'s name is missing.</string>
     <string name="account_number_length">Account number must be 11 digits.</string>
     <string name="amount_incorrect">Amount must be atleast 500.</string>
     <string name="funds_transfer_success">The funds were transferred successfully.</string>

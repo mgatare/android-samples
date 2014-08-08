@@ -65,9 +65,9 @@
     <string name="accept_terms_and_condition">Akseptere vilkår</string>
     <string name="application_been_sent">Din søknad har blitt sendt.</string>
     <string name="accept_terms_conditions_dispute">Jeg erklærer at ovenstående opplysninger er korrekte. Hvis politiet etterforsker saken, er jeg inneforstått med, at kortutsteder gir politiet de opplysninger de har bruk for i forbindelse med saken.</string>
-    <string name="accept_terms_condition_cli">Jag försäkrar att de uppgifter som lämnats är fullständiga och riktiga. Jag godkänner att ansökan kommer att genomgå sedvanlig kreditprövning varvid kreditupplysning kommer att inhämtas. Om den beviljade krediten efter kreditprövningen är lägre än den jag har ansökt om godkänner jag härmed även den lägre krediten.För höjning av kreditgräns tillämpas tidigare ingånget avtal, villkor för re:member. Villkoren finns även tillgängliga på remembercard.se eller genom att ringa kortservice på telefon +46 771 150 015.Observera att en höjning av köp- och kreditgränsen kan innebära en ökad belastning på din ekonomi.</string>
+    <string name="accept_terms_condition_cli">Jeg forsikrer herved at alle opplysninger gitt er fullstendige og korrekte. Jeg godkjenner at søknaden kommer til å gå igjennom en standard kredittsjekk hvor kredittopplysninger vil innhentes. Dersom den bevilgede kreditten etter kredittsjekken er lavere enn den jeg søkte om godtar jeg herved den lavere kredittgrensen. For økning av kredittgrensen gjelder tidligere inngåtte avtale, vilkår for re:member. Vilkårene finner du på remembercard.no eller ved å ringe vårt kundesenter på telefon +47 815 00 701. Husk at en økning av kjøps- og kredittgrensen kan føre til økt belastning på din økonomi.</string>
     
-     <string name="cancel">Avbryt</string>
+    <string name="cancel">Avbryt</string>
     <string name="i_accept">Jeg aksepterer</string>
     <string name="dispute_sent">Reklamasjonen er sendt</string>
     <string name="you_will_hear_from_us">Du hører fra oss snart.</string>

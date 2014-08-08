@@ -24,6 +24,7 @@ import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
+import com.entercard.coopmedlem.utils.Utils;
 
 /**
  * 
@@ -59,6 +60,7 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 		
 		// Show soft keyboard automatically
 		txtCreatePIN.requestFocus();
+		Utils.disableViewContextMenuOptions(txtCreatePIN);
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(getResources().getString(R.string.create_your_pin_code))

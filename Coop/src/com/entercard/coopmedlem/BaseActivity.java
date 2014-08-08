@@ -135,22 +135,19 @@ public class BaseActivity extends ActionBarActivity {
 	 * Show progress dialog.
 	 */
 	public void showProgressDialog() {
-
+		
+		closeKeyBoard();
 		progressDialog = new Dialog(BaseActivity.this);
-		View dialogView = LayoutInflater.from(this).inflate(
-				R.layout.progress_dialog, null);
+		View dialogView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-				WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-		progressDialog.getWindow().setBackgroundDrawableResource(
-				android.R.color.transparent);
+		progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		progressDialog.setContentView(dialogView);
 
 		progressDialog.setCancelable(false);
 
-		ImageView progressSpinner = (ImageView) dialogView
-				.findViewById(R.id.progSpent);
+		ImageView progressSpinner = (ImageView) dialogView.findViewById(R.id.progSpent);
 
 		RotateAnimation anim = new RotateAnimation(0f, 350f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
@@ -160,8 +157,9 @@ public class BaseActivity extends ActionBarActivity {
 		anim.setInterpolator(new LinearInterpolator());
 		progressSpinner.startAnimation(anim);
 
+		
 		progressDialog.show();
-		progressDialog.getWindow().setLayout(100, 100);
+		progressDialog.getWindow().setLayout(120, 120);
 	}
 
 	/**

@@ -29,6 +29,7 @@ import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
+import com.entercard.coopmedlem.utils.Utils;
 
 public class TransferFundsFragment extends Fragment {
 
@@ -159,6 +160,9 @@ public class TransferFundsFragment extends Fragment {
 		lblHeading.setMovementMethod(LinkMovementMethod.getInstance());
 		lblHeading.setLinkTextColor(getResources().getColor(R.color.text_body));
 		
+		/*Disable Copy Paste of Edittexts*/
+		Utils.disableViewContextMenuOptions(txtAccountNumber);
+		Utils.disableViewContextMenuOptions(txtAmount);
 	}
 	
 	@Override

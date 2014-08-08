@@ -22,9 +22,6 @@ import com.entercard.coopmedlem.R.style;
  */
 public class AcceptTermsAndConditionDialogFragment extends DialogFragment {
 
-	/** The parent activity. */
-	//private DisputeTransactionActivity parentActivity;
-	
 	/** The result code. */
 	private int RESULT_CODE_DISPUTE = 101;
 	private int RESULT_CODE_CLI = 102;

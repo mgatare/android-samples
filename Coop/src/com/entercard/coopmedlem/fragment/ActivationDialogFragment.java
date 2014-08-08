@@ -24,6 +24,7 @@ import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
+import com.entercard.coopmedlem.utils.Utils;
 
 /**
  * 
@@ -59,6 +60,8 @@ public class ActivationDialogFragment extends DialogFragment {
 		View innerView = layoutInflater.inflate(R.layout.view_single_edittextview, null);
 		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 		
+		Utils.disableViewContextMenuOptions(actCodeEditText);
+		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(getResources().getString(R.string.enter_activation_code))
 				.setPositiveButton(getResources().getString(android.R.string.ok),
@@ -66,7 +69,6 @@ public class ActivationDialogFragment extends DialogFragment {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								/***/
-								
 								parentActivity.closeKeyBoard();
 								
 								String code = actCodeEditText.getText().toString();
@@ -76,8 +78,6 @@ public class ActivationDialogFragment extends DialogFragment {
 									if(isNetworkAvailable) {
 									
 										parentActivity.showProgressDialog();
-										parentActivity.closeKeyBoard();
-										
 										parentActivity.controller.startActivation(code, new AsyncCallback<StartActivationResult>() {
 												@Override
 												public void onFailure(Throwable err) {
@@ -92,7 +92,7 @@ public class ActivationDialogFragment extends DialogFragment {
 													
 													PreferenceHelper helper = new PreferenceHelper(parentActivity);
 													
-													//Flag stating the Activation code is VERIFIED by EnCap, and not needed to be done again
+													// Flag stating the Activation code is VERIFIED by EnCap, and not needed to be done again
 													helper.addInt(parentActivity.getResources().getString(R.string.pref_is_activation_code_verified), 1);
 													
 													FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
@@ -116,8 +116,8 @@ public class ActivationDialogFragment extends DialogFragment {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								dismiss();
-								parentActivity.closeKeyBoard();
+								dialog.dismiss();
+								//parentActivity.closeKeyBoard();
 							}
 						})
 						.setView(innerView)

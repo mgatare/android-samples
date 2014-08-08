@@ -18,6 +18,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +34,7 @@ import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
+import com.entercard.coopmedlem.utils.Utils;
 
 public class CreditLineIncreaseActivity extends BaseActivity implements EmploymentTypeListener {
 
@@ -99,6 +102,12 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		txtYearlyIncome.setOnFocusChangeListener(focusChangeListener);
 		txtMortgage.setOnFocusChangeListener(focusChangeListener);
 		txtOtherLoans.setOnFocusChangeListener(focusChangeListener);
+		
+		/*Disable Copy/Paste for the edittexts*/
+		Utils.disableViewContextMenuOptions(txtMortgage);
+		Utils.disableViewContextMenuOptions(txtOtherLoans);
+		Utils.disableViewContextMenuOptions(txtYearlyIncome);
+		
 	}
 
 	/**
@@ -325,6 +334,15 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		// super.onCreateContextMenu(menu, v, menuInfo);
+		// AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        // int position = info.position;
+        menu.clear();
 	}
 	
 	@Override

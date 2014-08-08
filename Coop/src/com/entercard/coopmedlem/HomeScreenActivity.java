@@ -67,7 +67,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	private void init() {
 		actionBar = getSupportActionBar();
-		actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
+		//actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

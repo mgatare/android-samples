@@ -1,7 +1,6 @@
 package com.entercard.coopmedlem;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -71,8 +70,7 @@ public class ActivateAppActivity extends BaseActivity {
 				@Override
 				public void onFailure(Throwable arg0) {
 					hideProgressDialog();
-					//longToast(arg0.getLocalizedMessage());
-					showDeveloperLog("onFailure"+arg0.getLocalizedMessage());
+					Log.i("COOP","CONFIGURATION onFailure::::"+arg0.getLocalizedMessage());
 					AlertHelper.Alert(arg0.getLocalizedMessage(), ActivateAppActivity.this);
 				}
 				@Override

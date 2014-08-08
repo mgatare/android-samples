@@ -77,7 +77,10 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		} else {
 			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),getActivity());
 		}
+		
+		//Set the Progress bar and other animations
 		setProgressBarValue();
+		
 		return rootView;
 	}
 
@@ -87,6 +90,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private void init(View rootView) {
 
 		parentActivity = (HomeScreenActivity) getActivity();
+		handler = new Handler();
 		
 		// Get Initial values for the account
 		position = parentActivity.getAccountPosition();
@@ -100,8 +104,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 		
-		//Currency Animations
-		handler = new Handler();
 	}
 
 	private void setData() {
@@ -221,9 +223,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 1000;
+					count = count + 600;
 				else if(LIMIT <= 50000)
-					count = count + 1000;
+					count = count + 2000;
 				else if(LIMIT <= 100000)
 					count = count + 5000;
 				else if(LIMIT <= 500000)
@@ -264,9 +266,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
 				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 500;
+					count = count + 600;
 				else if(LIMIT <= 50000)
-					count = count + 5000;
+					count = count + 2000;
 				else if(LIMIT <= 100000)
 					count = count + 10000;
 				else if(LIMIT <= 500000)
@@ -277,7 +279,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 30);
+					handler.postDelayed(this, 40);
 				} else {
 					textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
 				}

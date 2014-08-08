@@ -17,13 +17,24 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnCreateContextMenuListener;
+import android.widget.EditText;
 
 import com.entercard.coopmedlem.ApplicationEx;
 
@@ -31,14 +42,14 @@ import com.entercard.coopmedlem.ApplicationEx;
 /**
  * The Class Utils.
  */
-@SuppressLint("SimpleDateFormat")
 public class Utils {
 
 	/**
 	 * Services connected.
-	 * 
-	 * @param context
-	 *            the context
+	 *
+	 * @param data the data
+	 * @param ctx the ctx
+	 * @param filename the filename
 	 * @return true, if successful
 	 */
 //	public static boolean servicesConnected(FragmentActivity context) {
@@ -283,5 +294,78 @@ public class Utils {
 			}
 		} catch (Exception ex) {
 		}
+	}
+	
+	/**
+	 * Disable view context menu options.
+	 *
+	 * @param editText the edit text
+	 */
+//	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+//	public static void disableViewContextMenuOptions(EditText editText) {
+//
+//		if (android.os.Build.VERSION.SDK_INT < 11) {
+//			editText.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+//				@Override
+//				public void onCreateContextMenu(ContextMenu menu, View v,
+//						ContextMenuInfo menuInfo) {
+//					menu.clear();
+//				}
+//			});
+//		} else {
+//			Log.e("COOP", "SDKKKKKKKKKKKKKKKK 111");
+//			editText.setCustomSelectionActionModeCallback(new Callback() {
+//				public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//					return false;
+//				}
+//
+//				public void onDestroyActionMode(ActionMode mode) {
+//				}
+//
+//				public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//					return false;
+//				}
+//
+//				public boolean onActionItemClicked(ActionMode mode,
+//						MenuItem item) {
+//					return false;
+//				}
+//			});
+//		}
+//		editText.setLongClickable(false);
+//		editText.setTextIsSelectable(false);
+//	}
+	
+	@SuppressLint("NewApi")
+	public static void disableViewContextMenuOptions(EditText editText) {
+		if (android.os.Build.VERSION.SDK_INT < 11) {
+			editText.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+				public void onCreateContextMenu(ContextMenu menu, View v,
+						ContextMenuInfo menuInfo) {
+					menu.clear();
+				}
+			});
+		} else {
+			editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+				public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+					return false;
+				}
+
+				public void onDestroyActionMode(ActionMode mode) {
+				}
+
+				public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+					return false;
+				}
+
+				public boolean onActionItemClicked(ActionMode mode,
+						MenuItem item) {
+					return false;
+				}
+			});
+		}
+		editText.setLongClickable(false);
+		editText.setTextIsSelectable(false);
 	}
 }

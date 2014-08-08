@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent" >
 
     <ImageView
@@ -11,5 +11,13 @@
         android:layout_centerInParent="true"
         android:background="@drawable/progress_two"
         android:contentDescription="@null" />
+
+    <!-- <ProgressBar -->
+    <!-- android:id="@+id/progSpent" -->
+    <!-- style="?android:attr/progressBarStyleHorizontal" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:contentDescription="@null" -->
+    <!-- android:progressDrawable="@drawable/progressbar_loadmore_listview" /> -->
 
 </RelativeLayout>

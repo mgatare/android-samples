@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Coopmedlem" parent="@style/Theme.AppCompat.Light">
+        <item name="actionBarItemBackground">@drawable/selectable_background_coopmedlem</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Coopmedlem</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Coopmedlem</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Coopmedlem</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Coopmedlem</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Coopmedlem</item>
+        <item name="actionBarTabTextStyle">@style/StackedTabText</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_coopmedlem</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_coopmedlem</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Coopmedlem</item>
+<!--         <item name="android:typeface">serif</item> -->
+    </style>
+
+    <style name="ActionBar.Solid.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@drawable/ab_solid_coopmedlem</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_coopmedlem</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_coopmedlem</item>
+        <item name="progressBarStyle">@style/ProgressBar.Coopmedlem</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+    </style>
+
+    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="background">@drawable/ab_transparent_coopmedlem</item>
+        <item name="progressBarStyle">@style/ProgressBar.Coopmedlem</item>
+    </style>
+
+    <style name="PopupMenu.Coopmedlem" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_coopmedlem</item>
+    </style>
+
+    <style name="DropDownListView.Coopmedlem" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_coopmedlem</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_coopmedlem</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="DropDownNav.Coopmedlem" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_coopmedlem</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_coopmedlem</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_coopmedlem</item>
+    </style>
+
+    <style name="ProgressBar.Coopmedlem" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_coopmedlem</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_coopmedlem</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Coopmedlem.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Coopmedlem</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Coopmedlem</item>
+    </style>
+
+    <style name="Theme.Coopmedlem.Button" parent="android:Widget.Button">
+        <item name="android:background">@drawable/button_background_green</item>
+    </style>
+
+</resources>
