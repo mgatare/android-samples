@@ -86,7 +86,7 @@
     <string name="encap_api_key">9f333c24&#8211;efa4&#8211;47b2&#8211;ac57&#8211;77540a8b2881</string>
     <string name="encap_public_key_hash_intermediate">sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=</string>
     <string name="encap_public_key_hash_leaf">sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=</string>
-    <string name="encap_server_timeout">90000</string>
+    <string name="encap_server_timeout">60000</string>
     <string name="encap_signing_key_size">2048</string>
 
     <!-- Validation/Error Messages -->

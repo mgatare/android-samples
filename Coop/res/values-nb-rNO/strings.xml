@@ -86,13 +86,13 @@
     <string name="encap_api_key">9f333c24&#8211;efa4&#8211;47b2&#8211;ac57&#8211;77540a8b2881</string>
     <string name="encap_public_key_hash_intermediate">sha1/Lb4cyh2b83PU2HP6yrlPxhq7Gk0=</string>
     <string name="encap_public_key_hash_leaf">sha1/+PyESkyd4MxX8ZOBdHbEdx1JBbE=</string>
-    <string name="encap_server_timeout">90000</string>
+    <string name="encap_server_timeout">60000</string>
     <string name="encap_signing_key_size">2048</string>
 
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Vennligst skriv inn koden.</string>
     <string name="encap_error">Det oppstod en feil. Vennligst prøv igjen om kort tid.</string>
-    <string name="encap_unknown_registration_error">Unknown registration exception. You will have to reactivate the device.</string>
+    <string name="encap_unknown_registration_error">Ukjent registreringsnummer unntak. Du må aktivere enheten.</string>
     <string name="encap_authentication_error">Du har tastet feil PIN-kode for mange ganger, og du blir nødt til å re-aktivere enheten.</string>
     <string name="error_in_communication">Det var noen feil med kommunikasjonen med serveren. Vennligst prøv igjen senere</string>
     <string name="transfer_funds_validation">Mottakerens navn mangler.\nKontonummer må være 11 siffer.\nBeløp må være minst 500.</string>

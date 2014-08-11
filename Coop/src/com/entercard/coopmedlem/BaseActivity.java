@@ -157,7 +157,6 @@ public class BaseActivity extends ActionBarActivity {
 		anim.setInterpolator(new LinearInterpolator());
 		progressSpinner.startAnimation(anim);
 
-		
 		progressDialog.show();
 		progressDialog.getWindow().setLayout(120, 120);
 	}

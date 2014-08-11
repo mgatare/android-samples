@@ -24,7 +24,6 @@ import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
-import com.entercard.coopmedlem.utils.Utils;
 
 /**
  * 
@@ -60,7 +59,7 @@ public class ActivationDialogFragment extends DialogFragment {
 		View innerView = layoutInflater.inflate(R.layout.view_single_edittextview, null);
 		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 		
-		Utils.disableViewContextMenuOptions(actCodeEditText);
+		//Utils.disableViewContextMenuOptions(actCodeEditText);
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(getResources().getString(R.string.enter_activation_code))
@@ -98,8 +97,8 @@ public class ActivationDialogFragment extends DialogFragment {
 													FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
 													FragmentTransaction transaction = fragmentManager.beginTransaction();
 													transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-													transaction.addToBackStack(null);
-													transaction.replace(R.id.lytContainer,new CreateActivationCodeFragment());
+													//transaction.addToBackStack(null);
+													transaction.replace(R.id.lytContainer,new CreatePINCodeFragment());
 													transaction.commit();
 												}
 											});

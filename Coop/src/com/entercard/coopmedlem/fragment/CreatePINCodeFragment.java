@@ -21,7 +21,7 @@ import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 
-public class CreateActivationCodeFragment extends Fragment implements OnClickListener {
+public class CreatePINCodeFragment extends Fragment implements OnClickListener {
 
 	private TextView bodytextTextView;
 	private TextView headerTextView;
@@ -29,7 +29,7 @@ public class CreateActivationCodeFragment extends Fragment implements OnClickLis
 	private Button btnAction;
 	private ActivateAppActivity parentActivity;
 
-	public CreateActivationCodeFragment() {
+	public CreatePINCodeFragment() {
 	}
 
 	@Override

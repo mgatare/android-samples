@@ -22,7 +22,7 @@ import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.Controller;
 import com.encapsecurity.encap.android.client.api.LoadConfigResult;
 import com.entercard.coopmedlem.fragment.ActivationDialogFragment;
-import com.entercard.coopmedlem.fragment.CreateActivationCodeFragment;
+import com.entercard.coopmedlem.fragment.CreatePINCodeFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
@@ -45,8 +45,7 @@ public class ActivateAppActivity extends BaseActivity {
 			if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activation_code_verified)) == 1) {
 				getSupportFragmentManager()
 						.beginTransaction()
-						.add(R.id.lytContainer, new CreateActivationCodeFragment())
-						.addToBackStack(null)
+						.add(R.id.lytContainer, new CreatePINCodeFragment())
 						.commit();
 			} else {
 				getSupportFragmentManager().beginTransaction()
@@ -133,7 +132,6 @@ public class ActivateAppActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.btnOk:
-
 				if (NetworkHelper.isOnline(parentActivity)) {
 					DialogFragment newFragment = ActivationDialogFragment.newInstance(0);
 					FragmentManager fragmentManager = parentActivity.getSupportFragmentManager();
