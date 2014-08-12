@@ -62,14 +62,11 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@SuppressLint("NewApi")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_transactions,container, false);
 		init(rootView);
 
-		transactionsArrayList = ApplicationEx.getInstance()
-				.getAccountsArrayList().get(position)
+		transactionsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position)
 				.getTransactionDataArraylist();
 
 		if (null != transactionsArrayList && !transactionsArrayList.isEmpty()) {
@@ -77,10 +74,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		} else {
 			AlertHelper.Alert(getResources().getString(R.string.no_transactions_found),getActivity());
 		}
-		
-		//Set the Progress bar and other animations
+		// Set the Progress bar and other animations
 		setProgressBarValue();
-		
+
 		return rootView;
 	}
 
@@ -107,9 +103,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	}
 
 	private void setData() {
-		
-//		spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
-//		openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
 		
 		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
 		transactionListView.setAdapter(transactionsAdapter);
@@ -153,7 +146,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		int otbValue = (int)Math.round(otb);
 		int spentValue = (int)Math.round(spent);
-		//int spentValue = 0;
 		
 		int TOTAL = otbValue + spentValue;
 		int percentageDiff = (int)(otbValue * 100 / TOTAL);
@@ -188,7 +180,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			}
 			handler.post(newTextTwoUpdateRunnable);
 			
-			//Toggle States to not allow animation again
+			//Toggle States to NOT allow animation again
 			BaseActivity.setFirstVisit(false);
 			
 		} else {

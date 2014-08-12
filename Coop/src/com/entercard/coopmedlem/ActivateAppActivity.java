@@ -118,7 +118,7 @@ public class ActivateAppActivity extends BaseActivity {
 			imgIcon.setImageResource(R.drawable.activate_pin);
 			
 			bodytextTextView.setText(StringUtils.getStyledTextFromHtml(getResources().getString(R.string.activation_code_text)));
-			bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance());
+			bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance()); 
 			bodytextTextView.setLinkTextColor(getResources().getColor(R.color.text_heading));
 			
 			headerTextView.setText(R.string.activate_app);

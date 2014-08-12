@@ -9,6 +9,8 @@
     <string name="enter_activation_code">Enter activation code</string>
     <string name="create_four_digit_pin_code">Create your 4 digit PIN code</string>
     <string name="pin_code">PIN code</string>
+    <string name="accounts">Accounts</string>
+    <string name="enter_pin_code">Enter your PIN code</string>
     <string name="activation_code_text">Get your activation code at \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nenter it below.</string>
     <string name="please_create_pin_code_text">Please create a four digit PIN code. This will be used each time you start the app so that we can identify you.</string>
     <string name="create_your_pin_code">Create your PIN code</string>

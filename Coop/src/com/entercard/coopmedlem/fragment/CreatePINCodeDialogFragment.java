@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,19 +19,18 @@ import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.FinishActivationResult;
 import com.encapsecurity.encap.android.client.api.exception.UnexpectedException;
 import com.entercard.coopmedlem.ActivateAppActivity;
+import com.entercard.coopmedlem.ActivateAppActivity.ActivateAppFragment;
+import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
-import com.entercard.coopmedlem.ActivateAppActivity.ActivateAppFragment;
 import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 
 /**
- * 
  * @author mgatare
- *
  */
 public class CreatePINCodeDialogFragment extends DialogFragment {
 
@@ -64,7 +61,6 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 		
 		// Show soft keyboard automatically
 		txtCreatePIN.requestFocus();
-		//Utils.disableViewContextMenuOptions(txtCreatePIN);
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(getResources().getString(R.string.create_your_pin_code))
@@ -89,19 +85,14 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 												Log.i("COOP", ">>Finish Activation onFailure>>" + arg0);
 												parentActivity.hideProgressDialog();
 												//AlertHelper.Alert(getResources().getString(R.string.encap_error), parentActivity);
-												AlertHelper.Alert(getResources().getString(R.string.encap_unknown_registration_error) , parentActivity);
-												
-												/**08-11 17:00:32.393: I/COOP(21562): >>Finish Activation onFailure>>com.encapsecurity.encap.android.client.api.exception.UnexpectedException[message=Can not process finishActivation in state AWAITING_START_ACTIVATION, 
-												 * errorCode=clientErrorWrongState, 
-												 * cause=java.lang.IllegalStateException: Can not process finishActivation in state AWAITING_START_ACTIVATION]**/
+												AlertHelper.Alert(ApplicationEx.getInstance().getResources().getString(R.string.encap_unknown_registration_error), getActivity());
 												
 												if(arg0 instanceof UnexpectedException) {
 													Log.i("COOP", ">>IllegalStateException RASIEDDD>>");
+													
 													//Clear the shared preference of all Activation related FLAGS
 													PreferenceHelper helper = new PreferenceHelper(getActivity());
 													helper.clear();
-													
-													//parentActivity.getSupportFragmentManager().popBackStack();
 													
 													parentActivity.getSupportFragmentManager().beginTransaction()
 													.add(R.id.lytContainer, new ActivateAppFragment())
@@ -142,7 +133,7 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								dismiss();
-								parentActivity.closeKeyBoard();
+								//parentActivity.closeKeyBoard();
 							}
 						})
 						.setView(innerView)

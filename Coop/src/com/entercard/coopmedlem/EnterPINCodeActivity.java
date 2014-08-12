@@ -9,10 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -50,11 +53,12 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	private EditText dummyEditText;
 	private String clientDate = null;
 	private int ACTIVITY_RESULT_STATE;
-	private StringBuilder stringBuilder;//Will be used in JB and Up devices that will act for an softKeyboard from a TextWatcher
+	private StringBuilder stringBuilder;//Will be used in JB 4.1.X and Up devices that will act for an softKeyboard from a TextWatcher
 	
 	private FundsTransferService fundsTransferService;
 	private InitiateDisputeService initiateDisputeService;
 	private CreditLineIncreaseService creditLineIncreaseService;
+	private ActionBar actionBar;
 	
 	@Override
 	protected void onResume() {
@@ -81,7 +85,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 
 	private void init() {
-		//
+		
 		controller =  ((ApplicationEx) getApplication()).getController();
 		stringBuilder = new StringBuilder();
 		
@@ -91,6 +95,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		pin4EditText = (EditText) findViewById(R.id.txtpinFour);
 		dummyEditText = (EditText) findViewById(R.id.txtDummy);
 		layoutPinContainer = (LinearLayout) findViewById(R.id.layoutPinContainer);
+		
+		actionBar = getSupportActionBar();
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setTitle(getResources().getString(R.string.enter_pin_code));
 		
 	}
 
@@ -335,6 +344,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		layoutPinContainer.startAnimation(shake);
 		
 		resetPINFields();
+		
+		getFocusToDummyEditText();
 	}
 	
 	/**
@@ -428,7 +439,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
 							}
 							/*
-							 * Store the SAML data as required for the rest of the WS calls and move to the next screen
+							 * SET the SAML data as required for the rest of the WS calls and move to the next screen
 							 */
 							ApplicationEx.getInstance().setSAMLTxt(samlData);
 							selectNextActivity(ACTIVITY_RESULT_STATE);
@@ -516,11 +527,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			
 			/**
-			 * This is a workaround FLAG for animation on the homescreen to be shown only once in a session
+			 * This is a workaround FLAG for progress bar animation on the
+			 * homescreen to be shown only once in a session
 			 **/
-			
 			BaseActivity.setFirstVisit(true);
 			
 			finish();
@@ -618,17 +628,17 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
 	}
 
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// Log.d("COOP", "-----onOptionsItemSelected-----");
-	// return super.onOptionsItemSelected(item);
-	// }
-	//
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// Log.d("COOP", "-----onCreateOptionsMenu-----");
-	// return super.onCreateOptionsMenu(menu);
-	// }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d("COOP", "-----onOptionsItemSelected-----");
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d("COOP", "-----onCreateOptionsMenu-----");
+		return super.onCreateOptionsMenu(menu);
+	}
 
 	@Override
 	public void onFundsTransferSuccess(String resp) {

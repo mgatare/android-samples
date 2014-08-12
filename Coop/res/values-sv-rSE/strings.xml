@@ -9,6 +9,8 @@
     <string name="enter_activation_code">Ange aktiveringskod</string>
     <string name="create_four_digit_pin_code">Skapa din 4-siffriga PIN-kod</string>
     <string name="pin_code">PIN-kod</string>
+    <string name="accounts">Accounts</string>
+    <string name="enter_pin_code">Ange din PIN-kod</string>
     <string name="activation_code_text">Få din aktiveringskod på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nange den nedan.</string>
     <string name="please_create_pin_code_text">Skapa en fyrsiffrig PIN-kod. Detta kommer att användas varje gång du startar appen så att vi kan identifiera dig.</string>
     <string name="create_your_pin_code">Skapa din PIN kod</string>
@@ -66,7 +68,6 @@
     <string name="application_been_sent">Din ansökan har skickats.</string>
     <string name="accept_terms_conditions_dispute">Jag intygar härmed att de uppgifter som anges är korrekta. Om polisen undersöker fallet, jag är medveten om att kortutgivaren ger polisen den information de behöver i undersökningen.</string>
     <string name="accept_terms_condition_cli">Jag håller med om att de uppgifter som lämnas är fullständig och korrekt. Jag accepterar att en vanlig kreditkontroll kommer att utföras, där information om min kredit historia kommer att samlas in. Om beviljade kredit efter kreditkontroll är lägre än det belopp som jag sökte, jag accepterar härmed den lägre kredit. När du ansöker om en högre kredit åter: medlems Villkor som tidigare ingått gälla. Villkoren finns på remembercard.se eller genom att ringa +46 771 150 015 Tänk på att öka din kredit kan leda till ytterligare belastning på din ekonomi.</string>
-    
     <string name="cancel">Avbryt</string>
     <string name="i_accept">Jag accepterar</string>
     <string name="dispute_sent">Tviste Sända</string>

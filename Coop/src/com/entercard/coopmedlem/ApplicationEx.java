@@ -37,7 +37,7 @@ public class ApplicationEx extends Application {
 	private String LOG_TAG = getClass().getName();
 	
 	/** The isdeveloper mode. */
-	boolean isdeveloperMode = true;//set to false on Deployment/Production
+	boolean isdeveloperMode = false;//set to false on Deployment/Production
 	
 	/*All data*/
 	/** The accounts array list. */

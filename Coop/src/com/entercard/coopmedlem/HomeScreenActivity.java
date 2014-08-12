@@ -36,28 +36,12 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 		regActivityLogoutReceiver();
 		
-		viewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
-//						switch (position) {
-//						case 0:
-//							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
-//							break;
-//						case 1:
-//							actionBar.setTitle(getResources().getString(R.string.tab_title_transfer));
-//							break;
-//						case 2:
-//							actionBar.setTitle(getResources().getString(R.string.tab_title_cards));
-//							break;
-//						default:
-//							actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
-//							break;
-//						}
 					}
 				});
-		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i))
@@ -67,13 +51,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	private void init() {
 		actionBar = getSupportActionBar();
-		//actionBar.setTitle(getResources().getString(R.string.tab_title_transaction));
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		viewPager = (ViewPager) findViewById(R.id.pager);
-        //parallexViewPager.set_max_pages(3);
-        //parallexViewPager.setBackgroundAsset(R.drawable.back_three);
         viewPager.setAdapter(mSectionsPagerAdapter);
 	}
 
@@ -97,6 +78,8 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			Intent intent = new Intent(HomeScreenActivity.this,AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			//Toggle States to NOT allow animation again
+			BaseActivity.setFirstVisit(true);
 			return true;
 
 		default:
@@ -165,11 +148,13 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	
 	@Override
 	public void onBackPressed() {
-		Log.e("COOP", "######On BACKKK PRESSED HomeScreen######ARRAY="+ApplicationEx.getInstance().getAccountsArrayList().size());
+		Log.e("COOP", "######On BACKKK PRESSED HomeScreen######ARRAY="+ ApplicationEx.getInstance().getAccountsArrayList().size());
 		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
-		if(accountsCount==1) {
+		if (accountsCount == 1)
 			ApplicationEx.getInstance().clearGlobalContents();
-		}
+
+		// Toggle States to NOT allow animation again
+		BaseActivity.setFirstVisit(true);
 		super.onBackPressed();
 	}
 	

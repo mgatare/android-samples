@@ -2,34 +2,32 @@ package com.entercard.coopmedlem;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.entercard.coopmedlem.adapters.AccountsAdapter;
 import com.entercard.coopmedlem.entities.AccountsModel;
 import com.entercard.coopmedlem.services.GetAccountsService;
 import com.entercard.coopmedlem.services.GetAccountsService.GetAccountsListener;
-import com.entercard.coopmedlem.utils.AlertHelper;
 
 public class AllAccountsActivity extends BaseActivity implements
 		GetAccountsListener {
 
 	private GetAccountsService accountsService;
 	private ListView accountsListView;
-	private TextView textViewServerErrorMsg;
-	private Button btnTryAgain;
+	// private TextView textViewServerErrorMsg;
+	// private Button btnTryAgain;
 	private ActivityFinishReceiver finishReceiver;
 	private ActionBar actionBar;
 
@@ -42,7 +40,8 @@ public class AllAccountsActivity extends BaseActivity implements
 
 		regActivityFinishReceiver();
 
-		// Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
+		// Log.e("",
+		// "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
 
 		if (null != ApplicationEx.getInstance().getAccountsArrayList()
 				&& !ApplicationEx.getInstance().getAccountsArrayList()
@@ -57,27 +56,25 @@ public class AllAccountsActivity extends BaseActivity implements
 		} else {
 			callGetAccountsService();
 		}
-		
-		actionBar = getSupportActionBar();
-		actionBar.setTitle("Accounts");
 	}
 
 	private void init() {
 
-		textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
-		btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+		// textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
+		// btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
 
 		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
 
-		btnTryAgain.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				btnTryAgain.setVisibility(View.GONE);
-				textViewServerErrorMsg.setVisibility(View.GONE);
-				callGetAccountsService();
-			}
-		});
+		// btnTryAgain.setOnClickListener(new OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// btnTryAgain.setVisibility(View.GONE);
+		// textViewServerErrorMsg.setVisibility(View.GONE);
+		// callGetAccountsService();
+		// }
+		// });
+		 
 
 		accountsListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -99,18 +96,8 @@ public class AllAccountsActivity extends BaseActivity implements
 				setAccountPosition(arg2);
 				setTransactionsCount(count);
 
-				/*
-				 * showDeveloperLog(">>openToBuy>>"+openToBuy);
-				 * showDeveloperLog(">>spent>>"+spent);
-				 * showDeveloperLog(">>Account number>>"+
-				 * ApplicationEx.applicationEx
-				 * .getAccountsArrayList().get(arg2).getAccountNumber());
-				 * showDeveloperLog(">>count>>"+count);
-				 */
-
 				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				startActivity(intent);
 
 			}
@@ -132,20 +119,18 @@ public class AllAccountsActivity extends BaseActivity implements
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				AlertHelper.Alert(errorMsg, AllAccountsActivity.this);
-				accountsListView.setVisibility(View.GONE);
-				textViewServerErrorMsg.setVisibility(View.VISIBLE);
-				btnTryAgain.setVisibility(View.VISIBLE);
+				showErrorDialog(errorMsg, AllAccountsActivity.this);
+				// accountsListView.setVisibility(View.GONE);
+				// textViewServerErrorMsg.setVisibility(View.VISIBLE);
+				// btnTryAgain.setVisibility(View.VISIBLE);
 			}
 		});
 	}
 
 	@Override
-	public void onGetAccountsFinished(
-			final ArrayList<AccountsModel> accountArrayList) {
+	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
 		hideProgressDialog();
-		Log.e("COOP", "accountArrayList.size()-->>"
-				+ ApplicationEx.getInstance().getAccountsArrayList().size());
+		Log.e("COOP", "accountArrayList.size()-->>"+ ApplicationEx.getInstance().getAccountsArrayList().size());
 
 		if (null != accountArrayList && accountArrayList.size() != 0) {
 
@@ -157,28 +142,28 @@ public class AllAccountsActivity extends BaseActivity implements
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						AccountsAdapter adapter = new AccountsAdapter(
-								AllAccountsActivity.this, 0, accountArrayList);
+						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, accountArrayList);
 						accountsListView.setAdapter(adapter);
 						adapter.notifyDataSetChanged();
+						
+						actionBar = getSupportActionBar();
+						actionBar.setTitle(getResources().getString(R.string.accounts));
 					}
 				});
 			} else {
 				String openToBuy = accountArrayList.get(0).getOpenToBuy();
 				String spent = accountArrayList.get(0).getSpent();
-				int count = Integer.parseInt(accountArrayList.get(0)
-						.getTransactionsCount());
+				int count = Integer.parseInt(accountArrayList.get(0).getTransactionsCount());
 
 				// Set these temporarily
 				setOpenToBuy(openToBuy);
 				setSpent(spent);
 				setAccountPosition(0);
 				setTransactionsCount(count);
-				
-				//Move to HomeScreen directly without showing Acounts screen
+
+				// Move to HomeScreen directly without showing Acounts screen
 				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				startActivity(intent);
 				finish();// Need to finish the ACCOUNTS screen as there is only one account
 			}
@@ -204,13 +189,37 @@ public class AllAccountsActivity extends BaseActivity implements
 		ApplicationEx.getInstance().clearGlobalContents();
 	}
 
+	private void showErrorDialog(String msg, Context context) {
+		AlertDialog.Builder builder = null;
+		builder = new AlertDialog.Builder(context);
+		builder.setMessage(msg)
+				.setTitle(context.getResources().getString(R.string.alert_title))
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+								
+								Intent intent = new Intent(AllAccountsActivity.this, EnterPINCodeActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+								startActivity(intent);
+								
+								finish();
+							}
+						}).show();
+	}
+	
 	/**
 	 * Reg activity logout receiver.
 	 */
 	private void regActivityFinishReceiver() {
 		finishReceiver = new ActivityFinishReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(getResources().getString(R.string.tag_act_finish));// ACTION.FINISH.LOGOUT
+		intentFilter.addAction(getResources()
+				.getString(R.string.tag_act_finish));// ACTION.FINISH.LOGOUT
 
 		registerReceiver(finishReceiver, intentFilter);
 	}

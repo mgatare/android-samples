@@ -136,7 +136,6 @@ public class BaseActivity extends ActionBarActivity {
 	 */
 	public void showProgressDialog() {
 		
-		closeKeyBoard();
 		progressDialog = new Dialog(BaseActivity.this);
 		View dialogView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);

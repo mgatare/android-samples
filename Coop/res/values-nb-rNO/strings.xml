@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Coop medlem</string>
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
@@ -8,7 +9,9 @@
     <string name="enter_activation_code">Skriv den Aktiveringskode</string>
     <string name="create_four_digit_pin_code">Lag en 4-sifret PIN-kode</string>
     <string name="pin_code">PIN-kode</string>
-     <string name="create_account">Opprett konto</string>
+    <string name="accounts">Accounts</string>
+    <string name="enter_pin_code">Skriv inn din PIN-kode</string>
+    <string name="create_account">Opprett konto</string>
     <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", og \nskriv den inn under.</string>
     <string name="please_create_pin_code_text">Vennligst lag en firesifret PIN-kode. Denne vil bli brukt hver gang du starter appen, slik at vi kan identifisere deg.</string>
     <string name="create_your_pin_code">Velg en PIN-kod</string>
@@ -23,7 +26,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer).\nFor aktuell rente og gebyr, se \n&lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
-        
     <string name="receiver_name">Mottakerens navn</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearingnummeret må være 4 eller 5 siffer.</string>
@@ -66,7 +68,6 @@
     <string name="application_been_sent">Din søknad har blitt sendt.</string>
     <string name="accept_terms_conditions_dispute">Jeg erklærer at ovenstående opplysninger er korrekte. Hvis politiet etterforsker saken, er jeg inneforstått med, at kortutsteder gir politiet de opplysninger de har bruk for i forbindelse med saken.</string>
     <string name="accept_terms_condition_cli">Jeg forsikrer herved at alle opplysninger gitt er fullstendige og korrekte. Jeg godkjenner at søknaden kommer til å gå igjennom en standard kredittsjekk hvor kredittopplysninger vil innhentes. Dersom den bevilgede kreditten etter kredittsjekken er lavere enn den jeg søkte om godtar jeg herved den lavere kredittgrensen. For økning av kredittgrensen gjelder tidligere inngåtte avtale, vilkår for re:member. Vilkårene finner du på remembercard.no eller ved å ringe vårt kundesenter på telefon +47 815 00 701. Husk at en økning av kjøps- og kredittgrensen kan føre til økt belastning på din økonomi.</string>
-    
     <string name="cancel">Avbryt</string>
     <string name="i_accept">Jeg aksepterer</string>
     <string name="dispute_sent">Reklamasjonen er sendt</string>
@@ -139,6 +140,7 @@
     <string name="http_header_content_type">Content-Type</string>
     <string name="http_header_set_cookie">Cookie</string>
     <!-- Set-Cookie -->
+
 
     <!-- Exception Error Messages -->
     <string name="exception_json_errorr">Incorrect JSON response received from server.</string>
