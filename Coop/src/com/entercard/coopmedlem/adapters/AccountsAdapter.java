@@ -46,8 +46,8 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		String product = getItem(position).getProduct() + " "
-				+ getItem(position).getProductName();
+		String product = getItem(position).getProduct();
+				//+ " "+ getItem(position).getProductName();
 		
 		holder.cardNameTextView.setText(product);
 		holder.cardNumberTextView.setText(ApplicationEx.getInstance()

@@ -85,7 +85,10 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+		//getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+		
+		//For some devices this may be needed
+		//getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
 		regUnlockReceiver();
 
 	}

@@ -69,7 +69,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setTitle("Credit Line Increase");
+		actionBar.setTitle(getResources().getString(R.string.option_credit_line_increase));
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		
 	}
@@ -103,6 +103,12 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		txtMortgage.setOnFocusChangeListener(focusChangeListener);
 		txtOtherLoans.setOnFocusChangeListener(focusChangeListener);
 		
+		/*Disable the SUB(-) button initially*/
+		btnSubstractCreditLimit.setFocusable(false);
+		btnSubstractCreditLimit.setFocusableInTouchMode(false);
+		btnSubstractCreditLimit.setEnabled(false);
+		
+		
 		/*Disable Copy/Paste for the edittexts*/
 		Utils.disableViewContextMenuOptions(txtMortgage);
 		Utils.disableViewContextMenuOptions(txtOtherLoans);
@@ -117,12 +123,16 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		@Override
 		public void onClick(View v) {
 			
-			Log.e("COOP", "MAX CREDIT LIMIT IS ->>"+adjustedCreditLimit);
+			//Log.e("COOP", "MAX CREDIT LIMIT IS ->>"+adjustedCreditLimit);
 			int creditAmountAplied = Integer.parseInt(lblCreditAmountApplied.getText().toString());
+			Log.e("COOP", "creditAmountAplied->>"+creditAmountAplied);
 			
 			switch (v.getId()) {
+			
 			case R.id.btnPlusCreditLimit:
+				
 				incrementCreditLimit(creditAmountAplied);
+				enableDisableDecrementButton();
 				break;
 
 			case R.id.btnSubstractCreditLimit:
@@ -131,8 +141,9 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				} else {
 					decrementCreditLimit(creditAmountAplied);
 				}*/
+				
 				decrementCreditLimit(creditAmountAplied);
-
+				enableDisableDecrementButton();
 				break;
 			
 			case R.id.linearEmployment:
@@ -150,8 +161,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				String empTypeTxt = lblEmploymentType.getText().toString();
 				
 				if (TextUtils.isEmpty(yearlyIncomeTxt)
-						&& TextUtils.isEmpty(mortgageTxt)
-						&& TextUtils.isEmpty(otherLoansTxt)
 						&& (TextUtils.isEmpty(empTypeTxt) || empTypeTxt.equalsIgnoreCase("None"))) {
 					AlertHelper.Alert(getResources().getString(R.string.credit_line_details_missing), CreditLineIncreaseActivity.this);
 					return;
@@ -161,21 +170,19 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					AlertHelper.Alert(getResources().getString(R.string.yearly_income_missing), CreditLineIncreaseActivity.this);
 					return;
 				}
-				if(TextUtils.isEmpty(mortgageTxt)) {
+				/*if(TextUtils.isEmpty(mortgageTxt)) {
 					AlertHelper.Alert(getResources().getString(R.string.mortgage_missing), CreditLineIncreaseActivity.this);
 					return;
 				}
 				if(TextUtils.isEmpty(otherLoansTxt)) {
 					AlertHelper.Alert(getResources().getString(R.string.other_loans_missing), CreditLineIncreaseActivity.this);
 					return;
-				}
+				}*/
 				if(TextUtils.isEmpty(empTypeTxt) || empTypeTxt.equalsIgnoreCase("None")) {
 					AlertHelper.Alert(getResources().getString(R.string.employment_is_missing), CreditLineIncreaseActivity.this);
 					return;
 				}
-				
-				//Toast.makeText(CreditLineIncreaseActivity.this, "ALL MILAAAAAAAAAA", Toast.LENGTH_LONG).show();
-				
+				 
 				/*
 				 * MAKE WS CALLS HERE
 				 */
@@ -183,8 +190,17 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				
 				userDataModel.setYearlyIncome(Integer.parseInt(yearlyIncomeTxt));
-				userDataModel.setMortgage(Integer.parseInt(mortgageTxt));
-				userDataModel.setOtherLoans(Integer.parseInt(otherLoansTxt));
+				
+				if(TextUtils.isEmpty(mortgageTxt)) 
+					userDataModel.setMortgage(0);
+				else
+					userDataModel.setMortgage(Integer.parseInt(mortgageTxt));
+				
+				if(TextUtils.isEmpty(otherLoansTxt))
+					userDataModel.setOtherLoans(0);
+				else
+					userDataModel.setOtherLoans(Integer.parseInt(otherLoansTxt));	
+				
 				userDataModel.setAmountApplied(creditAmountAplied);
 				userDataModel.setEmployment(empTypeTxt);
 				arrayList.add(userDataModel);
@@ -277,6 +293,22 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			}
 		}
 	}
+	
+	private void enableDisableDecrementButton() {
+		
+		int creditAmountAplied = Integer.parseInt(lblCreditAmountApplied.getText().toString());
+		
+		if(creditAmountAplied > 5000) {
+			btnSubstractCreditLimit.setFocusable(true);
+			btnSubstractCreditLimit.setFocusableInTouchMode(true);
+			btnSubstractCreditLimit.setEnabled(true);
+		} else {
+			btnSubstractCreditLimit.setFocusable(false);
+			btnSubstractCreditLimit.setFocusableInTouchMode(false);
+			btnSubstractCreditLimit.setEnabled(false);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param amount
@@ -295,7 +327,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		txtOtherLoans.clearFocus();
 	    if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
-				Log.d("", " CLI MILAAAAAAAA");
+				//Log.d("", " CLI MILAAAAAAAA");
 				showDialog();
 			}
 	        if (resultCode == Activity.RESULT_CANCELED) {

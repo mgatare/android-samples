@@ -46,7 +46,7 @@ public class EmploymentActivity extends BaseActivity {
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.employment));
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		
@@ -100,9 +100,6 @@ public class EmploymentActivity extends BaseActivity {
 				NavUtils.navigateUpTo(this, upIntent);
 				setResult(RESULT_OK);
 			}*/
-//			Intent upIntent = new Intent();
-//			upIntent.putExtra("ID", "MAYURRRR");
-//			setResult(RESULT_OK, upIntent);
 			Log.d("COOP", "### android.R.id.home:####");
 			if (null != employmentTypeListener) {
 				employmentTypeListener.onReturnEmploymentType(employmentTxt);

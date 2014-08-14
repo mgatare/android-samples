@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Coop medlem</string>
+    <string name="app_name">Coop Visa</string>
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
     <string name="settings">Inställningar</string>
+    <string name="activation_code">Aktiveringskod</string>
     <string name="activate_app">Aktivera appen</string>
     <string name="enter_activation_code">Ange aktiveringskod</string>
     <string name="create_four_digit_pin_code">Skapa din 4-siffriga PIN-kod</string>
     <string name="pin_code">PIN-kod</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">Konton</string>
     <string name="enter_pin_code">Ange din PIN-kod</string>
     <string name="activation_code_text">Få din aktiveringskod på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nange den nedan.</string>
     <string name="please_create_pin_code_text">Skapa en fyrsiffrig PIN-kod. Detta kommer att användas varje gång du startar appen så att vi kan identifiera dig.</string>
@@ -92,6 +93,7 @@
 
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Ange kod</string>
+    <string name="encap_something_went_wrong">Något gick fel</string>
     <string name="encap_error">Ett fel uppstod. Försök igen inom kort.</string>
     <string name="encap_unknown_registration_error">Undantag registrering okänd. Du måste aktivera enheten.</string>
     <string name="encap_authentication_error">Du har enterd fel PIN-kod för många gånger, och du måste aktivera enheten.</string>
@@ -108,7 +110,9 @@
     <string name="email_is_invalid">E-postadressen är fel format.</string>
     <string name="phone_is_missing">Telefonnummer saknas.</string>
     <string name="no_transactions_found">Inga transctions Hittad konto.</string>
-    <string name="credit_line_details_missing">Årlig inkomst saknas.\nHypoteks saknas.\nÖvriga lån saknas.\nTyp Sysselsättningen saknas.</string>
+    <string name="credit_line_details_missing">Årlig inkomst saknas.\nTyp Sysselsättningen saknas.</string>
+    <!-- \nHypoteks saknas.\nÖvriga lån saknas. -->
+
     <string name="yearly_income_missing">Årlig inkomst saknas.</string>
     <string name="mortgage_missing">Hypoteks saknas.</string>
     <string name="other_loans_missing">Övriga lån saknas.</string>

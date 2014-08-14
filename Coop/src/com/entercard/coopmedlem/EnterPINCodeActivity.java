@@ -208,6 +208,13 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
+			
+			Log.v("NUMPAD", ""+pin1EditText.getText().length());
+			Log.v("NUMPAD", ""+pin2EditText.getText().length());
+			Log.v("NUMPAD", ""+pin3EditText.getText().length());
+			Log.v("NUMPAD", ""+pin4EditText.getText().length());
+			
+			
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
@@ -310,7 +317,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 		} else if(pin1EditText.getText().length()>0) {
 			stringBuilder.deleteCharAt(0).trimToSize();
-			//Log.i("", "---deleteCharAt(0)---"+stringBuilder.toString());
 			
 			resetPINFields();
 			

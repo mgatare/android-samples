@@ -25,6 +25,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
@@ -51,6 +52,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
+
+        <receiver android:name=".IncomingCallInterceptor" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.entercard.coopmedlem.ActivateAppActivity"
             android:configChanges="keyboardHidden"
@@ -109,6 +119,7 @@
             android:theme="@style/Theme.Coopmedlem" >
 
             <!-- android:parentActivityName="com.entercard.coopmedlem.CreditLineIncreaseActivity" -->
+
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <!-- <meta-data -->

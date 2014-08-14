@@ -5,23 +5,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.annotation.SuppressLint;
+import com.entercard.coopmedlem.ApplicationEx;
+
 import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
+import android.util.Log;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class StringUtils.
  */
-@SuppressLint("DefaultLocale") public class StringUtils {
+public class StringUtils {
 
 	/** The Constant EMPTY. */
 	public final static String EMPTY = "";
@@ -105,7 +108,7 @@ import android.text.style.StyleSpan;
 	 * @return the string
 	 */
 	public static String removeBlanks(String string) {
-		return string.replace(BLANK, EMPTY);
+		return string.replaceAll("\\s", "");
 	}
 
 	/**
@@ -221,9 +224,10 @@ import android.text.style.StyleSpan;
 	 * @return the string
 	 */
 	public static String roundAndFormatCurrency(String amount) {
+		Locale currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale;
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
-		String amountTxt = (String.format("%,.2f", finalValue));
+		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
 		return amountTxt;
 		
 	}
@@ -235,7 +239,8 @@ import android.text.style.StyleSpan;
 	 */
 	public static String formatStringCurrencyAddNorwegianCode(String currency) {
 		BigInteger number = new BigInteger(currency);
-		String amountTxt = (String.format("%,d", number));// .replace(',',' ')
+		Locale currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale;
+		String amountTxt = (String.format(currentLocale, "%,d", number));// .replace(',',' ')
 		// Add code
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("NOK ");
@@ -249,9 +254,41 @@ import android.text.style.StyleSpan;
 	 * @return
 	 */
 	public static String removeCurrencyFormat(String amount) {
-		String finalTxt = amount.replace(",", "").replace("NOK", "").trim();
+		String finalTxt = amount.replace(",", "").replace("NOK", "").replaceAll("\\s", "").trim();
 		return finalTxt;
 	}
+	/**
+	 * 
+	 * @param acct
+	 * @return
+	 */
+	public static String localizeAccountNumber(String acct) {
+		StringBuffer buffer = null;
+		buffer = new StringBuffer(acct.length());
+		if (acct.length() >= 11) {
+			buffer.append(acct.substring(0, 4));
+			buffer.append(".");
+			buffer.append(acct.substring(4, 6));
+			buffer.append(".");
+			buffer.append(acct.substring(6, 11));
+			Log.d("", "############>>>" + buffer.toString());
+
+			return buffer.toString();
+		} else {
+			return acct;
+		}
+	}
+	/**
+	 * 
+	 * @param acct
+	 * @return
+	 */
+	public static String reFormatAccountNumber(String acct) {
+		String account = acct.replace(".", "").replaceAll("\\s", "").trim();
+		return account;
+	}
+	
+	
 	/**
 	 * Gets the aplhabets input filter.
 	 *

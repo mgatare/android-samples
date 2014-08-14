@@ -9,7 +9,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_fifteen_px"
         android:layout_marginTop="@dimen/margin_ten_px"
         android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />
@@ -18,7 +18,7 @@
         android:id="@+id/lblDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_ten_px"
+        android:layout_marginLeft="@dimen/margin_fifteen_px"
         android:textColor="@color/text_body"
         android:textSize="@dimen/font_size_normal"
         android:textStyle="normal" />

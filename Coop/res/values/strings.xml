@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Coop medlem</string>
+    <string name="app_name">Coop Visa</string>
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
     <string name="settings">Settings</string>
+    <string name="activation_code">Activation code</string>
     <string name="activate_app">Activate the app</string>
     <string name="enter_activation_code">Enter activation code</string>
     <string name="create_four_digit_pin_code">Create your 4 digit PIN code</string>
@@ -68,7 +69,6 @@
     <string name="application_been_sent">Your application has been sent.</string>
     <string name="accept_terms_conditions_dispute">I hereby declare that the information stated is true and correct. If the police investigates the case, I am aware that the card issuer will give the police the information they need in the investigation.</string>
     <string name="accept_terms_condition_cli">I agree that the information supplied is complete and accurate. I accept that a standard credit check will be performed, where information about my credit history will be collected. If the granted line of credit after the credit check is lower than the amount I applied for, I hereby accept the lower line of credit. When applying for a higher line of credit the re:member Terms and Conditions previously entered into apply. The Terms and Conditions are available at remembercard.se or by calling +46 771 150 015. Please keep in mind that increasing your line of credit could result in additional strain on your finances.</string>
-    
     <string name="cancel">Cancel</string>
     <string name="i_accept">I accept</string>
     <string name="dispute_sent">Dispute Sent</string>
@@ -93,6 +93,7 @@
 
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Please enter code</string>
+    <string name="encap_something_went_wrong">Something went wrong</string>
     <string name="encap_error">An error occurred. Please try again shortly.</string>
     <string name="encap_unknown_registration_error">Unknown registration exception. You will have to reactivate the device.</string>
     <string name="encap_authentication_error">You have enterd your PIN incorrectly too many times, and you will have to reactivate the device.</string>
@@ -109,7 +110,8 @@
     <string name="email_is_invalid">E-mail address is in wrong format.</string>
     <string name="phone_is_missing">Phone number is missing.</string>
     <string name="no_transactions_found">No transctions found for this account.</string>
-    <string name="credit_line_details_missing">Yearly income is missing.\nMortgage is missing.\nOther loans is missing.\nEmployment type is missing.</string>
+    <string name="credit_line_details_missing">Yearly income is missing.\nEmployment type is missing.</string>
+    <!-- \nMortgage is missing.\nOther loans is missing. -->
     <string name="yearly_income_missing">Yearly income is missing.</string>
     <string name="mortgage_missing">Mortgage is missing.</string>
     <string name="other_loans_missing">Other loans is missing.</string>

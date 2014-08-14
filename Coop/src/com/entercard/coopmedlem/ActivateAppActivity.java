@@ -70,7 +70,7 @@ public class ActivateAppActivity extends BaseActivity {
 				public void onFailure(Throwable arg0) {
 					hideProgressDialog();
 					Log.i("COOP","CONFIGURATION onFailure::::"+arg0.getLocalizedMessage());
-					AlertHelper.Alert(arg0.getLocalizedMessage(), ActivateAppActivity.this);
+					AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),getResources().getString(R.string.encap_error), ActivateAppActivity.this);
 				}
 				@Override
 				public void onSuccess(LoadConfigResult arg0) {

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Coop medlem</string>
+    <string name="app_name">Coop Visa</string>
     <string name="action_search">Search</string>
     <string name="alert_title">Oops!</string>
     <string name="settings">Innstillinger</string>
     <string name="activate_app">Aktivere appen</string>
-    <string name="enter_activation_code">Skriv den Aktiveringskode</string>
+    <string name="activation_code">Aktiveringskode</string>
+    <string name="enter_activation_code">Skriv inn aktiveringskode</string>
     <string name="create_four_digit_pin_code">Lag en 4-sifret PIN-kode</string>
     <string name="pin_code">PIN-kode</string>
-    <string name="accounts">Accounts</string>
-    <string name="enter_pin_code">Skriv inn din PIN-kode</string>
+    <string name="accounts">Konti</string>
+    <string name="enter_pin_code">Oppgi PIN-kode</string>
     <string name="create_account">Opprett konto</string>
-    <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", og \nskriv den inn under.</string>
+    <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-visa&lt;/a>", og \nskriv den inn under.</string>
     <string name="please_create_pin_code_text">Vennligst lag en firesifret PIN-kode. Denne vil bli brukt hver gang du starter appen, slik at vi kan identifisere deg.</string>
     <string name="create_your_pin_code">Velg en PIN-kod</string>
     <string name="btn_create_pin">Lag din PIN-kode</string>
@@ -92,6 +93,7 @@
 
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Vennligst skriv inn koden.</string>
+    <string name="encap_something_went_wrong">Noe gikk galt</string>
     <string name="encap_error">Det oppstod en feil. Vennligst prøv igjen om kort tid.</string>
     <string name="encap_unknown_registration_error">Ukjent registreringsnummer unntak. Du må aktivere enheten.</string>
     <string name="encap_authentication_error">Du har tastet feil PIN-kode for mange ganger, og du blir nødt til å re-aktivere enheten.</string>
@@ -108,7 +110,8 @@
     <string name="email_is_invalid">E-postadressen er skrevet i feil format.</string>
     <string name="phone_is_missing">Telefonnummer mangler.</string>
     <string name="no_transactions_found">Ingen transaksjoner funnet for denne kontoen.</string>
-    <string name="credit_line_details_missing">Årlig inntekt mangler.\nBoliglån mangler.\nAndre lån mangler.\nStillingstype mangler.</string>
+    <string name="credit_line_details_missing">Årlig inntekt mangler.\nStillingstype mangler.</string>
+<!--     \nBoliglån mangler.\nAndre lån mangler. -->
     <string name="yearly_income_missing">Årlig inntekt mangler.</string>
     <string name="mortgage_missing">Boliglån mangler.</string>
     <string name="other_loans_missing">Andre lån mangler.</string>
@@ -140,7 +143,6 @@
     <string name="http_header_content_type">Content-Type</string>
     <string name="http_header_set_cookie">Cookie</string>
     <!-- Set-Cookie -->
-
 
     <!-- Exception Error Messages -->
     <string name="exception_json_errorr">Incorrect JSON response received from server.</string>

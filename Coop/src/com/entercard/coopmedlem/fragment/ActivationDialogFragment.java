@@ -59,10 +59,8 @@ public class ActivationDialogFragment extends DialogFragment {
 		View innerView = layoutInflater.inflate(R.layout.view_single_edittextview, null);
 		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 		
-		//Utils.disableViewContextMenuOptions(actCodeEditText);
-		
 		return new AlertDialog.Builder(getActivity())
-				.setTitle(getResources().getString(R.string.enter_activation_code))
+				.setTitle(getResources().getString(R.string.activation_code))
 				.setPositiveButton(getResources().getString(android.R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -82,7 +80,10 @@ public class ActivationDialogFragment extends DialogFragment {
 												public void onFailure(Throwable err) {
 													Log.i("ENCAP","->>>>>startActivation onFailure--->>>>>("+ err.getLocalizedMessage()+ ")");
 													parentActivity.hideProgressDialog();
-													AlertHelper.Alert(err.getLocalizedMessage(), parentActivity);
+													
+													AlertHelper.Alert(parentActivity.getResources().getString(R.string.encap_something_went_wrong),
+															parentActivity.getResources().getString(R.string.encap_error), 
+															parentActivity);
 												}
 												@Override
 												public void onSuccess(StartActivationResult result) {
@@ -107,7 +108,8 @@ public class ActivationDialogFragment extends DialogFragment {
 										Toast.makeText(parentActivity, getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
 									}
 								} else {
-									Toast.makeText(parentActivity, getResources().getString(R.string.please_enter_code), Toast.LENGTH_SHORT).show();
+									return;
+									//Toast.makeText(parentActivity, getResources().getString(R.string.please_enter_code), Toast.LENGTH_SHORT).show();
 								}
 							}
 						})

@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -103,6 +104,7 @@ public abstract class BaseService implements Runnable {
 	/** The headers. */
 	private ArrayList<NameValuePair> headers;
 	
+	private Locale locale;
 	/**
 	 * Instantiates a new base service.
 	 */
@@ -177,6 +179,7 @@ public abstract class BaseService implements Runnable {
 		String authResponse = null;
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		String url = null;
+		String currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
 		
 		if(NetworkHelper.isOnline(ApplicationEx.getInstance())) {
 			try {
@@ -191,6 +194,14 @@ public abstract class BaseService implements Runnable {
 					HttpPost httppost = new HttpPost(url);
 					httppost.setHeader("Content-Type", "application/json");
 					
+					//Accept-Language: nb;q=1 LOCALE IS>>>en_NO
+					if(currentLocale.equalsIgnoreCase("nb-NO"))
+						httppost.setHeader("Accept-Language", "nb;q=1");
+					else if(currentLocale.equalsIgnoreCase("sv-SE"))
+						httppost.setHeader("Accept-Language", " sv;q=0.9");
+					else
+						httppost.setHeader("Accept-Language", "en;q=0.8");
+					
 					for (NameValuePair nameValuePair : headers) {
 						httppost.setHeader(nameValuePair.getName(), nameValuePair.getValue());
 					}
@@ -203,6 +214,12 @@ public abstract class BaseService implements Runnable {
 				} else if (type == GET) { // make get request
 					HttpGet httpget = new HttpGet(url);
 					httpget.setHeader("Content-Type", "application/json");
+					if(currentLocale.equalsIgnoreCase("nb-NO"))
+						httpget.setHeader("Accept-Language", "nb;q=1");
+					else if(currentLocale.equalsIgnoreCase("sv-SE"))
+						httpget.setHeader("Accept-Language", " sv;q=0.9");
+					else
+						httpget.setHeader("Accept-Language", "en;q=0.8");
 					
 					for (NameValuePair nameValuePair : headers) {
 						httpget.setHeader(nameValuePair.getName(), nameValuePair.getValue());
@@ -214,6 +231,12 @@ public abstract class BaseService implements Runnable {
 				} else if (type == PUT) { // make put request
 					HttpPut httpPut = new HttpPut(url);
 					httpPut.setHeader("Content-Type", "application/json");
+					if(currentLocale.equalsIgnoreCase("nb-NO"))
+						httpPut.setHeader("Accept-Language", "nb;q=1");
+					else if(currentLocale.equalsIgnoreCase("sv-SE"))
+						httpPut.setHeader("Accept-Language", " sv;q=0.9");
+					else
+						httpPut.setHeader("Accept-Language", "en;q=0.8");
 					
 					for (NameValuePair nameValuePair : headers) {
 						httpPut.setHeader(nameValuePair.getName(), nameValuePair.getValue());

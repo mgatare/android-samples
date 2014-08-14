@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
@@ -124,6 +125,8 @@ public class DisputeTransactionActivity extends BaseActivity {
 				userDataModel.setDisputePhone(phone);
 				userDataModel.setDisputeReason(reason);
 
+				//Toast.makeText(DisputeTransactionActivity.this, ""+isTransactionKnown(), Toast.LENGTH_LONG).show();
+				
 				// Clear old contents
 				if (null != BaseActivity.getSingletonUserDataModelArrayList())
 					BaseActivity.getSingletonUserDataModelArrayList().clear();
@@ -154,6 +157,8 @@ public class DisputeTransactionActivity extends BaseActivity {
 		txtEmail = (EditText) findViewById(R.id.txtEmail);
 		txtPhone = (EditText) findViewById(R.id.txtPhone);
 		btnIncreaseCreditLimit = (Button) findViewById(R.id.btnIncreaseCreditLimit);
+		
+		toogleTransaction.setChecked(true);
 
 	}
 

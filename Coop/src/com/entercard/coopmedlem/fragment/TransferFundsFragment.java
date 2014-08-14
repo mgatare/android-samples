@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -61,9 +62,7 @@ public class TransferFundsFragment extends Fragment {
 		
 		txtAmount.setOnFocusChangeListener(new OnFocusChangeListener() {
 	        public void onFocusChange(View v, boolean hasFocus) {
-	        	
 	        	String amountTxt = txtAmount.getText().toString();
-	        	
 				if (!TextUtils.isEmpty(amountTxt)) {
 					if (hasFocus) {
 						amountTxt = StringUtils.removeCurrencyFormat(amountTxt);
@@ -78,6 +77,31 @@ public class TransferFundsFragment extends Fragment {
 	        }
 	    });
 		
+		/*Find a better solution than these filters*/
+		final InputFilter[] postAccountFilter = new InputFilter[1];
+		postAccountFilter[0] = new InputFilter.LengthFilter(13);
+		
+		final InputFilter[] preAccountFilter = new InputFilter[1];
+		preAccountFilter[0] = new InputFilter.LengthFilter(11);
+		
+		txtAccountNumber.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+	        public void onFocusChange(View v, boolean hasFocus) {
+	        	String accountTxt = txtAccountNumber.getText().toString();
+				if (!TextUtils.isEmpty(accountTxt)) {
+					if (hasFocus) {
+						txtAccountNumber.setFilters(preAccountFilter);
+						txtAccountNumber.setText(StringUtils.reFormatAccountNumber(accountTxt));
+						txtAccountNumber.setSelection(txtAccountNumber.getText().length());
+					} else {
+						txtAccountNumber.setFilters(postAccountFilter);
+						txtAccountNumber.setText(StringUtils.localizeAccountNumber(accountTxt));
+						txtAccountNumber.setSelection(txtAccountNumber.getText().length());
+					}
+				}
+	        }
+	    });
+		
 		btnFundsTransfer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -85,7 +109,7 @@ public class TransferFundsFragment extends Fragment {
 				int amount = 0;
 				double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
 				String receiverNameTxt = txtReceiversName.getText().toString();
-				String accountNumberTxt = txtAccountNumber.getText().toString();
+				String accountNumberTxt = StringUtils.reFormatAccountNumber(txtAccountNumber.getText().toString());
 				String messageTxt = txtMessage.getText().toString();
 				
 				if(!TextUtils.isEmpty(StringUtils.removeCurrencyFormat(txtAmount.getText().toString())))

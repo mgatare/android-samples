@@ -105,7 +105,6 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 											public void onSuccess(FinishActivationResult result) {
 												Log.i("COOP", ">>finish Activation onSuccess>>" + result);
 												parentActivity.hideProgressDialog();
-												
 												/**
 												 * The App is Activated successfully now. Set the Flag to 1 = ACTIVATED
 												 **/

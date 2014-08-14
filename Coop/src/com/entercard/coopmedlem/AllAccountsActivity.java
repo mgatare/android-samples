@@ -66,6 +66,9 @@ public class AllAccountsActivity extends BaseActivity implements
 		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
 
+		actionBar = getSupportActionBar();
+		actionBar.setTitle(getResources().getString(R.string.accounts));
+		
 		// btnTryAgain.setOnClickListener(new OnClickListener() {
 		// @Override
 		// public void onClick(View v) {
@@ -145,9 +148,6 @@ public class AllAccountsActivity extends BaseActivity implements
 						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, accountArrayList);
 						accountsListView.setAdapter(adapter);
 						adapter.notifyDataSetChanged();
-						
-						actionBar = getSupportActionBar();
-						actionBar.setTitle(getResources().getString(R.string.accounts));
 					}
 				});
 			} else {
