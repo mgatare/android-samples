@@ -74,7 +74,8 @@ public class CreatePINCodeFragment extends Fragment implements OnClickListener {
 				dialogFragment.show(fragmentTransaction, "dialog_create_pin");
 				
 			} else {
-				AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), parentActivity);
+				AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+						getResources().getString(R.string.no_internet_connection), parentActivity);
 			}
 			
 //			Intent intent = new Intent(getActivity(), EnterPINCodeActivity.class);

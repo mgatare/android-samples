@@ -80,7 +80,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		if (NetworkHelper.isOnline(this)) {
 			startAuthentication();
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), this);
+			AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+					getResources().getString(R.string.no_internet_connection), this);
 		}
 	}
 
@@ -451,7 +452,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							selectNextActivity(ACTIVITY_RESULT_STATE);
 							
 						} else {
-							AlertHelper.Alert("SAML data not found.",EnterPINCodeActivity.this);
+							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+									"SAML data not found.",EnterPINCodeActivity.this);
 						}
 					}
 				});

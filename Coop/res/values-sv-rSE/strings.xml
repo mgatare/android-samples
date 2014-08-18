@@ -12,7 +12,7 @@
     <string name="pin_code">PIN-kod</string>
     <string name="accounts">Konton</string>
     <string name="enter_pin_code">Ange din PIN-kod</string>
-    <string name="activation_code_text">Få din aktiveringskod på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-medlem&lt;/a>", and \nange den nedan.</string>
+    <string name="activation_code_text">Få din aktiveringskod på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-visa&lt;/a>", and \nange den nedan.</string>
     <string name="please_create_pin_code_text">Skapa en fyrsiffrig PIN-kod. Detta kommer att användas varje gång du startar appen så att vi kan identifiera dig.</string>
     <string name="create_your_pin_code">Skapa din PIN kod</string>
     <string name="btn_create_pin">Skapa din PIN kod</string>
@@ -78,7 +78,7 @@
     <string name="tag_position">position</string>
     <string name="tag_open_to_buy">opentobuy</string>
     <string name="tag_spent">spent</string>
-    <string name="no_internet_connection">Din dataanslutning är för närvarande inaktiverad. Vänligen aktivera det från inställningarna.</string>
+    <string name="no_internet_connection">Ingen Internet-anslutning.</string>
 
     <!-- ENCAP Related -->
     <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>

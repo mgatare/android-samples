@@ -79,7 +79,8 @@ public class ActivateAppActivity extends BaseActivity {
 				}
 			});
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), this);
+			AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+					getResources().getString(R.string.no_internet_connection), this);
 		}
 	}
 
@@ -138,7 +139,8 @@ public class ActivateAppActivity extends BaseActivity {
 					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 					newFragment.show(fragmentTransaction, "dialog_activate");
 				} else {
-					AlertHelper.Alert(getResources().getString(R.string.no_internet_connection), parentActivity);
+					AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+							getResources().getString(R.string.no_internet_connection), parentActivity);
 				}
 				break;
 

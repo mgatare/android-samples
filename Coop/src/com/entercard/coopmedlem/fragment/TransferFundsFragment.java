@@ -193,7 +193,7 @@ public class TransferFundsFragment extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
-				AlertHelper.Alert(getResources().getString(R.string.funds_transfer_success), parentActivity);
+				AlertHelper.AlertNoTitle(getResources().getString(R.string.funds_transfer_success), parentActivity);
 				txtReceiversName.setText(null);
 				txtAccountNumber.setText(null);
 				txtAmount.setText(null);

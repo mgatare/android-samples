@@ -69,7 +69,7 @@ public class FundsTransferService extends BaseService {
 		try {
 			
 			String url = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_FUNDS_TRANSFER;
-			//Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
+			Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
 			String response = makeRequest(url, getRequestJSONString(), POST);
 			Log.i("COOP", ">>>>RESPONSE>>>>>"+response);
 			

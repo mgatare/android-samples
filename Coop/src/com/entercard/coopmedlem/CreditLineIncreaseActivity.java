@@ -331,7 +331,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				showDialog();
 			}
 	        if (resultCode == Activity.RESULT_CANCELED) {
-	            AlertHelper.Alert(getResources().getString(R.string.exception_general), CreditLineIncreaseActivity.this);
+	        	AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+	        			getResources().getString(R.string.exception_general), CreditLineIncreaseActivity.this);
 	        }
 	    }
 	}
@@ -339,7 +340,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	private void showDialog() {
 		AlertDialog.Builder builder = null;
 		builder = new AlertDialog.Builder(CreditLineIncreaseActivity.this);
-		builder.setTitle(getResources().getString(R.string.application_been_sent))
+		builder.setMessage(getResources().getString(R.string.application_been_sent))
 				.setCancelable(true)
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
@@ -362,18 +363,13 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		case android.R.id.home:
 			Log.d("COOP", "### android.R.id.home CLI:####");
 			finish();
-			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		// super.onCreateContextMenu(menu, v, menuInfo);
-		// AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        // int position = info.position;
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
         menu.clear();
 	}
 	

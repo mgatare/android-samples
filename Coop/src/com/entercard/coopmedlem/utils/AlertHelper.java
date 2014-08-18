@@ -31,6 +31,22 @@ public class AlertHelper {
 
 	}
 
+	public static void AlertNoTitle(String msg, Context context) {
+
+		builder = new AlertDialog.Builder(context);
+		builder.setMessage(msg)
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+							}
+						}).show();
+
+	}
+	
 	public static void Alert(String title, String msg, Context context) {
 
 		builder = new AlertDialog.Builder(context);

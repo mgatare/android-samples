@@ -4,7 +4,7 @@
 
     <stroke
         android:width="0.7dp"
-        android:color="@color/light_green" />
+        android:color="@color/text_heading" />
 
     <!-- <size -->
     <!-- android:height="10dp" -->
