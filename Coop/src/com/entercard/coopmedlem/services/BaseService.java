@@ -195,9 +195,9 @@ public abstract class BaseService implements Runnable {
 					httppost.setHeader("Content-Type", "application/json");
 					
 					//Accept-Language: nb;q=1 LOCALE IS>>>en_NO
-					if(currentLocale.equalsIgnoreCase("nb-NO"))
+					if(currentLocale.equalsIgnoreCase("nb_NO"))
 						httppost.setHeader("Accept-Language", "nb;q=1");
-					else if(currentLocale.equalsIgnoreCase("sv-SE"))
+					else if(currentLocale.equalsIgnoreCase("sv_SE"))
 						httppost.setHeader("Accept-Language", " sv;q=0.9");
 					else
 						httppost.setHeader("Accept-Language", "en;q=0.8");

@@ -33,7 +33,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 	private EditText txtReasonDispute;
 	private EditText txtEmail;
 	private EditText txtPhone;
-	private Button btnIncreaseCreditLimit;
+	private Button btnDisputeTransc;
 	private ActionBar actionBar;
 
 	private String amount;
@@ -53,7 +53,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 
 		regActivityLogoutReceiver();
 
-		btnIncreaseCreditLimit.setOnClickListener(new OnClickListener() {
+		btnDisputeTransc.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
@@ -63,44 +63,28 @@ public class DisputeTransactionActivity extends BaseActivity {
 				String email = txtEmail.getText().toString();
 				String phone = txtPhone.getText().toString();
 
-				if (TextUtils.isEmpty(reason) && TextUtils.isEmpty(email)
-						&& TextUtils.isEmpty(phone)) {
-					AlertHelper.Alert(
-							getResources().getString(
-									R.string.dispute_validation),
-							DisputeTransactionActivity.this);
+				if (TextUtils.isEmpty(reason) && TextUtils.isEmpty(email)&& TextUtils.isEmpty(phone)) {
+					AlertHelper.Alert(getResources().getString(R.string.dispute_validation),DisputeTransactionActivity.this);
 					return;
 				}
 
 				if (TextUtils.isEmpty(reason)) {
-					AlertHelper.Alert(
-							getResources()
-									.getString(R.string.reason_is_missing),
-							DisputeTransactionActivity.this);
+					AlertHelper.Alert(getResources().getString(R.string.reason_is_missing),DisputeTransactionActivity.this);
 					return;
 				}
 
 				if (TextUtils.isEmpty(email)) {
-					AlertHelper
-							.Alert(getResources().getString(
-									R.string.email_is_missing),
-									DisputeTransactionActivity.this);
+					AlertHelper.Alert(getResources().getString(R.string.email_is_missing),DisputeTransactionActivity.this);
 					return;
 				} else {
 					if (!StringUtils.isValidEmail(email)) {
-						AlertHelper.Alert(
-								getResources().getString(
-										R.string.email_is_invalid),
-								DisputeTransactionActivity.this);
+						AlertHelper.Alert(getResources().getString(R.string.email_is_invalid),DisputeTransactionActivity.this);
 						return;
 					}
 				}
 
 				if (TextUtils.isEmpty(phone)) {
-					AlertHelper
-							.Alert(getResources().getString(
-									R.string.phone_is_missing),
-									DisputeTransactionActivity.this);
+					AlertHelper.Alert(getResources().getString(R.string.phone_is_missing),DisputeTransactionActivity.this);
 					return;
 				}
 
@@ -155,7 +139,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 		txtReasonDispute = (EditText) findViewById(R.id.txtReasonDispute);
 		txtEmail = (EditText) findViewById(R.id.txtEmail);
 		txtPhone = (EditText) findViewById(R.id.txtPhone);
-		btnIncreaseCreditLimit = (Button) findViewById(R.id.btnIncreaseCreditLimit);
+		btnDisputeTransc = (Button) findViewById(R.id.btnDisputeTransc);
 		
 		toogleTransaction.setChecked(true);
 
@@ -168,17 +152,23 @@ public class DisputeTransactionActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		txtReasonDispute.requestFocus();
 		if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d("", "---RESULT_OK----");
+				txtReasonDispute.setText(null);
+				txtEmail.setText(null); 
+				txtPhone.setText(null);
+				
 				showDialog();
 			}
 			if (resultCode == Activity.RESULT_CANCELED) {
-				longToast(getResources().getString(R.string.exception_general));
+				Log.d("", "---RESULT_CANCELED----");
+				//longToast(getResources().getString(R.string.exception_general));
 			}
 		} else {
 			Log.d("", "---RESULT_NOT FOUND----");
-			longToast(getResources().getString(R.string.exception_general));
+			//longToast(getResources().getString(R.string.exception_general));
 		}
 	}
 	

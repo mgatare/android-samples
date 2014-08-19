@@ -22,7 +22,8 @@
             android:gravity="left"
             android:text="@string/spent"
             android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
             android:gravity="right"
             android:text="@string/open_to_buy"
             android:textColor="@color/text_heading"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

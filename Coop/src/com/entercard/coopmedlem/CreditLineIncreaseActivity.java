@@ -92,7 +92,12 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		
 		originalCredit = (int) Math.round(mAccountCredit);
 		adjustedCreditLimit = 150000 - originalCredit;
-		lblCreditAmountApplied.setText("5000");
+		
+		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+			lblCreditAmountApplied.setText("5 000");
+		else
+			lblCreditAmountApplied.setText("5000");
+		
 		
 		linearEmployment.setOnClickListener(viewOnCLickListener);
 		btnApplyCLI.setOnClickListener(viewOnCLickListener);
@@ -123,8 +128,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		@Override
 		public void onClick(View v) {
 			
-			//Log.e("COOP", "MAX CREDIT LIMIT IS ->>"+adjustedCreditLimit);
-			int creditAmountAplied = Integer.parseInt(lblCreditAmountApplied.getText().toString());
+			int creditAmountAplied = Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
 			Log.e("COOP", "creditAmountAplied->>"+creditAmountAplied);
 			
 			switch (v.getId()) {
@@ -154,6 +158,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				break;
 				
 			case R.id.btnApplyCLI:
+				
+				closeKeyBoard();
 				
 				String yearlyIncomeTxt = StringUtils.removeCurrencyFormat(txtYearlyIncome.getText().toString());
 				String mortgageTxt = StringUtils.removeCurrencyFormat(txtMortgage.getText().toString());
@@ -287,16 +293,30 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		int incresedAmount = amount + 5000;
 		if (incresedAmount <= maxCreditLimit) {
 			if(incresedAmount > adjustedCreditLimit) {
-				lblCreditAmountApplied.setText("" + adjustedCreditLimit);
+				
+				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
+					String formatedAmountTxt = StringUtils.formatCurrencyNorway(String.valueOf(adjustedCreditLimit));
+					lblCreditAmountApplied.setText(formatedAmountTxt);
+				}else {
+					lblCreditAmountApplied.setText(""+adjustedCreditLimit);
+				}
+				
 			} else {
-				lblCreditAmountApplied.setText("" + incresedAmount);
+				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
+					String formatedAmountTxt = StringUtils.formatCurrencyNorway(String.valueOf(incresedAmount));
+					lblCreditAmountApplied.setText(formatedAmountTxt);
+				}else {
+					lblCreditAmountApplied.setText(""+incresedAmount);
+				}
 			}
 		}
 	}
 	
 	private void enableDisableDecrementButton() {
 		
-		int creditAmountAplied = Integer.parseInt(lblCreditAmountApplied.getText().toString());
+		//int creditAmountAplied = Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
+		//Log.e("COOP", "creditAmountAplied->>"+creditAmountAplied);
+		int creditAmountAplied =  Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
 		
 		if(creditAmountAplied > 5000) {
 			btnSubstractCreditLimit.setFocusable(true);
@@ -316,7 +336,13 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	private void decrementCreditLimit(int amount) {
 		int incresedAmount = amount - 5000;
 		if (incresedAmount >= 5000) {
-			lblCreditAmountApplied.setText("" + incresedAmount);
+			
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
+				String formatedIncreasedAmount = StringUtils.formatCurrencyNorway(String.valueOf(incresedAmount));
+				lblCreditAmountApplied.setText(formatedIncreasedAmount);
+			}else {
+				lblCreditAmountApplied.setText(""+incresedAmount);
+			}
 		}
 	}
 	
@@ -328,11 +354,16 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	    if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				//Log.d("", " CLI MILAAAAAAAA");
+				txtYearlyIncome.setText(null);
+				txtMortgage.setText(null);
+				txtOtherLoans.setText(null);
+				lblEmploymentType.setText("None");
+				
 				showDialog();
 			}
 	        if (resultCode == Activity.RESULT_CANCELED) {
-	        	AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
-	        			getResources().getString(R.string.exception_general), CreditLineIncreaseActivity.this);
+//	        	AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+//	        			getResources().getString(R.string.exception_general), CreditLineIncreaseActivity.this);
 	        }
 	    }
 	}
@@ -348,10 +379,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								dialog.dismiss();
-								txtYearlyIncome.setText(null);
-								txtMortgage.setText(null);
-								txtOtherLoans.setText(null);
-								lblEmploymentType.setText("None");
 								finish();
 							}
 						}).show();

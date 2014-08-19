@@ -16,24 +16,24 @@
     <string name="activation_code_text">Skaff din aktiveringskode på \n&lt;a href="http://www.entercard.com/">entercard.no/coop-visa&lt;/a>", og \nskriv den inn under.</string>
     <string name="please_create_pin_code_text">Vennligst lag en firesifret PIN-kode. Denne vil bli brukt hver gang du starter appen, slik at vi kan identifisere deg.</string>
     <string name="create_your_pin_code">Velg en PIN-kod</string>
-    <string name="btn_create_pin">Lag din PIN-kode</string>
-    <string name="tab_title_transaction">Transaksjons</string>
+    <string name="btn_create_pin">Lag PIN-kode</string>
+    <string name="tab_title_transaction">Transaksjoner</string>
     <string name="tab_title_cards">Kort</string>
-    <string name="tab_title_transfer">Overføre penger</string>
-    <string name="option_transactions">transaksjoner</string>
+    <string name="tab_title_transfer">Overfør penger</string>
+    <string name="option_transactions">Transaksjoner</string>
     <string name="option_transfer_funds">Overføring av midler</string>
-    <string name="transfer_funds">Overføre penger</string>
+    <string name="transfer_funds">Overfør penger</string>
     <string name="option_credit_line_increase">Økning av kredittgrensen</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer).\nFor aktuell rente og gebyr, se \n&lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
+    <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer). For aktuell rente og gebyr, se &lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
     <string name="receiver_name">Mottakerens navn</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearingnummeret må være 4 eller 5 siffer.</string>
     <string name="amount">Beløp</string>
     <string name="account_number">Kontonummer</string>
     <string name="message_or_kid">Melding eller KID</string>
-    <string name="credit_limit">Kreditgrense</string>
+    <string name="credit_limit">KREDITGRENSE</string>
     <string name="recognize_transaction">Jeg kjenner igjen transaksjonen</string>
     <string name="reason_for_dispute">Hvorfor vil du reklamere transaksjonen?</string>
     <string name="email">E-post</string>
@@ -42,7 +42,7 @@
     <string name="searchable_hint">Søk transaksjoner</string>
     <string name="dispute">Reklamasjon</string>
     <string name="spent">BRUKT</string>
-    <string name="open_to_buy">Tilgjengelig</string>
+    <string name="open_to_buy">TILGJENGELIG</string>
     <string name="latest_transactions">TRANSAKSJONER</string>
     <string name="card_ending_with">Kortnummer slutter på:</string>
     <string name="desired_increase_in_credit">Ønsket kredittforhøyning</string>
@@ -57,14 +57,14 @@
     <string name="occupancy">Belegg</string>
     <string name="employment">Sysselsetting</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
-    <string name="btn_increase_credit_limit">+ Øk kredittgrense</string>
+    <string name="btn_increase_credit_limit">+ Øk kredittgrensen</string>
     <string name="btn_apply_credit_line_increase">Søk om en kredittgrense øke</string>
-    <string name="cards">Kort</string>
-    <string name="customer_service">Kundeservice</string>
+    <string name="cards">KORT</string>
+    <string name="customer_service">KUNDESERVICE</string>
     <string name="card_service">Kortservice</string>
-    <string name="card_service_number">23 33 83 32</string>
+    <string name="card_service_number">815 00 701</string>
     <string name="block_card">Sperre kort</string>
-    <string name="block_card_number">815 00 701</string>
+    <string name="block_card_number">23 33 83 32</string>
     <string name="accept_terms_and_condition">Akseptere vilkår</string>
     <string name="application_been_sent">Din søknad har blitt sendt.</string>
     <string name="accept_terms_conditions_dispute">Jeg erklærer at ovenstående opplysninger er korrekte. Hvis politiet etterforsker saken, er jeg inneforstått med, at kortutsteder gir politiet de opplysninger de har bruk for i forbindelse med saken.</string>

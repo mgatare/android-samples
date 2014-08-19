@@ -123,7 +123,7 @@
         <include layout="@drawable/seperator" />
 
         <Button
-            android:id="@+id/btnIncreaseCreditLimit"
+            android:id="@+id/btnDisputeTransc"
             style="@style/Theme.Coopmedlem.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

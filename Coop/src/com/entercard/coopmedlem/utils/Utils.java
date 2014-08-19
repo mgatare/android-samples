@@ -202,13 +202,13 @@ public class Utils {
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {
-			builder.append(StringUtils.removeBlanks(city));
+			builder.append(StringUtils.removeBlankSpaces(city));
 			builder.append(",");
 			//zoomLevel = 10;
 		}
 
 		if (!TextUtils.isEmpty(country)) {
-			builder.append(StringUtils.removeBlanks(country));
+			builder.append(StringUtils.removeBlankSpaces(country));
 		}
 
 		params = builder.toString();

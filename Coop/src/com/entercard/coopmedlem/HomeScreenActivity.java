@@ -148,7 +148,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	
 	@Override
 	public void onBackPressed() {
-		Log.e("COOP", "######On BACKKK PRESSED HomeScreen######ARRAY="+ ApplicationEx.getInstance().getAccountsArrayList().size());
+		//Log.e("COOP", "######On BACKKK PRESSED HomeScreen######ARRAY="+ ApplicationEx.getInstance().getAccountsArrayList().size());
 		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
 		if (accountsCount == 1)
 			ApplicationEx.getInstance().clearGlobalContents();

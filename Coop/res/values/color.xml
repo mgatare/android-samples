@@ -6,9 +6,9 @@
     <color name="text_dark">#00457D</color>
     <color name="light_grey">#808080</color>
     <color name="seperator_color">#DBDBDB</color>
-    <color name="droid">#93ad43</color>
+<!--     <color name="droid">#93ad43</color> -->
     <!-- <color name="screen_bg_grey_light">#F1F1F1</color> -->
-    <color name="light_green">#58A12B</color>
+    <color name="coop_green">#57A02A</color>
     <color name="profile_background">#fec04c</color>
     <color name="dialog_body_background_color">#f6f6f6</color>
     <color name="dialog_title_background_color">#333333</color>

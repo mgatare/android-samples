@@ -126,7 +126,7 @@ public class ApplicationEx extends Application {
 		} catch (Exception ex) {
 			Log.e(LOG_TAG, "******Set public key hashes encountered exception: " + ex);
 		}
-		controller.setConnectionTimeout(Integer.parseInt(getResources().getString(R.string.encap_server_timeout)));
+		controller.setConnectionTimeout(60000);//Integer.parseInt(getResources().getString(R.string.encap_server_timeout))
 		controller.setSigningEnabled(false);
 		//controller.setSigningKeySize(Integer.parseInt(getResources().getString(R.string.encap_signing_key_size)));
 		controller.setClientOnly(false);

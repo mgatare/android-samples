@@ -58,7 +58,7 @@ public class ActivateAppActivity extends BaseActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(false);
-		actionBar.setTitle(getResources().getString(R.string.create_account));
+		actionBar.setTitle(getResources().getString(R.string.app_name));
 		
 		// Gets only one instance
 		controller = ((ApplicationEx) getApplication()).getController();

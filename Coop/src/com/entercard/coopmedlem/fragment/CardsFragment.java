@@ -80,9 +80,12 @@ public class CardsFragment extends Fragment {
 		position = parentActivity.getAccountPosition();
 		cardsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getCardDataArrayList();
 		creditLimitTxt= ApplicationEx.getInstance().getAccountsArrayList().get(position).getCreditLimit();
-		
-		lblCreditlimit.setText(StringUtils.roundAndFormatCurrency(creditLimitTxt));
-		
+		//08-19 15:33:52.382: I/(22978): localeTxt>>nb_NO
+		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
+			lblCreditlimit.setText(StringUtils.roundAndFormatCurrencyNorway(creditLimitTxt));
+		 else
+			lblCreditlimit.setText(StringUtils.roundAndFormatCurrency(creditLimitTxt));
+			
 		cardsAdapter = new CardsAdapter(parentActivity, 0, cardsArrayList);
 		allCardsListView.setAdapter(cardsAdapter);
 		cardsAdapter.notifyDataSetChanged();

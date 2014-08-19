@@ -107,7 +107,7 @@ public class StringUtils {
 	 * @param string the string
 	 * @return the string
 	 */
-	public static String removeBlanks(String string) {
+	public static String removeBlankSpaces(String string) {
 		return string.replaceAll("\\s", "");
 	}
 
@@ -231,6 +231,41 @@ public class StringUtils {
 		return amountTxt;
 		
 	}
+	
+	public static String getCurrentLocale() {
+		return  ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
+	}
+	
+	/**
+	 * 
+	 * @param amount
+	 * @return
+	 */
+	public static String roundAndFormatCurrencyNorway(String amount) {
+		Locale currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale;
+		double doubleAmount = Double.parseDouble(amount);
+		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
+		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
+		String [] amountArr = amountTxt.split("\\,");
+		return amountArr[0];
+		
+	}
+	/**
+	 * 
+	 * @param amount
+	 * @return
+	 */
+	public static String formatCurrencyNorway(String amount) {
+		Locale currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale;
+		double doubleAmount = Double.parseDouble(amount);
+		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
+		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
+		String [] amountArr = amountTxt.split("\\,");
+		Log.d("", "amountArr >>>>"+amountArr[0]);
+		return amountArr[0];
+		
+	}
+	
 	
 	/**
 	 * 

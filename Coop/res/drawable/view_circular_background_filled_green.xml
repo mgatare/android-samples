@@ -4,7 +4,7 @@
 
     <stroke
         android:width="0.7dp"
-        android:color="@color/light_green" />
+        android:color="@color/coop_green" />
 
     <!-- <size -->
     <!-- android:height="10dp" -->
@@ -12,7 +12,7 @@
 
     <gradient
         android:angle="270"
-        android:endColor="@color/light_green"
-        android:startColor="@color/light_green" />
+        android:endColor="@color/coop_green"
+        android:startColor="@color/coop_green" />
 
 </shape>

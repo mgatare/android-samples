@@ -338,7 +338,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					AlertHelper.Alert(error, getActivity());
 					transactionListView.onLoadMoreComplete();
 				} else {
-					AlertHelper.Alert(ApplicationEx.getInstance().getString(R.string.exception_general), getActivity());
+					AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+							ApplicationEx.getInstance().getString(R.string.encap_something_went_wrong), getActivity());
 					transactionListView.onLoadMoreComplete();
 				}
 			}

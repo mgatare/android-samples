@@ -61,7 +61,6 @@ public class BaseActivity extends ActionBarActivity {
 	/** The is first visit. */
 	private static boolean isFirstVisit;
 
-	//private static HashMap<String, String> customerFundsData;
 	/** The singleton user data model array list. */
 	private static ArrayList<SingletonWebservicesDataModel> singletonUserDataModelArrayList;
 	
@@ -76,7 +75,6 @@ public class BaseActivity extends ActionBarActivity {
 	
 	/** The Constant CLI. */
 	public static final int CLI = 113;
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -90,9 +88,8 @@ public class BaseActivity extends ActionBarActivity {
 		//For some devices this may be needed
 		//getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
 		regUnlockReceiver();
-
 	}
-	
+
 	/**
 	 * Long toast.
 	 * 
@@ -132,6 +129,7 @@ public class BaseActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		Log.i("", "BASE ACTIVITY ONRESUME CALLED");
+		//onPhoneCallReceived();
 	}
 
 	/**
@@ -359,6 +357,7 @@ public class BaseActivity extends ActionBarActivity {
 		}
 	}
 
+	
 	/**
 	 * Gets the singleton user data model array list.
 	 *

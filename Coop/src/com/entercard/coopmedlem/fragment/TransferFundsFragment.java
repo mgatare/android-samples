@@ -191,17 +191,19 @@ public class TransferFundsFragment extends Fragment {
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (requestCode == 1) {
+		txtReceiversName.setText(null);
+		txtAccountNumber.setText(null);
+		txtAmount.setText(null);
+		txtMessage.setText(null);
+		txtReceiversName.requestFocus();
+		if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
-				AlertHelper.AlertNoTitle(getResources().getString(R.string.funds_transfer_success), parentActivity);
-				txtReceiversName.setText(null);
-				txtAccountNumber.setText(null);
-				txtAmount.setText(null);
-				txtMessage.setText(null);
+				AlertHelper.AlertNoTitle(getResources().getString(R.string.funds_transfer_success),parentActivity);
 			}
-	        if (resultCode == Activity.RESULT_CANCELED) {
-	            AlertHelper.Alert(getResources().getString(R.string.exception_general), parentActivity);
-	        }
-	    }
+			if (resultCode == Activity.RESULT_CANCELED) {
+				// AlertHelper.Alert(getResources().getString(R.string.exception_general),
+				// parentActivity);
+			}
+		}
 	}
 }

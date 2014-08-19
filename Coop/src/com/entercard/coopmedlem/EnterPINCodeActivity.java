@@ -102,13 +102,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.enter_pin_code));
 		
-	}
-
-	private void getFocusToDummyEditText() {
-		dummyEditText.requestFocus();
-		dummyEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
-		
 		/**
+		 * IMP!! INITIALIZE WATCHER ONLY ONCE 
 		 * For JellyBean and above devices we are not able to get the KeyEvents,
 		 * so for this we need to have a TextWatcher that will act in place of
 		 * keyevents.
@@ -117,7 +112,12 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 		if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
 			dummyEditText.addTextChangedListener(new PINTextWatcher());
-		} 
+		}
+	}
+
+	private void getFocusToDummyEditText() {
+		dummyEditText.requestFocus();
+		dummyEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
 	}
 	
 	/*
@@ -215,11 +215,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			Log.v("NUMPAD", ""+pin3EditText.getText().length());
 			Log.v("NUMPAD", ""+pin4EditText.getText().length());
 			
-			
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
-				//pin1EditText.setBackgroundColor(Color.GREEN);
 				pin1EditText.setBackgroundResource(R.drawable.view_circular_background_filled_green);
 				stringBuilder.append(text);
 				
@@ -318,7 +316,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 		} else if(pin1EditText.getText().length()>0) {
 			stringBuilder.deleteCharAt(0).trimToSize();
-			
 			resetPINFields();
 			
 		} else {
@@ -425,7 +422,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						} else {
 							// Authentication error, cannot retry.
 							Log.i("COOP",">>Authentication error, cannot retry>>"+ throwable);
-							AlertHelper.Alert(getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
+							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
 						}
 					}
 
@@ -609,6 +607,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 
+								closeKeyBoard();
+								
 								//Clear the shared preference of all Activation related FLAGS
 								PreferenceHelper helper = new PreferenceHelper(EnterPINCodeActivity.this);
 								helper.clear();
