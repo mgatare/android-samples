@@ -47,7 +47,7 @@ public class ApplicationEx extends Application {
 	private String SAMLTxt;
 	
 	/** The session id. */
-	private String sessionID;
+	private String serverSessionID;
 	
 	/** The uuid. */
 	private String UUID;
@@ -204,8 +204,8 @@ public class ApplicationEx extends Application {
 	 *
 	 * @return the session id
 	 */
-	public String getSessionID() {
-		return sessionID;
+	public String getServerSessionID() {
+		return serverSessionID;
 	}
 
 	/**
@@ -213,8 +213,8 @@ public class ApplicationEx extends Application {
 	 *
 	 * @param sessionID the new session id
 	 */
-	public void setSessionID(String sessionID) {
-		this.sessionID = sessionID;
+	public void setServerSessionID(String sessionID) {
+		this.serverSessionID = sessionID;
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class ApplicationEx extends Application {
 		//controller = null;
 		setCookie(null);
 		setSAMLTxt(null);
-		setSessionID(null);
+		setServerSessionID(null);
 		setUUID(null);
 	}
 }

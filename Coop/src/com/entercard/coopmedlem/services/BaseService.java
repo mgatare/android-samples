@@ -297,7 +297,7 @@ public abstract class BaseService implements Runnable {
 			if (header.getName().equalsIgnoreCase("UUID"))
 				ApplicationEx.getInstance().setUUID(header.getValue());
 			else if (header.getName().equalsIgnoreCase("jsessionid"))
-				ApplicationEx.getInstance().setSessionID(header.getValue());
+				ApplicationEx.getInstance().setServerSessionID(header.getValue());
 			else if (header.getName().equalsIgnoreCase("Set-Cookie"))
 				ApplicationEx.getInstance().setCookie(header.getValue());
 		}

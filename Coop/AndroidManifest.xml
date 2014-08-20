@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.entercard.coopmedlem"
     android:versionCode="1"
-    android:versionName="1.0.2" >
+    android:versionName="1.0.3" >
 
     <!-- 2.0 - Pocahontas COOP Norway - Android -->
 
@@ -18,9 +18,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- remove this permission on stage and Production -->
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- WiFi Permission is required for Encap SDK for its internal call -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />

@@ -26,8 +26,6 @@ public class AllAccountsActivity extends BaseActivity implements
 
 	private GetAccountsService accountsService;
 	private ListView accountsListView;
-	// private TextView textViewServerErrorMsg;
-	// private Button btnTryAgain;
 	private ActivityFinishReceiver finishReceiver;
 	private ActionBar actionBar;
 
@@ -60,25 +58,12 @@ public class AllAccountsActivity extends BaseActivity implements
 
 	private void init() {
 
-		// textViewServerErrorMsg = (TextView) findViewById(R.id.lblServerErrorMsg);
-		// btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
-
 		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
 
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(getResources().getString(R.string.accounts));
 		
-		// btnTryAgain.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// btnTryAgain.setVisibility(View.GONE);
-		// textViewServerErrorMsg.setVisibility(View.GONE);
-		// callGetAccountsService();
-		// }
-		// });
-		 
-
 		accountsListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -123,9 +108,6 @@ public class AllAccountsActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				showErrorDialog(errorMsg, AllAccountsActivity.this);
-				// accountsListView.setVisibility(View.GONE);
-				// textViewServerErrorMsg.setVisibility(View.VISIBLE);
-				// btnTryAgain.setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -133,40 +115,42 @@ public class AllAccountsActivity extends BaseActivity implements
 	@Override
 	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
 		hideProgressDialog();
-		Log.e("COOP", "accountArrayList.size()-->>"+ ApplicationEx.getInstance().getAccountsArrayList().size());
-
+		Log.e("COOP", "accountArrayList.size()-->>"+ accountArrayList.size());
 		if (null != accountArrayList && accountArrayList.size() != 0) {
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					/*
+					 * If Just one account then directly move the user to the
+					 * transactions screen, else update the APAPTER
+					 */
+					if (accountArrayList.size() > 1) {
 
-			/*
-			 * If Just one account then directly move the user to the
-			 * transactions screen, else update the APAPTER
-			 */
-			if (accountArrayList.size() > 1) {
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
 						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, accountArrayList);
 						accountsListView.setAdapter(adapter);
 						adapter.notifyDataSetChanged();
+
+					} else {
+						String openToBuy = accountArrayList.get(0).getOpenToBuy();
+						String spent = accountArrayList.get(0).getSpent();
+						int count = Integer.parseInt(accountArrayList.get(0).getTransactionsCount());
+
+						// Set these temporarily
+						setOpenToBuy(openToBuy);
+						setSpent(spent);
+						setAccountPosition(0);
+						setTransactionsCount(count);
+
+						finish();// Need to finish the ACCOUNTS screen as there is only one account
+
+						// Move to HomeScreen directly without showing Acounts
+						// screen
+						Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
 					}
-				});
-			} else {
-				String openToBuy = accountArrayList.get(0).getOpenToBuy();
-				String spent = accountArrayList.get(0).getSpent();
-				int count = Integer.parseInt(accountArrayList.get(0).getTransactionsCount());
-
-				// Set these temporarily
-				setOpenToBuy(openToBuy);
-				setSpent(spent);
-				setAccountPosition(0);
-				setTransactionsCount(count);
-
-				// Move to HomeScreen directly without showing Acounts screen
-				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				finish();// Need to finish the ACCOUNTS screen as there is only one account
-			}
+				}
+			});
 		} else {
 			ApplicationEx.getInstance().setAccountsArrayList(null);
 		}

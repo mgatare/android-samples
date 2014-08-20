@@ -201,7 +201,6 @@ public class InitiateDisputeService extends BaseService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Log.i("COOP", ">>>>>>>>fundsTransferJsonObject.toString()>>>>>>>>>"+requestJSON.toString());
 		return requestJSON.toString();
 	}
 	

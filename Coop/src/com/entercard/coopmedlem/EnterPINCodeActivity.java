@@ -1,14 +1,15 @@
 package com.entercard.coopmedlem;
 
 import java.util.Date;
-
 import org.kobjects.base64.Base64;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.Controller;
 import com.encapsecurity.encap.android.client.api.FinishAuthenticationResult;
@@ -36,6 +36,7 @@ import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListe
 import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener;
 import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.CompatibilityUtils;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
@@ -603,6 +604,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 				.setCancelable(true)
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
+							@SuppressLint("InlinedApi") 
 							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
@@ -619,9 +621,16 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								dialog.dismiss();
 								finish();
 								
-								Intent intent = new Intent(EnterPINCodeActivity.this, ActivateAppActivity.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								startActivity(intent);
+								if(CompatibilityUtils.getSdkVersion() < 11) {
+									Intent intent = new Intent(getApplicationContext(), ActivateAppActivity.class);
+									ComponentName cn = intent.getComponent();
+									Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+									startActivity(mainIntent);
+								} else {
+									Intent intent = new Intent(EnterPINCodeActivity.this, ActivateAppActivity.class);
+									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+									startActivity(intent);
+								}
 							}
 						}).show();
 	}
