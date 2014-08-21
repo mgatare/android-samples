@@ -1,7 +1,5 @@
 package com.entercard.coopmedlem.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -12,7 +10,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,8 +59,7 @@ public class DateUtils {
 	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentTimeStamp() {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss Z");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTimeStamp = dateFormat.format(new Date());
 
 			return currentTimeStamp;
@@ -79,7 +75,6 @@ public class DateUtils {
 	 * @return the locale specif name
 	 */
 	public static String getLocaleSpecifName() {
-
 		return Calendar.getInstance(Locale.getDefault()).getTimeZone()
 				.getDisplayName();
 	}
@@ -157,7 +152,6 @@ public class DateUtils {
 		}
 		// System.out.println(_24HourDt);
 		// System.out.println(_12HourSDF.format(_24HourDt));
-
 		return formatedDate;
 
 	}
@@ -176,56 +170,7 @@ public class DateUtils {
 		return date.getTime();
 	}
 
-	/**
-	 * Read bytes.
-	 * 
-	 * @param inputStream
-	 *            the input stream
-	 * @return the byte[]
-	 */
-	public static byte[] ReadBytes(final InputStream inputStream) {
-		int remaining;
-		int offset = 0;
-		int read;
-		try {
-			remaining = inputStream.available();
-			byte[] data = new byte[remaining];
-			do {
-				read = inputStream.read(data, offset, remaining);
-				offset += read;
-				remaining -= read;
-			} while (remaining > 0);
 
-			return data;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/**
-	 * Read from file.
-	 * 
-	 * @param ctx
-	 *            the ctx
-	 * @param path
-	 *            the path
-	 * @param ins
-	 *            the ins
-	 * @return the string
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	public static String readFromFile(final Context ctx, final String path,
-			final InputStream ins) throws IOException {
-		try {
-			// InputStream input = ctx.getAssets().open(path);
-			return new String(ReadBytes(ins));
-		} catch (Exception e) {
-			Log.e("SUPER", "" + e.toString());
-		}
-		return "";
-	}
 
 	/**
 	 * Sets the color.
@@ -346,5 +291,30 @@ public class DateUtils {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String dateNow = formatter.format(currentDate.getTime());
 		return dateNow.replace("-", "").trim();
+	}
+
+	/**
+	 * 
+	 * @param savedTimestamp
+	 * @param surrentTimestamp
+	 * @return
+	 * @throws ParseException
+	 */
+	public static int compareTimeStamps(String savedTimestamp,String surrentTimestamp) throws ParseException {
+
+		long difference;
+		int days;
+		int hours;
+		int min;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date savedDateTime = simpleDateFormat.parse(savedTimestamp);// "2014-08-20 15:49:38"
+		Date currentDateTime = simpleDateFormat.parse(surrentTimestamp);// "2014-08-20 15:59:38"
+
+		difference = currentDateTime.getTime() - savedDateTime.getTime();
+		days = (int) (difference / (1000 * 60 * 60 * 24));
+		hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
+		min = (int) (difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours))/ (1000 * 60);
+		Log.i("COOP", "::::min:::" + min);
+		return min;
 	}
 }

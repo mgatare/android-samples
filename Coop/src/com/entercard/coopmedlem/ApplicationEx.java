@@ -54,6 +54,7 @@ public class ApplicationEx extends Application {
 	
 	/** The cookie. */
 	private String cookie;
+	//private PreferenceHelper preferenceHelper;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Application#onCreate()
@@ -65,6 +66,8 @@ public class ApplicationEx extends Application {
 		operationsQueue = new ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE, 100000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 		applicationEx = (ApplicationEx) getApplicationContext();
 		//applicationEx = this;
+		
+		//preferenceHelper = new PreferenceHelper(applicationEx);
 	}
 
 	public static ApplicationEx getInstance() {
@@ -244,5 +247,8 @@ public class ApplicationEx extends Application {
 		setSAMLTxt(null);
 		setServerSessionID(null);
 		setUUID(null);
+		
+		//preferenceHelper.addString(getResources().getString(R.string.pref_device_session), null);
+		
 	}
 }

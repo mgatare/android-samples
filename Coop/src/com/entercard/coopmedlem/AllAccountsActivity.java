@@ -38,16 +38,14 @@ public class AllAccountsActivity extends BaseActivity implements
 
 		regActivityFinishReceiver();
 
-		// Log.e("",
-		// "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
+		// Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
 
 		if (null != ApplicationEx.getInstance().getAccountsArrayList()
 				&& !ApplicationEx.getInstance().getAccountsArrayList()
 						.isEmpty()) {
 
 			AccountsAdapter adapter = new AccountsAdapter(
-					AllAccountsActivity.this, 0, ApplicationEx.getInstance()
-							.getAccountsArrayList());
+					AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
 			accountsListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 
@@ -61,9 +59,6 @@ public class AllAccountsActivity extends BaseActivity implements
 		accountsListView = (ListView) findViewById(R.id.listViewAccounts);
 		closeKeyBoard();
 
-		actionBar = getSupportActionBar();
-		actionBar.setTitle(getResources().getString(R.string.accounts));
-		
 		accountsListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -126,6 +121,9 @@ public class AllAccountsActivity extends BaseActivity implements
 					 */
 					if (accountArrayList.size() > 1) {
 
+						actionBar = getSupportActionBar();
+						actionBar.setTitle(getResources().getString(R.string.accounts));
+						
 						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, accountArrayList);
 						accountsListView.setAdapter(adapter);
 						adapter.notifyDataSetChanged();

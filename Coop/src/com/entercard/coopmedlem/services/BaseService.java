@@ -1,14 +1,15 @@
 package com.entercard.coopmedlem.services;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -104,7 +105,6 @@ public abstract class BaseService implements Runnable {
 	/** The headers. */
 	private ArrayList<NameValuePair> headers;
 	
-	private Locale locale;
 	/**
 	 * Instantiates a new base service.
 	 */
@@ -258,11 +258,20 @@ public abstract class BaseService implements Runnable {
 	
 				HttpEntity responseEntity = httpResponse.getEntity();
 				InputStream entityRes = responseEntity.getContent();
-				int i = 0;
+//				int i = 0;
+//				StringBuilder sb = new StringBuilder();
+//				while ((i = entityRes.read()) != -1) {
+//					sb.append((char) i);
+//				}
+				
+				InputStreamReader inputStreamReader = new InputStreamReader((InputStream)entityRes, "UTF-8");
+				BufferedReader br = new BufferedReader(inputStreamReader);
+				String line;
 				StringBuilder sb = new StringBuilder();
-				while ((i = entityRes.read()) != -1) {
-					sb.append((char) i);
+				while ((line = br.readLine()) != null) {
+				    sb.append(line);
 				}
+				
 				entityRes.close();
 				authResponse = sb.toString();
 			} finally {

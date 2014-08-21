@@ -128,8 +128,13 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.i("", "BASE ACTIVITY ONRESUME CALLED");
+		Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>");
 		//onPhoneCallReceived();
+	}
+	@Override
+	protected void onPause() {
+		Log.v("", "::::::::::BASE ACTIVITY onPause CALLED:::::::::::");
+		super.onPause();
 	}
 
 	/**

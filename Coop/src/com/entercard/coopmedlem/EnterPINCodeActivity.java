@@ -1,7 +1,9 @@
 package com.entercard.coopmedlem;
 
 import java.util.Date;
+
 import org.kobjects.base64.Base64;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -21,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.Controller;
 import com.encapsecurity.encap.android.client.api.FinishAuthenticationResult;
@@ -37,6 +40,7 @@ import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.CompatibilityUtils;
+import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
@@ -60,12 +64,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	private InitiateDisputeService initiateDisputeService;
 	private CreditLineIncreaseService creditLineIncreaseService;
 	private ActionBar actionBar;
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.i("", "---onResume--");
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -319,9 +317,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			stringBuilder.deleteCharAt(0).trimToSize();
 			resetPINFields();
 			
-		} else {
-			//TODO
-		}
+		} 
 	}
 	
 	/**
@@ -376,18 +372,67 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 									R.string.encap_authentication_error));
 						} else if (throwable instanceof UnknownRegistrationException) {
 							retryErrorDialog(getResources().getString(
-									R.string.encap_unknown_registration_error));
+									R.string.encap_error));
 						} else {
 							AlertHelper.Alert(getResources().getString(R.string.encap_error),
 									EnterPINCodeActivity.this);
 						}
 					}
 					public void onSuccess(final StartAuthenticationResult result) {
-						Log.i("COOP", ">>>startAuthentication onSuccess>>"
-								+ result);
+						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
+						
+						if(ACTIVITY_RESULT_STATE != BaseActivity.NO_STATE) {
+							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
+							boolean isDeviceSesnValid = Utils.isDeviceSessionExpired(
+									preferenceHelper.getString(getResources().getString(R.string.pref_device_session))
+									, DateUtils.getCurrentTimeStamp());
+							//
+							if(isDeviceSesnValid)
+								logoutAppDialog();
+						} else {
+							Log.e("COOP", ">>>BaseActivity.NO_STATE>>>");
+						}
 					}
 				});
+	}
+	
+	/**
+	 * ---------------- DEFINE THIS CALL------------------
+	 */
+	private void logoutAppDialog() {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder builder = new AlertDialog.Builder(EnterPINCodeActivity.this);
+		builder.setMessage(getResources().getString(R.string.encap_error))
+				.setTitle(getResources().getString(R.string.encap_something_went_wrong))
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@SuppressLint("InlinedApi") 
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+								//Restart the activity
+								finish();
+								//startActivity(getIntent());
+								
+								Log.d("", ">>>>>>>>>>>>>>>>>>>>>APP LEVEL TIMEOUTT HAPENNED APP WILL LOGOUT >>>>>>>>>>>");
+								
+								if(CompatibilityUtils.getSdkVersion() < 11) {
+									Intent intent = new Intent(getApplicationContext(), EnterPINCodeActivity.class);
+									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+									ComponentName cn = intent.getComponent();
+									Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+									startActivity(mainIntent);
+								} else {
+									Intent intent = new Intent(EnterPINCodeActivity.this, EnterPINCodeActivity.class);
+									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+									startActivity(intent);
+								}
+							}
+						}).show();
 	}
 	
 	/**
@@ -405,7 +450,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 						if (throwable instanceof AuthenticationFailedException) {
 							
-							final int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
+							int remainingAttempts = ((AuthenticationFailedException) throwable).getRemainingAttempts();
 							Log.i("COOP", throwable.getMessage()+ ">>>AuthenticationFailedException>>"+ throwable);
 							Log.i("COOP", throwable.getMessage()+ ">>>Attempt Remaining::: "+ remainingAttempts);
 
@@ -436,7 +481,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							String samlData = Base64.encode(result.getResponseContentAsBytes()).replaceAll("(\\r|\\n|\\t)", "");
 							Log.i("","-----SAML Length-----" + samlData.length());
 							closeKeyBoard();
-							/*
+							/**
 							 * Add to TXT file for testing purposes. Remove on
 							 * Staging/Deployment Create the SAML token here by
 							 * encoding the response to Base64
@@ -449,6 +494,12 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							 */
 							ApplicationEx.getInstance().setSAMLTxt(samlData);
 							selectNextActivity(ACTIVITY_RESULT_STATE);
+							
+							
+							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
+							preferenceHelper.addString(getResources().getString(R.string.pref_device_session), DateUtils.getCurrentTimeStamp());
+							Log.i("", ">>>>>>>>>>>>>>>>>>>>DATE TIME SESSION UPPPDATEEEEED>>>>>>>>>>>>>>>>>>>>>");
+							
 							
 						} else {
 							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),

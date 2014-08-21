@@ -62,9 +62,9 @@
     <string name="cards">CARDS</string>
     <string name="customer_service">CUSTOMER SERVICE</string>
     <string name="card_service">Card service</string>
-    <string name="card_service_number">23 33 83 32</string>
+    <string name="card_service_number">815 00 701</string>
     <string name="block_card">Block card</string>
-    <string name="block_card_number">815 00 701</string>
+    <string name="block_card_number">23 33 83 32</string>
     <string name="accept_terms_and_condition">Accept terms and conditions</string>
     <string name="application_been_sent">Your application has been sent.</string>
     <string name="accept_terms_conditions_dispute">I hereby declare that the information stated is true and correct. If the police investigates the case, I am aware that the card issuer will give the police the information they need in the investigation.</string>
@@ -128,6 +128,7 @@
     <string name="pref_registrationId_key">EncapRegistrationId</string>
     <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
     <string name="pref_is_activated">isActivated</string>
+    <string name="pref_device_session">deviceSession</string>
     <string name="pref_is_activation_code_verified">isActivationCodeVerified</string>
     <string name="pref_verify_pin">isPinVerified</string>
 

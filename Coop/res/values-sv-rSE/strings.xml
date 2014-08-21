@@ -62,9 +62,9 @@
     <string name="cards">KORT</string>
     <string name="customer_service">KUNDTJÄNST</string>
     <string name="card_service">Korttjänst</string>
-    <string name="card_service_number">23 33 83 32</string>
+    <string name="card_service_number">815 00 701</string>
     <string name="block_card">Block kort</string>
-    <string name="block_card_number">815 00 701</string>
+    <string name="block_card_number">23 33 83 32</string>
     <string name="accept_terms_and_condition">Acceptera villkor</string>
     <string name="application_been_sent">Din ansökan har skickats.</string>
     <string name="accept_terms_conditions_dispute">Jag intygar härmed att de uppgifter som anges är korrekta. Om polisen undersöker fallet, jag är medveten om att kortutgivaren ger polisen den information de behöver i undersökningen.</string>
@@ -129,6 +129,7 @@
     <string name="pref_registrationId_key">EncapRegistrationId</string>
     <string name="pref_applicationVersion_key">EncapApplicationVersion</string>
     <string name="pref_is_activated">isActivated</string>
+    <string name="pref_device_session">deviceSession</string>
     <string name="pref_is_activation_code_verified">isActivationCodeVerified</string>
     <string name="pref_verify_pin">isPinVerified</string>
 

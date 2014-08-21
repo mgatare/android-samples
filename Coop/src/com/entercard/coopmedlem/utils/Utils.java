@@ -17,17 +17,14 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.ActionMode.Callback;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -43,33 +40,6 @@ import com.entercard.coopmedlem.ApplicationEx;
  * The Class Utils.
  */
 public class Utils {
-
-	/**
-	 * Services connected.
-	 *
-	 * @param data the data
-	 * @param ctx the ctx
-	 * @param filename the filename
-	 * @return true, if successful
-	 */
-//	public static boolean servicesConnected(FragmentActivity context) {
-//
-//		// Check if Google Play services is available
-//		int resultCode = GooglePlayServicesUtil
-//				.isGooglePlayServicesAvailable(context);
-//
-//		if (ConnectionResult.SUCCESS == resultCode) {
-//			return true;
-//		} else {
-//			// Display an error dialog if services not found/available
-//			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
-//					context, 0);
-//			if (dialog != null) {
-//				dialog.show();
-//			}
-//		}
-//		return false;
-//	}
 
 	/**
 	 * Write to text file.
@@ -95,6 +65,30 @@ public class Utils {
 			Log.e("Exception", "File write failed: " + e.toString());
 		}
 	}
+	
+	/**
+	 * 
+	 * @param savedTimestamp
+	 * @param currentTimestamp
+	 * @return
+	 */
+	public static boolean isDeviceSessionExpired(String savedTimestamp,String currentTimestamp) {
+		int minutes;
+		Log.d("", "savedTimestamp>>>>>>>>>>>>>>>>>>>" + savedTimestamp);
+		Log.d("", "currentTimestamp>>>>>>>>>>>>>>>>>" + currentTimestamp);
+		try {
+			minutes = DateUtils.compareTimeStamps(savedTimestamp,currentTimestamp);
+			if (minutes >= 15)
+				return true;
+			else
+				return false;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 
 	/**
 	 * Read response from assets file.
@@ -171,7 +165,6 @@ public class Utils {
 		SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
 		// remainderdate = "09/04/2014";
 		// todaysDate = "10/04/2014";
-
 		try {
 			Date dateFrom = myFormat.parse(remainderdate);
 			Date dateTo = myFormat.parse(todaysDate);

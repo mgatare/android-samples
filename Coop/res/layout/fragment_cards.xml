@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/margin_five_px"
+            android:layout_marginLeft="@dimen/margin_ten_px"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="0.5"
             android:orientation="vertical" >
@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_five_px"
                 android:gravity="right"
-                android:text="10,000"
-                android:textColor="@color/text_heading"
+                android:text="0"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_currency"
                 android:textStyle="normal" />
         </LinearLayout>
@@ -59,7 +59,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_ten_px"
+        android:layout_margin="@dimen/margin_fifteen_px"
         android:text="@string/cards"
         android:textColor="@color/text_heading"
         android:textSize="@dimen/font_size_small"

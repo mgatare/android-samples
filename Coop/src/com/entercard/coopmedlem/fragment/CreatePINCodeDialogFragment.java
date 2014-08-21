@@ -26,6 +26,7 @@ import com.entercard.coopmedlem.EnterPINCodeActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 
@@ -86,10 +87,14 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 												parentActivity.hideProgressDialog();
 
 												if (isAdded() == true) {
-													AlertHelper.Alert(getResources().getString(R.string.encap_unknown_registration_error), parentActivity);
+													//AlertHelper.Alert(getResources().getString(R.string.encap_unknown_registration_error), parentActivity);
+													AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong), 
+															getResources().getString(R.string.encap_error), parentActivity);
 												} else {
 													
-													AlertHelper.Alert(parentActivity.getResources().getString(R.string.encap_unknown_registration_error), parentActivity);
+													//AlertHelper.Alert(parentActivity.getResources().getString(R.string.encap_unknown_registration_error), parentActivity);
+													AlertHelper.Alert(parentActivity.getResources().getString(R.string.encap_something_went_wrong), 
+															getResources().getString(R.string.encap_error), parentActivity);
 												}
 												/***/
 												if(arg0 instanceof SessionException) {
@@ -130,6 +135,17 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 												 **/
 												PreferenceHelper preferenceHelper = new PreferenceHelper(parentActivity);
 												preferenceHelper.addInt(parentActivity.getResources().getString(R.string.pref_is_activated), 1);
+												
+												if(TextUtils.isEmpty(preferenceHelper.getString(parentActivity.getResources()
+														.getString(R.string.pref_device_session)))) {
+													//Add current time stamp to Maintain the Session management in the application
+																	preferenceHelper.addString(parentActivity
+																							.getResources()
+																							.getString(R.string.pref_device_session),
+																					DateUtils.getCurrentTimeStamp());
+																	Log.i("", ">>>>>>>>>>>>>>>>>>>>DATE TIME SESSION ADDED>>>>>>>>>>>>>>>>>>>>>");
+												} 
+												
 												
 												Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
 												intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
