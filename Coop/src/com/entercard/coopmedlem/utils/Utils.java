@@ -196,7 +196,7 @@ public class Utils {
 
 		if (!TextUtils.isEmpty(city)) {
 			builder.append(StringUtils.removeBlankSpaces(city));
-			builder.append(",");
+			builder.append("+");
 			//zoomLevel = 10;
 		}
 
@@ -205,11 +205,16 @@ public class Utils {
 		}
 
 		params = builder.toString();
-
+		
+		if(TextUtils.isEmpty(params)) {
+			params = "Norway";
+			zoomLevel = 6;
+		}
+			
 		if(!TextUtils.isEmpty(params)) {
 			Log.e("Coop", "zoomLevel>>"+zoomLevel);
-			URL = "http://maps.google.com/maps/api/staticmap?center="+ params + "&zoom=" + zoomLevel 
-						+ "&size=570x350&maptype=roadmap&sensor=false";
+			URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size=570x350&maptype=roadmap&sensor=true";
 		} else {
 			return null;
 		}

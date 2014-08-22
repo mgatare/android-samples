@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -50,6 +52,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private int pageNumber = 0; //TEST
 	private Handler handler;
 	private ProgressBarAnimation barAnimation;
+	private LinearLayout headerLayout;
 	
 	public static TransactionsFragment newInstance() {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -88,17 +91,21 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		parentActivity = (HomeScreenActivity) getActivity();
 		handler = new Handler();
 		
+		LayoutInflater layoutInflater = (LayoutInflater) parentActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		headerLayout =  (LinearLayout) layoutInflater.inflate(R.layout.footer_transaction_fragment, null ,false);
+		
 		// Get Initial values for the account
 		position = parentActivity.getAccountPosition();
 		openToBuyCashTxt = parentActivity.getOpenToBuy();
 		spentCashTxt = parentActivity.getSpent();
 		tranxCount = parentActivity.getTransactionsCount();
 
-		spentTextView = (TextView) rootView.findViewById(R.id.lblSpent);
-		openbuyTextView = (TextView) rootView.findViewById(R.id.lblOpenToBuy);
-		progSpent = (ProgressBar) rootView.findViewById(R.id.progSpent);
+		spentTextView = (TextView) headerLayout.findViewById(R.id.lblSpent);
+		openbuyTextView = (TextView) headerLayout.findViewById(R.id.lblOpenToBuy);
+		progSpent = (ProgressBar) headerLayout.findViewById(R.id.progSpent);
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
+		transactionListView.addHeaderView(headerLayout);
 		
 	}
 

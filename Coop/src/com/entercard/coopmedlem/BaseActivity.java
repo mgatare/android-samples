@@ -155,7 +155,8 @@ public class BaseActivity extends ActionBarActivity {
 		ImageView progressSpinner = (ImageView) dialogView.findViewById(R.id.progSpent);
 
 		RotateAnimation anim = new RotateAnimation(0f, 350f,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+				Animation.RELATIVE_TO_SELF, 0.5f, 
+				Animation.RELATIVE_TO_SELF,
 				0.5f);
 		anim.setRepeatCount(Animation.INFINITE);
 		anim.setDuration(500);
