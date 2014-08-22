@@ -237,13 +237,13 @@
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:layout_margin="@dimen/margin_five_px"
             android:gravity="right"
-            android:text=">"
-            android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:src="@drawable/ic_action_next_item" />
     </LinearLayout>
 
     <include layout="@drawable/seperator" />

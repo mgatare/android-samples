@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_ten_px"
             android:layout_marginRight="@dimen/margin_ten_px"
-            android:layout_marginTop="@dimen/margin_ten_px"
+            android:layout_marginTop="@dimen/margin_five_px"
             android:layout_weight="0.5"
             android:ellipsize="end"
             android:textColor="@color/text_body"
@@ -48,6 +48,7 @@
         android:layout_marginBottom="@dimen/margin_ten_px"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
+        android:layout_marginTop="@dimen/margin_five_px"
         android:ellipsize="end"
         android:textColor="@color/text_body"
         android:textSize="@dimen/font_size_normal"
@@ -70,9 +71,8 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutMap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:visibility="gone" >
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" >
 
         <ImageView
             android:id="@+id/imgMap"
@@ -91,16 +91,16 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
-            android:src="@drawable/pin"
-            android:visibility="gone" />
+            android:paddingBottom="50dp"
+            android:src="@drawable/pin" />
 
         <Button
             android:id="@+id/btnDisputeOnMap"
             style="@style/Theme.Coopmedlem.Button"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/imgMap"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/margin_ten_px"
             android:layout_marginRight="@dimen/margin_ten_px"
             android:drawableLeft="@drawable/dispute_triangle"
@@ -108,8 +108,7 @@
             android:paddingLeft="@dimen/margin_ten_px"
             android:paddingRight="@dimen/margin_ten_px"
             android:text="@string/dispute"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </LinearLayout>
