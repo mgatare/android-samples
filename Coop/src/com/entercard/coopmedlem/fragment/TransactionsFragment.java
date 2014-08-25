@@ -159,7 +159,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		//Log.e("COOP", "otbValue---->>"+otbValue);
 		//Log.e("COOP", "spentValue---->>"+spentValue);
-		Log.e("COOP", "DIFFERENCE---->>"+percentageDiff);
+		//Log.e("COOP", "DIFFERENCE---->>"+percentageDiff);
 		
 		if (otbValue == spentValue) {
 			barAnimation = new ProgressBarAnimation(progSpent, 0, 100);

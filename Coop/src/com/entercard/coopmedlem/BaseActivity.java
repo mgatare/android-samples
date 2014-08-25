@@ -2,11 +2,13 @@ package com.entercard.coopmedlem;
 
 import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -20,23 +22,31 @@ import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class BaseActivity.
  */
-public class BaseActivity extends ActionBarActivity {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+public abstract class BaseActivity extends ActionBarActivity {
 
-	/** The drawer content height. */
-	protected int drawerContentHeight;
-
-	/** The userguide linear layout. */
-	protected LinearLayout userguideLinearLayout;
-
+	/** The Constant TAG. */
+	protected static final String TAG = "COOP BASEACTIVITY";
+	
+	/** The is app to background. */
+	public static boolean isAppToBackground = false;
+	
+	/** The is window focused. */
+	public static boolean isWindowFocused = false;
+	
+	/** The is menu opened. */
+	public static boolean isMenuOpened = false;
+	
+	/** The is back pressed. */
+	public static boolean isBackPressed = false;
+	
 	/** The window frame layout. */
 	protected FrameLayout windowFrameLayout;
 
@@ -89,7 +99,7 @@ public class BaseActivity extends ActionBarActivity {
 		//getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
 		regUnlockReceiver();
 	}
-
+	
 	/**
 	 * Long toast.
 	 * 
@@ -131,9 +141,13 @@ public class BaseActivity extends ActionBarActivity {
 		Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>");
 		//onPhoneCallReceived();
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onPause()
+	 */
 	@Override
 	protected void onPause() {
-		Log.v("", "::::::::::BASE ACTIVITY onPause CALLED:::::::::::");
+		Log.v("", "::::::BASE ACTIVITY onPause CALLED:::::::");
 		super.onPause();
 	}
 
@@ -142,7 +156,7 @@ public class BaseActivity extends ActionBarActivity {
 	 */
 	public void showProgressDialog() {
 		
-		progressDialog = new Dialog(BaseActivity.this);
+		progressDialog = new Dialog(this, R.style.DialogSlideAnim);
 		View dialogView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
 		progressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -162,9 +176,10 @@ public class BaseActivity extends ActionBarActivity {
 		anim.setDuration(500);
 		anim.setInterpolator(new LinearInterpolator());
 		progressSpinner.startAnimation(anim);
-
+		
 		progressDialog.show();
-		progressDialog.getWindow().setLayout(120, 120);
+		//progressDialog.getWindow().setLayout(120, 120);
+		
 	}
 
 	/**
@@ -325,28 +340,6 @@ public class BaseActivity extends ActionBarActivity {
 		receiver = new OnScreenUnlockReceiver();
 		registerReceiver(receiver, filter);
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// * android.support.v4.app.FragmentActivity#onSaveInstanceState(android.os
-	// * .Bundle)
-	// */
-	// @Override
-	// public void onSaveInstanceState(Bundle outState) {
-	// Log.e("COOP", ">>BASE In Method: onSaveInstanceState()");
-	// }
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
-	// */
-	// @Override
-	// public void onRestoreInstanceState(Bundle inState) {
-	// Log.e("COOP", ">>BASE In Method: onRestoreInstanceState()");
-	// }
 
 	/*
 	 * (non-Javadoc)

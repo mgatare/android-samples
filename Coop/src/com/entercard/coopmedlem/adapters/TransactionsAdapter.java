@@ -185,16 +185,12 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		
 		btnDisputeOnMap.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				//Log.e("COOP", ":::::AMOUNT:::::"+getItem(position).getBillingAmount());
-				//Log.e("COOP", ":::::DESCRIPTION:::::"+getItem(position).getDescription());
-				//Log.e("COOP", ":::::DATE:::::"+getItem(position).getDate());
 				Intent intent = new Intent(context, DisputeTransactionActivity.class);
 				intent.putExtra("amount", getItem(position).getBillingAmount());
 				intent.putExtra("desc", getItem(position).getDescription());
 				intent.putExtra("date", getItem(position).getDate());
 				intent.putExtra("id", getItem(position).getId());
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				//intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				context.startActivity(intent);
 			}
 		});

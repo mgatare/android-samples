@@ -100,6 +100,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.enter_pin_code));
+		actionBar.setIcon(R.drawable.icon_coop);
 		
 		/**
 		 * IMP!! INITIALIZE WATCHER ONLY ONCE 
@@ -582,7 +583,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		case BaseActivity.NO_STATE:
 			
 			/* Start the PIN code Activity */
-			Intent intent = new Intent(EnterPINCodeActivity.this,AllAccountsActivity.class);
+			Intent intent = new Intent(EnterPINCodeActivity.this, AllAccountsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			/**

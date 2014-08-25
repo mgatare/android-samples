@@ -60,7 +60,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_creditline_increase);
+		setContentView(R.layout.creditline_increase_activity);
 
 		init();
 		
@@ -93,10 +93,12 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		originalCredit = (int) Math.round(mAccountCredit);
 		adjustedCreditLimit = 150000 - originalCredit;
 		
-		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
 			lblCreditAmountApplied.setText("5 000");
-		else
+			lblEmploymentType.setText(null);
+		} else {
 			lblCreditAmountApplied.setText("5000");
+		}
 		
 		
 		linearEmployment.setOnClickListener(viewOnCLickListener);
@@ -357,7 +359,10 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				txtYearlyIncome.setText(null);
 				txtMortgage.setText(null);
 				txtOtherLoans.setText(null);
-				lblEmploymentType.setText("None");
+				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+					lblEmploymentType.setText(null);
+				else
+					lblEmploymentType.setText("None");
 				
 				showDialog();
 			}
@@ -446,6 +451,9 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		if (!TextUtils.isEmpty(employmentTxt))
 			lblEmploymentType.setText(employmentTxt);
 		else
-			lblEmploymentType.setText("None");
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+				lblEmploymentType.setText(null);
+			else
+				lblEmploymentType.setText("None");
 	}
 }

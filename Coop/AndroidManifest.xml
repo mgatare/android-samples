@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.entercard.coopmedlem"
     android:versionCode="1"
-    android:versionName="1.0.3" >
+    android:versionName="1.0.4" >
 
     <!-- 2.0 - Pocahontas COOP Norway - Android -->
 
@@ -43,14 +43,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.entercard.coopmedlem.BaseActivity"
-            android:configChanges="keyboardHidden"
-            android:excludeFromRecents="true"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Coopmedlem" >
-        </activity>
+        <!-- <activity -->
+        <!-- android:name="com.entercard.coopmedlem.BaseActivity" -->
+        <!-- android:configChanges="keyboardHidden" -->
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@style/Theme.Coopmedlem" > -->
+        <!-- </activity> -->
+
 
         <!-- <receiver android:name=".IncomingCall" > -->
         <!-- <intent-filter> -->
@@ -74,14 +75,6 @@
             android:theme="@style/Theme.Coopmedlem"
             android:uiOptions="none"
             android:windowSoftInputMode="adjustUnspecified" >
-        </activity>
-        <activity
-            android:name="com.entercard.coopmedlem.ShowDisputeOnMapActivity"
-            android:configChanges="keyboardHidden"
-            android:excludeFromRecents="true"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
             android:name="com.entercard.coopmedlem.AllAccountsActivity"
@@ -119,9 +112,9 @@
 
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
-            <!-- <meta-data -->
-            <!-- android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value="com.example.myfirstapp.MainActivity" /> -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.MainActivity" />
         </activity>
     </application>
 

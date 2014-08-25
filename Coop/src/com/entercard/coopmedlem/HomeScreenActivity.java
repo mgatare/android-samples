@@ -52,6 +52,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	private void init() {
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setIcon(R.drawable.icon_coop);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -158,6 +159,18 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		super.onBackPressed();
 	}
 	
+//	@Override
+//	protected void onPause() {
+//		Log.e("COOP", "######On Pause PRESSED HomeScreen######");
+//		super.onPause();
+//	}
+//	
+//	@Override
+//	protected void onResume() {
+//		Log.e("COOP", "######On RESUME PRESSED HomeScreen######");
+//		super.onResume();
+//	}
+//	
 	/**
 	 * Reg activity logout receiver.
 	 */

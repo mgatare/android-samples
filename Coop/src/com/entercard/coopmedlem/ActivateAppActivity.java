@@ -56,6 +56,7 @@ public class ActivateAppActivity extends BaseActivity {
 		}
 
 		actionBar = getSupportActionBar();
+		actionBar.setIcon(R.drawable.icon_coop);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.app_name));

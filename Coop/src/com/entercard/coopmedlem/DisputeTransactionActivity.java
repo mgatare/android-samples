@@ -129,6 +129,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 
 		actionBar = getSupportActionBar();
 		actionBar.setTitle("Dispute transaction");
+		actionBar.setIcon(R.drawable.icon_coop);
 
 		amount = getIntent().getExtras().getString("amount");
 		description = getIntent().getExtras().getString("desc");
