@@ -3,6 +3,7 @@
 
     <string-array name="array_employment">
         <item>Fast ansatt</item>
+        <item>Tillfällig anställd</item>
         <item>Selvstendig næringsdrivende</item>
         <item>Vikar</item>
         <item>Arbeidsledig</item>

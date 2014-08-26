@@ -58,11 +58,11 @@ public class EmploymentDetailsAdapter extends ArrayAdapter<String> {
 		} else {
 			holder.imgTick.setVisibility(View.GONE);
 		}
-		if (position % 2 == 0) {
+		/*if (position % 2 == 0) {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
 		} else {
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
-		}
+		}*/
 		return convertView;
 	}
 

@@ -128,7 +128,9 @@ public class DisputeTransactionActivity extends BaseActivity {
 	private void init() {
 
 		actionBar = getSupportActionBar();
-		actionBar.setTitle("Dispute transaction");
+		actionBar.setTitle(getResources().getString(R.string.dispute));
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setIcon(R.drawable.icon_coop);
 
 		amount = getIntent().getExtras().getString("amount");
@@ -222,5 +224,10 @@ public class DisputeTransactionActivity extends BaseActivity {
 				finish();
 			}
 		}
+	}
+	@Override
+	protected void onResume() {
+		//updateLocalTimeoutStamp();
+		super.onResume();
 	}
 }

@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,11 +43,11 @@ public class EmploymentActivity extends BaseActivity {
 		
 		regActivityFinishReceiver();
 		
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.employment));
-		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		actionBar.setIcon(R.drawable.icon_coop);
 		
 		listViewEmployment.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		listViewEmployment.setOnItemClickListener(new OnItemClickListener() {
@@ -147,5 +146,11 @@ public class EmploymentActivity extends BaseActivity {
 				finish();
 			}
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+		//updateLocalTimeoutStamp();
+		super.onResume();
 	}
 }

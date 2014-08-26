@@ -210,10 +210,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
 			
-			Log.v("NUMPAD", ""+pin1EditText.getText().length());
+			/*Log.v("NUMPAD", ""+pin1EditText.getText().length());
 			Log.v("NUMPAD", ""+pin2EditText.getText().length());
 			Log.v("NUMPAD", ""+pin3EditText.getText().length());
-			Log.v("NUMPAD", ""+pin4EditText.getText().length());
+			Log.v("NUMPAD", ""+pin4EditText.getText().length());*/
 			
 			if(stringBuilder.length() == 0) {
 				
@@ -368,6 +368,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 					public void onFailure(final Throwable throwable) {
 						hideProgressDialog();
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
+						
 						if (throwable instanceof LockedException) {
 							retryErrorDialog(getResources().getString(
 									R.string.encap_authentication_error));
@@ -375,8 +376,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							retryErrorDialog(getResources().getString(
 									R.string.encap_error));
 						} else {
-							AlertHelper.Alert(getResources().getString(R.string.encap_error),
-									EnterPINCodeActivity.this);
+							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error)
+									,EnterPINCodeActivity.this);
 						}
 					}
 					public void onSuccess(final StartAuthenticationResult result) {
@@ -385,15 +387,16 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						
 						if(ACTIVITY_RESULT_STATE != BaseActivity.NO_STATE) {
 							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
-							boolean isDeviceSesnValid = Utils.isDeviceSessionExpired(
+							boolean isDeviceSesnExpired = Utils.isDeviceSessionExpired(
 									preferenceHelper.getString(getResources().getString(R.string.pref_device_session))
 									, DateUtils.getCurrentTimeStamp());
 							//
-							if(isDeviceSesnValid)
+							if(isDeviceSesnExpired)
 								logoutAppDialog();
-						} else {
+						} 
+						/*else {
 							Log.e("COOP", ">>>BaseActivity.NO_STATE>>>");
-						}
+						}*/
 					}
 				});
 	}
@@ -500,8 +503,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
 							preferenceHelper.addString(getResources().getString(R.string.pref_device_session), DateUtils.getCurrentTimeStamp());
 							Log.i("", ">>>>>>>>>>>>>>>>>>>>DATE TIME SESSION UPPPDATEEEEED>>>>>>>>>>>>>>>>>>>>>");
-							
-							
 						} else {
 							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
 									"SAML data not found.",EnterPINCodeActivity.this);
@@ -700,13 +701,15 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Log.d("COOP", "-----onOptionsItemSelected-----");
-		return super.onOptionsItemSelected(item);
+		//return super.onOptionsItemSelected(item);
+		return false;
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		Log.d("COOP", "-----onCreateOptionsMenu-----");
-		return super.onCreateOptionsMenu(menu);
+		//return super.onCreateOptionsMenu(menu);
+		return false;
 	}
 
 	@Override

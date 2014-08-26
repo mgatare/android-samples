@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,6 +99,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 		//For some devices this may be needed
 		//getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
 		regUnlockReceiver();
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setIcon(R.drawable.icon_coop);
+		
 	}
 	
 	/**
@@ -374,4 +379,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 	public static void setSingletonUserDataModelList(ArrayList<SingletonWebservicesDataModel> singletonUserDataModel) {
 		BaseActivity.singletonUserDataModelArrayList = singletonUserDataModel;
 	}
+	
+//	public void updateLocalTimeoutStamp () {
+//		PreferenceHelper preferenceHelper = new PreferenceHelper(this);
+//		preferenceHelper.addString(getResources().getString(R.string.pref_device_session), DateUtils.getCurrentTimeStamp());
+//		Log.i("", ">>>>>LOCAL DATE TIME SESSION UPPPDATEEEEED>>>>>>>>>>>");
+//	}
 }

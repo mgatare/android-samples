@@ -233,7 +233,9 @@
             android:layout_weight="0.5"
             android:gravity="right"
             android:padding="@dimen/margin_ten_px"
+            android:maxLines="1"
             android:text="None"
+            android:ellipsize="end"
             android:textColor="@color/text_body"
             android:textSize="@dimen/font_size_normal" />
 

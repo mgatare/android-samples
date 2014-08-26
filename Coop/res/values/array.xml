@@ -3,6 +3,7 @@
 
     <string-array name="array_employment">
         <item>Employed</item>
+        <item>Temporary</item>
         <item>Self-Employed</item>
         <item>Substitute</item>
         <item>Unemployed</item>

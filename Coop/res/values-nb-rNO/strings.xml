@@ -23,7 +23,8 @@
     <string name="option_transactions">Transaksjoner</string>
     <string name="option_transfer_funds">Overføring av midler</string>
     <string name="transfer_funds">Overfør penger</string>
-    <string name="option_credit_line_increase">Økning av kredittgrensen</string>
+    <string name="option_credit_line_increase">Kredittøkning</string>
+<!--     Økning av kredittgrensen -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer). For aktuell rente og gebyr, se &lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
@@ -55,7 +56,7 @@
     <string name="mortgage">Boliglån</string>
     <string name="other_loans">Andre lån</string>
     <string name="occupancy">Belegg</string>
-    <string name="employment">Sysselsetting</string>
+    <string name="employment">Ansettelseforhold</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
     <string name="btn_increase_credit_limit">+ Øk kredittgrensen</string>
     <string name="btn_apply_credit_line_increase">Søk om en kredittgrense øke</string>

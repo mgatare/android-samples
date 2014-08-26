@@ -3,9 +3,11 @@
 
     <string-array name="array_employment">
         <item>Fast ansatt</item>
+        <item>Midlertidig ansatt</item>
         <item>Selvstendig næringsdrivende</item>
         <item>Vikar</item>
         <item>Arbeidsledig</item>
         <item>Student</item>
     </string-array>
-</resources>
+
+</resources>

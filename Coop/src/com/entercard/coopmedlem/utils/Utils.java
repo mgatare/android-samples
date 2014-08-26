@@ -67,7 +67,7 @@ public class Utils {
 	}
 	
 	/**
-	 * 
+	 * TIMEOUT for the App
 	 * @param savedTimestamp
 	 * @param currentTimestamp
 	 * @return
@@ -78,7 +78,7 @@ public class Utils {
 		Log.d("", "currentTimestamp>>>>>>>>>>>>>>>>>" + currentTimestamp);
 		try {
 			minutes = DateUtils.compareTimeStamps(savedTimestamp,currentTimestamp);
-			if (minutes >= 15)
+			if (minutes >= 1)//minutes < 0 || 
 				return true;
 			else
 				return false;

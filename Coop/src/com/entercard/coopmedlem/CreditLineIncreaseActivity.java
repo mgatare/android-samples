@@ -3,7 +3,6 @@ package com.entercard.coopmedlem;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -11,11 +10,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -66,11 +65,11 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		
 		regActivityFinishReceiver();
 		
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle(getResources().getString(R.string.option_credit_line_increase));
-		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		actionBar.setIcon(R.drawable.icon_coop);
 		
 	}
 	
@@ -99,7 +98,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		} else {
 			lblCreditAmountApplied.setText("5000");
 		}
-		
 		
 		linearEmployment.setOnClickListener(viewOnCLickListener);
 		btnApplyCLI.setOnClickListener(viewOnCLickListener);
@@ -448,6 +446,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	protected void onResume() {
 		super.onResume();
 		Log.d("COOP", "### onResume() ##"+employmentTxt);
+		//updateLocalTimeoutStamp();
 		if (!TextUtils.isEmpty(employmentTxt))
 			lblEmploymentType.setText(employmentTxt);
 		else

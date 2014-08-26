@@ -302,18 +302,22 @@ public class StringUtils {
 		String amountTxt = (String.format(currentLocale, "%,d", number));// .replace(',',' ')
 		// Add code
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("NOK ");
+		if(currentLocale.toString().equalsIgnoreCase("nb_NO")) 
+			buffer.append("kr ");	
+		else
+			buffer.append("NOK ");
+		
 		buffer.append(amountTxt);
 		return buffer.toString();
 	}
-
+	
 	/**
 	 * 
 	 * @param amount
 	 * @return
 	 */
 	public static String removeCurrencyFormat(String amount) {
-		String finalTxt = amount.replace(",", "").replace("NOK", "")
+		String finalTxt = amount.replace(",", "").replace("NOK", "").replace("kr", "")
 				.replaceAll("\\s", "").trim();
 		return finalTxt;
 	}

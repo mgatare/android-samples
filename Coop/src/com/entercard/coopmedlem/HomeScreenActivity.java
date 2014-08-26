@@ -202,4 +202,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			}
 		}
 	}
+	
+	@Override
+	protected void onResume() {
+		//updateLocalTimeoutStamp();
+		super.onResume();
+	}
 }
