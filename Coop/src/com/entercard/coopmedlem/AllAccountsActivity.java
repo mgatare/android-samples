@@ -45,13 +45,18 @@ public class AllAccountsActivity extends BaseActivity implements
 						.isEmpty()) {
 
 			AccountsAdapter adapter = new AccountsAdapter(
-					AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
+					AllAccountsActivity.this, 0, ApplicationEx.getInstance()
+							.getAccountsArrayList());
 			accountsListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 
 		} else {
 			callGetAccountsService();
 		}
+		
+		actionBar = getSupportActionBar();
+		actionBar.setTitle(null);
+		
 	}
 
 	private void init() {

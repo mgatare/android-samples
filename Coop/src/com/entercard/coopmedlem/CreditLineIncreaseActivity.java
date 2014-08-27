@@ -67,7 +67,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setTitle(getResources().getString(R.string.option_credit_line_increase));
 		actionBar.setIcon(R.drawable.icon_coop);
 		

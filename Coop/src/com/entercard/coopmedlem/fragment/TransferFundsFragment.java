@@ -106,16 +106,19 @@ public class TransferFundsFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				
-				int amount = 0;
+				BigInteger bigIntAmount = new BigInteger("0");
 				double otbAmount = Double.parseDouble(parentActivity.getOpenToBuy());
 				String receiverNameTxt = txtReceiversName.getText().toString();
 				String accountNumberTxt = StringUtils.reFormatAccountNumber(txtAccountNumber.getText().toString());
 				String messageTxt = txtMessage.getText().toString();
 				
-				if(!TextUtils.isEmpty(StringUtils.removeCurrencyFormat(txtAmount.getText().toString())))
-					amount = Integer.parseInt(StringUtils.removeCurrencyFormat(txtAmount.getText().toString()));
+				((BaseActivity) getActivity()).closeKeyBoard();
 				
-				if (accountNumberTxt.length() < 11 && amount <= 500
+				if(!TextUtils.isEmpty(StringUtils.removeCurrencyFormat(txtAmount.getText().toString())))
+					bigIntAmount = new BigInteger(StringUtils.removeCurrencyFormat(txtAmount.getText().toString()));
+				
+				if (accountNumberTxt.length() < 11 
+						&& bigIntAmount.intValue() <= 500
 						&& TextUtils.isEmpty(receiverNameTxt)) {
 					AlertHelper.Alert(getResources().getString(R.string.transfer_funds_validation), parentActivity);
 					return;
@@ -128,16 +131,16 @@ public class TransferFundsFragment extends Fragment {
 					AlertHelper.Alert(getResources().getString(R.string.account_number_length), parentActivity);
 					return;
 				}
-				if (amount < 500) {
+				if (bigIntAmount.intValue() < 500) {
 					AlertHelper.Alert(getResources().getString(R.string.amount_incorrect), parentActivity);
 					return;
 				}
 				/**
 				 * EXCEPTION caused for Larger value. Check this.
 				 */
-				BigInteger bigIntegerOTB = new BigDecimal(otbAmount).toBigInteger();
-				BigInteger bigInt = new BigInteger(String.valueOf(amount));
-				if (bigInt.intValue() > bigIntegerOTB.intValue()) {
+				BigInteger bigIntOTB = new BigDecimal(otbAmount).toBigInteger();
+				
+				if (bigIntAmount.intValue() > bigIntOTB.intValue()) {
 					AlertHelper.Alert(getResources().getString(R.string.amount_cannot_be_higher_than_otb), parentActivity);
 					return;
 				}
@@ -148,7 +151,7 @@ public class TransferFundsFragment extends Fragment {
 				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				userDataModel.setBenificiaryName(receiverNameTxt);
 				userDataModel.setFundsAccNumer(accountNumberTxt);
-				userDataModel.setFundsAmount(amount);
+				userDataModel.setFundsAmount(bigIntAmount);
 				userDataModel.setFundsMessage(messageTxt);
 				arrayList.add(userDataModel);
 				

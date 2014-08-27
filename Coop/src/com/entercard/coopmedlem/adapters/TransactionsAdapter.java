@@ -109,9 +109,11 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		}
 
 		if (position % 2 == 0) {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
+			//convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
+			convertView.setBackgroundResource(R.drawable.list_bg_even);
 		} else {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
+			//convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
+			convertView.setBackgroundResource(R.drawable.list_bg_odd);
 		}
 
 		convertView.setTag(position);

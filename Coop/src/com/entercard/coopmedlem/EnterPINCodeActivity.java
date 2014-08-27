@@ -1,5 +1,6 @@
 package com.entercard.coopmedlem;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
@@ -18,6 +19,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -421,6 +423,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								finish();
 								//startActivity(getIntent());
 								
+								ApplicationEx.getInstance().clearGlobalContents();
+								
 								Log.d("", ">>>>>>>>>>>>>>>>>>>>>APP LEVEL TIMEOUTT HAPENNED APP WILL LOGOUT >>>>>>>>>>>");
 								
 								if(CompatibilityUtils.getSdkVersion() < 11) {
@@ -520,7 +524,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		Log.i("", "---activityStatus-->>>>"+activityStatus);
 		String fundsTransferAccountNoTxt = null;
 		String messageTxt= null;
-		int amount = 0;
+		BigInteger amount = null;
 		String benificiaryNameTxt = null;
 		String transactionID = null;
 		String billingAmount = null;
@@ -700,16 +704,28 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d("COOP", "-----onOptionsItemSelected-----");
-		//return super.onOptionsItemSelected(item);
-		return false;
+		switch (item.getItemId()) {
+		case R.id.action_call:
+			Log.d("COOP", "-----action_call PRESSED-----");
+			
+			Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_in_bottom);
+			
+			finish();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.d("COOP", "-----onCreateOptionsMenu-----");
-		//return super.onCreateOptionsMenu(menu);
-		return false;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_enterpin_actions, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override

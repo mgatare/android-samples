@@ -53,6 +53,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setIcon(R.drawable.icon_coop);
+		actionBar.setTitle(null);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		viewPager = (ViewPager) findViewById(R.id.pager);

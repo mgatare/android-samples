@@ -45,7 +45,7 @@ public class EmploymentActivity extends BaseActivity {
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setTitle(getResources().getString(R.string.employment));
 		actionBar.setIcon(R.drawable.icon_coop);
 		

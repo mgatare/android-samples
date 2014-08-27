@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem.services;
 
+import java.math.BigInteger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +23,7 @@ public class FundsTransferService extends BaseService {
 	private String accountNum;
 	private String beneficiaryAccountNumber;
 	private String message;
-	private int amount;
+	private BigInteger amount;
 	private String beneficiaryName;
 	
 	public interface FundsTransferListener {
@@ -31,7 +33,7 @@ public class FundsTransferService extends BaseService {
 
 	public FundsTransferService(String uuid, String cookie, String saml,
 			String accountNum, String beneficiaryAccountNumber, String message,
-			int amount, String beneficiaryName) {
+			BigInteger amount, String beneficiaryName) {
 		
 		this.uuid = uuid;
 		this.cookie = cookie;

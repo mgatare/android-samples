@@ -242,7 +242,6 @@ public class ApplicationEx extends Application {
 	 */
 	public void clearGlobalContents() {
 		setAccountsArrayList(null);
-		//controller = null;
 		setCookie(null);
 		setSAMLTxt(null);
 		setServerSessionID(null);

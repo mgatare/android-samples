@@ -129,7 +129,7 @@ public class CardsFragment extends Fragment {
 			PackageManager packageManager = parentActivity.getPackageManager();
 			boolean canCall = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
 			if (canCall) {
-				Intent intent = new Intent(Intent.ACTION_DIAL);
+				Intent intent = new Intent(Intent.ACTION_CALL);
 				intent.setData(Uri.parse("tel:" + StringUtils.trimStringOnly(string)));
 				startActivity(intent);
 			} else {

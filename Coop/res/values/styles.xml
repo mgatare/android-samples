@@ -31,7 +31,8 @@
         <item name="actionModeBackground">@drawable/cab_background_top_coopmedlem</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_coopmedlem</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Coopmedlem</item>
-        <!-- <item name="android:typeface">serif</item> -->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextAppearance">@style/ActionMenuTextStyle</item>
     </style> <!-- Animation for dialog box -->
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
@@ -40,6 +41,12 @@
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
         <item name="android:windowExitAnimation">@anim/slide_down_dialog</item>
+    </style>
+
+    <style name="ActionMenuTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ActionBar.Solid.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -55,10 +62,11 @@
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">2</item>
         <item name="android:typeface">normal</item>
+        <item name="textAllCaps">false</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@android:color/black</item>
     </style>

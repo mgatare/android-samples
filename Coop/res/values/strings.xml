@@ -41,7 +41,7 @@
     <string name="dispute_transaction">Dispute transaction</string>
     <string name="searchable_hint">Search transactions</string>
     <string name="dispute">Dispute</string>
-    <string name="spent">SPENT</string>
+    <string name="used">USED</string>
     <string name="open_to_buy">OPEN TO BUY</string>
     <string name="latest_transactions">TRANSACTIONS</string>
     <string name="card_ending_with">Card number ending with:</string>
@@ -57,7 +57,7 @@
     <string name="occupancy">Occupancy</string>
     <string name="employment">Employment</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
-    <string name="btn_increase_credit_limit">+ Increase Credit Limt</string>
+    <string name="btn_increase_credit_limit">+ Increase Limit</string>
     <string name="btn_apply_credit_line_increase">Apply for a credit line increase</string>
     <string name="cards">CARDS</string>
     <string name="customer_service">CUSTOMER SERVICE</string>
@@ -73,6 +73,7 @@
     <string name="i_accept">I accept</string>
     <string name="dispute_sent">Dispute Sent</string>
     <string name="you_will_hear_from_us">You will hear from us shortly</string>
+    <string name="login">Login</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>

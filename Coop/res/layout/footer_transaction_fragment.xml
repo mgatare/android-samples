@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
-            android:text="@string/spent"
+            android:text="@string/used"
             android:textColor="@color/text_heading"
             android:textSize="@dimen/font_size_normal"
             android:textStyle="bold" />

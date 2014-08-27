@@ -16,7 +16,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -130,7 +133,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(getResources().getString(R.string.dispute));
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setIcon(R.drawable.icon_coop);
 
 		amount = getIntent().getExtras().getString("amount");
@@ -153,6 +156,22 @@ public class DisputeTransactionActivity extends BaseActivity {
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Log.d("COOP", "### android.R.id.home CLI:####");
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
+        menu.clear();
+	}
+	
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		txtReasonDispute.requestFocus();
@@ -167,11 +186,9 @@ public class DisputeTransactionActivity extends BaseActivity {
 			}
 			if (resultCode == Activity.RESULT_CANCELED) {
 				Log.d("", "---RESULT_CANCELED----");
-				//longToast(getResources().getString(R.string.exception_general));
 			}
 		} else {
 			Log.d("", "---RESULT_NOT FOUND----");
-			//longToast(getResources().getString(R.string.exception_general));
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem.entities;
 
+import java.math.BigInteger;
+
 public class SingletonWebservicesDataModel {
 
 	private String increaseInCreditLimit;
@@ -23,7 +25,7 @@ public class SingletonWebservicesDataModel {
 
 	private String benificiaryName;
 	private String fundsAccNumer;
-	private int fundsAmount;
+	private BigInteger fundsAmount;
 	private String fundsMessage;
 
 	// private String amount;
@@ -124,11 +126,11 @@ public class SingletonWebservicesDataModel {
 		this.fundsAccNumer = fundsAccNumer;
 	}
 
-	public int getFundsAmount() {
+	public BigInteger getFundsAmount() {
 		return fundsAmount;
 	}
 
-	public void setFundsAmount(int fundsAmount) {
+	public void setFundsAmount(BigInteger fundsAmount) {
 		this.fundsAmount = fundsAmount;
 	}
 

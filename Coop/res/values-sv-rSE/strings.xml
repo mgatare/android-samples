@@ -41,7 +41,8 @@
     <string name="dispute_transaction">Tviste transaktion</string>
     <string name="searchable_hint">Sök transaktioner</string>
     <string name="dispute">Tviste</string>
-    <string name="spent">ANVÄNT</string>
+    <string name="used">BEGAGNADE</string>
+    <!-- ANVÄNT|| BEGAGNADE -->
     <string name="open_to_buy">ÖPPET KÖP</string>
     <string name="latest_transactions">TRANSAKTIONER</string>
     <string name="card_ending_with">Kortnummer slutar med:</string>
@@ -73,6 +74,7 @@
     <string name="i_accept">Jag accepterar</string>
     <string name="dispute_sent">Tviste Sända</string>
     <string name="you_will_hear_from_us">Du kommer att höra av oss inom kort</string>
+    <string name="login">Logga in</string>
 
     <!-- TAGS -->
     <string name="tag_position">position</string>
