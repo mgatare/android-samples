@@ -78,7 +78,7 @@ public class Utils {
 		Log.d("", "currentTimestamp>>>>>>>>>>>>>>>>>" + currentTimestamp);
 		try {
 			minutes = DateUtils.compareTimeStamps(savedTimestamp,currentTimestamp);
-			if (minutes >= 1)//minutes < 0 || 
+			if (minutes >= 2)//minutes < 0 || 
 				return true;
 			else
 				return false;

@@ -11,8 +11,7 @@
         android:digits="1234567890"
         android:focusable="true"
         android:gravity="center"
-        android:inputType="number"
-        android:maxLength="6" >
+        android:inputType="number" >
     </EditText>
 
 </LinearLayout>

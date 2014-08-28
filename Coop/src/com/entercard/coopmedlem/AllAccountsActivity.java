@@ -38,7 +38,7 @@ public class AllAccountsActivity extends BaseActivity implements
 
 		regActivityFinishReceiver();
 
-		// Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
+		//Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
 
 		if (null != ApplicationEx.getInstance().getAccountsArrayList()
 				&& !ApplicationEx.getInstance().getAccountsArrayList()
@@ -152,35 +152,6 @@ public class AllAccountsActivity extends BaseActivity implements
 						accountsListView.setAdapter(adapter);
 						adapter.notifyDataSetChanged();
 					}
-					
-//					if (accountArrayList.size() > 1) {
-//
-//						actionBar = getSupportActionBar();
-//						actionBar.setTitle(getResources().getString(R.string.accounts));
-//						
-//						AccountsAdapter adapter = new AccountsAdapter(AllAccountsActivity.this, 0, accountArrayList);
-//						accountsListView.setAdapter(adapter);
-//						adapter.notifyDataSetChanged();
-//
-//					} else {
-//						String openToBuy = accountArrayList.get(0).getOpenToBuy();
-//						String spent = accountArrayList.get(0).getSpent();
-//						int count = Integer.parseInt(accountArrayList.get(0).getTransactionsCount());
-//
-//						// Set these temporarily
-//						setOpenToBuy(openToBuy);
-//						setSpent(spent);
-//						setAccountPosition(0);
-//						setTransactionsCount(count);
-//
-//						// Move to HomeScreen directly without showing Acounts
-//						// screen
-//						Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
-//						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//						startActivity(intent);
-//						
-//						finish();// Need to finish the ACCOUNTS screen as there is only one account
-//					}
 				}
 			});
 		} else {

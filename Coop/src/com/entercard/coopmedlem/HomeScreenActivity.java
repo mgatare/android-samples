@@ -160,18 +160,6 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		super.onBackPressed();
 	}
 	
-//	@Override
-//	protected void onPause() {
-//		Log.e("COOP", "######On Pause PRESSED HomeScreen######");
-//		super.onPause();
-//	}
-//	
-//	@Override
-//	protected void onResume() {
-//		Log.e("COOP", "######On RESUME PRESSED HomeScreen######");
-//		super.onResume();
-//	}
-//	
 	/**
 	 * Reg activity logout receiver.
 	 */

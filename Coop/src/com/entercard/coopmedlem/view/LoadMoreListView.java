@@ -140,7 +140,6 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
 			if (visibleItemCount == totalItemCount) {
 				progressBarLoadMore.setVisibility(View.GONE);
-				// mLabLoadMore.setVisibility(View.GONE);
 				return;
 			}
 
@@ -149,7 +148,6 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 			if (!isLoadingMore && loadMore
 					&& currentScrollState != SCROLL_STATE_IDLE) {
 				progressBarLoadMore.setVisibility(View.VISIBLE);
-				// mLabLoadMore.setVisibility(View.VISIBLE);
 				isLoadingMore = true;
 				onLoadMore();
 			}

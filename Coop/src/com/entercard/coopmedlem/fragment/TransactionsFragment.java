@@ -42,7 +42,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private int tranxCount;
 	private String openToBuyCashTxt;
 	private String spentCashTxt;
-	private ProgressBar progSpent;
+	private ProgressBar progSpentCash;
 	
 	private LoadMoreListView transactionListView;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
@@ -102,7 +102,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		spentTextView = (TextView) headerLayout.findViewById(R.id.lblSpent);
 		openbuyTextView = (TextView) headerLayout.findViewById(R.id.lblOpenToBuy);
-		progSpent = (ProgressBar) headerLayout.findViewById(R.id.progSpent);
+		progSpentCash = (ProgressBar) headerLayout.findViewById(R.id.progSpentCash);
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 		transactionListView.addHeaderView(headerLayout);
@@ -118,8 +118,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
 				
-				//Log.e("COOP", "<PAGE>" + pageNumber + "<PERPAGE>" + perNumber + "<TOTAL>" + total);
-				Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
+				//Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
 				
 				if (transactionsArrayList.size() < tranxCount) {
 
@@ -130,7 +129,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					getMoreTransactionsService = new GetMoreTransactionsService(uuidTxt, cookieTxt, accountIDTxt, pageNumber);
 					getMoreTransactionsService.setTransactionListener(TransactionsFragment.this);
 					ApplicationEx.operationsQueue.execute(getMoreTransactionsService);
-					++pageNumber; 
+					++pageNumber;
+					
 				} else {
 					transactionListView.onLoadMoreComplete();
 				}
@@ -155,23 +155,19 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		int spentValue = (int)Math.round(spent);
 		
 		int TOTAL = otbValue + spentValue;
-		int percentageDiff = (int)(otbValue * 100 / TOTAL);
-		
-		//Log.e("COOP", "otbValue---->>"+otbValue);
-		//Log.e("COOP", "spentValue---->>"+spentValue);
-		//Log.e("COOP", "DIFFERENCE---->>"+percentageDiff);
-		
+		int percentageDiff = (int)(spentValue * 100 / TOTAL);
+
 		if (otbValue == spentValue) {
-			barAnimation = new ProgressBarAnimation(progSpent, 0, 100);
+			barAnimation = new ProgressBarAnimation(progSpentCash, 0, 100);
 		} else {
-			barAnimation = new ProgressBarAnimation(progSpent, 0, percentageDiff);
+			barAnimation = new ProgressBarAnimation(progSpentCash, 0, percentageDiff);
 		}
 		
 		if(BaseActivity.isFirstVisit()) {
 			
 			/* FOR PROGRESS BAR ANIMATION*/
-			barAnimation.setDuration(1000);
-			progSpent.startAnimation(barAnimation);
+			barAnimation.setDuration(700);
+			progSpentCash.startAnimation(barAnimation);
 			
 			/* RUNNABLES FOR SpentCredit TEXTVIEWS ANIMATIONS*/
 			SpentCreditRunnable runnableLblSpent = new SpentCreditRunnable(handler, spentTextView, spentValue);
@@ -195,9 +191,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
 			openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
 			if (otbValue == spentValue) {
-				progSpent.setProgress(100);
+				progSpentCash.setProgress(100);
 			} else {
-				progSpent.setProgress(percentageDiff);
+				progSpentCash.setProgress(percentageDiff);
 			}
 		}
 	}
@@ -222,20 +218,20 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 600;
+					count = count + 800;
 				else if(LIMIT <= 50000)
 					count = count + 2000;
 				else if(LIMIT <= 100000)
-					count = count + 5000;
-				else if(LIMIT <= 500000)
 					count = count + 10000;
+				else if(LIMIT <= 500000)
+					count = count + 50000;
 				else if(LIMIT <= 1000000)
 					count = count + 100000;
 				else 
 					count = count + 100000;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 50);
+					handler.postDelayed(this, 20);
 				} else {
 					textView.setText(StringUtils.roundAndFormatCurrency(spentCashTxt));
 				}
@@ -265,7 +261,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
 				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 600;
+					count = count + 800;
 				else if(LIMIT <= 50000)
 					count = count + 2000;
 				else if(LIMIT <= 100000)
@@ -278,7 +274,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 40);
+					handler.postDelayed(this, 10);
 				} else {
 					textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
 				}

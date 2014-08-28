@@ -2,8 +2,10 @@ package com.entercard.coopmedlem.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 import com.encapsecurity.encap.android.client.api.AsyncCallback;
 import com.encapsecurity.encap.android.client.api.StartActivationResult;
 import com.entercard.coopmedlem.ActivateAppActivity;
+import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.R.style;
 import com.entercard.coopmedlem.utils.AlertHelper;
@@ -44,8 +48,7 @@ public class ActivationDialogFragment extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		getDialog().getWindow().setSoftInputMode(
-				LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
@@ -66,8 +69,7 @@ public class ActivationDialogFragment extends DialogFragment {
 		parentActivity = (ActivateAppActivity) getActivity();
 
 		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-		View innerView = layoutInflater.inflate(
-				R.layout.view_single_edittextview, null);
+		View innerView = layoutInflater.inflate(R.layout.view_single_edittextview, null);
 		actCodeEditText = (EditText) innerView.findViewById(R.id.txtActCode);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
@@ -78,15 +80,16 @@ public class ActivationDialogFragment extends DialogFragment {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int whichButton) {
 								/***/
-								parentActivity.closeKeyBoard();
 
 								String code = actCodeEditText.getText().toString();
 								if (!TextUtils.isEmpty(code)) {
 
 									boolean isNetworkAvailable = NetworkHelper.isOnline(getActivity());
 									if (isNetworkAvailable) {
-
+										
+										hideDelayedKeyboard();
 										parentActivity.showProgressDialog();
+										
 										parentActivity.controller.startActivation(code,new AsyncCallback<StartActivationResult>() {
 															@Override
 															public void onFailure(Throwable err) {
@@ -234,5 +237,13 @@ public class ActivationDialogFragment extends DialogFragment {
 		// })
 		// .setView(innerView)
 		// .create();
+	}
+	
+	private void hideDelayedKeyboard() {
+		View currentFocus = getDialog().getCurrentFocus();
+		if (currentFocus != null) {
+			InputMethodManager imm = (InputMethodManager) parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(currentFocus.getApplicationWindowToken(), 0);
+		}
 	}
 }

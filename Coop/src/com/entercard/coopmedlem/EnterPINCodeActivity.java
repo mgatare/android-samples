@@ -8,6 +8,7 @@ import org.kobjects.base64.Base64;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -40,7 +41,6 @@ import com.entercard.coopmedlem.services.FundsTransferService;
 import com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener;
 import com.entercard.coopmedlem.services.InitiateDisputeService;
 import com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener;
-import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.CompatibilityUtils;
 import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.NetworkHelper;
@@ -81,8 +81,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		if (NetworkHelper.isOnline(this)) {
 			startAuthentication();
 		} else {
-			AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+//			AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+//					getResources().getString(R.string.no_internet_connection), this);
+			getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
 					getResources().getString(R.string.no_internet_connection), this);
+			
 		}
 	}
 
@@ -372,15 +375,20 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						Log.i("COOP", ">>>>startAuthentication onFailure>>"+ throwable);
 						
 						if (throwable instanceof LockedException) {
-							retryErrorDialog(getResources().getString(
-									R.string.encap_authentication_error));
+							
+							retryErrorDialog(getResources().getString(R.string.encap_authentication_error));
+							
 						} else if (throwable instanceof UnknownRegistrationException) {
-							retryErrorDialog(getResources().getString(
-									R.string.encap_error));
+							/*retryErrorDialog(getResources().getString(
+									R.string.encap_error));*/
+							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						} else {
-							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+							/*AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
 									getResources().getString(R.string.encap_error)
-									,EnterPINCodeActivity.this);
+									,EnterPINCodeActivity.this);*/
+							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						}
 					}
 					public void onSuccess(final StartAuthenticationResult result) {
@@ -391,7 +399,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
 							boolean isDeviceSesnExpired = Utils.isDeviceSessionExpired(
 									preferenceHelper.getString(getResources().getString(R.string.pref_device_session))
-									, DateUtils.getCurrentTimeStamp());
+									,DateUtils.getCurrentTimeStamp());
 							//
 							if(isDeviceSesnExpired)
 								logoutAppDialog();
@@ -467,7 +475,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						} else if (throwable instanceof InputFormatException) {
 							
 							Log.i("COOP", ">>InputFormatException>>" + throwable);
-							AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+							//AlertHelper.Alert(throwable.getLocalizedMessage(),EnterPINCodeActivity.this);
+							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
+							
 							shakePINLayout();
 							
 						} else if (throwable instanceof LockedException) {
@@ -476,8 +487,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						} else {
 							// Authentication error, cannot retry.
 							Log.i("COOP",">>Authentication error, cannot retry>>"+ throwable);
-							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
-									getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
+//							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+//									getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
+							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						}
 					}
 
@@ -508,8 +521,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							preferenceHelper.addString(getResources().getString(R.string.pref_device_session), DateUtils.getCurrentTimeStamp());
 							Log.i("", ">>>>>>>>>>>>>>>>>>>>DATE TIME SESSION UPPPDATEEEEED>>>>>>>>>>>>>>>>>>>>>");
 						} else {
-							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
-									"SAML data not found.",EnterPINCodeActivity.this);
+//							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+//									getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
+							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
+									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						}
 					}
 				});
@@ -601,7 +616,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			break;
 
 		case BaseActivity.DISPUTE:
-			
+			/**
+			 * Make Webservice call here
+			 */
 			showProgressDialog();
 			initiateDisputeService = new InitiateDisputeService(ApplicationEx.getInstance().getUUID(), 
 					ApplicationEx.getInstance().getSAMLTxt(), ApplicationEx.getInstance().getCookie(), 
@@ -613,9 +630,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			break;
 			
 		case BaseActivity.TRANSFER_FUNDS:
-			/**
-			 * Make Webservice call here
-			 */
+			
 			showProgressDialog();
 			fundsTransferService = new FundsTransferService(ApplicationEx.getInstance().getUUID(), 
 					ApplicationEx.getInstance().getCookie(), 
@@ -649,8 +664,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 	}
 	/**
-	 * a silent hug means a thousand words to the unhappy heart
-	 * a silent hug means a thousand words to the unhappy heart
 	 * @param msg
 	 */
 	private void retryErrorDialog(String msg) {
@@ -690,6 +703,31 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								}
 							}
 						}).show();
+	}
+	
+	public void getToCustomerScreenDialog(String title, String msg, Context context) {
+		AlertDialog.Builder builder = null;
+		builder = new AlertDialog.Builder(context);
+		builder.setMessage(msg)
+				.setTitle(title)
+				.setCancelable(true)
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+								
+								Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
+								overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_in_bottom);
+								
+								finish();
+								
+							}
+						}).show();
+
 	}
 	
 	/**

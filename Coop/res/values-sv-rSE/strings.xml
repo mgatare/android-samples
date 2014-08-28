@@ -58,7 +58,7 @@
     <string name="occupancy">Beläggning</string>
     <string name="employment">Sysselsättning</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
-    <string name="btn_increase_credit_limit">+ Öka Credit Limt</string>
+    <string name="btn_increase_credit_limit">+ Kreditgräns</string>
     <string name="btn_apply_credit_line_increase">Ansök om en kredit ökning</string>
     <string name="cards">KORT</string>
     <string name="customer_service">KUNDTJÄNST</string>

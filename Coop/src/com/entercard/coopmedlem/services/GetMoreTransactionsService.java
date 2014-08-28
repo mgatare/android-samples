@@ -60,7 +60,7 @@ public class GetMoreTransactionsService extends BaseService {
 		
 		//Sleep for loading the Progress dialog
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 		}
 		
@@ -68,10 +68,9 @@ public class GetMoreTransactionsService extends BaseService {
 			
 			String url = TAG_ACCOUNTS + "/" + strAccountID + "/" + TAG_TRANSACTIONS + TAG_PAGE + pageNumber + TAG_PER_PAGE;
 			String response = makeRequest(url, null, GET);
-			//Utils.writeToTextFile(response, ApplicationEx.applicationEx, "dumpData.tmp");
 			//Log.d("", "RESPONSE::::"+response);
 			
-			if(response == null) {
+			if(null == response) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));
 			} else if(!TextUtils.isEmpty(response)) {
 				
@@ -164,8 +163,7 @@ public class GetMoreTransactionsService extends BaseService {
 					transactionModel.setCurrency(transactionJSONObj.getString("currency"));
 				}
 				if (transactionJSONObj.has("date")) {
-					transactionModel.setDate(transactionJSONObj
-							.getString("date"));
+					transactionModel.setDate(transactionJSONObj.getString("date"));
 				}
 				if (transactionJSONObj.has("type")) {
 					transactionModel.setType(transactionJSONObj.getString("type"));
@@ -179,7 +177,6 @@ public class GetMoreTransactionsService extends BaseService {
 				arrayListTransaction.add(transactionModel);
 			}
 		}
-		//Log.d("", ":::::::::::ADDED TO ACCOUNTS ARRAYLIST:::::::"+ arrayListTransaction.size());
 		return arrayListTransaction;
 	}
 }
