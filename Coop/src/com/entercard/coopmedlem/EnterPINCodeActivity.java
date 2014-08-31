@@ -436,15 +436,13 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								Log.d("", ">>>>>>>>>>>>>>>>>>>>>APP LEVEL TIMEOUTT HAPENNED APP WILL LOGOUT >>>>>>>>>>>");
 								
 								if(CompatibilityUtils.getSdkVersion() < 11) {
-									Intent intent = new Intent(getApplicationContext(), EnterPINCodeActivity.class);
-									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+									Intent intent = new Intent(getApplicationContext(), CustomerServiceScreen.class);
 									ComponentName cn = intent.getComponent();
 									Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
 									startActivity(mainIntent);
 								} else {
-									Intent intent = new Intent(EnterPINCodeActivity.this, EnterPINCodeActivity.class);
+									Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
 									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
 									startActivity(intent);
 								}
 							}
