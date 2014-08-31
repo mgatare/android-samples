@@ -214,7 +214,7 @@ public class Utils {
 		if(!TextUtils.isEmpty(params)) {
 			Log.e("Coop", "zoomLevel>>"+zoomLevel);
 			URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size=570x350&maptype=roadmap&sensor=true";
+						+ "&size=650x360&maptype=roadmap&sensor=true";
 		} else {
 			return null;
 		}

@@ -32,7 +32,7 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:textColor="@color/text_body"
-        android:textSize="@dimen/font_size_screen_title" />
+        android:textSize="@dimen/font_size_normal" />
 
     <Button
         android:id="@+id/btnOk"

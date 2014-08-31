@@ -71,7 +71,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/darker_gray" >
 
         <ImageView
@@ -80,7 +80,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
             android:contentDescription="@null"
             android:scaleType="fitXY" />
 
@@ -110,5 +109,6 @@
             android:text="@string/dispute"
             android:textColor="@android:color/white" />
     </RelativeLayout>
+    <!-- style="@style/Theme.Coopmedlem.Button" -->
 
 </LinearLayout>

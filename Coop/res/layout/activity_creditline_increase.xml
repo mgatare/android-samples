@@ -52,7 +52,7 @@
                     android:layout_height="@dimen/button_plus_height"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/btnSubstractCreditLimit"
-                    android:background="@drawable/btn_plus_focused"
+                    android:background="@drawable/button_plus_selector"
                     android:text="@string/sign_plus"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
@@ -64,7 +64,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="1dp"
-                    android:background="@drawable/btn_minus_focused"
+                    android:background="@drawable/button_minus_selector"
                     android:text="@string/sign_minus"
                     android:textColor="@android:color/white"
                     android:textSize="23sp" />

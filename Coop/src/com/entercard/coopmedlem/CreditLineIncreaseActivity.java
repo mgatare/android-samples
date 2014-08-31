@@ -59,7 +59,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.creditline_increase_activity);
+		setContentView(R.layout.activity_creditline_increase);
 
 		init();
 		

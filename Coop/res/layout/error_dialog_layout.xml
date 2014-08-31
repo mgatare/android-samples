@@ -28,7 +28,6 @@
         android:textStyle="normal" />
 
     <LinearLayout
-        style="@style/Theme.Coopmedlem.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblMessage"
@@ -41,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:text="Ok"
+            android:text="@android:string/ok"
             android:textColor="@android:color/black" />
     </LinearLayout>
 

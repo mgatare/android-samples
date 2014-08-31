@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -218,9 +217,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 800;
+					count = count + 1000;
 				else if(LIMIT <= 50000)
-					count = count + 2000;
+					count = count + 10000;
 				else if(LIMIT <= 100000)
 					count = count + 10000;
 				else if(LIMIT <= 500000)
@@ -231,7 +230,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 20);
+					handler.postDelayed(this, 30);
 				} else {
 					textView.setText(StringUtils.roundAndFormatCurrency(spentCashTxt));
 				}
@@ -261,9 +260,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
 				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 800;
+					count = count + 1000;
 				else if(LIMIT <= 50000)
-					count = count + 2000;
+					count = count + 10000;
 				else if(LIMIT <= 100000)
 					count = count + 10000;
 				else if(LIMIT <= 500000)
@@ -274,7 +273,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 10);
+					handler.postDelayed(this, 40);
 				} else {
 					textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
 				}
