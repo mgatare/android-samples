@@ -28,6 +28,7 @@ import android.widget.ToggleButton;
 import com.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
 import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
+import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.StringUtils;
 
 public class DisputeTransactionActivity extends BaseActivity {
@@ -91,10 +92,10 @@ public class DisputeTransactionActivity extends BaseActivity {
 					return;
 				}
 
-				Log.d("COOP", "::amount::" + amount + "::transID::" + transID);
+				//Log.d("COOP", "::amount::" + amount + "::transID::" + transID);
 				
-				Log.i("", "btnIncreaseCreditLimit>>>>"+ApplicationEx.getInstance().getCookie());
-				Log.i("", "btnIncreaseCreditLimit>>>>>"+ApplicationEx.getInstance().getUUID());
+				//Log.i("", "btnIncreaseCreditLimit>>>>"+ApplicationEx.getInstance().getCookie());
+				//Log.i("", "btnIncreaseCreditLimit>>>>>"+ApplicationEx.getInstance().getUUID());
 
 				// MAKE WS CALL HERE
 				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
@@ -104,15 +105,13 @@ public class DisputeTransactionActivity extends BaseActivity {
 						.getAccountNumber());// NEED TO CHANGE THIS LOGIC
 				userDataModel.setDisputebillingAmount(amount);
 				userDataModel.setDisputedescription(description);
-				userDataModel.setDisputetransactionDate(date);
+				userDataModel.setDisputetransactionDate(DateUtils.getTransactionTimeStamp(date));
 				userDataModel.setDisputeEmail(email);
 				userDataModel.setKnownTransaction(isTransactionKnown());
 				userDataModel.setDisputetransactionId(transID);
 				userDataModel.setDisputePhone(phone);
 				userDataModel.setDisputeReason(reason);
 
-				//Toast.makeText(DisputeTransactionActivity.this, ""+isTransactionKnown(), Toast.LENGTH_LONG).show();
-				
 				// Clear old contents
 				if (null != BaseActivity.getSingletonUserDataModelArrayList())
 					BaseActivity.getSingletonUserDataModelArrayList().clear();
@@ -241,10 +240,5 @@ public class DisputeTransactionActivity extends BaseActivity {
 				finish();
 			}
 		}
-	}
-	@Override
-	protected void onResume() {
-		//updateLocalTimeoutStamp();
-		super.onResume();
 	}
 }

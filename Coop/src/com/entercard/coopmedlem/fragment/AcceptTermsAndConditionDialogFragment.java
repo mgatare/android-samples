@@ -79,10 +79,10 @@ public class AcceptTermsAndConditionDialogFragment extends DialogFragment {
 								Intent intent = new Intent(getActivity(), EnterPINCodeActivity.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								if(type == 0) {
-									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.DISPUTE);
+									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_DISPUTE);
 									getActivity().startActivityForResult(intent, RESULT_CODE_DISPUTE);
 								} else {
-									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.CLI);
+									intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_CLI);
 									getActivity().startActivityForResult(intent, RESULT_CODE_CLI);
 								}
 							}

@@ -16,6 +16,7 @@
         android:dividerHeight="0dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:choiceMode="singleChoice"
         android:listSelector="@drawable/list_selector" />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.entercard.coopmedlem;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -112,6 +114,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		btnSubstractCreditLimit.setFocusable(false);
 		btnSubstractCreditLimit.setFocusableInTouchMode(false);
 		btnSubstractCreditLimit.setEnabled(false);
+		btnSubstractCreditLimit.setTextColor(Color.GRAY);
 		
 		
 		/*Disable Copy/Paste for the edittexts*/
@@ -129,6 +132,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		public void onClick(View v) {
 			
 			int creditAmountAplied = Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
+			BigInteger creditAmountBigInt = new BigInteger(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
+			
 			Log.e("COOP", "creditAmountAplied->>"+creditAmountAplied);
 			
 			switch (v.getId()) {
@@ -195,19 +200,19 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
 				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();
 				
-				userDataModel.setYearlyIncome(Integer.parseInt(yearlyIncomeTxt));
+				userDataModel.setYearlyIncome(new BigInteger(yearlyIncomeTxt));
 				
 				if(TextUtils.isEmpty(mortgageTxt)) 
-					userDataModel.setMortgage(0);
+					userDataModel.setMortgage(new BigInteger("0"));
 				else
-					userDataModel.setMortgage(Integer.parseInt(mortgageTxt));
+					userDataModel.setMortgage(new BigInteger(mortgageTxt));
 				
 				if(TextUtils.isEmpty(otherLoansTxt))
-					userDataModel.setOtherLoans(0);
+					userDataModel.setOtherLoans(new BigInteger("0"));
 				else
-					userDataModel.setOtherLoans(Integer.parseInt(otherLoansTxt));	
+					userDataModel.setOtherLoans(new BigInteger(otherLoansTxt));	
 				
-				userDataModel.setAmountApplied(creditAmountAplied);
+				userDataModel.setAmountApplied(creditAmountBigInt);
 				userDataModel.setEmployment(empTypeTxt);
 				arrayList.add(userDataModel);
 				
@@ -322,10 +327,12 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			btnSubstractCreditLimit.setFocusable(true);
 			btnSubstractCreditLimit.setFocusableInTouchMode(true);
 			btnSubstractCreditLimit.setEnabled(true);
+			btnSubstractCreditLimit.setTextColor(Color.WHITE);
 		} else {
 			btnSubstractCreditLimit.setFocusable(false);
 			btnSubstractCreditLimit.setFocusableInTouchMode(false);
 			btnSubstractCreditLimit.setEnabled(false);
+			btnSubstractCreditLimit.setTextColor(Color.GRAY);
 		}
 	}
 	
@@ -446,7 +453,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	protected void onResume() {
 		super.onResume();
 		Log.d("COOP", "### onResume() ##"+employmentTxt);
-		//updateLocalTimeoutStamp();
 		if (!TextUtils.isEmpty(employmentTxt))
 			lblEmploymentType.setText(employmentTxt);
 		else

@@ -1,5 +1,7 @@
 package com.entercard.coopmedlem.services;
 
+import java.math.BigInteger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,11 +27,11 @@ public class CreditLineIncreaseService extends BaseService {
 	private String uuid;
 	private String cookie;
 	private String accountNum;
-	private int mortgage;
-	private int amountApplied;
+	private BigInteger mortgage;
+	private BigInteger amountApplied;
 	private String employmentType;
-	private int yearlyIncome;
-	private int otherLoans;
+	private BigInteger yearlyIncome;
+	private BigInteger otherLoans;
 	
 	public interface CreditLineIncreaseListener {
 		void onCreditLineIncreaseSuccess(String resp);
@@ -37,9 +39,9 @@ public class CreditLineIncreaseService extends BaseService {
 	}
 
 	public CreditLineIncreaseService(String uuid, String cookie,
-			String saml, String accountNum, int mortgage,
-			int amountApplied, int yearlyIncome,
-			int otherLoans,String employmentType) {
+			String saml, String accountNum, BigInteger mortgage,
+			BigInteger amountApplied, BigInteger yearlyIncome,
+			BigInteger otherLoans,String employmentType) {
 		this.uuid = uuid;
 		this.cookie = cookie;
 		this.saml = saml;

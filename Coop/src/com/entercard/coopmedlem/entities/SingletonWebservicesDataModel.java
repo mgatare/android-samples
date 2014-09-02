@@ -8,10 +8,10 @@ public class SingletonWebservicesDataModel {
 	// private String adult;
 	// private String child;
 	// private String occupancy;
-	private int yearlyIncome;
-	private int mortgage;
-	private int otherLoans;
-	private int amountApplied;
+	private BigInteger yearlyIncome;
+	private BigInteger mortgage;
+	private BigInteger otherLoans;
+	private BigInteger amountApplied;
 	private String employment;
 
 	private boolean isKnownTransaction;
@@ -142,35 +142,35 @@ public class SingletonWebservicesDataModel {
 		this.fundsMessage = fundsMessage;
 	}
 
-	public int getYearlyIncome() {
+	public BigInteger getYearlyIncome() {
 		return yearlyIncome;
 	}
 
-	public void setYearlyIncome(int yearlyIncome) {
+	public void setYearlyIncome(BigInteger yearlyIncome) {
 		this.yearlyIncome = yearlyIncome;
 	}
 
-	public int getMortgage() {
+	public BigInteger getMortgage() {
 		return mortgage;
 	}
 
-	public void setMortgage(int mortgageTxt) {
+	public void setMortgage(BigInteger mortgageTxt) {
 		this.mortgage = mortgageTxt;
 	}
 
-	public int getOtherLoans() {
+	public BigInteger getOtherLoans() {
 		return otherLoans;
 	}
 
-	public void setOtherLoans(int otherLoans) {
+	public void setOtherLoans(BigInteger otherLoans) {
 		this.otherLoans = otherLoans;
 	}
 
-	public int getAmountApplied() {
+	public BigInteger getAmountApplied() {
 		return amountApplied;
 	}
 
-	public void setAmountApplied(int amountApplied) {
+	public void setAmountApplied(BigInteger amountApplied) {
 		this.amountApplied = amountApplied;
 	}
 

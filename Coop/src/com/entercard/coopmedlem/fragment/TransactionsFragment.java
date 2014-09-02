@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -91,7 +92,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		handler = new Handler();
 		
 		LayoutInflater layoutInflater = (LayoutInflater) parentActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		headerLayout =  (LinearLayout) layoutInflater.inflate(R.layout.footer_transaction_fragment, null ,false);
+		headerLayout =  (LinearLayout) layoutInflater.inflate(R.layout.header_transaction_fragment, null ,false);
 		
 		// Get Initial values for the account
 		position = parentActivity.getAccountPosition();
@@ -105,6 +106,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 		transactionListView.addHeaderView(headerLayout);
+		
+		transactionListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
 		
 	}
 

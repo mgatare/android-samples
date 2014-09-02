@@ -147,10 +147,4 @@ public class EmploymentActivity extends BaseActivity {
 			}
 		}
 	}
-	
-	@Override
-	protected void onResume() {
-		//updateLocalTimeoutStamp();
-		super.onResume();
-	}
 }

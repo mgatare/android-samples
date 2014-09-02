@@ -225,8 +225,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				return true;
 			}
 		};
-		animation.setDuration((int) (targtetHeight / view.getContext().getResources()
-				.getDisplayMetrics().density));
+		animation.setDuration((int) (targtetHeight / view.getContext().getResources().getDisplayMetrics().density));
 		view.startAnimation(animation);
 	}
 

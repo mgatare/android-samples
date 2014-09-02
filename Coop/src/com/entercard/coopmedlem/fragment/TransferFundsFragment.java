@@ -127,6 +127,14 @@ public class TransferFundsFragment extends Fragment {
 					AlertHelper.Alert(getResources().getString(R.string.receiver_name_missing), parentActivity);
 					return;
 				}
+				
+				if (accountNumberTxt.length() < 11 && bigIntAmount.intValue() < 500) {
+					AlertHelper.Alert(getResources().getString(R.string.account_number_length)
+							+"\n"
+							+getResources().getString(R.string.amount_incorrect), parentActivity);
+					return;
+				}
+				
 				if (accountNumberTxt.length() < 11) {
 					AlertHelper.Alert(getResources().getString(R.string.account_number_length), parentActivity);
 					return;
@@ -163,7 +171,7 @@ public class TransferFundsFragment extends Fragment {
 				
 				Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				intent.putExtra(parentActivity.getResources().getString(R.string.pref_verify_pin), BaseActivity.TRANSFER_FUNDS);
+				intent.putExtra(parentActivity.getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_TRANSFER_FUNDS);
 				startActivityForResult(intent, 1);
 			}
 		});
@@ -194,13 +202,14 @@ public class TransferFundsFragment extends Fragment {
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		txtReceiversName.setText(null);
-		txtAccountNumber.setText(null);
-		txtAmount.setText(null);
-		txtMessage.setText(null);
-		txtReceiversName.requestFocus();
+
 		if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
+				txtReceiversName.setText(null);
+				txtAccountNumber.setText(null);
+				txtAmount.setText(null);
+				txtMessage.setText(null);
+				txtReceiversName.requestFocus();
 				AlertHelper.AlertNoTitle(getResources().getString(R.string.funds_transfer_success),parentActivity);
 			}
 			if (resultCode == Activity.RESULT_CANCELED) {

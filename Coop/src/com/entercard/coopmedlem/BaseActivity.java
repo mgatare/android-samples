@@ -76,16 +76,16 @@ public abstract class BaseActivity extends ActionBarActivity {
 	private static ArrayList<SingletonWebservicesDataModel> singletonUserDataModelArrayList;
 	
 	/** The Constant NO_STATE. */
-	public static final  int NO_STATE = 110;
+	public static final  int TYPE_NONE = 110;
 	
 	/** The Constant DISPUTE. */
-	public static final int DISPUTE = 111; 
+	public static final int TYPE_DISPUTE = 111; 
 	
 	/** The Constant TRANSFER_FUNDS. */
-	public static final int TRANSFER_FUNDS = 112; 
+	public static final int TYPE_TRANSFER_FUNDS = 112; 
 	
 	/** The Constant CLI. */
-	public static final int CLI = 113;
+	public static final int TYPE_CLI = 113;
 	/*
 	 * (non-Javadoc)
 	 * 

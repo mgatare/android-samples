@@ -47,26 +47,60 @@ import com.entercard.coopmedlem.utils.NetworkHelper;
 import com.entercard.coopmedlem.utils.PreferenceHelper;
 import com.entercard.coopmedlem.utils.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EnterPINCodeActivity.
+ */
 public class EnterPINCodeActivity extends BaseActivity implements FundsTransferListener, InitiateDisputeListener, CreditLineIncreaseListener{
 
+	/** The pin1 edit text. */
 	private EditText pin1EditText;
+	
+	/** The pin2 edit text. */
 	private EditText pin2EditText;
+	
+	/** The pin3 edit text. */
 	private EditText pin3EditText;
+	
+	/** The pin4 edit text. */
 	private EditText pin4EditText;
 	
+	/** The layout pin container. */
 	private LinearLayout layoutPinContainer;
+	
+	/** The new pin. */
 	private String newPIN = null;
+	
+	/** The controller. */
 	private Controller controller;
+	
+	/** The dummy edit text. */
 	private EditText dummyEditText;
+	
+	/** The client date. */
 	private String clientDate = null;
-	private int ACTIVITY_RESULT_STATE;
+	
+	/** The activity state. */
+	private int ACTIVITY_STATE;
+	
+	/** The string builder. */
 	private StringBuilder stringBuilder;//Will be used in JB 4.1.X and Up devices that will act for an softKeyboard from a TextWatcher
 	
+	/** The funds transfer service. */
 	private FundsTransferService fundsTransferService;
+	
+	/** The initiate dispute service. */
 	private InitiateDisputeService initiateDisputeService;
+	
+	/** The credit line increase service. */
 	private CreditLineIncreaseService creditLineIncreaseService;
+	
+	/** The action bar. */
 	private ActionBar actionBar;
 	
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.BaseActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +108,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 
 		init();
 		
-		ACTIVITY_RESULT_STATE = getIntent().getExtras().getInt(getResources().getString(R.string.pref_verify_pin));
+		ACTIVITY_STATE = getIntent().getExtras().getInt(getResources().getString(R.string.pref_verify_pin));
 		
 		getFocusToDummyEditText();
 	
@@ -89,6 +123,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		
 		controller =  ((ApplicationEx) getApplication()).getController();
@@ -120,6 +157,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 	}
 
+	/**
+	 * Gets the focus to dummy edit text.
+	 *
+	 * @return the focus to dummy edit text
+	 */
 	private void getFocusToDummyEditText() {
 		dummyEditText.requestFocus();
 		dummyEditText.setRawInputType(Configuration.KEYBOARD_12KEY);
@@ -188,7 +230,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	        case KeyEvent.KEYCODE_MENU:
 				/*This works but still not a solution to stop the keyboard from hiding. return false not working*/
 				showKeyBoard(dummyEditText);
-				return true;
+				return false;
 
 	        default:
 	            return super.onKeyUp(keyCode, event);
@@ -201,17 +243,29 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	 */
 	private class PINTextWatcher implements TextWatcher {
 
+		/**
+		 * Instantiates a new PIN text watcher.
+		 */
 		private PINTextWatcher() {
 		}
 
+		/* (non-Javadoc)
+		 * @see android.text.TextWatcher#beforeTextChanged(java.lang.CharSequence, int, int, int)
+		 */
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 		}
 
+		/* (non-Javadoc)
+		 * @see android.text.TextWatcher#onTextChanged(java.lang.CharSequence, int, int, int)
+		 */
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
 		}
 
+		/* (non-Javadoc)
+		 * @see android.text.TextWatcher#afterTextChanged(android.text.Editable)
+		 */
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
 			
@@ -258,9 +312,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			}
 		}
 	}
+	
 	/**
-	 * 
-	 * @param text
+	 * Sets the text from soft keyboard.
+	 *
+	 * @param text the new text from soft keyboard
 	 */
 	public void setTextFromSoftKeyboard(String text) {
 		
@@ -291,17 +347,14 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 			Log.i("", "-------setTextFromSoftKeyboard-PIN CODE IS----" + newPIN);
 			
-//			try {
-//				Thread.sleep(800);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-			
 			//Finish the Authentication process
 			finishAuthentication(newPIN);
 		} 
 	}
 
+	/**
+	 * Delete text for edit text.
+	 */
 	public void deleteTextForEditText() {
 		
 		if(pin4EditText.getText().length()>0) {
@@ -327,7 +380,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 	
 	/**
-	 * To reset the PIN fields
+	 * To reset the PIN fields.
 	 */
 	private void resetPINFields() {
 		
@@ -346,6 +399,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 	
 	//Shake function  for the PIN layout to be shaked if the user enters some wrong PIN
+	/**
+	 * Shake pin layout.
+	 */
 	private void shakePINLayout() {
 		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 		layoutPinContainer.startAnimation(shake);
@@ -395,27 +451,24 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						Log.i("COOP", ">>>startAuthentication onSuccess>>"+ result);
 						hideProgressDialog();
 						
-						if(ACTIVITY_RESULT_STATE != BaseActivity.NO_STATE) {
+						if(ACTIVITY_STATE != BaseActivity.TYPE_NONE) {
 							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
 							boolean isDeviceSesnExpired = Utils.isDeviceSessionExpired(
 									preferenceHelper.getString(getResources().getString(R.string.pref_device_session))
 									,DateUtils.getCurrentTimeStamp());
-							//
+							//Logout App Dialog
 							if(isDeviceSesnExpired)
 								logoutAppDialog();
 						} 
-						/*else {
-							Log.e("COOP", ">>>BaseActivity.NO_STATE>>>");
-						}*/
 					}
 				});
 	}
 	
 	/**
-	 * ---------------- DEFINE THIS CALL------------------
+	 * ---------------- DEFINE THIS CALL------------------.
 	 */
 	private void logoutAppDialog() {
-		// TODO Auto-generated method stub
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(EnterPINCodeActivity.this);
 		builder.setMessage(getResources().getString(R.string.encap_error))
 				.setTitle(getResources().getString(R.string.encap_something_went_wrong))
@@ -450,8 +503,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 	
 	/**
-	 * 
-	 * @param code
+	 * Finish authentication.
+	 *
+	 * @param code the code
 	 */
 	protected void finishAuthentication(String code) {
 		showProgressDialog();
@@ -508,29 +562,27 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							if (ApplicationEx.getInstance().isdeveloperMode) {
 								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
 							}
-							/*
-							 * SET the SAML data as required for the rest of the WS calls and move to the next screen
-							 */
+							/*SET the SAML data as required for the rest of the WS calls and move to the next screen*/
 							ApplicationEx.getInstance().setSAMLTxt(samlData);
-							selectNextActivity(ACTIVITY_RESULT_STATE);
+							selectNextActivity(ACTIVITY_STATE);
 							
-							
+							/**UPDATE THE TIME-STAMP TO MAIN DEVICE SESSION**/
 							PreferenceHelper preferenceHelper = new PreferenceHelper(EnterPINCodeActivity.this);
 							preferenceHelper.addString(getResources().getString(R.string.pref_device_session), DateUtils.getCurrentTimeStamp());
 							Log.i("", ">>>>>>>>>>>>>>>>>>>>DATE TIME SESSION UPPPDATEEEEED>>>>>>>>>>>>>>>>>>>>>");
+							
 						} else {
-//							AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
-//									getResources().getString(R.string.encap_error),EnterPINCodeActivity.this);
 							getToCustomerScreenDialog(getResources().getString(R.string.encap_something_went_wrong),
 									getResources().getString(R.string.encap_error), EnterPINCodeActivity.this);
 						}
 					}
 				});
 	}
+    
     /**
-     * 
-     * @param samlData
-     * @param activityStatus
+     * Select next activity.
+     *
+     * @param activityStatus the activity status
      */
 	private void selectNextActivity(int activityStatus) {
 		
@@ -548,10 +600,10 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		String reason = null;
 		String transactionDate = null;
 		
-		int yearlyIncome = 0;
-		int mortgage = 0;
-		int otherLoans = 0;
-		int creditAmountAplied = 0;
+		BigInteger yearlyIncome = null;
+		BigInteger mortgage = null;
+		BigInteger otherLoans = null;
+		BigInteger creditAmountAplied = null;
 		String employmentType = null;
 		
 		if (null != BaseActivity.getSingletonUserDataModelArrayList()
@@ -598,7 +650,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 		
 		switch (activityStatus) {
-		case BaseActivity.NO_STATE:
+		case BaseActivity.TYPE_NONE:
 			
 			/* Start the PIN code Activity */
 			Intent intent = new Intent(EnterPINCodeActivity.this, AllAccountsActivity.class);
@@ -613,7 +665,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			finish();
 			break;
 
-		case BaseActivity.DISPUTE:
+		case BaseActivity.TYPE_DISPUTE:
 			/**
 			 * Make Webservice call here
 			 */
@@ -627,7 +679,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			ApplicationEx.operationsQueue.execute(initiateDisputeService);
 			break;
 			
-		case BaseActivity.TRANSFER_FUNDS:
+		case BaseActivity.TYPE_TRANSFER_FUNDS:
 			
 			showProgressDialog();
 			fundsTransferService = new FundsTransferService(ApplicationEx.getInstance().getUUID(), 
@@ -641,7 +693,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			ApplicationEx.operationsQueue.execute(fundsTransferService);
 			break;
 
-		case BaseActivity.CLI:
+		case BaseActivity.TYPE_CLI:
 			
 			showProgressDialog();
 			creditLineIncreaseService = new CreditLineIncreaseService(
@@ -661,8 +713,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			break;
 		}
 	}
+	
 	/**
-	 * @param msg
+	 * Retry error dialog.
+	 *
+	 * @param msg the msg
 	 */
 	private void retryErrorDialog(String msg) {
 		AlertDialog.Builder builder = null;
@@ -703,6 +758,14 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 						}).show();
 	}
 	
+	/**
+	 * Gets the to customer screen dialog.
+	 *
+	 * @param title the title
+	 * @param msg the msg
+	 * @param context the context
+	 * @return the to customer screen dialog
+	 */
 	public void getToCustomerScreenDialog(String title, String msg, Context context) {
 		AlertDialog.Builder builder = null;
 		builder = new AlertDialog.Builder(context);
@@ -729,7 +792,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	}
 	
 	/**
-	 * @return
+	 * Gets the client date.
+	 *
+	 * @return the client date
 	 */
 	protected String getClientDate() {
 		if (!controller.isOperationInProgress()) {
@@ -738,6 +803,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		return clientDate == null ? clientDate : Base64.encode(clientDate.getBytes());
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -757,13 +825,21 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_enterpin_actions, menu);
+		if(ACTIVITY_STATE == BaseActivity.TYPE_NONE) {
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.activity_enterpin_actions, menu);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener#onFundsTransferSuccess(java.lang.String)
+	 */
 	@Override
 	public void onFundsTransferSuccess(String resp) {
 		hideProgressDialog();
@@ -777,6 +853,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.FundsTransferService.FundsTransferListener#onFundsTransferFailed(java.lang.String)
+	 */
 	@Override
 	public void onFundsTransferFailed(final String error) {
 		hideProgressDialog();
@@ -790,6 +869,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener#onInitiateDisputeFinished(java.lang.String)
+	 */
 	@Override
 	public void onInitiateDisputeFinished(String resp) {
 		hideProgressDialog();
@@ -803,6 +885,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.InitiateDisputeService.InitiateDisputeListener#onInitiateDisputeFailed(java.lang.String)
+	 */
 	@Override
 	public void onInitiateDisputeFailed(final String error) {
 		hideProgressDialog();
@@ -816,6 +901,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.CreditLineIncreaseService.CreditLineIncreaseListener#onCreditLineIncreaseSuccess(java.lang.String)
+	 */
 	@Override
 	public void onCreditLineIncreaseSuccess(String resp) {
 		hideProgressDialog();
@@ -829,6 +917,9 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see com.entercard.coopmedlem.services.CreditLineIncreaseService.CreditLineIncreaseListener#onCreditLineIncreaseFailed(java.lang.String)
+	 */
 	@Override
 	public void onCreditLineIncreaseFailed(final String error) {
 		hideProgressDialog();

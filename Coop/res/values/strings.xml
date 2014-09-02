@@ -57,7 +57,7 @@
     <string name="occupancy">Occupancy</string>
     <string name="employment">Employment</string>
     <string name="tag_act_finish">ACTION_LOGOUT</string>
-    <string name="btn_increase_credit_limit">+ Increase Limit</string>
+    <string name="btn_increase_credit_limit">+ Increase limit</string>
     <string name="btn_apply_credit_line_increase">Apply for a credit line increase</string>
     <string name="cards">CARDS</string>
     <string name="customer_service">CUSTOMER SERVICE</string>

@@ -35,7 +35,7 @@ public class OnScreenUnlockReceiver extends BroadcastReceiver {
 				}
 				/* Start the PIN code Activity */
 				Intent enterPINIntent = new Intent(context, EnterPINCodeActivity.class);
-				enterPINIntent.putExtra(context.getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+				enterPINIntent.putExtra(context.getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 				enterPINIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(enterPINIntent);
 				

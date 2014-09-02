@@ -78,7 +78,7 @@ public class Utils {
 		Log.d("", "currentTimestamp>>>>>>>>>>>>>>>>>" + currentTimestamp);
 		try {
 			minutes = DateUtils.compareTimeStamps(savedTimestamp,currentTimestamp);
-			if (minutes >= 2)//minutes < 0 || 
+			if (minutes >= 5)//minutes < 0 || 
 				return true;
 			else
 				return false;
@@ -191,7 +191,7 @@ public class Utils {
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 9;
+		int zoomLevel = 15;
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {

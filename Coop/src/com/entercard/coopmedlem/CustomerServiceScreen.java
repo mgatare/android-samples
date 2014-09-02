@@ -1,19 +1,17 @@
 package com.entercard.coopmedlem;
 
-import com.entercard.coopmedlem.utils.StringUtils;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.entercard.coopmedlem.utils.StringUtils;
 
 public class CustomerServiceScreen extends BaseActivity {
 
@@ -30,13 +28,19 @@ public class CustomerServiceScreen extends BaseActivity {
 		init();
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setTitle(null);
 		actionBar.setIcon(R.drawable.icon_coop);
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
+	}
+	
 	private void init() {
 
 		btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -51,24 +55,19 @@ public class CustomerServiceScreen extends BaseActivity {
 		btnLogin.setOnClickListener(onClickListener);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			Log.d("COOP", "### android.R.id.home:####");
-			
-			Intent intent = new Intent(CustomerServiceScreen.this, EnterPINCodeActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
-			startActivity(intent);
-			overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_in_top);
-			finish();
-			
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//		case android.R.id.home:
+//			Log.d("COOP", "### android.R.id.home:####");
+//			
+//			finish();
+//			
+//			return true;
+//		default:
+//			return super.onOptionsItemSelected(item);
+//		}
+//	}
 
 	OnClickListener onClickListener = new OnClickListener() {
 		@Override
@@ -77,7 +76,7 @@ public class CustomerServiceScreen extends BaseActivity {
 			case R.id.btnLogin:
 				Intent intent = new Intent(CustomerServiceScreen.this, EnterPINCodeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 				startActivity(intent);
 				overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_in_top);
 				
@@ -95,6 +94,7 @@ public class CustomerServiceScreen extends BaseActivity {
 			}
 		}
 	};
+	
 	private void makeCall(String string) {
 		/*Check if Phone calling is supported or not then initiate the phone call*/
 		PackageManager packageManager = getPackageManager();

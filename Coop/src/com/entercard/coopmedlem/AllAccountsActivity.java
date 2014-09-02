@@ -20,6 +20,7 @@ import com.entercard.coopmedlem.adapters.AccountsAdapter;
 import com.entercard.coopmedlem.entities.AccountsModel;
 import com.entercard.coopmedlem.services.GetAccountsService;
 import com.entercard.coopmedlem.services.GetAccountsService.GetAccountsListener;
+import com.entercard.coopmedlem.utils.AlertHelper;
 
 public class AllAccountsActivity extends BaseActivity implements
 		GetAccountsListener {
@@ -45,8 +46,7 @@ public class AllAccountsActivity extends BaseActivity implements
 						.isEmpty()) {
 
 			AccountsAdapter adapter = new AccountsAdapter(
-					AllAccountsActivity.this, 0, ApplicationEx.getInstance()
-							.getAccountsArrayList());
+					AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());
 			accountsListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 
@@ -84,7 +84,7 @@ public class AllAccountsActivity extends BaseActivity implements
 				setAccountPosition(arg2);
 				setTransactionsCount(count);
 
-				Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
+				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 
@@ -115,7 +115,7 @@ public class AllAccountsActivity extends BaseActivity implements
 	@Override
 	public void onGetAccountsFinished(final ArrayList<AccountsModel> accountArrayList) {
 		hideProgressDialog();
-		Log.e("COOP", "accountArrayList.size()-->>"+ accountArrayList.size());
+		//Log.e("COOP", "accountArrayList.size()-->>"+ accountArrayList.size());
 		if (null != accountArrayList && accountArrayList.size() != 0) {
 			runOnUiThread(new Runnable() {
 				@Override
@@ -179,8 +179,8 @@ public class AllAccountsActivity extends BaseActivity implements
 	private void showErrorDialog(String msg, Context context) {
 		AlertDialog.Builder builder = null;
 		builder = new AlertDialog.Builder(context);
-		builder.setMessage(msg)
-				.setTitle(context.getResources().getString(R.string.alert_title))
+		builder.setMessage(getResources().getString(R.string.encap_error))
+				.setTitle(context.getResources().getString(R.string.encap_something_went_wrong))
 				.setCancelable(true)
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
@@ -191,7 +191,7 @@ public class AllAccountsActivity extends BaseActivity implements
 								
 								Intent intent = new Intent(AllAccountsActivity.this, EnterPINCodeActivity.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.NO_STATE);
+								intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 								startActivity(intent);
 								
 								finish();

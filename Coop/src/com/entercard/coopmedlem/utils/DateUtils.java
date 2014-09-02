@@ -68,11 +68,30 @@ public class DateUtils {
 			return null;
 		}
 	}
+	@SuppressLint("SimpleDateFormat")
+	public static String getTransactionTimeStamp(String date) {
+		// 2014-07-03T00:00:00Z
+		String formatedDate = "";
+		String oldFormat = "yyyy-MM-dd";
+		String newFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
+		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
+		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
+
+		try {
+			formatedDate = sdf2.format(sdf1.parse(date));
+			Log.i("", "currentTimeStamp>>>>"+formatedDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return formatedDate;
+	}
+	
+	
 	/**
 	 * Gets the locale specif name.
 	 *
-	 * @return the locale specif name
+	 * @return the locale specific name
 	 */
 	public static String getLocaleSpecifName() {
 		return Calendar.getInstance(Locale.getDefault()).getTimeZone()
