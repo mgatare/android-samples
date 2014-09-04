@@ -19,6 +19,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.DisputeTransactionActivity;
 import com.entercard.coopmedlem.R;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
@@ -83,8 +84,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		
 		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
 
-		String date = DateUtils.getTransactionDate(getItem(position).getDate());
-		lblDate.setText(date.substring(0, 6));
+		//String date = DateUtils.getFormatedTransactionDate(getItem(position).getDate());
+		//lblDate.setText(date.substring(0, 6));
 		
 		lblPrice.setText(StringUtils.roundAndFormatCurrency(getItem(position).getBillingAmount()));
 		
@@ -102,9 +103,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		if (currentExpandedPosition == position) {
 			relMapLayout.setVisibility(View.VISIBLE);
 			currentExpandedView = relMapLayout;
-			lblDate.setText(date);
+			lblDate.setText(DateUtils.getFormatedTransactionDate(getItem(position).getDate()));
 		} else {
-			lblDate.setText(date.substring(0, 6));
+			lblDate.setText(DateUtils.getFormatedTransactionDate(getItem(position).getDate()));
 			relMapLayout.setVisibility(View.GONE);
 		}
 
@@ -130,12 +131,12 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 					ImageView imgMarker = (ImageView) v.findViewById(R.id.imgMarker);
 					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
 					
-					String date = DateUtils.getTransactionDate(getItem(pos).getDate());
+					String date = DateUtils.getFormatedTransactionDate(getItem(pos).getDate());
 					String city = StringUtils.trimStringAndDigits(getItem(pos).getCity());
 					String country = StringUtils.trimStringAndDigits(getItem(pos).getCountry());
 					
 					//Make HTTP call
-					String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
+					String strURL = Utils.getMapThumbnailFromCityOrCountry(city.toLowerCase(ApplicationEx.getInstance().getResources().getConfiguration().locale), country);
 					Log.i("COOP","URL>>>>>"+strURL);
 					
 					if(!TextUtils.isEmpty(strURL))
@@ -152,7 +153,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 							imgMarker.setVisibility(View.GONE);
 						
 						btnDisputeOnMap.setVisibility(View.VISIBLE);
-						lblDate.setText(date.substring(0, 6));
+						lblDate.setText(date);
 						
 					} else {
 						if (currentExpandedView != null) {
@@ -164,6 +165,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 								imgMarker.setVisibility(View.VISIBLE);
 							else
 								imgMarker.setVisibility(View.GONE);
+							
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
 							lblDate.setText(date);
 						} else {
@@ -172,6 +174,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 								imgMarker.setVisibility(View.VISIBLE);
 							else
 								imgMarker.setVisibility(View.GONE);
+							
 							btnDisputeOnMap.setVisibility(View.VISIBLE);
 							lblDate.setText(date);
 						}

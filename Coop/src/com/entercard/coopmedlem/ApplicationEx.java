@@ -240,7 +240,7 @@ public class ApplicationEx extends Application {
 	 */
 	public void clearGlobalContents() {
 		setAccountsArrayList(null);
-		setCookie(null);
+		//setCookie(null);
 		setSAMLTxt(null);
 		setServerSessionID(null);
 		setUUID(null);

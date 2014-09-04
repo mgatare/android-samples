@@ -15,7 +15,7 @@
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
-     limitations under the License.
+     limitations under the License.
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
@@ -55,21 +55,23 @@
         <item name="backgroundStacked">@drawable/ab_stacked_solid_coopmedlem</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_coopmedlem</item>
         <item name="progressBarStyle">@style/ProgressBar.Coopmedlem</item>
-        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="titleTextStyle">@style/ActionBarTitleText</item>
     </style>
 
-    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="ActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">2</item>
         <item name="android:typeface">normal</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/tabs_text_color</item>
     </style>
 
     <style name="ActionBar.Transparent.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar">

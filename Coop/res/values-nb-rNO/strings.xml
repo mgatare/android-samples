@@ -27,7 +27,7 @@
     <!-- Økning av kredittgrensen -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer). For aktuell rente og gebyr, se &lt;a href="http://www.google.com/">prisliste&lt;/a>".</string>
+    <string name="transfer_funds_title">Du kan overføre inntil disponibelt beløp på kortet (inkl. gebyrer). For aktuell rente og gebyr, se &lt;a href="http://www.remembercard.no/omkortet/Faktura-og-nedbetaling/Se-prisliste-og-vilkar/">prisliste&lt;/a>".</string>
     <string name="receiver_name">Mottakerens navn</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearingnummeret må være 4 eller 5 siffer.</string>

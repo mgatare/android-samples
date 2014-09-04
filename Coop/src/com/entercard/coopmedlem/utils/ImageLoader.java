@@ -71,6 +71,7 @@ public class ImageLoader {
 			Bitmap bitmap = null;
 			URL imageUrl = new URL(url);
 			HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+			conn.setRequestProperty("Accept-Charset", "UTF-8");//connection.setRequestProperty("Accept-Charset", "ISO-8859-1");
 			conn.setConnectTimeout(30000);
 			conn.setReadTimeout(30000);
 			conn.setInstanceFollowRedirects(true);

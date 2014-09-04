@@ -20,7 +20,6 @@ import com.entercard.coopmedlem.adapters.AccountsAdapter;
 import com.entercard.coopmedlem.entities.AccountsModel;
 import com.entercard.coopmedlem.services.GetAccountsService;
 import com.entercard.coopmedlem.services.GetAccountsService.GetAccountsListener;
-import com.entercard.coopmedlem.utils.AlertHelper;
 
 public class AllAccountsActivity extends BaseActivity implements
 		GetAccountsListener {
@@ -42,8 +41,8 @@ public class AllAccountsActivity extends BaseActivity implements
 		//Log.e("", "ARRAYLIST INSTANCE###"+ApplicationEx.getInstance().getAccountsArrayList());
 
 		if (null != ApplicationEx.getInstance().getAccountsArrayList()
-				&& !ApplicationEx.getInstance().getAccountsArrayList()
-						.isEmpty()) {
+				&& !ApplicationEx.getInstance().getAccountsArrayList().isEmpty() 
+				&& ApplicationEx.getInstance().getAccountsArrayList().size() > 1) {
 
 			AccountsAdapter adapter = new AccountsAdapter(
 					AllAccountsActivity.this, 0, ApplicationEx.getInstance().getAccountsArrayList());

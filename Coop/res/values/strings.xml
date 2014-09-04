@@ -26,7 +26,7 @@
     <string name="option_credit_line_increase">Credit Line Increase</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="transfer_funds_title">You can transfer up to the available balance on the card (including fees).\nFor the current rate and fees, see \n&lt;a href="http://www.google.com/">price list&lt;/a>".</string>
+    <string name="transfer_funds_title">You can transfer up to the available balance on the card (including fees).\nFor the current rate and fees, see \n&lt;a href="http://www.remembercard.no/omkortet/Faktura-og-nedbetaling/Se-prisliste-og-vilkar/">price list&lt;/a>".</string>
     <string name="receiver_name">Receiver\'s name</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearing number must be 4 or 5 digits.</string>

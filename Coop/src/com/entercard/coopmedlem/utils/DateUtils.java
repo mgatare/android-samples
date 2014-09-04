@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import com.entercard.coopmedlem.ApplicationEx;
+
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
@@ -109,7 +111,14 @@ public class DateUtils {
 		// 2013-09-18 -- COOP
 		String formatedDate = "";
 		String oldFormat = "yyyy-MM-dd";
-		String newFormat = "dd.MM.yyyy";
+		String newFormat = null;
+		
+		String currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
+		if(currentLocale.equalsIgnoreCase("nb_NO")) {
+			newFormat = "d.M.yyyy";	
+		} else {
+			newFormat = "dd.MM.yyyy";
+		}
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
 		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
@@ -124,6 +133,35 @@ public class DateUtils {
 		return formatedDate;
 	}
 
+	public static String getFormatedTransactionDate(String date) {
+		// 2013-09-18 -- COOP
+		String formatedDate = "";
+		String oldFormat = "yyyy-MM-dd";
+		String newFormat = null;
+		
+		String currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
+		if(currentLocale.equalsIgnoreCase("nb_NO")) {
+			newFormat = "d.M.yyyy";	
+		} else {
+			newFormat = "dd.MM.yyyy";
+		}
+
+		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
+		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
+
+		try {
+			formatedDate = sdf2.format(sdf1.parse(date));
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String arry[] = formatedDate.split("\\.");
+		String formatdate = arry[0] +"."+arry[1]+".";
+		return formatdate;
+	}
+	
+	
 	/**
 	 * Gets the formated time.
 	 *

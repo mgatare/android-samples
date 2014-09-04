@@ -45,10 +45,10 @@
         android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_ten_px"
+        android:layout_marginBottom="@dimen/margin_five_px"
         android:layout_marginLeft="@dimen/margin_ten_px"
         android:layout_marginRight="@dimen/margin_ten_px"
-        android:layout_marginTop="@dimen/margin_five_px"
+        android:layout_marginTop="@dimen/margin_fifteen_px"
         android:ellipsize="end"
         android:textColor="@color/text_body"
         android:textSize="@dimen/font_size_normal"
@@ -58,9 +58,7 @@
         android:id="@+id/lblNameBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_ten_px"
-        android:layout_marginLeft="@dimen/margin_ten_px"
-        android:layout_marginRight="@dimen/margin_ten_px"
+        android:layout_margin="@dimen/margin_ten_px"
         android:background="@drawable/credit_tectview_background"
         android:ellipsize="end"
         android:textColor="@color/text_heading"
@@ -109,6 +107,4 @@
             android:text="@string/dispute"
             android:textColor="@android:color/white" />
     </RelativeLayout>
-    <!-- style="@style/Theme.Coopmedlem.Button" -->
-
-</LinearLayout>
+</LinearLayout>

@@ -50,7 +50,7 @@ public class GetAccountsService extends BaseService {
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_device_version), CompatibilityUtils.getAndroidVersion());
 		if(!TextUtils.isEmpty(ApplicationEx.getInstance().getCookie())) {
 			AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), ApplicationEx.getInstance().getCookie());
-			//Log.i("", "ApplicationEx.getInstance().getCookie()::::>>>>>>>>>>>"+ApplicationEx.getInstance().getCookie());
+			Log.i("", ":::Cookie() SENTTTTTTT::::>>>>>>>>>>>"+ApplicationEx.getInstance().getCookie());
 		}
 		
 		try {

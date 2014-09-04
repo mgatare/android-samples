@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -41,6 +42,7 @@ public class CardsFragment extends Fragment {
 	private ArrayList<CardDataModel> cardsArrayList;
 	private int position;
 	private String creditLimitTxt;
+	private LinearLayout footerLayout;
 	private LinearLayout linearCardService;
 	private LinearLayout linearBlockCard;
 	
@@ -60,32 +62,39 @@ public class CardsFragment extends Fragment {
 
 		View parentView = inflater.inflate(R.layout.fragment_cards, container, false);
 		
-		setData(parentView);
+		init(parentView);
 		
 		return parentView;
 	}
 
-	private void setData(View parentView) {
+	private void init(View parentView) {
 		
 		parentActivity = (HomeScreenActivity) getActivity();
+		
+		//Footer for ListView
+		LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		footerLayout =  (LinearLayout) layoutInflater.inflate(R.layout.footer_fragment_cards, null ,false);
+		
 		allCardsListView = (ListView) parentView.findViewById(R.id.allCardsListView);
 		lblCreditlimit = (TextView) parentView.findViewById(R.id.lblCreditlimit);
-		linearCardService = (LinearLayout) parentView.findViewById(R.id.linearCardService);
-		linearBlockCard = (LinearLayout) parentView.findViewById(R.id.linearBlockCard);
+		linearCardService = (LinearLayout) footerLayout.findViewById(R.id.llCardService);
+		linearBlockCard = (LinearLayout) footerLayout.findViewById(R.id.llBlockCard);
 		btnIncreaseCreditLimit = (Button) parentView.findViewById(R.id.btnIncreaseCreditLimit);
 		
-		lblCardServiceNumber = (TextView) parentView.findViewById(R.id.lblCardServiceNumber);
-		lblBlockCardNumber = (TextView) parentView.findViewById(R.id.lblBlockCardNumber);
+		lblCardServiceNumber = (TextView) footerLayout.findViewById(R.id.lblCardServiceNo);
+		lblBlockCardNumber = (TextView) footerLayout.findViewById(R.id.lblBlockCardNo);
 		
 		position = parentActivity.getAccountPosition();
 		cardsArrayList = ApplicationEx.getInstance().getAccountsArrayList().get(position).getCardDataArrayList();
 		creditLimitTxt= ApplicationEx.getInstance().getAccountsArrayList().get(position).getCreditLimit();
+		
 		//08-19 15:33:52.382: I/(22978): localeTxt>>nb_NO
 		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
 			lblCreditlimit.setText(StringUtils.roundAndFormatCurrencyNorway(creditLimitTxt));
 		 else
 			lblCreditlimit.setText(StringUtils.roundAndFormatCurrency(creditLimitTxt));
 			
+		allCardsListView.addFooterView(footerLayout);
 		cardsAdapter = new CardsAdapter(parentActivity, 0, cardsArrayList);
 		allCardsListView.setAdapter(cardsAdapter);
 		cardsAdapter.notifyDataSetChanged();
@@ -102,11 +111,11 @@ public class CardsFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.linearCardService:
+			case R.id.llCardService:
 				makeCall(lblCardServiceNumber.getText().toString());
 				break;
 				
-			case R.id.linearBlockCard:
+			case R.id.llBlockCard:
 				makeCall(lblBlockCardNumber.getText().toString());
 				break;
 			/**

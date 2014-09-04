@@ -31,16 +31,16 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 		
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(R.layout.rc_row_two_textview_vertical, parent,false);
+			convertView = layoutInflater.inflate(R.layout.row_accounts, parent,false);
 
 			holder = new ViewHolder();
 
 			holder.llMainOne = (LinearLayout) convertView.findViewById(R.id.parentlinearlayout);
 
-			holder.cardNameTextView = (TextView) holder.llMainOne.findViewById(R.id.titleTextView);
+			holder.cardNameTextView = (TextView) holder.llMainOne.findViewById(R.id.lblCardName);
 			holder.cardNameTextView.setTextColor(context.getResources().getColor(R.color.text_heading));
 			
-			holder.cardNumberTextView = (TextView) holder.llMainOne.findViewById(R.id.lblDetail);
+			holder.cardNumberTextView = (TextView) holder.llMainOne.findViewById(R.id.lblCardNumber);
 			convertView.setTag(holder);
 			
 		} else {
@@ -55,10 +55,10 @@ public class AccountsAdapter extends ArrayAdapter<AccountsModel> {
 				+ " "
 				+ getItem(position).getCardDataArrayList().get(0).getCardNumberEndingWith());
 
-		if (position % 2 == 0){
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_odd));
+		if (position % 2 == 0) {
+			convertView.setBackgroundResource(R.drawable.list_bg_even);
 		} else {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.list_even));
+			convertView.setBackgroundResource(R.drawable.list_bg_odd);
 		}
 		return convertView;
 	}

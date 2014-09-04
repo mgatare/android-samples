@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,7 +48,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private TransactionsAdapter transactionsAdapter;
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
-	private int pageNumber = 0; //TEST
+	private int pageNumber = 0;
 	private Handler handler;
 	private ProgressBarAnimation barAnimation;
 	private LinearLayout headerLayout;
@@ -79,7 +78,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		}
 		// Set the Progress bar and other animations
 		setProgressBarValue();
-
 		return rootView;
 	}
 
@@ -106,8 +104,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 
 		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
 		transactionListView.addHeaderView(headerLayout);
-		
-		transactionListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
 		
 	}
 
@@ -220,9 +216,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 1000;
+					count = count + 800;
 				else if(LIMIT <= 50000)
-					count = count + 10000;
+					count = count + 3000;
 				else if(LIMIT <= 100000)
 					count = count + 10000;
 				else if(LIMIT <= 500000)
@@ -263,9 +259,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
 				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 1000;
+					count = count + 800;
 				else if(LIMIT <= 50000)
-					count = count + 10000;
+					count = count + 3000;
 				else if(LIMIT <= 100000)
 					count = count + 10000;
 				else if(LIMIT <= 500000)

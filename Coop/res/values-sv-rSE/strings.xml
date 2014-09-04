@@ -26,7 +26,7 @@
     <string name="option_credit_line_increase">Credit Line Ökning</string>
     <string name="navigation_drawer_open">Öppna navigations låda</string>
     <string name="navigation_drawer_close">Stäng navigering låda</string>
-    <string name="transfer_funds_title">Du kan överföra upp till det tillgängliga saldot på kortet (inklusive avgifter). \nFör nuvarande takt och avgifter, se \n&lt;a href="http://www.google.com/">prislista&lt;/a>".</string>
+    <string name="transfer_funds_title">Du kan överföra upp till det tillgängliga saldot på kortet (inklusive avgifter). \nFör nuvarande takt och avgifter, se \n&lt;a href="http://www.remembercard.no/omkortet/Faktura-og-nedbetaling/Se-prisliste-og-vilkar/">prislista&lt;/a>".</string>
     <string name="receiver_name">Mottagare\'s namn</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearingnummer måste vara 4 eller 5 siffror.</string>
@@ -42,7 +42,7 @@
     <string name="searchable_hint">Sök transaktioner</string>
     <string name="dispute">Tviste</string>
     <string name="used">BEGAGNADE</string>
-    <!-- ANVÄNT|| BEGAGNADE -->
+    <!-- ANVÄNT || BEGAGNADE -->
     <string name="open_to_buy">ÖPPET KÖP</string>
     <string name="latest_transactions">TRANSAKTIONER</string>
     <string name="card_ending_with">Kortnummer slutar med:</string>

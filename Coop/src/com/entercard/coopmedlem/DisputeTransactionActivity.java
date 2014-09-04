@@ -17,10 +17,11 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
@@ -30,6 +31,10 @@ import com.entercard.coopmedlem.fragment.AcceptTermsAndConditionDialogFragment;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.DateUtils;
 import com.entercard.coopmedlem.utils.StringUtils;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 public class DisputeTransactionActivity extends BaseActivity {
 
@@ -72,6 +77,13 @@ public class DisputeTransactionActivity extends BaseActivity {
 					return;
 				}
 
+				if(TextUtils.isEmpty(email)&& TextUtils.isEmpty(phone)) {
+					AlertHelper.Alert(getResources().getString(R.string.email_is_missing)
+							+"\n"+getResources().getString(R.string.phone_is_missing)
+							,DisputeTransactionActivity.this);
+					return;
+				}
+				
 				if (TextUtils.isEmpty(reason)) {
 					AlertHelper.Alert(getResources().getString(R.string.reason_is_missing),DisputeTransactionActivity.this);
 					return;
@@ -147,6 +159,103 @@ public class DisputeTransactionActivity extends BaseActivity {
 		btnDisputeTransc = (Button) findViewById(R.id.btnDisputeTransc);
 		
 		toogleTransaction.setChecked(true);
+		
+		txtPhone.setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				String phoneNumbertxt = txtPhone.getText().toString();
+				if (!TextUtils.isEmpty(phoneNumbertxt)) {
+					if (!hasFocus && phoneNumbertxt.length()==8) {
+						// Use the library’s functions
+						PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+						PhoneNumber phNumberProto = null;
+						try {
+							phNumberProto = phoneUtil.parse(phoneNumbertxt, "NO");
+	
+						} catch (NumberParseException e) {
+							Log.e("COOP","NumberParseException was thrown:"+ e.toString());
+						}
+						// check if the number is valid
+						boolean isValid = phoneUtil.isValidNumberForRegion(phNumberProto, "NO");
+						Log.d("", "::::::::::isValid::::::::::"+isValid);
+						if (isValid) {
+							//Log.d("", "INTERNATIONAL--->>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.INTERNATIONAL));
+							//Log.d("", "E164--------->>>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.E164));
+							//Log.d("", "NATIONAL--->>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.NATIONAL));
+							String fomatedPhoneTxt = phoneUtil.format(phNumberProto,PhoneNumberFormat.NATIONAL);;
+							txtPhone.setText(fomatedPhoneTxt);
+						} 
+					} else {
+						txtPhone.setText(StringUtils.removeBlankSpaces(phoneNumbertxt));
+					}
+				}
+			}
+		});
+		
+//		txtPhone.addTextChangedListener(new TextWatcher() {
+//			private boolean mFormatting;
+//			private int mAfter;
+//
+//			@Override
+//			public void onTextChanged(CharSequence s, int start, int before,
+//					int count) {
+//			}
+//
+//			@Override
+//			public void beforeTextChanged(CharSequence s, int start, int count,
+//					int after) {
+//				mAfter = after;
+//			}
+//
+//			@Override
+//			public void afterTextChanged(Editable s) {
+//				if (!mFormatting) {
+//					mFormatting = true;
+//					if (mAfter != 0) {
+//						// TODO Mayur
+//						String phoneNumber = StringUtils.removeBlankSpaces(s.toString());
+//						//phoneNumber = StringUtils.removeBlankSpaces(phoneNumber);
+//
+//						if(!TextUtils.isEmpty(phoneNumber) && phoneNumber.length()==8) {
+//							
+//							// Use the library’s functions
+//							PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+//							PhoneNumber phNumberProto = null;
+//		
+//							try {
+//								// You can find your country code here
+//								// http://www.iso.org/iso/country_names_and_code_elements
+//								phNumberProto = phoneUtil.parse(phoneNumber, "NO");
+//		
+//							} catch (NumberParseException e) {
+//								// if there’s any error
+//								System.err.println("NumberParseException was thrown:"+ e.toString());
+//							}
+//		
+//							// check if the number is valid
+//							boolean isValid = phoneUtil.isValidNumberForRegion(phNumberProto, "NO");
+//							
+//							Log.d("", "::::::::::isValid::::::::::"+isValid);
+//		
+//							if (isValid) {
+//								// get the valid number’s international format
+//								//String internationalFormat = phoneUtil.format(phNumberProto,PhoneNumberFormat.INTERNATIONAL);
+//								//Toast.makeText(getBaseContext(),"Phone number VALID:" + internationalFormat,Toast.LENGTH_SHORT).show();
+//								
+//								Log.d("", "INTERNATIONAL--->>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.INTERNATIONAL));
+//								Log.d("", "E164--------->>>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.E164));
+//								Log.d("", "NATIONAL--->>"+phoneUtil.format(phNumberProto,PhoneNumberFormat.NATIONAL));
+//		
+//							} else {
+//								// prompt the user when the number is invalid
+//								Toast.makeText(getBaseContext(),"Phone number is INVALID:" + phoneNumber,Toast.LENGTH_SHORT).show();
+//							}
+//						}
+//					}
+//					mFormatting = false;
+//				}
+//			}
+//		});
 
 	}
 

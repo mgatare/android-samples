@@ -2,7 +2,9 @@
 <resources>
 
     <color name="text_heading">#00457D</color>
+    <color name="tabs_text_color">#00A4E1</color>
     <color name="text_body">#5683A9</color>
+    <color name="text_currency">#809AB1</color>
     <color name="text_dark">#00457D</color>
     <color name="light_grey">#808080</color>
     <color name="seperator_color">#DBDBDB</color>

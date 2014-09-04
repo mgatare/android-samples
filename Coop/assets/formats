@@ -1,0 +1,22 @@
+2x xx xx xx: Geographic numbers, mainly Oslo
+32 xx xx xx: Geographic numbers in Buskerud
+33 xx xx xx: Geographic numbers in Vestfold
+35 xx xx xx: Geographic numbers in Telemark
+37 xx xx xx: Geographic numbers in Aust-Agder
+38 xx xx xx: Geographic numbers in Vest-Agder
+5x xx xx xx (except 58 and 59): Geographic numbers in south-western counties, including Bergen
+6x xx xx xx: Geographic numbers in south-eastern counties and Oppland
+7x xx xx xx: Geographic numbers in the mid and north, from Møre og Romsdal, Trøndelag (Trondheim) and northern Norway
+
+
+Non-geographic numbers[edit]
+8xx xx xxx: Non-geographical numbers (toll-free, voicemail, premium-numbers, television shows, etc.)
+
+
+Mobile numbers[edit]
+9xx xx xxx: Mobile numbers (older)
+4xx xx xxx: Mobile numbers (newer)
+58x xxx xxx xxx: Mobile numbers (M2M traffic)
+59x xx xxx: Mobile numbers (newer, M2M traffic)
+
+Norwegian phone numbers are printed either ### ## ### (for cell phone numbers) or ## ## ## ## for landline numbers.

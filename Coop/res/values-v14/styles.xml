@@ -41,7 +41,7 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_coopmedlem</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_coopmedlem</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Coopmedlem</item>
-        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="android:titleTextStyle">@style/ActionBarTitleText</item>
     </style>
 
     <style name="ActionMenuTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
@@ -50,8 +50,9 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="ActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <!-- Animation for dialog box -->
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
@@ -64,13 +65,14 @@
     </style>
 
     <style name="StackedTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">2</item>
         <item name="android:typeface">normal</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/text_heading</item>
+        <item name="android:textColor">@color/tabs_text_color</item>
     </style>
 
     <style name="ActionBar.Transparent.Coopmedlem" parent="@style/Widget.AppCompat.Light.ActionBar">

@@ -55,16 +55,25 @@ public abstract class BaseService implements Runnable {
 	private static String BASE_URL = "";
 	
 	/** The Constant DEVELOPMENT_URL. */
-	private static final String DEVELOPMENT_URL = "https://mobappt.entercard.com/ecmobile/";
+	private static final String TESTING_URL = "https://mobappt.entercard.com/ecmobile/";
 	
 	/** The Constant STAGING_URL. */
 	private static final String STAGING_URL = "https://mobapps.entercard.com/ecmobile/";
+	
+	/**
+	 * NEED TO CHECK THIS ALSO
+	 */
+	
+	/** The Constant PRODUCTION_URL. */
+	private static final String PRODUCTION_URL = "https://mobapp.entercard.com/ecmobile/";
 	
 	/** The http header accept. */
 	private final String HTTP_HEADER_ACCEPT = "application/vnd.no.entercard.coop-medlem+json; version=2.0";
 	
 	/** The Constant isStaging. */
 	private static final boolean isStaging = false;
+	
+	private static final boolean isProduction = false;
 	
 	/** The Constant CONNECTION_TIMEOUT. */
 	private static final int CONNECTION_TIMEOUT = 150000;
@@ -111,9 +120,14 @@ public abstract class BaseService implements Runnable {
 	public BaseService() {
 		headers = new ArrayList<NameValuePair>();
 		if (isStaging) {
+			Log.d(TAG, ">>>>>>>>>>>>STAGING_URL>>>>>>>>>>>");
 			BASE_URL = STAGING_URL;
+		} else if (isProduction) {
+			Log.d(TAG, ">>>>>>>>>PRODUCTION_URL>>>>>>>>>>");
+			BASE_URL = PRODUCTION_URL;
 		} else {
-			BASE_URL = DEVELOPMENT_URL;
+			Log.d(TAG, ">>>>>>>>>>>TESTING_URL>>>>>>>>>>>>");
+			BASE_URL = TESTING_URL;
 		}
 	}
 	
