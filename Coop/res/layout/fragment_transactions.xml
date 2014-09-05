@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:cacheColorHint="#00000000"
         android:clickable="true"
+        android:transcriptMode="normal"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:focusable="true"

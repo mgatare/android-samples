@@ -15,8 +15,8 @@ import android.view.animation.Transformation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.entercard.coopmedlem.ApplicationEx;
@@ -69,7 +69,6 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.row_transactions,parent, false);
@@ -80,10 +79,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		TextView lblName = (TextView) convertView.findViewById(R.id.lblName);
 		TextView lblNameBox = (TextView) convertView.findViewById(R.id.lblNameBox);
 		Button btnDisputeOnMap = (Button) convertView.findViewById(R.id.btnDisputeOnMap);
-		//ImageView imgMarker = (ImageView) convertView.findViewById(R.id.imgMarker);
 		
 		RelativeLayout relMapLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayoutMap);
-
 		//String date = DateUtils.getFormatedTransactionDate(getItem(position).getDate());
 		//lblDate.setText(date.substring(0, 6));
 		
@@ -120,16 +117,16 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 		convertView.setTag(position);
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				int pos = (Integer) v.getTag();
+			public void onClick(View view) {
+				int pos = (Integer) view.getTag();
 				
 				if (getItem(pos).getIsDisputable()) {
 					
-					RelativeLayout relMapLayout = (RelativeLayout) v.findViewById(R.id.relativeLayoutMap);
-					TextView lblDate = (TextView) v.findViewById(R.id.lblDate);
-					ImageView imgView = (ImageView) v.findViewById(R.id.imgMap);
-					ImageView imgMarker = (ImageView) v.findViewById(R.id.imgMarker);
-					Button btnDisputeOnMap = (Button) v.findViewById(R.id.btnDisputeOnMap);
+					RelativeLayout relMapLayout = (RelativeLayout) view.findViewById(R.id.relativeLayoutMap);
+					TextView lblDate = (TextView) view.findViewById(R.id.lblDate);
+					ImageView imgView = (ImageView) view.findViewById(R.id.imgMap);
+					ImageView imgMarker = (ImageView) view.findViewById(R.id.imgMarker);
+					Button btnDisputeOnMap = (Button) view.findViewById(R.id.btnDisputeOnMap);
 					
 					String date = DateUtils.getFormatedTransactionDate(getItem(pos).getDate());
 					String city = StringUtils.trimStringAndDigits(getItem(pos).getCity());
@@ -182,12 +179,10 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 						currentExpandedPosition = pos;
 					}
 				} else {
-					//TODO Nothing for now, don't collapse the other
 					Log.d("COOP", "IsDisputable()::::" + getItem(pos).getIsDisputable());
 				}
 			}
 		});
-		
 		btnDisputeOnMap.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(context, DisputeTransactionActivity.class);
@@ -208,8 +203,8 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	 *
 	 * @param view the v
 	 */
-	public static void expand(final View view) {
-		view.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	public void expand(final View view) {
+		view.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		final int targtetHeight = view.getMeasuredHeight();
 
 		view.getLayoutParams().height = 0;
@@ -218,9 +213,9 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 			@Override
 			protected void applyTransformation(float interpolatedTime,
 					Transformation t) {
-				view.getLayoutParams().height = interpolatedTime == 1 ? LayoutParams.WRAP_CONTENT
-						: (int) (targtetHeight * interpolatedTime);
+				view.getLayoutParams().height = interpolatedTime == 1 ? LayoutParams.WRAP_CONTENT: (int) (targtetHeight * interpolatedTime);
 				view.requestLayout();
+				view.requestFocus();
 			}
 
 			@Override
@@ -237,7 +232,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 	 *
 	 * @param view the v
 	 */
-	public static void collapse(final View view) {
+	public void collapse(final View view) {
 		final int initialHeight = view.getMeasuredHeight();
 
 		Animation animation = new Animation() {
@@ -247,8 +242,7 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionDataModel> {
 				if (interpolatedTime == 1) {
 					view.setVisibility(View.GONE);
 				} else {
-					view.getLayoutParams().height = initialHeight
-							- (int) (initialHeight * interpolatedTime);
+					view.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
 					view.requestLayout();
 				}
 			}

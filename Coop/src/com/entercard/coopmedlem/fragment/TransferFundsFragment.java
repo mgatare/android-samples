@@ -191,6 +191,9 @@ public class TransferFundsFragment extends Fragment {
 		txtAmount = (EditText) view.findViewById(R.id.txtAmount);
 		txtMessage = (EditText) view.findViewById(R.id.txtMessage);
 		
+		txtReceiversName.setFilters(new InputFilter[]{StringUtils.getAplhabetsInputFilter()});
+		txtMessage.setFilters(new InputFilter[]{StringUtils.getAplhabetsNumbersSpaceInputFilter()});
+		
 		lblHeading.setText(StringUtils.getStyledTextFromHtml(getResources().getString(R.string.transfer_funds_title)));
 		lblHeading.setMovementMethod(LinkMovementMethod.getInstance());
 		lblHeading.setLinkTextColor(getResources().getColor(R.color.text_body));

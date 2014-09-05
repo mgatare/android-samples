@@ -365,6 +365,7 @@ public class StringUtils {
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
 					if (source.charAt(i) != ' '
+							&& source.charAt(i) != '.' 
 							&& !Character.isLetter(source.charAt(i))) {
 						return "";
 					}
@@ -380,12 +381,13 @@ public class StringUtils {
 	 * 
 	 * @return the aplhabets and numbers input filter
 	 */
-	public static InputFilter getAplhabetsAndNumbersInputFilter() {
+	public static InputFilter getAplhabetsNumbersSpaceInputFilter() {
 		InputFilter filter = new InputFilter() {
 			public CharSequence filter(CharSequence source, int start, int end,
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
-					if (source.charAt(i) != ' '
+					if (source.charAt(i) != ' ' 
+							&& source.charAt(i) != '.' 
 							&& !Character.isLetterOrDigit(source.charAt(i))) {
 						return "";
 					}

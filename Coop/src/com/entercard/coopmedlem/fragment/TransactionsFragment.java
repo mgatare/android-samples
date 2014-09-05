@@ -78,6 +78,15 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		}
 		// Set the Progress bar and other animations
 		setProgressBarValue();
+		
+//		transactionListView.setOnItemClickListener(new OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				Log.i("", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//			}
+//		});
+		
 		return rootView;
 	}
 

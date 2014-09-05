@@ -14,6 +14,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -159,6 +160,8 @@ public class DisputeTransactionActivity extends BaseActivity {
 		btnDisputeTransc = (Button) findViewById(R.id.btnDisputeTransc);
 		
 		toogleTransaction.setChecked(true);
+		
+		txtReasonDispute.setFilters(new InputFilter[]{StringUtils.getAplhabetsNumbersSpaceInputFilter()});
 		
 		txtPhone.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
