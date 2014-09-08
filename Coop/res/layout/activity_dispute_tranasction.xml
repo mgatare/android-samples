@@ -12,7 +12,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
+            android:layout_marginBottom="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -30,7 +32,7 @@
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
-                android:layout_marginRight="@dimen/margin_ten_px"
+                android:layout_marginRight="@dimen/margin_fifteen_px"
                 android:background="@drawable/toggle_button_selector"
                 android:button="@null"
                 android:fitsSystemWindows="false"
@@ -43,7 +45,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
+            android:layout_marginBottom="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
             android:orientation="vertical" >
 
             <TextView
@@ -57,13 +62,13 @@
             <EditText
                 android:id="@+id/txtReasonDispute"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="@dimen/margin_fifteen_px"
                 android:background="@android:color/transparent"
                 android:gravity="left"
-                android:inputType="text"
-                android:maxLines="5"
-                android:textColor="@color/text_dark"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -72,7 +77,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
+            android:layout_marginBottom="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -92,7 +100,7 @@
                 android:gravity="right"
                 android:inputType="textEmailAddress"
                 android:maxLines="5"
-                android:textColor="@color/text_dark"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -101,7 +109,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_ten_px"
+            android:layout_marginBottom="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginTop="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_ten_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -120,7 +131,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="right"
                 android:inputType="number"
-                android:textColor="@color/text_dark"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -131,11 +142,9 @@
             style="@style/Theme.Coopmedlem.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
-            android:layout_marginRight="@dimen/margin_ten_px"
-            android:layout_marginTop="@dimen/view_usual_margin"
+            android:layout_margin="@dimen/margin_fifteen_px"
             android:drawableLeft="@drawable/dispute_triangle"
-            android:drawablePadding="-20dp"
+            android:drawablePadding="-15dp"
             android:gravity="center"
             android:paddingLeft="60dip"
             android:paddingRight="60dip"

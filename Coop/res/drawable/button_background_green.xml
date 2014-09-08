@@ -4,7 +4,7 @@
 
     <corners android:radius="5dp" />
 
-    <solid android:color="@color/coop_green" />
+    <solid android:color="@color/coop_button_color" />
 
     <padding
         android:bottom="0dp"
@@ -14,6 +14,6 @@
 
     <stroke
         android:width="3dp"
-        android:color="@color/coop_green" />
+        android:color="@color/coop_button_color" />
 
 </shape>

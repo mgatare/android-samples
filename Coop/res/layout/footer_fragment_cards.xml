@@ -32,7 +32,7 @@
             android:gravity="left"
             android:text="@string/card_service"
             android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/transaction_font" />
 
         <TextView
             android:id="@+id/lblCardServiceNo"
@@ -44,7 +44,7 @@
             android:padding="@dimen/margin_ten_px"
             android:text="@string/card_service_number"
             android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/transaction_font" />
     </LinearLayout>
 
     <include layout="@drawable/seperator" />
@@ -64,7 +64,7 @@
             android:gravity="left"
             android:text="@string/block_card"
             android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/transaction_font" />
 
         <TextView
             android:id="@+id/lblBlockCardNo"
@@ -76,7 +76,7 @@
             android:padding="@dimen/margin_ten_px"
             android:text="@string/block_card_number"
             android:textColor="@color/text_body"
-            android:textSize="@dimen/font_size_normal" />
+            android:textSize="@dimen/transaction_font" />
     </LinearLayout>
 
     <include layout="@drawable/seperator" />

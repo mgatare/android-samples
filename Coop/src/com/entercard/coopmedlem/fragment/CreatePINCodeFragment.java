@@ -53,7 +53,7 @@ public class CreatePINCodeFragment extends Fragment implements OnClickListener {
 		headerTextView.setText(R.string.create_your_pin_code);
 		bodytextTextView.setText(R.string.please_create_pin_code_text);
 		bodytextTextView.setMovementMethod(LinkMovementMethod.getInstance());
-		bodytextTextView.setLinkTextColor(Color.WHITE);
+		bodytextTextView.setLinkTextColor(getResources().getColor(R.color.text_body));
 
 		btnAction.setText(R.string.btn_create_pin);
 		btnAction.setOnClickListener(this);

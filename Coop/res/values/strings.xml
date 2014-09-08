@@ -19,7 +19,7 @@
     <string name="create_account">Create account</string>
     <string name="tab_title_transaction">Transaction</string>
     <string name="tab_title_cards">Cards</string>
-    <string name="tab_title_transfer">Transfer Funds</string>
+    <string name="tab_title_transfer">Transfer funds</string>
     <string name="option_transactions">Transactions</string>
     <string name="option_transfer_funds">Funds Transfer</string>
     <string name="transfer_funds">Transfer Funds</string>
@@ -111,12 +111,12 @@
     <string name="email_is_invalid">E-mail address is in wrong format.</string>
     <string name="phone_is_missing">Phone number is missing.</string>
     <string name="no_transactions_found">No transctions found for this account.</string>
-    <string name="credit_line_details_missing">Yearly income is missing.\nEmployment type is missing.</string>
+    <string name="credit_line_details_missing">The following is missing:\nYearly income is missing.\nEmployment type is missing.</string>
     <!-- \nMortgage is missing.\nOther loans is missing. -->
-    <string name="yearly_income_missing">Yearly income is missing.</string>
+    <string name="yearly_income_missing">The following is missing:\nYearly income is missing.</string>
     <string name="mortgage_missing">Mortgage is missing.</string>
     <string name="other_loans_missing">Other loans is missing.</string>
-    <string name="employment_is_missing">Employment type is missing.</string>
+    <string name="employment_is_missing">The following is missing:\nEmployment type is missing.</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>

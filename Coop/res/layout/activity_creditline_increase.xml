@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_five_px"
-            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:layout_marginTop="@dimen/margin_ten_px"
             android:text="@string/desired_increase_in_credit"
             android:textColor="@color/text_dark"
@@ -26,8 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_ten_px"
-            android:layout_marginLeft="@dimen/margin_ten_px"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:orientation="horizontal"
             android:weightSum="1" >
 
@@ -44,6 +45,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_five_px"
                 android:layout_weight="0.5" >
 
                 <Button
@@ -55,8 +57,8 @@
                     android:background="@drawable/button_plus_selector"
                     android:text="@string/sign_plus"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btnSubstractCreditLimit"
@@ -68,8 +70,8 @@
                     android:background="@drawable/button_minus_selector"
                     android:text="@string/sign_minus"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="27sp" />
+                    android:textSize="27sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -78,8 +80,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -99,7 +101,7 @@
                 android:gravity="right"
                 android:inputType="number"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" >
             </EditText>
         </LinearLayout>
@@ -110,8 +112,8 @@
             android:id="@+id/linearOccupancy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -132,7 +134,7 @@
                 android:gravity="right"
                 android:inputType="number"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" >
             </EditText>
         </LinearLayout>
@@ -143,8 +145,8 @@
             android:id="@+id/linearOtherLoans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -165,7 +167,7 @@
                 android:gravity="right"
                 android:inputType="number"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" >
             </EditText>
         </LinearLayout>
@@ -176,7 +178,8 @@
             android:id="@+id/linearEmployment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:orientation="horizontal" >
 
             <TextView
@@ -195,6 +198,7 @@
                 android:layout_weight="0.5"
                 android:ellipsize="end"
                 android:gravity="right"
+                android:layout_marginLeft="3dp"
                 android:maxLines="1"
                 android:padding="@dimen/margin_ten_px"
                 android:text="None"

@@ -17,8 +17,8 @@
 
                 <gradient
                     android:angle="0"
-                    android:endColor="@color/coop_green"
-                    android:startColor="@color/coop_green" />
+                    android:endColor="@color/coop_button_color"
+                    android:startColor="@color/coop_button_color" />
             </shape>
         </clip>
     </item>

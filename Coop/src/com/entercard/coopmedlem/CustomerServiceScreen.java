@@ -55,20 +55,6 @@ public class CustomerServiceScreen extends BaseActivity {
 		btnLogin.setOnClickListener(onClickListener);
 	}
 
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//		case android.R.id.home:
-//			Log.d("COOP", "### android.R.id.home:####");
-//			
-//			finish();
-//			
-//			return true;
-//		default:
-//			return super.onOptionsItemSelected(item);
-//		}
-//	}
-
 	OnClickListener onClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {

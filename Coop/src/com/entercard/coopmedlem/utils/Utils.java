@@ -191,30 +191,31 @@ public class Utils {
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 15;
+		int zoomLevel = 6;
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {
 			builder.append(StringUtils.removeBlankSpaces(city));
 			builder.append(","); //%20
-			//zoomLevel = 10;
+			zoomLevel = 16;
 		}
 
 		if (!TextUtils.isEmpty(country)) {
 			builder.append(StringUtils.removeBlankSpaces(country));
+			//zoomLevel = 6;
 		}
 
 		params = builder.toString();
 		
 		if(TextUtils.isEmpty(params)) {
 			params = "Norway";
-			zoomLevel = 6;
+			//zoomLevel = 6;
 		}
 			
 		if(!TextUtils.isEmpty(params)) {
 			Log.e("Coop", "zoomLevel>>"+zoomLevel);
 			URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size=650x360&maptype=roadmap";
+						+ "&size=810x340&maptype=roadmap";
 		} else {
 			return null;
 		}

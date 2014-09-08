@@ -247,7 +247,7 @@ public class StringUtils {
 				.getConfiguration().locale;
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
-		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
+		String amountTxt = (String.format(currentLocale, "%,.0f", finalValue));
 		return amountTxt;
 
 	}
@@ -278,15 +278,15 @@ public class StringUtils {
 	 * @param amount
 	 * @return
 	 */
-	public static String formatCurrencyNorway(String amount) {
+	public static String roundAndFormatCurrencyNorwayWithEndingZeros(String amount) {
 		Locale currentLocale = ApplicationEx.getInstance().getResources()
 				.getConfiguration().locale;
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
 		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
-		String[] amountArr = amountTxt.split("\\,");
-		Log.d("", "amountArr >>>>" + amountArr[0]);
-		return amountArr[0];
+		//String[] amountArr = amountTxt.split("\\,");
+		//Log.d("", "amountArr >>>>" + amountTxt);
+		return amountTxt;
 
 	}
 

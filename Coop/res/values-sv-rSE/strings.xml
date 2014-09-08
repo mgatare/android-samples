@@ -17,7 +17,7 @@
     <string name="create_your_pin_code">Skapa din PIN kod</string>
     <string name="btn_create_pin">Skapa din PIN kod</string>
     <string name="create_account">Skapa konto</string>
-    <string name="tab_title_transaction">Transaktion</string>
+    <string name="tab_title_transaction">Transaktioner</string>
     <string name="tab_title_cards">Kort</string>
     <string name="tab_title_transfer">Överför pengar</string>
     <string name="option_transactions">Transaktioner</string>
@@ -41,9 +41,8 @@
     <string name="dispute_transaction">Tviste transaktion</string>
     <string name="searchable_hint">Sök transaktioner</string>
     <string name="dispute">Tviste</string>
-    <string name="used">BEGAGNADE</string>
-    <!-- ANVÄNT || BEGAGNADE -->
-    <string name="open_to_buy">ÖPPET KÖP</string>
+    <string name="used">ANVÄNT</string>
+    <string name="open_to_buy">TILLGÄNGLIGT</string>
     <string name="latest_transactions">TRANSAKTIONER</string>
     <string name="card_ending_with">Kortnummer slutar med:</string>
     <string name="desired_increase_in_credit">Önskad ökad kredit</string>
@@ -112,13 +111,13 @@
     <string name="email_is_invalid">E-postadressen är fel format.</string>
     <string name="phone_is_missing">Telefonnummer saknas.</string>
     <string name="no_transactions_found">Inga transctions Hittad konto.</string>
-    <string name="credit_line_details_missing">Årlig inkomst saknas.\nTyp Sysselsättningen saknas.</string>
+    <string name="credit_line_details_missing">Fölijande saknas:\nÅrsinkomst.\nTyp Anställningsform.</string>
     <!-- \nHypoteks saknas.\nÖvriga lån saknas. -->
 
-    <string name="yearly_income_missing">Årlig inkomst saknas.</string>
+    <string name="yearly_income_missing">Fölijande saknas:\nÅrsinkomast.</string>
     <string name="mortgage_missing">Hypoteks saknas.</string>
     <string name="other_loans_missing">Övriga lån saknas.</string>
-    <string name="employment_is_missing">Typ Sysselsättningen saknas.</string>
+    <string name="employment_is_missing">Fölijande saknas:\nTyp Sysselsättningen saknas.</string>
 
     <!-- ENCAP PREFERENCE STORE RELATED -->
     <string name="pref_serverUrl_key">EncapServerUrl</string>

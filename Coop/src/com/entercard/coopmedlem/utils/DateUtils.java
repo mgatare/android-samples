@@ -107,19 +107,45 @@ public class DateUtils {
 	 *            the date
 	 * @return the formated date
 	 */
-	public static String getTransactionDate(String date) {
-		// 2013-09-18 -- COOP
-		String formatedDate = "";
+//	public static String getTransactionDate(String date) {
+//		// 2013-09-18 -- COOP
+//		String formatedDate = "";
+//		String oldFormat = "yyyy-MM-dd";
+//		String newFormat = null;
+//		
+//		String currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
+//		if(currentLocale.equalsIgnoreCase("nb_NO")) {
+//			newFormat = "d.M.yyyy";	
+//		} 
+////		else if(currentLocale.equalsIgnoreCase("nb_NO")) { 
+////			newFormat = "d.M.yyyy";
+////		} 
+//		else {
+//			newFormat = "dd.MM.yyyy";
+//		}
+//
+//		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
+//		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
+//
+//		try {
+//			formatedDate = sdf2.format(sdf1.parse(date));
+//
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return formatedDate;
+//	}
+	/**
+	 * THIS IS ONLY USED FOR NORWAY LOCALE WHEN THE MAP IS EXPANDED
+	 * @param date
+	 * @return
+	 */
+	public static String formatDateNorwayWithLeadingZeros(String date) {
+		String formatedDate = null;
 		String oldFormat = "yyyy-MM-dd";
-		String newFormat = null;
+		String newFormat = "dd.MM.yyyy";
 		
-		String currentLocale = ApplicationEx.getInstance().getResources().getConfiguration().locale.toString();
-		if(currentLocale.equalsIgnoreCase("nb_NO")) {
-			newFormat = "d.M.yyyy";	
-		} else {
-			newFormat = "dd.MM.yyyy";
-		}
-
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
 		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
 
@@ -132,8 +158,30 @@ public class DateUtils {
 		}
 		return formatedDate;
 	}
+	/**
+	 * THIS IS ONLY USED FOR SWEDISH LOCALE WHEN THE MAP IS EXPANDED
+	 * @param date
+	 * @return
+	 */
+	public static String formatSwedendateWithLeadingZeros(String date) {
+		String formatedDate = null;
+		String oldFormat = "yyyy-MM-dd";
+		String newFormat = "yyy-MM-dd";
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
+		SimpleDateFormat sdf2 = new SimpleDateFormat(newFormat);
 
-	public static String getFormatedTransactionDate(String date) {
+		try {
+			formatedDate = sdf2.format(sdf1.parse(date));
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return formatedDate;
+	}
+	
+	public static String getFormatedTransactionDate(String date, boolean isYearRequired) {
 		// 2013-09-18 -- COOP
 		String formatedDate = "";
 		String oldFormat = "yyyy-MM-dd";
@@ -143,7 +191,7 @@ public class DateUtils {
 		if(currentLocale.equalsIgnoreCase("nb_NO")) {
 			newFormat = "d.M.yyyy";	
 		} else {
-			newFormat = "dd.MM.yyyy";
+			newFormat = "MM/dd/yyyy";
 		}
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat(oldFormat);
@@ -156,9 +204,24 @@ public class DateUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String arry[] = formatedDate.split("\\.");
-		String formatdate = arry[0] +"."+arry[1]+".";
-		return formatdate;
+		if(currentLocale.equalsIgnoreCase("nb_NO")) {
+			String arry[] = formatedDate.split("\\.");
+			String formatdate = arry[0] +"."+arry[1]+".";
+			
+			if(isYearRequired)
+				return formatdate + arry[2];
+			else
+				return formatdate;
+			
+		} else {
+			String arry[] = formatedDate.split("\\/");
+			String formatdate = arry[0] +"/"+arry[1];
+
+			if(isYearRequired)
+				return formatdate + "/" + arry[2];
+			else
+				return formatdate;
+		}
 	}
 	
 	

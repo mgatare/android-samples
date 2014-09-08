@@ -48,7 +48,7 @@
                 android:gravity="right"
                 android:inputType="textPersonName"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -79,7 +79,7 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -109,7 +109,7 @@
                 android:gravity="right"
                 android:inputType="number"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 
@@ -139,7 +139,7 @@
                 android:gravity="right"
                 android:inputType="text"
                 android:padding="@dimen/margin_ten_px"
-                android:textColor="@color/text_heading"
+                android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
         </LinearLayout>
 

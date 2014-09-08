@@ -86,6 +86,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		btnPlusCreditLimit = (Button) findViewById(R.id.btnPlusCreditLimit);
 		btnSubstractCreditLimit= (Button) findViewById(R.id.btnSubstractCreditLimit);
 
+		txtYearlyIncome.requestFocus();
+		
 		//max limit will be 150K - Credit Limit for that ACCOUNT
 		int position = getAccountPosition();
 		double mAccountCredit = Double.parseDouble(ApplicationEx.getInstance()
@@ -98,7 +100,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			lblCreditAmountApplied.setText("5 000");
 			lblEmploymentType.setText(null);
 		} else {
-			lblCreditAmountApplied.setText("5000");
+			lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency("5000"));
 		}
 		
 		linearEmployment.setOnClickListener(viewOnCLickListener);
@@ -131,8 +133,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		@Override
 		public void onClick(View v) {
 			
-			int creditAmountAplied = Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
-			BigInteger creditAmountBigInt = new BigInteger(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
+			int creditAmountAplied = Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()).replace(",", ""));
+			BigInteger creditAmountBigInt = new BigInteger(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()).replace(",", ""));
 			
 			Log.e("COOP", "creditAmountAplied->>"+creditAmountAplied);
 			
@@ -300,7 +302,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			if(incresedAmount > adjustedCreditLimit) {
 				
 				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
-					String formatedAmountTxt = StringUtils.formatCurrencyNorway(String.valueOf(adjustedCreditLimit));
+					String formatedAmountTxt = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(adjustedCreditLimit));
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
 					lblCreditAmountApplied.setText(""+adjustedCreditLimit);
@@ -308,7 +310,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				
 			} else {
 				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
-					String formatedAmountTxt = StringUtils.formatCurrencyNorway(String.valueOf(incresedAmount));
+					String formatedAmountTxt = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
 					lblCreditAmountApplied.setText(""+incresedAmount);
@@ -345,7 +347,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		if (incresedAmount >= 5000) {
 			
 			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) {
-				String formatedIncreasedAmount = StringUtils.formatCurrencyNorway(String.valueOf(incresedAmount));
+				String formatedIncreasedAmount = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 				lblCreditAmountApplied.setText(formatedIncreasedAmount);
 			}else {
 				lblCreditAmountApplied.setText(""+incresedAmount);

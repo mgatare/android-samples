@@ -15,6 +15,7 @@ import com.entercard.coopmedlem.entities.AccountsModel;
 import com.entercard.coopmedlem.entities.CardDataModel;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.utils.CompatibilityUtils;
+import com.entercard.coopmedlem.utils.Utils;
 
 public class GetAccountsService extends BaseService {
 
@@ -56,7 +57,7 @@ public class GetAccountsService extends BaseService {
 		try {
 
 			String response = makeRequest(METHOD_ACCOUNTS, null, GET);
-			// String response = Utils.readResponseFromAssetsFile(ApplicationEx.getInstance(), "getAccountsResponse.txt");
+			//String response = Utils.readResponseFromAssetsFile(ApplicationEx.getInstance(), "getAccountsResponse.txt");
 			//Log.i("", "RESPONSE::::"+response);
 
 			if (response == null) {

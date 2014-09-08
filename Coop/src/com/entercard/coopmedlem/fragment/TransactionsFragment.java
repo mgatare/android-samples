@@ -10,11 +10,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,14 +27,14 @@ import com.entercard.coopmedlem.ApplicationEx;
 import com.entercard.coopmedlem.BaseActivity;
 import com.entercard.coopmedlem.HomeScreenActivity;
 import com.entercard.coopmedlem.R;
-import com.entercard.coopmedlem.adapters.TransactionsAdapter;
+import com.entercard.coopmedlem.adapters.ExpandableListAdapter;
 import com.entercard.coopmedlem.entities.TransactionDataModel;
 import com.entercard.coopmedlem.services.GetMoreTransactionsService;
 import com.entercard.coopmedlem.services.GetMoreTransactionsService.GetMoreTransaction;
 import com.entercard.coopmedlem.utils.AlertHelper;
 import com.entercard.coopmedlem.utils.StringUtils;
-import com.entercard.coopmedlem.view.LoadMoreListView;
-import com.entercard.coopmedlem.view.LoadMoreListView.OnLoadMoreListener;
+import com.entercard.coopmedlem.view.LoadMoreExpandableListView;
+import com.entercard.coopmedlem.view.LoadMoreExpandableListView.OnLoadMoreListener;
 
 public class TransactionsFragment extends Fragment implements GetMoreTransaction {
 	
@@ -43,15 +47,15 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 	private String spentCashTxt;
 	private ProgressBar progSpentCash;
 	
-	private LoadMoreListView transactionListView;
+	private LoadMoreExpandableListView transactionListView;
 	private ArrayList<TransactionDataModel> transactionsArrayList;
-	private TransactionsAdapter transactionsAdapter;
 	private HomeScreenActivity parentActivity;
 	private GetMoreTransactionsService getMoreTransactionsService;
 	private int pageNumber = 0;
 	private Handler handler;
 	private ProgressBarAnimation barAnimation;
 	private LinearLayout headerLayout;
+	private ExpandableListAdapter transactionExplistAdapter;
 	
 	public static TransactionsFragment newInstance() {
 		TransactionsFragment fragment = new TransactionsFragment();
@@ -79,14 +83,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		// Set the Progress bar and other animations
 		setProgressBarValue();
 		
-//		transactionListView.setOnItemClickListener(new OnItemClickListener() {
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				Log.i("", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//			}
-//		});
-		
 		return rootView;
 	}
 
@@ -111,22 +107,47 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		openbuyTextView = (TextView) headerLayout.findViewById(R.id.lblOpenToBuy);
 		progSpentCash = (ProgressBar) headerLayout.findViewById(R.id.progSpentCash);
 
-		transactionListView = (LoadMoreListView) rootView.findViewById(R.id.listTransaction);
+		transactionListView = (LoadMoreExpandableListView) rootView.findViewById(R.id.listTransaction);
 		transactionListView.addHeaderView(headerLayout);
 		
 	}
 
 	private void setData() {
 		
-		transactionsAdapter = new TransactionsAdapter(getActivity(), 0, transactionsArrayList);
-		transactionListView.setAdapter(transactionsAdapter);
-		transactionsAdapter.notifyDataSetChanged();
+		transactionExplistAdapter= new ExpandableListAdapter(getActivity(), transactionsArrayList);
+		transactionListView.setAdapter(transactionExplistAdapter);
+		//transactionExplistAdapter.notifyDataSetChanged();
+		
+		transactionListView.setOnGroupClickListener(new OnGroupClickListener() {
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View view,
+					int groupPosition, long id) {
+				
+				if(transactionsArrayList.get(groupPosition).getIsDisputable()) {
+					return false;
+				} else {
+					return true;//consume click
+				}
+			}
+		});
+		
+		// Listview Group expanded listener for showing only one group expanded
+		transactionListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+			@Override
+			public void onGroupExpand(int groupPosition) {
+				int len = transactionExplistAdapter.getGroupCount();
+				for (int i = 0; i < len; i++) {
+					if (i != groupPosition) {
+						transactionListView.collapseGroup(i);
+					}
+				}
+			}
+		});
 		
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
-				
-				//Log.e("COOP", "<SIZE>"+transactionsArrayList.size());
-				
+				Log.i("", "transactions---"+transactionsArrayList.size());
+				Log.i("", "tranxCount----"+tranxCount);
 				if (transactionsArrayList.size() < tranxCount) {
 
 					String uuidTxt = ApplicationEx.getInstance().getUUID();
@@ -139,6 +160,55 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					++pageNumber;
 					
 				} else {
+					transactionListView.onLoadMoreComplete();
+				}
+			}
+		});
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.entercard.coopmedlem.services.GetMoreTransactionsService.
+	 * GetMoreTransaction#onGetMoreTransactionFinished(java.util.ArrayList)
+	 */
+	@Override
+	public void onGetMoreTransactionFinished(final ArrayList<TransactionDataModel> accountArrayList) {
+		parentActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				int position = transactionsArrayList.size()-5;
+				
+				transactionListView.onLoadMoreComplete();
+				transactionsArrayList.addAll(accountArrayList);
+				
+				// hack since adapter.notifydatasetchanged() is not calling ExpandableListView base adapter
+				transactionExplistAdapter= new ExpandableListAdapter(getActivity(), transactionsArrayList);
+				transactionListView.setAdapter(transactionExplistAdapter);
+				transactionListView.setSelection(position);
+				
+				transactionExplistAdapter.notifyDataSetChanged();
+			}
+		});
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.entercard.coopmedlem.services.GetMoreTransactionsService.
+	 * GetMoreTransaction#onGetMoreTransactionFailed(java.lang.String)
+	 */
+	@Override
+	public void onGetMoreTransactionFailed(final String error) {
+		parentActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (!TextUtils.isEmpty(error)) {
+					AlertHelper.Alert(error, getActivity());
+					transactionListView.onLoadMoreComplete();
+				} else {
+					AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
+							ApplicationEx.getInstance().getString(R.string.encap_something_went_wrong), getActivity());
 					transactionListView.onLoadMoreComplete();
 				}
 			}
@@ -195,8 +265,17 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			
 		} else {
 			//
-			spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
-			openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
+			
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
+				spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt) : "?");			
+			else
+				spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrency(spentCashTxt) : "?");
+			
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
+				openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt): "?");
+			else
+				openbuyTextView.setText(openToBuyCashTxt != null ? StringUtils.roundAndFormatCurrency(openToBuyCashTxt): "?");
+			
 			if (otbValue == spentValue) {
 				progSpentCash.setProgress(100);
 			} else {
@@ -240,7 +319,10 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				if (handler != null && count <= LIMIT) {
 					handler.postDelayed(this, 30);
 				} else {
-					textView.setText(StringUtils.roundAndFormatCurrency(spentCashTxt));
+					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt));
+					else
+						textView.setText(StringUtils.roundAndFormatCurrency(spentCashTxt));
 				}
 			}
 		}
@@ -283,7 +365,10 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				if (handler != null && count <= LIMIT) {
 					handler.postDelayed(this, 40);
 				} else {
-					textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
+					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
+						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt));
+					else
+						textView.setText(StringUtils.roundAndFormatCurrency(openToBuyCashTxt));
 				}
 			}
 		}
@@ -312,47 +397,5 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			float progressValue = FROM + (TO - FROM) * interpolatedTime;
 			progressBar.setProgress((int) progressValue);
 		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.entercard.coopmedlem.services.GetMoreTransactionsService.
-	 * GetMoreTransaction#onGetMoreTransactionFinished(java.util.ArrayList)
-	 */
-	@Override
-	public void onGetMoreTransactionFinished(final ArrayList<TransactionDataModel> accountArrayList) {
-		getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				//TODO need to add the transaction to ArrayList so need not again make WS calls for next 50 tranx
-				transactionsArrayList.addAll(accountArrayList);
-				transactionsAdapter.notifyDataSetChanged();
-				transactionListView.onLoadMoreComplete();
-			}
-		});
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.entercard.coopmedlem.services.GetMoreTransactionsService.
-	 * GetMoreTransaction#onGetMoreTransactionFailed(java.lang.String)
-	 */
-	@Override
-	public void onGetMoreTransactionFailed(final String error) {
-		getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				if (!TextUtils.isEmpty(error)) {
-					AlertHelper.Alert(error, getActivity());
-					transactionListView.onLoadMoreComplete();
-				} else {
-					AlertHelper.Alert(getResources().getString(R.string.encap_something_went_wrong),
-							ApplicationEx.getInstance().getString(R.string.encap_something_went_wrong), getActivity());
-					transactionListView.onLoadMoreComplete();
-				}
-			}
-		});
 	}
 }

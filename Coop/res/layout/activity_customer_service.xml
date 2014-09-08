@@ -5,22 +5,22 @@
     android:layout_height="match_parent"
     android:background="@android:color/white" >
 
-    <!-- <ImageView -->
-    <!-- android:id="@+id/imgLogo" -->
-    <!-- android:layout_width="wrap_content" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_alignParentTop="true" -->
-    <!-- android:layout_centerHorizontal="true" -->
-    <!-- android:layout_marginTop="@dimen/view_margin_top" -->
-    <!-- android:contentDescription="@null" -->
-    <!-- android:src="@drawable/ic_launcher" /> -->
+<!--     <ImageView -->
+<!--         android:id="@+id/imgLogo" -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="match_parent" -->
+<!--         android:layout_above="@+id/lblCustomer" -->
+<!--         android:background="@drawable/coop_app_splash" -->
+<!--         android:contentDescription="@null" /> -->
 
     <TextView
         android:id="@+id/lblCustomer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearCardService"
-        android:layout_margin="@dimen/margin_ten_px"
+        android:layout_marginBottom="@dimen/margin_five_px"
+        android:layout_marginLeft="@dimen/margin_fifteen_px"
+        android:layout_marginTop="@dimen/margin_five_px"
         android:text="@string/customer_service"
         android:textColor="@color/text_heading"
         android:textSize="@dimen/font_size_small"
@@ -38,7 +38,7 @@
             android:id="@+id/lblCardServiceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
             android:gravity="left"
             android:text="@string/card_service"
             android:textColor="@color/text_body"
@@ -48,7 +48,7 @@
             android:id="@+id/lblCardServiceNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:layout_weight="0.5"
             android:gravity="right"
             android:padding="@dimen/margin_ten_px"
@@ -73,7 +73,7 @@
             android:id="@+id/lblBlockCardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_ten_px"
+            android:layout_marginLeft="@dimen/margin_fifteen_px"
             android:gravity="left"
             android:text="@string/block_card"
             android:textColor="@color/text_body"
@@ -83,7 +83,7 @@
             android:id="@+id/lblBlockCardNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_ten_px"
+            android:layout_marginRight="@dimen/margin_fifteen_px"
             android:layout_weight="0.5"
             android:gravity="right"
             android:padding="@dimen/margin_ten_px"

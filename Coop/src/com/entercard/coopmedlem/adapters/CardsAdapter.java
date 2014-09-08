@@ -47,9 +47,9 @@ public class CardsAdapter extends ArrayAdapter<CardDataModel> {
 		holder.cardNametextView.setTextColor(context.getResources().getColor(R.color.text_body));
 		holder.cardNumberTextView.setText(context.getResources().getString(R.string.card_ending_with)+" "+getItem(position).getCardNumberEndingWith());
 		if (position % 2 == 0) {
-			convertView.setBackgroundResource(R.drawable.list_bg_even);
-		} else {
 			convertView.setBackgroundResource(R.drawable.list_bg_odd);
+		} else {
+			convertView.setBackgroundResource(R.drawable.list_bg_even);
 		}
 		return convertView;
 	}

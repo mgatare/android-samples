@@ -188,9 +188,8 @@ public class AllAccountsActivity extends BaseActivity implements
 									int whichButton) {
 								dialog.dismiss();
 								
-								Intent intent = new Intent(AllAccountsActivity.this, EnterPINCodeActivity.class);
+								Intent intent = new Intent(AllAccountsActivity.this, CustomerServiceScreen.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 								startActivity(intent);
 								
 								finish();
