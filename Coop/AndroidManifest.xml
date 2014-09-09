@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.entercard.coopmedlem"
+    package="com.no.entercard.coopmedlem"
     android:versionCode="2"
-    android:versionName="1.0.8" >
+    android:versionName="2.0.1" >
 
     <!-- 2.0 - Pocahontas COOP Norway - Android -->
 
@@ -28,12 +28,13 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name="com.entercard.coopmedlem.ApplicationEx"
+        android:name="com.no.entercard.coopmedlem.ApplicationEx"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="com.entercard.coopmedlem.SplashScreenActivity"
+            android:name="com.no.entercard.coopmedlem.SplashScreenActivity"
+            android:configChanges="locale"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
@@ -43,32 +44,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity -->
-        <!-- android:name="com.entercard.coopmedlem.BaseActivity" -->
-        <!-- android:configChanges="keyboardHidden" -->
-        <!-- android:excludeFromRecents="true" -->
-        <!-- android:label="@string/app_name" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/Theme.Coopmedlem" > -->
-        <!-- </activity> -->
 
+<!--         <receiver android:name="com.entercard.coopmedlem.LanguageChangeReceiver" > -->
+<!--             <intent-filter> -->
+<!--                 <action android:name="android.intent.action.LOCALE_CHANGED" /> -->
 
-        <!-- <receiver android:name=".IncomingCall" > -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.PHONE_STATE" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
+<!--                 <category android:name="android.intent.category.DEFAULT" /> -->
+<!--             </intent-filter> -->
+<!--         </receiver> -->
 
         <activity
-            android:name="com.entercard.coopmedlem.ActivateAppActivity"
-            android:configChanges="keyboardHidden"
+            android:name="com.no.entercard.coopmedlem.ActivateAppActivity"
+            android:configChanges="keyboardHidden|locale"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.HomeScreenActivity"
-            android:configChanges="keyboardHidden"
+            android:name="com.no.entercard.coopmedlem.HomeScreenActivity"
+            android:configChanges="keyboardHidden|locale"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -77,39 +71,44 @@
             android:windowSoftInputMode="adjustUnspecified" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.AllAccountsActivity"
-            android:configChanges="keyboardHidden"
+            android:name="com.no.entercard.coopmedlem.AllAccountsActivity"
+            android:configChanges="keyboardHidden|locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.EnterPINCodeActivity"
+            android:name="com.no.entercard.coopmedlem.EnterPINCodeActivity"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.CreditLineIncreaseActivity"
+            android:name="com.no.entercard.coopmedlem.CreditLineIncreaseActivity"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.CustomerServiceScreen"
+            android:name="com.no.entercard.coopmedlem.CustomerServiceScreen"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.DisputeTransactionActivity"
+            android:name="com.no.entercard.coopmedlem.DisputeTransactionActivity"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >
         </activity>
         <activity
-            android:name="com.entercard.coopmedlem.EmploymentActivity"
+            android:name="com.no.entercard.coopmedlem.EmploymentActivity"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Coopmedlem" >

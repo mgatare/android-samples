@@ -17,7 +17,7 @@
     <string name="create_your_pin_code">Create your PIN code</string>
     <string name="btn_create_pin">Create your PIN code</string>
     <string name="create_account">Create account</string>
-    <string name="tab_title_transaction">Transaction</string>
+    <string name="tab_title_transaction">Transactions</string>
     <string name="tab_title_cards">Cards</string>
     <string name="tab_title_transfer">Transfer funds</string>
     <string name="option_transactions">Transactions</string>
