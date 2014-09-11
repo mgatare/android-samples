@@ -28,8 +28,8 @@
 
         <EditText
             android:id="@+id/txtpinOne"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_marginRight="@dimen/margin_ten_px"
             android:background="@drawable/view_circular_background_transparent"
             android:digits="1234567890"
@@ -43,8 +43,8 @@
 
         <EditText
             android:id="@+id/txtpinTwo"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_marginRight="@dimen/margin_ten_px"
             android:background="@drawable/view_circular_background_transparent"
             android:digits="1234567890"
@@ -58,8 +58,8 @@
 
         <EditText
             android:id="@+id/txtpinThree"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_marginRight="@dimen/margin_ten_px"
             android:background="@drawable/view_circular_background_transparent"
             android:digits="1234567890"
@@ -72,8 +72,8 @@
 
         <EditText
             android:id="@+id/txtpinFour"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:background="@drawable/view_circular_background_transparent"
             android:digits="1234567890"
             android:focusable="false"

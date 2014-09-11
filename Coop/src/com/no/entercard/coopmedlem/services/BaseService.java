@@ -120,14 +120,14 @@ public abstract class BaseService implements Runnable {
 	public BaseService() {
 		headers = new ArrayList<NameValuePair>();
 		if (isStaging) {
-			Log.d(TAG, ">>>>>>>>>>>>STAGING_URL>>>>>>>>>>>");
 			BASE_URL = STAGING_URL;
+			Log.d(TAG, ">>>>>>STAGING_URL>>>>>"+BASE_URL);
 		} else if (isProduction) {
-			Log.d(TAG, ">>>>>>>>>PRODUCTION_URL>>>>>>>>>>");
 			BASE_URL = PRODUCTION_URL;
+			Log.d(TAG, ">>>>>PRODUCTION_URL>>>>>"+BASE_URL);
 		} else {
-			Log.d(TAG, ">>>>>>>>>>>TESTING_URL>>>>>>>>>>>>");
 			BASE_URL = TESTING_URL;
+			Log.d(TAG, ">>>>TESTING_URL>>>>>>>"+BASE_URL);
 		}
 	}
 	
@@ -212,7 +212,7 @@ public abstract class BaseService implements Runnable {
 					if(currentLocale.equalsIgnoreCase("nb_NO"))
 						httppost.setHeader("Accept-Language", "nb;q=1");
 					else if(currentLocale.equalsIgnoreCase("sv_SE"))
-						httppost.setHeader("Accept-Language", " sv;q=0.9");
+						httppost.setHeader("Accept-Language", "sv;q=0.9");
 					else
 						httppost.setHeader("Accept-Language", "en;q=0.8");
 					
@@ -231,7 +231,7 @@ public abstract class BaseService implements Runnable {
 					if(currentLocale.equalsIgnoreCase("nb-NO"))
 						httpget.setHeader("Accept-Language", "nb;q=1");
 					else if(currentLocale.equalsIgnoreCase("sv-SE"))
-						httpget.setHeader("Accept-Language", " sv;q=0.9");
+						httpget.setHeader("Accept-Language", "sv;q=0.9");
 					else
 						httpget.setHeader("Accept-Language", "en;q=0.8");
 					
@@ -248,7 +248,7 @@ public abstract class BaseService implements Runnable {
 					if(currentLocale.equalsIgnoreCase("nb-NO"))
 						httpPut.setHeader("Accept-Language", "nb;q=1");
 					else if(currentLocale.equalsIgnoreCase("sv-SE"))
-						httpPut.setHeader("Accept-Language", " sv;q=0.9");
+						httpPut.setHeader("Accept-Language", "sv;q=0.9");
 					else
 						httpPut.setHeader("Accept-Language", "en;q=0.8");
 					

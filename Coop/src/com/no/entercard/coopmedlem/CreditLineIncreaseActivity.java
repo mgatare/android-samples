@@ -61,6 +61,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_creditline_increase);
 
 		init();
@@ -117,7 +118,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		btnSubstractCreditLimit.setFocusableInTouchMode(false);
 		btnSubstractCreditLimit.setEnabled(false);
 		btnSubstractCreditLimit.setTextColor(Color.GRAY);
-		
 		
 		/*Disable Copy/Paste for the edittexts*/
 		Utils.disableViewContextMenuOptions(txtMortgage);
@@ -305,7 +305,8 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					String formatedAmountTxt = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(adjustedCreditLimit));
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
-					lblCreditAmountApplied.setText(""+adjustedCreditLimit);
+					//lblCreditAmountApplied.setText(""+adjustedCreditLimit);
+					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+adjustedCreditLimit));
 				}
 				
 			} else {
@@ -313,7 +314,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					String formatedAmountTxt = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
-					lblCreditAmountApplied.setText(""+incresedAmount);
+					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+incresedAmount));
 				}
 			}
 		}
@@ -321,7 +322,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	
 	private void enableDisableDecrementButton() {
 		
-		int creditAmountAplied =  Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()));
+		int creditAmountAplied =  Integer.parseInt(StringUtils.removeBlankSpaces(lblCreditAmountApplied.getText().toString()).replace(",", ""));
 		
 		if(creditAmountAplied > 5000) {
 			btnSubstractCreditLimit.setFocusable(true);
@@ -348,7 +349,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				String formatedIncreasedAmount = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 				lblCreditAmountApplied.setText(formatedIncreasedAmount);
 			}else {
-				lblCreditAmountApplied.setText(""+incresedAmount);
+				lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+incresedAmount));
 			}
 		}
 	}
@@ -360,14 +361,14 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		txtOtherLoans.clearFocus();
 	    if (requestCode == RESULT_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
-				//Log.d("", " CLI MILAAAAAAAA");
+				
 				txtYearlyIncome.setText(null);
 				txtMortgage.setText(null);
 				txtOtherLoans.setText(null);
 				if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 					lblEmploymentType.setText(null);
 				else
-					lblEmploymentType.setText("None");
+					lblEmploymentType.setText("");
 				
 				showDialog();
 			}
@@ -459,6 +460,6 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 				lblEmploymentType.setText(null);
 			else
-				lblEmploymentType.setText("None");
+				lblEmploymentType.setText("");
 	}
 }

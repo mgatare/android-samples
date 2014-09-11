@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.Log;
 
+import com.no.entercard.coopmedlem.ApplicationEx;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class CompatibilityUtils.
@@ -164,4 +166,26 @@ public class CompatibilityUtils {
 		}
 		return false;
 	}
+	
+//	public static int getDeviceDensity() {
+//		float density = ApplicationEx.getInstance().getResources().getDisplayMetrics().density;
+//		
+//		if(density == 0.75) {
+//			return 160;
+//		} else if(density == 1.0) {
+//			
+//		}else if(density == 1.5) {
+//			
+//		}else if(density == 2.0) {
+//			
+//		} else {
+//			
+//		}
+//		return 0;
+//
+//		// return 0.75 if it's LDPI
+//		// return 1.0 if it's MDPI
+//		// return 1.5 if it's HDPI
+//		// return 2.0 if it's XHDPI
+//	}
 }

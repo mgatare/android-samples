@@ -201,7 +201,6 @@
                 android:layout_marginLeft="3dp"
                 android:maxLines="1"
                 android:padding="@dimen/margin_ten_px"
-                android:text="None"
                 android:textColor="@color/text_body"
                 android:textSize="@dimen/font_size_normal" />
 

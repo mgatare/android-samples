@@ -23,55 +23,62 @@
     <string name="option_transactions">Transaktioner</string>
     <string name="option_transfer_funds">Överföring av pengar</string>
     <string name="transfer_funds">Överför pengar</string>
-    <string name="option_credit_line_increase">Credit Line Ökning</string>
+    <string name="option_credit_line_increase">Kredithöjning</string>
     <string name="navigation_drawer_open">Öppna navigations låda</string>
     <string name="navigation_drawer_close">Stäng navigering låda</string>
-    <string name="transfer_funds_title">Du kan överföra upp till det tillgängliga saldot på kortet (inklusive avgifter). \nFör nuvarande takt och avgifter, se \n&lt;a href="http://www.remembercard.no/omkortet/Faktura-og-nedbetaling/Se-prisliste-og-vilkar/">prislista&lt;/a>".</string>
-    <string name="receiver_name">Mottagare\'s namn</string>
+    <string name="transfer_funds_title">Du kan överföra pengar upp till det tillgängliga saldot på kortet (inklusive avgifter). För aktuell ränta och avgift, se \n&lt;a href="http://www.remembercard.no/omkortet/Faktura-og-nedbetaling/Se-prisliste-og-vilkar/">prislista&lt;/a>".</string>
+    <string name="receiver_name">Mottagarens namn</string>
     <string name="clearing">Clearing</string>
     <string name="clearing_number_must_be">Clearingnummer måste vara 4 eller 5 siffror.</string>
-    <string name="amount">Mängd</string>
+    <string name="amount">Bellop</string>
+<!--     Mängd -->
     <string name="account_number">Kontonummer</string>
     <string name="message_or_kid">Meddelande eller KID</string>
     <string name="credit_limit">KREDITGRÄNS</string>
-    <string name="recognize_transaction">Jag känner igen denna transaktion</string>
-    <string name="reason_for_dispute">Anledning till tvisten</string>
-    <string name="email">Email</string>
+    <string name="recognize_transaction">Jag känner igen transaktionen</string>
+    <string name="reason_for_dispute">Varför vill du reklamera transaktionen?</string>
+<!--     Anledning till tvisten -->
+    <string name="email">E-post</string>
     <string name="phone_number">Telefonnummer</string>
-    <string name="dispute_transaction">Tviste transaktion</string>
+    <string name="dispute_transaction">Reklamera transaktion</string>
+<!--     Tviste transaktion -->
     <string name="searchable_hint">Sök transaktioner</string>
-    <string name="dispute">Tviste</string>
+    <string name="dispute">Reklamera</string>
     <string name="used">ANVÄNT</string>
     <string name="open_to_buy">TILLGÄNGLIGT</string>
     <string name="latest_transactions">TRANSAKTIONER</string>
     <string name="card_ending_with">Kortnummer slutar med:</string>
-    <string name="desired_increase_in_credit">Önskad ökad kredit</string>
-    <string name="yearly_income">Årlig inkomst</string>
+    <string name="desired_increase_in_credit">Önskad Kredithöjning</string>
+    <string name="yearly_income">Årsinkomst</string>
     <string name="household">Hushålls</string>
     <string name="adults">Vuxna</string>
     <string name="children">Barn</string>
     <string name="sign_plus">+</string>
     <string name="sign_minus">-</string>
-    <string name="mortgage">Hypotekslån</string>
+    <string name="mortgage">Inteckning</string>
+<!--     Hypotekslån -->
     <string name="other_loans">Övriga lån</string>
     <string name="occupancy">Beläggning</string>
-    <string name="employment">Sysselsättning</string>
+    <string name="employment">Anställningsform</string>
+<!--     Sysselsättning -->
     <string name="tag_act_finish">ACTION_LOGOUT</string>
     <string name="btn_increase_credit_limit">+ Öka gränsen</string>
     <string name="btn_apply_credit_line_increase">Ansök om en kreditökning</string>
     <string name="cards">KORT</string>
-    <string name="customer_service">KUNDTJÄNST</string>
-    <string name="card_service">Korttjänst</string>
+    <string name="customer_service">KUNDSERVICE</string>
+<!--     KUNDTJÄNST -->
+    <string name="card_service">Kortservice</string>
+<!--     Korttjänst -->
     <string name="card_service_number">815 00 701</string>
-    <string name="block_card">Block kort</string>
+    <string name="block_card">Spärra kort</string>
     <string name="block_card_number">23 33 83 32</string>
     <string name="accept_terms_and_condition">Acceptera villkor</string>
     <string name="application_been_sent">Din ansökan har skickats.</string>
-    <string name="accept_terms_conditions_dispute">Jag intygar härmed att de uppgifter som anges är korrekta. Om polisen undersöker fallet, jag är medveten om att kortutgivaren ger polisen den information de behöver i undersökningen.</string>
+    <string name="accept_terms_conditions_dispute">Jag intygar att ovanstående uppgifter är sanningsenliga. Om polisen utreder saken, är jag införstådd med att kortutgivaren ger polisen den upplysningar de har anavändning för i utredningen.</string>
     <string name="accept_terms_condition_cli">Jag håller med om att de uppgifter som lämnas är fullständig och korrekt. Jag accepterar att en vanlig kreditkontroll kommer att utföras, där information om min kredit historia kommer att samlas in. Om beviljade kredit efter kreditkontroll är lägre än det belopp som jag sökte, jag accepterar härmed den lägre kredit. När du ansöker om en högre kredit åter: medlems Villkor som tidigare ingått gälla. Villkoren finns på remembercard.se eller genom att ringa +46 771 150 015 Tänk på att öka din kredit kan leda till ytterligare belastning på din ekonomi.</string>
     <string name="cancel">Avbryt</string>
     <string name="i_accept">Jag accepterar</string>
-    <string name="dispute_sent">Tviste Sända</string>
+    <string name="dispute_sent">Reklamationen är skickat </string>
     <string name="you_will_hear_from_us">Du kommer att höra av oss inom kort</string>
     <string name="login">Logga in</string>
 
@@ -95,20 +102,22 @@
     <!-- Validation/Error Messages -->
     <string name="please_enter_code">Ange kod</string>
     <string name="encap_something_went_wrong">Något gick fel</string>
-    <string name="encap_error">Ett fel uppstod. Försök igen inom kort.</string>
+    <string name="encap_error">Beklagar, ett fel uppstod. Vänlignen försök igen senare.</string>
+    <!-- Ett fel uppstod. Försök igen inom kort. -->
+
     <string name="encap_unknown_registration_error">Undantag registrering okänd. Du måste aktivera enheten.</string>
     <string name="encap_authentication_error">Du har enterd fel PIN-kod för många gånger, och du måste aktivera enheten.</string>
     <string name="error_in_communication">Det fanns vissa fel kommunikation med servern. Försök igen senare</string>
-    <string name="transfer_funds_validation">Mottagare \namn saknas.\nAccount nummer måste vara 11 siffror.\nAmount måste vara minst 500.</string>
+    <string name="transfer_funds_validation">Mottagarens \nnamn saknas.\nKontonummer måste vara 11 siffror.\Belopp måste vara minst 500.</string>
     <string name="amount_cannot_be_higher_than_otb">Belopp kan inte vara högre än din öppna för att köpa beloppet</string>
     <string name="receiver_name_missing">Mottagare \namn saknas.</string>
     <string name="account_number_length">Kontonummer måste vara 11 siffror.</string>
     <string name="amount_incorrect">Belopp måste vara minst 500.</string>
-    <string name="funds_transfer_success">Medlen överfördes framgångsrikt.</string>
-    <string name="dispute_validation">Anledning saknas.\nE-post saknas.\nPhone nummer saknas.</string>
+    <string name="funds_transfer_success">Din överföring har skickats.</string>
+    <string name="dispute_validation">Anledning saknas.\nE-postadressen saknas.\nTelefonnummer saknas.</string>
     <string name="reason_is_missing">Anledning saknas.</string>
-    <string name="email_is_missing">E-post saknas.</string>
-    <string name="email_is_invalid">E-postadressen är fel format.</string>
+    <string name="email_is_missing">E-postadressen saknas.</string>
+    <string name="email_is_invalid">E-postadressen är skriven i fel format.</string>
     <string name="phone_is_missing">Telefonnummer saknas.</string>
     <string name="no_transactions_found">Inga transctions Hittad konto.</string>
     <string name="credit_line_details_missing">Fölijande saknas:\nÅrsinkomst.\nTyp Anställningsform.</string>

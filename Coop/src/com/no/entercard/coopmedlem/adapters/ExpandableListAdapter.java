@@ -77,6 +77,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			imgMarker.setVisibility(View.VISIBLE);
 		else
 			imgMarker.setVisibility(View.GONE);
+		
 		//Make HTTP call
 		String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
 		Log.i("COOP","URL>>>>>"+strURL);
@@ -126,7 +127,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView lblPrice = (TextView) convertView.findViewById(R.id.lblPrice);
 		TextView lblName = (TextView) convertView.findViewById(R.id.lblName);
 		TextView lblNameBox = (TextView) convertView.findViewById(R.id.lblNameBox);
-		
 		
 		if(isExpanded) {
 			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))

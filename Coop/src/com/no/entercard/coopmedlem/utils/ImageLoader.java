@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.no.entercard.coopmedlem.ApplicationEx;
 import com.no.entercard.coopmedlem.R;
 
 public class ImageLoader {
@@ -37,7 +38,7 @@ public class ImageLoader {
 		executorService = Executors.newFixedThreadPool(5);
 	}
 
-	final int stub_id = R.drawable.ic_launcher;
+	final int stub_id = R.drawable.background_partial_gray;
 
 	public void DisplayImage(String url, ImageView imageView) {
 		imageViews.put(imageView, url);
@@ -72,6 +73,18 @@ public class ImageLoader {
 			URL imageUrl = new URL(url);
 			HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
 			conn.setRequestProperty("Accept-Charset", "UTF-8");//connection.setRequestProperty("Accept-Charset", "ISO-8859-1");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Language", ""+ApplicationEx.getInstance().getResources().getConfiguration().locale);  
+			
+			/**connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+			connection.setRequestProperty("Content-Language", "en-US");
+			connection.setUseCaches (false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);**/
+			
+			conn.setDoInput(true);
+		    conn.setDoOutput(true);
 			conn.setConnectTimeout(30000);
 			conn.setReadTimeout(30000);
 			conn.setInstanceFollowRedirects(true);

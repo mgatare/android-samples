@@ -3,25 +3,24 @@
     android:id="@+id/relativeLayoutMap"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/darker_gray" >
+    android:background="@android:color/white" >
 
     <ImageView
         android:id="@+id/imgMap"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:contentDescription="@null"
-        android:scaleType="fitXY" />
+        android:layout_height="200dp"
+        android:contentDescription="@null" />
 
     <ImageView
         android:id="@+id/imgMarker"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@null"
         android:paddingBottom="35dp"
-        android:src="@drawable/pin" />
+        android:src="@drawable/pin"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnDisputeOnMap"

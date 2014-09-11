@@ -71,9 +71,8 @@ public class FundsTransferService extends BaseService {
 		try {
 			
 			String url = TAG_ACCOUNTS + "/" + accountNum + "/" + TAG_FUNDS_TRANSFER;
-			Log.i("COOP", ">>>>>>>>>>>>>>>>>>"+url);
 			String response = makeRequest(url, getRequestJSONString(), POST);
-			Log.i("COOP", ">>>>RESPONSE>>>>>"+response);
+			//Log.i("COOP", ">>>>RESPONSE>>>>>"+response);
 			
 			if(response == null) {
 				sentFailure(ApplicationEx.getInstance().getString(R.string.no_internet_connection));

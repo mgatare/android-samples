@@ -12,12 +12,6 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 import com.no.entercard.coopmedlem.R;
 
 public class CreditLineIncreaseService extends BaseService {
-
-	/**http://127.0.0.1:9393/accounts/5299369000100666/creditLineIncrease':
-		UUID=uuid Value from Server
-		Cookie=JSESSIONID={Session id from Server}
-		SAML = Saml from Encap
-	 */
 	
 	private final String TAG_CREDIT_LINE_INCREASE= "creditLineIncrease";
 	private final String TAG_ACCOUNTS= "accounts";

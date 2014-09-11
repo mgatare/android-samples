@@ -15,7 +15,7 @@ import com.no.entercard.coopmedlem.entities.TransactionDataModel;
 
 public class GetMoreTransactionsService extends BaseService {
 
-	private final String TAG_TRANSACTIONS= "/transactions";
+	private final String TAG_TRANSACTIONS= "transactions";
 	private final String TAG_ACCOUNTS= "accounts";
 	private String TAG_PER_PAGE = "&perPage=50";
 	private String TAG_PAGE = "?page=";

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,8 +145,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
-				Log.i("", "transactions---"+transactionsArrayList.size());
-				Log.i("", "tranxCount----"+tranxCount);
 				if (transactionsArrayList.size() < tranxCount) {
 
 					String uuidTxt = ApplicationEx.getInstance().getUUID();
@@ -317,7 +314,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 30);
+					handler.postDelayed(this, 100);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt));
@@ -363,7 +360,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 40);
+					handler.postDelayed(this, 100);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt));

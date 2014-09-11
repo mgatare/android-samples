@@ -14,20 +14,25 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.no.entercard.coopmedlem.ApplicationEx;
@@ -36,7 +41,7 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 /**
  * The Class Utils.
  */
-public class Utils {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2) public class Utils {
 
 	/**
 	 * Write to text file.
@@ -194,7 +199,7 @@ public class Utils {
 		if (!TextUtils.isEmpty(city)) {
 			builder.append(StringUtils.removeBlankSpaces(city));
 			builder.append(","); //%20
-			zoomLevel = 16;
+			zoomLevel = 15;
 		}
 
 		if (!TextUtils.isEmpty(country)) {
@@ -208,11 +213,55 @@ public class Utils {
 			params = "Norway";
 			//zoomLevel = 6;
 		}
-			
+		
+		WindowManager wm = (WindowManager) ApplicationEx.getInstance().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int width = size.x;
+		int height = size.y;
+		
+		Log.e("Coop", "width>>"+width);
+		Log.e("Coop", "height>>"+height);
+		
 		if(!TextUtils.isEmpty(params)) {
+			
+			double density = ApplicationEx.getInstance().getResources().getDisplayMetrics().density;
+			
 			Log.e("Coop", "zoomLevel>>"+zoomLevel);
-			URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size=810x340&maptype=roadmap";
+			Log.e("Coop", "density>>"+density);
+			
+			if (density >= 4.0) {
+			   //"xxxhdpi";
+				Log.e("COOP", ":::xxxhdpi::::");
+				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size="+width+"x380&maptype=roadmap";
+			}
+			else if (density >= 3.0 && density < 4.0) {
+			   //xxhdpi
+				Log.e("COOP", ":::xxhdpi::::");
+				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size="+width+"x355&maptype=roadmap";
+			}
+			else if (density >= 2.0) {
+			   //xhdpi
+				Log.e("COOP", ":::xhdpi::::");
+				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size="+width+"x380&maptype=roadmap";
+			}
+			else if (density >= 1.5 && density < 2.0) {
+			   //hdpi
+				Log.e("COOP", ":::hdpi::::");
+				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size="+width+"x300&maptype=roadmap";
+			}
+			else if (density >= 1.0 && density < 1.5) {
+			   //mdpi
+				Log.e("COOP", ":::mdpi::::");
+				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
+						+ "&size="+width+"x300&maptype=roadmap";
+			}
+			
 		} else {
 			return null;
 		}

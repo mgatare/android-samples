@@ -252,6 +252,16 @@ public class StringUtils {
 
 	}
 
+	// public static String roundAndFormatCurrencyForCLI(String amount) {
+	// Locale currentLocale = ApplicationEx.getInstance().getResources()
+	// .getConfiguration().locale;
+	// double doubleAmount = Double.parseDouble(amount);
+	// double finalValue = (double) Math.round(doubleAmount * 100) / 100;
+	// String amountTxt = (String.format(currentLocale, "%,.0f", finalValue));
+	// return amountTxt;
+	//
+	// }
+
 	public static String getCurrentLocale() {
 		return ApplicationEx.getInstance().getResources().getConfiguration().locale
 				.toString();
@@ -278,14 +288,15 @@ public class StringUtils {
 	 * @param amount
 	 * @return
 	 */
-	public static String roundAndFormatCurrencyNorwayWithEndingZeros(String amount) {
+	public static String roundAndFormatCurrencyNorwayWithEndingZeros(
+			String amount) {
 		Locale currentLocale = ApplicationEx.getInstance().getResources()
 				.getConfiguration().locale;
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
 		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
-		//String[] amountArr = amountTxt.split("\\,");
-		//Log.d("", "amountArr >>>>" + amountTxt);
+		// String[] amountArr = amountTxt.split("\\,");
+		// Log.d("", "amountArr >>>>" + amountTxt);
 		return amountTxt;
 
 	}
@@ -302,23 +313,28 @@ public class StringUtils {
 		String amountTxt = (String.format(currentLocale, "%,d", number));// .replace(',',' ')
 		// Add code
 		StringBuffer buffer = new StringBuffer();
-		if(currentLocale.toString().equalsIgnoreCase("nb_NO")) 
-			buffer.append("kr ");	
-		else
-			buffer.append("NOK ");
 		
-		buffer.append(amountTxt);
+		if (currentLocale.toString().equalsIgnoreCase("nb_NO")) {
+			buffer.append("kr ");
+			buffer.append(amountTxt);
+		} else if (currentLocale.toString().equalsIgnoreCase("sv_SE")) {
+			buffer.append(amountTxt);
+			buffer.append(" NKr");
+		} else {
+			buffer.append("NOK ");
+			buffer.append(amountTxt);
+		}
+		
 		return buffer.toString();
 	}
-	
+
 	/**
 	 * 
 	 * @param amount
 	 * @return
 	 */
-	public static String removeCurrencyFormat(String amount) {
-		String finalTxt = amount.replace(",", "").replace("NOK", "").replace("kr", "")
-				.replaceAll("\\s", "").trim();
+	public static String removeCurrencyFormat(String amount) { 
+		String finalTxt = amount.replace(",", "").replace("NOK", "").replace("kr", "").replace("NKr", "").replaceAll("\\s", "").trim();
 		return finalTxt;
 	}
 
@@ -364,8 +380,7 @@ public class StringUtils {
 			public CharSequence filter(CharSequence source, int start, int end,
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
-					if (source.charAt(i) != ' '
-							&& source.charAt(i) != '.' 
+					if (source.charAt(i) != ' ' && source.charAt(i) != '.'
 							&& !Character.isLetter(source.charAt(i))) {
 						return "";
 					}
@@ -386,8 +401,7 @@ public class StringUtils {
 			public CharSequence filter(CharSequence source, int start, int end,
 					Spanned dest, int dstart, int dend) {
 				for (int i = start; i < end; i++) {
-					if (source.charAt(i) != ' ' 
-							&& source.charAt(i) != '.' 
+					if (source.charAt(i) != ' ' && source.charAt(i) != '.'
 							&& !Character.isLetterOrDigit(source.charAt(i))) {
 						return "";
 					}

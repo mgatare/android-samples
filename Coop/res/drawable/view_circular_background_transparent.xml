@@ -3,12 +3,8 @@
     android:shape="oval" >
 
     <stroke
-        android:width="0.7dp"
+        android:width="0.9dp"
         android:color="@color/text_heading" />
-
-    <!-- <size -->
-    <!-- android:height="10dp" -->
-    <!-- android:width="10dp" /> -->
 
     <gradient
         android:angle="270"

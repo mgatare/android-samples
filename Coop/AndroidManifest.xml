@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.no.entercard.coopmedlem"
     android:versionCode="2"
-    android:versionName="2.0.1" >
+    android:versionName="2.0.1.AplhaTest.01" >
 
     <!-- 2.0 - Pocahontas COOP Norway - Android -->
 
