@@ -261,7 +261,6 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			BaseActivity.setFirstVisit(false);
 			
 		} else {
-			//
 			
 			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
 				spentTextView.setText(spentCashTxt != null ? StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt) : "?");			
@@ -314,7 +313,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 100);
+					handler.postDelayed(this, 80);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt));
@@ -360,7 +359,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 					count = count + 100000;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 100);
+					handler.postDelayed(this, 90);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt));

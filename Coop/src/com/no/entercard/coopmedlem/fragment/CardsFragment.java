@@ -92,7 +92,7 @@ public class CardsFragment extends Fragment {
 		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
 			lblCreditlimit.setText(StringUtils.roundAndFormatCurrencyNorway(creditLimitTxt));
 		 else
-			lblCreditlimit.setText(StringUtils.roundAndFormatCurrency(creditLimitTxt));
+			lblCreditlimit.setText(StringUtils.roundAndFormatCurrencyWithoutEndingZero(creditLimitTxt));
 			
 		allCardsListView.addFooterView(footerLayout);
 		cardsAdapter = new CardsAdapter(parentActivity, 0, cardsArrayList);

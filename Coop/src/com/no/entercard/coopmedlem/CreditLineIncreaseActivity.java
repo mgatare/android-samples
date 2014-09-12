@@ -101,7 +101,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			lblCreditAmountApplied.setText("5 000");
 			lblEmploymentType.setText(null);
 		} else {
-			lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency("5000"));
+			lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrencyWithoutEndingZero("5000"));
 		}
 		
 		linearEmployment.setOnClickListener(viewOnCLickListener);
@@ -306,7 +306,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
 					//lblCreditAmountApplied.setText(""+adjustedCreditLimit);
-					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+adjustedCreditLimit));
+					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrencyWithoutEndingZero(""+adjustedCreditLimit));
 				}
 				
 			} else {
@@ -314,7 +314,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 					String formatedAmountTxt = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 					lblCreditAmountApplied.setText(formatedAmountTxt);
 				}else {
-					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+incresedAmount));
+					lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrencyWithoutEndingZero(""+incresedAmount));
 				}
 			}
 		}
@@ -349,7 +349,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 				String formatedIncreasedAmount = StringUtils.roundAndFormatCurrencyNorway(String.valueOf(incresedAmount));
 				lblCreditAmountApplied.setText(formatedIncreasedAmount);
 			}else {
-				lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrency(""+incresedAmount));
+				lblCreditAmountApplied.setText(StringUtils.roundAndFormatCurrencyWithoutEndingZero(""+incresedAmount));
 			}
 		}
 	}

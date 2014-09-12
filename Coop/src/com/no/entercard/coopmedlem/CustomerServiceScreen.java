@@ -1,8 +1,10 @@
 package com.no.entercard.coopmedlem;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.no.entercard.coopmedlem.utils.StringUtils;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN) 
 public class CustomerServiceScreen extends BaseActivity {
 
 	private Button btnLogin;
@@ -60,13 +63,15 @@ public class CustomerServiceScreen extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.btnLogin:
+				
 				Intent intent = new Intent(CustomerServiceScreen.this, EnterPINCodeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 				startActivity(intent);
-				overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_in_top);
+				overridePendingTransition(R.anim.abc_slide_in_bottom, 0);
 				
-				finish();
+				CustomerServiceScreen.this.finish();
+				
 				break;
 			case R.id.linearCardService:
 				makeCall(lblCardServiceNumber.getText().toString());

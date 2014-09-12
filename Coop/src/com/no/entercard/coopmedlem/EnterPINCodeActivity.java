@@ -269,11 +269,6 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		public void afterTextChanged(Editable editable) {
 			String text = editable.toString();
 			
-			/*Log.v("NUMPAD", ""+pin1EditText.getText().length());
-			Log.v("NUMPAD", ""+pin2EditText.getText().length());
-			Log.v("NUMPAD", ""+pin3EditText.getText().length());
-			Log.v("NUMPAD", ""+pin4EditText.getText().length());*/
-			
 			if(stringBuilder.length() == 0) {
 				
 				pin1EditText.setText(text);
@@ -509,6 +504,8 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 	 */
 	protected void finishAuthentication(String code) {
 		showProgressDialog();
+		//closeKeyBoard(); Dont do this...coz this will never show the keyboard again
+		
 		controller.finishAuthentication(code,
 				new AsyncCallback<FinishAuthenticationResult>() {
 					public void onFailure(final Throwable throwable) {
@@ -559,9 +556,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 							 * Staging/Deployment Create the SAML token here by
 							 * encoding the response to Base64
 							 */
-							if (ApplicationEx.getInstance().isdeveloperMode) {
-								Utils.writeToTextFile(samlData,EnterPINCodeActivity.this, "dump.tmp");
-							}
+							// if (ApplicationEx.getInstance().isdeveloperMode)
+							// {
+							// Utils.writeToTextFile(samlData,EnterPINCodeActivity.this,
+							// "dump.tmp");
+							// }
 							/*SET the SAML data as required for the rest of the WS calls and move to the next screen*/
 							ApplicationEx.getInstance().setSAMLTxt(samlData);
 							selectNextActivity(ACTIVITY_STATE);
@@ -815,7 +814,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_in_bottom);
+			overridePendingTransition(R.anim.abc_slide_in_top, 0);
 			
 			finish();
 			return true;

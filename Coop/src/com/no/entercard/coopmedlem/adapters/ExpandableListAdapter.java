@@ -65,8 +65,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		ImageView imgMarker = (ImageView) convertView.findViewById(R.id.imgMarker);
 		Button btnDisputeOnMap  = (Button) convertView.findViewById(R.id.btnDisputeOnMap);
 		
-		String city = "";
-		String country = "";
+		String city = null;
+		String country = null;
 		
 		if(null!=dataModel.getCity())
 			city = StringUtils.trimStringAndDigits(dataModel.getCity());
@@ -96,6 +96,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				context.startActivity(intent);
 			}
 		});
+		
 		return convertView;
 	}
 

@@ -41,7 +41,8 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 /**
  * The Class Utils.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2) public class Utils {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2) 
+public class Utils {
 
 	/**
 	 * Write to text file.
@@ -80,7 +81,7 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 		Log.d("", "currentTimestamp>>>>>>>>>>>>>>>>>" + currentTimestamp);
 		try {
 			minutes = DateUtils.compareTimeStamps(savedTimestamp,currentTimestamp);
-			if (minutes >= 5)//minutes < 0 || 
+			if (minutes >= 3)//minutes < 0 || 
 				return true;
 			else
 				return false;
@@ -193,13 +194,13 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 6;
+		int zoomLevel = 8;
 		StringBuilder builder = new StringBuilder();
 
 		if (!TextUtils.isEmpty(city)) {
 			builder.append(StringUtils.removeBlankSpaces(city));
 			builder.append(","); //%20
-			zoomLevel = 15;
+			zoomLevel = 17;
 		}
 
 		if (!TextUtils.isEmpty(country)) {
@@ -265,23 +266,6 @@ import com.no.entercard.coopmedlem.ApplicationEx;
 		} else {
 			return null;
 		}
-		
-//		Bitmap bitmap = null;
-//		HttpClient httpclient = new DefaultHttpClient();
-//		HttpGet request = new HttpGet(URL);
-//
-//		InputStream in = null;
-//		try {
-//			in = httpclient.execute(request).getEntity().getContent();
-//			bitmap = BitmapFactory.decodeStream(in);
-//			in.close();
-//		} catch (IllegalStateException e) {
-//			e.printStackTrace();
-//		} catch (ClientProtocolException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		return URL;
 	}
 

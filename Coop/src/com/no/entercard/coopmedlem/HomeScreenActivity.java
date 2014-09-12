@@ -62,10 +62,14 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.activity_home_actions, menu);
+		
 		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
-		if(accountsCount>1) {
-		    MenuInflater inflater = getMenuInflater();
-		    inflater.inflate(R.menu.activity_home_actions, menu);
+		if(accountsCount==1) {
+			MenuItem item = menu.findItem(R.id.action_account);
+			item.setVisible(false);
 		}
 	    return super.onCreateOptionsMenu(menu);
 	}
@@ -82,6 +86,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			startActivity(intent);
 			//Toggle States to NOT allow animation again
 			BaseActivity.setFirstVisit(true);
+			return true;
+			
+		case R.id.action_language:
+			Log.e("COOP", ">>HOMESCREEN In action_language");
 			return true;
 
 		default:

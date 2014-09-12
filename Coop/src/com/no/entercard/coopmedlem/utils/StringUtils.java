@@ -247,8 +247,23 @@ public class StringUtils {
 				.getConfiguration().locale;
 		double doubleAmount = Double.parseDouble(amount);
 		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
-		String amountTxt = (String.format(currentLocale, "%,.0f", finalValue));
+		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
 		return amountTxt;
+
+	}
+	/**
+	 * 
+	 * @param amount
+	 * @return
+	 */
+	public static String roundAndFormatCurrencyWithoutEndingZero(String amount) {
+		Locale currentLocale = ApplicationEx.getInstance().getResources()
+				.getConfiguration().locale;
+		double doubleAmount = Double.parseDouble(amount);
+		double finalValue = (double) Math.round(doubleAmount * 100) / 100;
+		String amountTxt = (String.format(currentLocale, "%,.2f", finalValue));
+		String[] amountArr = amountTxt.split("\\.");
+		return amountArr[0];
 
 	}
 

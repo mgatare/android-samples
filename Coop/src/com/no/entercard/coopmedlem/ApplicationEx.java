@@ -106,7 +106,7 @@ public class ApplicationEx extends Application {
 	 * Initialize controller from preferences.
 	 */
 	public void initializeControllerFromPreferences() {
-		String serverUrl = getResources().getString(R.string.encap_server_url);
+		String serverUrl = getResources().getString(R.string.encap_server_url_test);
 		controller.setServerUrl(serverUrl);
 
 		String applicationId = getResources().getString(R.string.encap_app_id);

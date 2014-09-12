@@ -83,7 +83,7 @@
     <string name="no_internet_connection">Ingen Internett-tilkobling.</string>
 
     <!-- ENCAP Related -->
-    <string name="encap_server_url">https://encap.test.signicat.com/encap_entercard</string>
+    <string name="encap_server_url_test">https://encap.test.signicat.com/encap_entercard</string>
     <string name="encap_app_id">encap</string>
 
     <!-- Replace "-" with an "en dash" character (–, &#8211;) ? -->
