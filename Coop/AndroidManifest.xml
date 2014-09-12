@@ -121,13 +121,17 @@
             android:theme="@style/Theme.Coopmedlem" >
 
             <!-- android:parentActivityName="com.entercard.coopmedlem.CreditLineIncreaseActivity" -->
-
-
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.MainActivity" />
         </activity>
+        <activity
+            android:name="com.no.entercard.coopmedlem.LanguageSelectorActivity"
+            android:configChanges="locale"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Coopmedlem" />
     </application>
 
 </manifest>

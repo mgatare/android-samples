@@ -90,6 +90,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			
 		case R.id.action_language:
 			Log.e("COOP", ">>HOMESCREEN In action_language");
+			
+			Intent languageIntent = new Intent(HomeScreenActivity.this, LanguageSelectorActivity.class);
+			startActivity(languageIntent);
+			
 			return true;
 
 		default:

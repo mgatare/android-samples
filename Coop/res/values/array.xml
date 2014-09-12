@@ -9,4 +9,12 @@
         <item>Unemployed</item>
         <item>Student</item>
     </string-array>
-</resources>
+    
+    <string-array name="array_languages">
+        <item>English</item>
+        <item>Norsk bokmål</item>
+        <item>Svenska</item>
+        <item>Danish</item>
+    </string-array>
+
+</resources>
