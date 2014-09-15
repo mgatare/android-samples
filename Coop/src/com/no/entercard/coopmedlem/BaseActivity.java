@@ -1,17 +1,20 @@
 package com.no.entercard.coopmedlem;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -28,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.no.entercard.coopmedlem.entities.SingletonWebservicesDataModel;
+import com.no.entercard.coopmedlem.utils.CompatibilityUtils;
 // TODO: Auto-generated Javadoc
 /**
  * The Class BaseActivity.
@@ -88,6 +92,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 	
 	/** The Constant CLI. */
 	public static final int TYPE_CLI = 113;
+	
+	private boolean isAppBackground = false;
+	
+	public static final long DISCONNECT_TIMEOUT = 120000;//in ms // 1 min = 1 * 60 * 1000 ms
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -136,7 +144,39 @@ public abstract class BaseActivity extends ActionBarActivity {
 	public void showDeveloperLog(String msg) {
 		Log.d("Coop", msg);
 	}
+	
 
+    private static Handler disconnectHandler = new Handler(){
+        public void handleMessage(Message msg) {
+        }
+    };
+
+    private Runnable disconnectCallback = new Runnable() {
+        @Override
+        public void run() {
+            // Perform any required operation on disconnect
+        	Log.e("", "................disconnectedddddddddddddddddddddddddddddd........."+isAppBackground);
+        	isAppBackground = true;
+        	
+        }
+    };
+
+    public void resetDisconnectTimer(){
+    	Log.d("", "......RESET.....");
+        disconnectHandler.removeCallbacks(disconnectCallback);
+        disconnectHandler.postDelayed(disconnectCallback, DISCONNECT_TIMEOUT);
+    }
+
+    public void stopDisconnectTimer(){
+        disconnectHandler.removeCallbacks(disconnectCallback);
+    }
+
+    @Override
+    public void onUserInteraction(){
+    	//Log.e("", "..onUserInteraction called...");
+    	isAppBackground = false;
+        resetDisconnectTimer();
+    }
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -145,10 +185,27 @@ public abstract class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>");
-		Configuration config = new Configuration();
-		config.locale = Locale.getDefault();
-		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+		resetDisconnectTimer();
+		Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>"+isAppBackground);
+		
+		if(isAppBackground) {
+			if(CompatibilityUtils.getSdkVersion() < 11) {
+				Intent intent = new Intent(getApplicationContext(), EnterPINCodeActivity.class);
+				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
+				ComponentName cn = intent.getComponent();
+				Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+				startActivity(mainIntent);
+			} else {
+				Intent intent = new Intent(this, EnterPINCodeActivity.class);
+				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+		}
+		
+//		Configuration config = new Configuration();
+//		config.locale = Locale.getDefault();
+//		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 	}
 	
 	/* (non-Javadoc)
@@ -157,9 +214,31 @@ public abstract class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onPause() {
 		Log.v("", "::::::BASE ACTIVITY onPause CALLED:::::::");
+		isAppBackground = true;
 		super.onPause();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.FragmentActivity#onDestroy()
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		Log.e("COOP", ">>BASE In Method: onDestroy()");
+		if (null != receiver) {
+			unregisterReceiver(receiver);
+			receiver = null;
+		}
+		stopDisconnectTimer();
+	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopDisconnectTimer();
+    }
+	
 	/**
 	 * Show progress dialog.
 	 */
@@ -350,22 +429,6 @@ public abstract class BaseActivity extends ActionBarActivity {
 		registerReceiver(receiver, filter);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentActivity#onDestroy()
-	 */
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.e("COOP", ">>BASE In Method: onDestroy()");
-		if (null != receiver) {
-			unregisterReceiver(receiver);
-			receiver = null;
-		}
-	}
-
-	
 	/**
 	 * Gets the singleton user data model array list.
 	 *

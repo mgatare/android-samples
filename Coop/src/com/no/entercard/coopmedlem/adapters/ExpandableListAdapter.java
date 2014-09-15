@@ -67,19 +67,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		String city = null;
 		String country = null;
+		String description = null;
 		
 		if(null!=dataModel.getCity())
-			city = StringUtils.trimStringAndDigits(dataModel.getCity());
+			city = StringUtils.trimStringOnly(dataModel.getCity());
 		if(null!=dataModel.getCountry())
-			country = StringUtils.trimStringAndDigits(dataModel.getCountry());
-		
-		if(null!=country || null!=city)
-			imgMarker.setVisibility(View.VISIBLE);
-		else
-			imgMarker.setVisibility(View.GONE);
+			country = StringUtils.trimStringOnly(dataModel.getCountry());
+		if(null!=dataModel.getCountry())
+			description = StringUtils.trimStringOnly(dataModel.getDescription());
 		
 		//Make HTTP call
-		String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country);
+		String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country, description, imgMarker);
 		Log.i("COOP","URL>>>>>"+strURL);
 		
 		if(!TextUtils.isEmpty(strURL))

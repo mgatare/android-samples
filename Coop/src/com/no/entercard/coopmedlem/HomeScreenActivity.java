@@ -67,9 +67,13 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	    inflater.inflate(R.menu.activity_home_actions, menu);
 		
 		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
+		
+		MenuItem menuitemLanguage = menu.findItem(R.id.action_language);
+		menuitemLanguage.setVisible(false);
+		
 		if(accountsCount==1) {
-			MenuItem item = menu.findItem(R.id.action_account);
-			item.setVisible(false);
+			MenuItem menuitemAccount = menu.findItem(R.id.action_account);
+			menuitemAccount.setVisible(false);
 		}
 	    return super.onCreateOptionsMenu(menu);
 	}

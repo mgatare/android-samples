@@ -140,6 +140,8 @@ public class AllAccountsActivity extends BaseActivity implements
 						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(intent);
 						
+						overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
+						
 						finish();// Need to finish the ACCOUNTS screen as there is only one account
 						
 					} else {

@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +36,7 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.no.entercard.coopmedlem.ApplicationEx;
 
@@ -188,31 +191,54 @@ public class Utils {
 	 *            the city
 	 * @param country
 	 *            the country
+	 * @param description 
+	 * @param imgMarker 
 	 * @return the map thumbnail from city name
 	 */
-	public static String getMapThumbnailFromCityOrCountry(String city, String country) {
+	public static String getMapThumbnailFromCityOrCountry(String city, String country, String description, ImageView imgMarker) {
 
 		String params = null;
 		String URL = null;
 		int zoomLevel = 8;
 		StringBuilder builder = new StringBuilder();
 
+		//venue
+		if (!TextUtils.isEmpty(description)) {
+			builder.append(description);
+			builder.append(",");
+		}
+		
+		//city
 		if (!TextUtils.isEmpty(city)) {
-			builder.append(StringUtils.removeBlankSpaces(city));
-			builder.append(","); //%20
-			zoomLevel = 17;
+			builder.append(city);//StringUtils.removeBlankSpaces(city)
+			builder.append(",");
 		}
 
+		//country
 		if (!TextUtils.isEmpty(country)) {
-			builder.append(StringUtils.removeBlankSpaces(country));
+			builder.append(country);
 			//zoomLevel = 6;
 		}
 
-		params = builder.toString();
+		if(!TextUtils.isEmpty(description) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(country))
+			zoomLevel = 18;
+		
+		if (null != country || null != city || null != description)
+			imgMarker.setVisibility(View.VISIBLE);
+		else
+			imgMarker.setVisibility(View.GONE);
+		
+		try {
+			params = URLEncoder.encode(builder.toString(), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			params = builder.toString();
+			imgMarker.setVisibility(View.GONE);
+			e.printStackTrace();
+		}
+		Log.v("", "PARAMS->>"+params.toString());
 		
 		if(TextUtils.isEmpty(params)) {
 			params = "Norway";
-			//zoomLevel = 6;
 		}
 		
 		WindowManager wm = (WindowManager) ApplicationEx.getInstance().getSystemService(Context.WINDOW_SERVICE);
@@ -220,10 +246,10 @@ public class Utils {
 		Point size = new Point();
 		display.getSize(size);
 		int width = size.x;
-		int height = size.y;
+		//int height = size.y;
 		
 		Log.e("Coop", "width>>"+width);
-		Log.e("Coop", "height>>"+height);
+		//Log.e("Coop", "height>>"+height);
 		
 		if(!TextUtils.isEmpty(params)) {
 			
@@ -236,31 +262,31 @@ public class Utils {
 			   //"xxxhdpi";
 				Log.e("COOP", ":::xxxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x380&maptype=roadmap";
+						+ "&size="+width+"x380&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 3.0 && density < 4.0) {
 			   //xxhdpi
 				Log.e("COOP", ":::xxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x355&maptype=roadmap";
+						+ "&size="+width+"x355&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 2.0) {
 			   //xhdpi
 				Log.e("COOP", ":::xhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x380&maptype=roadmap";
+						+ "&size="+width+"x350&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.5 && density < 2.0) {
 			   //hdpi
 				Log.e("COOP", ":::hdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x300&maptype=roadmap";
+						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.0 && density < 1.5) {
 			   //mdpi
 				Log.e("COOP", ":::mdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x300&maptype=roadmap";
+						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
 			}
 			
 		} else {

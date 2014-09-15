@@ -300,20 +300,20 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 800;
+					count = count + 811;
 				else if(LIMIT <= 50000)
-					count = count + 3000;
+					count = count + 3111;
 				else if(LIMIT <= 100000)
-					count = count + 10000;
+					count = count + 11111;
 				else if(LIMIT <= 500000)
-					count = count + 50000;
+					count = count + 51111;
 				else if(LIMIT <= 1000000)
-					count = count + 100000;
+					count = count + 111111;
 				else 
-					count = count + 100000;
+					count = count + 111111;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 80);
+					handler.postDelayed(this, 100);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt));
@@ -346,20 +346,20 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
 				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 800;
+					count = count + 811;
 				else if(LIMIT <= 50000)
-					count = count + 3000;
+					count = count + 3111;
 				else if(LIMIT <= 100000)
-					count = count + 10000;
+					count = count + 11111;
 				else if(LIMIT <= 500000)
-					count = count + 50000;
+					count = count + 51111;
 				else if(LIMIT <= 1000000)
-					count = count + 100000;
+					count = count + 111111;
 				else 
-					count = count + 100000;
+					count = count + 111111;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 90);
+					handler.postDelayed(this, 100);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt));
