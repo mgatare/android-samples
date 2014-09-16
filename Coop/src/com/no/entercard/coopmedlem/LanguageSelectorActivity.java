@@ -125,7 +125,7 @@ public class LanguageSelectorActivity extends BaseActivity {
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		finish();
+		LanguageSelectorActivity.this.finish();
 		startActivity(getIntent());
 		super.onConfigurationChanged(newConfig);
 	}
@@ -139,7 +139,7 @@ public class LanguageSelectorActivity extends BaseActivity {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Log.d("COOP", "### android.R.id.home:####");
-			finish();
+			LanguageSelectorActivity.this.finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

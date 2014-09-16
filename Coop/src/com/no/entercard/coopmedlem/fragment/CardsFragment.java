@@ -125,7 +125,7 @@ public class CardsFragment extends Fragment {
 			 **/
 			case R.id.btnIncreaseCreditLimit:
 				Intent intent = new Intent(getActivity(), CreditLineIncreaseActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				break;
 			default:

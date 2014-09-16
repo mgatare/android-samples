@@ -171,7 +171,7 @@ public class TransferFundsFragment extends Fragment {
 				BaseActivity.setSingletonUserDataModelList(arrayList);
 				
 				Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.putExtra(parentActivity.getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_TRANSFER_FUNDS);
 				startActivityForResult(intent, 1);
 			}

@@ -86,7 +86,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		switch (item.getItemId()) {
 		case R.id.action_account:
 			Intent intent = new Intent(HomeScreenActivity.this,AllAccountsActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			//Toggle States to NOT allow animation again
 			BaseActivity.setFirstVisit(true);

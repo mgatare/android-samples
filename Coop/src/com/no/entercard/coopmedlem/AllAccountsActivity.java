@@ -84,7 +84,7 @@ public class AllAccountsActivity extends BaseActivity implements
 				setTransactionsCount(count);
 
 				Intent intent = new Intent(AllAccountsActivity.this, HomeScreenActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 
 			}
@@ -137,12 +137,12 @@ public class AllAccountsActivity extends BaseActivity implements
 						// Move to HomeScreen directly without showing Acounts
 						// screen
 						Intent intent = new Intent(AllAccountsActivity.this,HomeScreenActivity.class);
-						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(intent);
 						
 						overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
 						
-						finish();// Need to finish the ACCOUNTS screen as there is only one account
+						AllAccountsActivity.this.finish();// Need to finish the ACCOUNTS screen as there is only one account
 						
 					} else {
 						actionBar = getSupportActionBar();
@@ -191,10 +191,10 @@ public class AllAccountsActivity extends BaseActivity implements
 								dialog.dismiss();
 								
 								Intent intent = new Intent(AllAccountsActivity.this, CustomerServiceScreen.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
 								
-								finish();
+								AllAccountsActivity.this.finish();
 							}
 						}).show();
 	}

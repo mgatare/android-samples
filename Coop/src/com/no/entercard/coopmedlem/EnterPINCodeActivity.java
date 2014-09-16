@@ -653,15 +653,16 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			
 			/* Start the PIN code Activity */
 			Intent intent = new Intent(EnterPINCodeActivity.this, AllAccountsActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
 			/**
 			 * This is a workaround FLAG for progress bar animation on the
 			 * homescreen to be shown only once in a session
 			 **/
 			BaseActivity.setFirstVisit(true);
 			
-			finish();
+			EnterPINCodeActivity.this.finish();
 			break;
 
 		case BaseActivity.TYPE_DISPUTE:
@@ -779,11 +780,11 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 								dialog.dismiss();
 								
 								Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
 								overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_in_bottom);
 								
-								finish();
+								EnterPINCodeActivity.this.finish();
 								
 							}
 						}).show();
@@ -811,12 +812,14 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 		case R.id.action_call:
 			Log.d("COOP", "-----action_call PRESSED-----");
 			
+			closeKeyBoard();
+			
 			Intent intent = new Intent(EnterPINCodeActivity.this, CustomerServiceScreen.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			overridePendingTransition(R.anim.abc_slide_in_top, 0);
 			
-			finish();
+			EnterPINCodeActivity.this.finish();
 			return true;
 
 		default:
@@ -847,7 +850,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----success-----"+RESULT_OK);
 				setResult(RESULT_OK);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}
@@ -863,7 +866,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----error-----"+error);
 				setResult(RESULT_CANCELED);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}
@@ -879,7 +882,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----success-----"+RESULT_OK);
 				setResult(RESULT_OK);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}
@@ -895,7 +898,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----error-----"+error);
 				setResult(RESULT_CANCELED);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}
@@ -911,7 +914,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----success-----"+RESULT_OK);
 				setResult(RESULT_OK);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}
@@ -927,7 +930,7 @@ public class EnterPINCodeActivity extends BaseActivity implements FundsTransferL
 			public void run() {
 				Log.d("COOP", "-----error-----"+error);
 				setResult(RESULT_CANCELED);
-				finish();
+				EnterPINCodeActivity.this.finish();
 			}
 		});
 	}

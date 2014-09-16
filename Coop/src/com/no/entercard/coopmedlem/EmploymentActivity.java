@@ -103,7 +103,7 @@ public class EmploymentActivity extends BaseActivity {
 			if (null != employmentTypeListener) {
 				employmentTypeListener.onReturnEmploymentType(employmentTxt);
 			}
-			finish();
+			EmploymentActivity.this.finish();
 			return true;
 		default:
             return super.onOptionsItemSelected(item);

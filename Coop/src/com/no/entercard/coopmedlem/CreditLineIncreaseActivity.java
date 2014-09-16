@@ -160,7 +160,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			case R.id.linearEmployment:
 				
 				Intent intent = new Intent(CreditLineIncreaseActivity.this, EmploymentActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				break;
 				
@@ -334,6 +334,9 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 			btnSubstractCreditLimit.setFocusableInTouchMode(false);
 			btnSubstractCreditLimit.setEnabled(false);
 			btnSubstractCreditLimit.setTextColor(Color.GRAY);
+			
+			btnPlusCreditLimit.setFocusable(true);
+			btnPlusCreditLimit.setFocusableInTouchMode(true);
 		}
 	}
 	
@@ -356,7 +359,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		txtYearlyIncome.clearFocus();
+		txtYearlyIncome.hasFocus();
 		txtMortgage.clearFocus();
 		txtOtherLoans.clearFocus();
 	    if (requestCode == RESULT_CODE) {
@@ -390,7 +393,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								dialog.dismiss();
-								finish();
+								CreditLineIncreaseActivity.this.finish();
 							}
 						}).show();
 	}
@@ -400,7 +403,7 @@ public class CreditLineIncreaseActivity extends BaseActivity implements Employme
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Log.d("COOP", "### android.R.id.home CLI:####");
-			finish();
+			CreditLineIncreaseActivity.this.finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

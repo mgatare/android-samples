@@ -95,7 +95,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	
 	private boolean isAppBackground = false;
 	
-	public static final long DISCONNECT_TIMEOUT = 120000;//in ms // 1 min = 1 * 60 * 1000 ms
+	public static final long DISCONNECT_TIMEOUT = 60000;// 1 min = 1 * 60 * 1000 ms
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -162,7 +162,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     };
 
     public void resetDisconnectTimer(){
-    	Log.d("", "......RESET.....");
+    	//Log.d("", "......RESET.....");
         disconnectHandler.removeCallbacks(disconnectCallback);
         disconnectHandler.postDelayed(disconnectCallback, DISCONNECT_TIMEOUT);
     }
@@ -214,7 +214,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onPause() {
 		Log.v("", "::::::BASE ACTIVITY onPause CALLED:::::::");
-		isAppBackground = true;
+		//isAppBackground = true;
 		super.onPause();
 	}
 
@@ -236,7 +236,8 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     public void onStop() {
         super.onStop();
-        stopDisconnectTimer();
+        Log.e("COOP", ">>BASE In Method: onStop()");
+        //stopDisconnectTimer();
     }
 	
 	/**

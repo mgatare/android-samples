@@ -255,8 +255,8 @@ public class Utils {
 			
 			double density = ApplicationEx.getInstance().getResources().getDisplayMetrics().density;
 			
-			Log.e("Coop", "zoomLevel>>"+zoomLevel);
-			Log.e("Coop", "density>>"+density);
+			//Log.e("Coop", "zoomLevel>>"+zoomLevel);
+			//Log.e("Coop", "density>>"+density);
 			
 			if (density >= 4.0) {
 			   //"xxxhdpi";

@@ -271,7 +271,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Log.d("COOP", "### android.R.id.home CLI:####");
-			finish();
+			DisputeTransactionActivity.this.finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -315,7 +315,7 @@ public class DisputeTransactionActivity extends BaseActivity {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								dialog.dismiss();
-								finish();
+								DisputeTransactionActivity.this.finish();
 							}
 						}).show();
 	}

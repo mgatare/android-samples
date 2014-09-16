@@ -90,7 +90,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				intent.putExtra("desc", dataModel.getDescription());
 				intent.putExtra("date", dataModel.getDate());
 				intent.putExtra("id", dataModel.getId());
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(intent);
 			}
 		});

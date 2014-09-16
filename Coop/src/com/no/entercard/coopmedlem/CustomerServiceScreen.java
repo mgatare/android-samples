@@ -41,7 +41,7 @@ public class CustomerServiceScreen extends BaseActivity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		finish();
+		CustomerServiceScreen.this.finish();
 	}
 	
 	private void init() {
@@ -65,7 +65,7 @@ public class CustomerServiceScreen extends BaseActivity {
 			case R.id.btnLogin:
 				
 				Intent intent = new Intent(CustomerServiceScreen.this, EnterPINCodeActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.putExtra(getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 				startActivity(intent);
 				overridePendingTransition(R.anim.abc_slide_in_bottom, 0);

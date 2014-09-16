@@ -164,7 +164,7 @@ public class CreatePINCodeDialogFragment extends DialogFragment {
 										} 
 										
 										Intent intent = new Intent(parentActivity, EnterPINCodeActivity.class);
-										intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 										intent.putExtra(parentActivity.getResources().getString(R.string.pref_verify_pin), BaseActivity.TYPE_NONE);
 										parentActivity.startActivity(intent);
 										parentActivity.finish();

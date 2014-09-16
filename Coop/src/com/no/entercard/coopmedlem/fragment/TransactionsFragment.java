@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -237,10 +238,12 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			barAnimation = new ProgressBarAnimation(progSpentCash, 0, percentageDiff);
 		}
 		
+		Log.d("COOP", "BaseActivity.isFirstVisit()--->>>"+BaseActivity.isFirstVisit());
+		
 		if(BaseActivity.isFirstVisit()) {
 			
 			/* FOR PROGRESS BAR ANIMATION*/
-			barAnimation.setDuration(700);
+			barAnimation.setDuration(1000);
 			progSpentCash.startAnimation(barAnimation);
 			
 			/* RUNNABLES FOR SpentCredit TEXTVIEWS ANIMATIONS*/
@@ -300,20 +303,24 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				textView.setText(StringUtils.roundAndFormatCurrency(""+count));
 				if(LIMIT <= 10000)
-					count = count + 811;
+					count = count + 423;
+				else if(LIMIT <= 1000)
+					count = count + 12;
+				else if(LIMIT <= 5000)
+					count = count + 123;
 				else if(LIMIT <= 50000)
-					count = count + 3111;
+					count = count + 2234;
 				else if(LIMIT <= 100000)
-					count = count + 11111;
+					count = count + 22341;
 				else if(LIMIT <= 500000)
-					count = count + 51111;
+					count = count + 22312;
 				else if(LIMIT <= 1000000)
-					count = count + 111111;
+					count = count + 323321;
 				else 
-					count = count + 111111;
+					count = count + 423321;
 
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 100);
+					handler.postDelayed(this, 105);//will queue the runnable
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(spentCashTxt));
@@ -344,22 +351,25 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			if (textView != null) {
 				
 				textView.setText(StringUtils.roundAndFormatCurrency(""+ count));
-				//count = count + 800;
 				if(LIMIT <= 10000)
-					count = count + 811;
+					count = count + 423;
+				else if(LIMIT <= 1000)
+					count = count + 12;
+				else if(LIMIT <= 5000)
+					count = count + 98;
 				else if(LIMIT <= 50000)
-					count = count + 3111;
+					count = count + 2234;
 				else if(LIMIT <= 100000)
-					count = count + 11111;
+					count = count + 22341;
 				else if(LIMIT <= 500000)
-					count = count + 51111;
+					count = count + 22312;
 				else if(LIMIT <= 1000000)
-					count = count + 111111;
+					count = count + 323321;
 				else 
-					count = count + 111111;
+					count = count + 423321;
 				
 				if (handler != null && count <= LIMIT) {
-					handler.postDelayed(this, 100);
+					handler.postDelayed(this, 105);
 				} else {
 					if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO")) 
 						textView.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(openToBuyCashTxt));
