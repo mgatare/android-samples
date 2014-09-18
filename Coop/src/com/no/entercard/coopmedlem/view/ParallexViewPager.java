@@ -86,8 +86,7 @@ public class ParallexViewPager extends ViewPager {
 						+ imageWidth);
 
 			zoom_level = ((float) imageHeight) / getHeight(); // we are always
-																// in 'fitY'
-																// mode
+																// in 'fitY'													// mode
 
 			options.inJustDecodeBounds = false;
 			options.inSampleSize = Math.round(zoom_level);
