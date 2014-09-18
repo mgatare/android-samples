@@ -1,6 +1,9 @@
 package com.no.entercard.coopmedlem;
 
+import java.util.Locale;
+
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +25,10 @@ public class SplashScreenActivity extends FragmentActivity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				//Initialize GEOCODER
+				Locale locale = getResources().getConfiguration().locale;
+				Geocoder geocoder = new Geocoder(SplashScreenActivity.this, locale);
+				
 				if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
 					
 					/* Start the PIN code Activity */

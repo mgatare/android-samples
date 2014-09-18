@@ -1,9 +1,11 @@
 package com.no.entercard.coopmedlem.adapters;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,12 +30,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private ArrayList<TransactionDataModel> listTrsansactionHeader = new ArrayList<TransactionDataModel>();
 	private ImageLoader imageLoader;
+	private Handler handler;
+	private boolean isVenueAddressValid = false;
 	
 	public ExpandableListAdapter(Context context, ArrayList<TransactionDataModel> listDataHeader) {
 		this.context = context;
 		this.listTrsansactionHeader.addAll(listDataHeader);
 		
 		imageLoader = new ImageLoader(context);
+		handler = new Handler();
 	}
 
 	@Override
@@ -73,15 +78,38 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			city = StringUtils.trimStringOnly(dataModel.getCity());
 		if(null!=dataModel.getCountry())
 			country = StringUtils.trimStringOnly(dataModel.getCountry());
-		if(null!=dataModel.getCountry())
+		if(null!=dataModel.getDescription())
 			description = StringUtils.trimStringOnly(dataModel.getDescription());
 		
-		//Make HTTP call
-		String strURL = Utils.getMapThumbnailFromCityOrCountry(city, country, description, imgMarker);
-		Log.i("COOP","URL>>>>>"+strURL);
+//		getAddressFromLocation(context, description, imgMarker, city, country, imgMap);
 		
-		if(!TextUtils.isEmpty(strURL))
-			imageLoader.DisplayImage(strURL, imgMap);
+		//
+		if (null != country || null != city || null != description)
+			imgMarker.setVisibility(View.VISIBLE);
+		else
+			imgMarker.setVisibility(View.GONE);
+		
+		isVenueAddressValid = Utils.getGeoCodedForVenueAddress(description, context);
+		
+		if(isVenueAddressValid) {
+			
+			imgMarker.setVisibility(View.VISIBLE);
+			
+			//Make HTTP call
+			String strURL = Utils.getMapThumbnailURL(city, country, description);
+			Log.i("COOP","URL>>>>>"+strURL);
+			if(!TextUtils.isEmpty(strURL))
+				imageLoader.DisplayImage(strURL, imgMap);
+			
+		} else {
+			imgMarker.setVisibility(View.GONE);
+			
+			//Make HTTP call
+			String strURL = Utils.getMapThumbnailURL(city, country, null);
+			Log.i("COOP","URL>>>>>"+strURL);
+			if(!TextUtils.isEmpty(strURL))
+				imageLoader.DisplayImage(strURL, imgMap);
+		}
 		
 		btnDisputeOnMap.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -136,10 +164,31 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			lblDate.setText(DateUtils.getFormatedTransactionDate(dataModel.getDate(), false));
 		}
 		
-		if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
-			lblPrice.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(dataModel.getBillingAmount()));			
-		else
-			lblPrice.setText(StringUtils.roundAndFormatCurrency(dataModel.getBillingAmount()));
+		if(isExpanded) {
+			
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO") && !dataModel.getCurrency().equalsIgnoreCase("NOK")) {
+				
+				lblPrice.setText(getSymbolForCurrenctCode(dataModel.getCurrency(), dataModel.getAmount()));
+				
+			} else if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_SV") && !dataModel.getCurrency().equalsIgnoreCase("SEK")) {
+				
+				lblPrice.setText(getSymbolForCurrenctCode(dataModel.getCurrency(), dataModel.getAmount()));
+				
+			} else if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_DN") && !dataModel.getCurrency().equalsIgnoreCase("DKK")) {
+				
+				lblPrice.setText(getSymbolForCurrenctCode(dataModel.getCurrency(), dataModel.getAmount()));
+				
+			} else {
+				lblPrice.setText(StringUtils.roundAndFormatCurrency(dataModel.getBillingAmount()));
+			}
+		} else {
+			
+			if(StringUtils.getCurrentLocale().equalsIgnoreCase("nb_NO"))
+				lblPrice.setText(StringUtils.roundAndFormatCurrencyNorwayWithEndingZeros(dataModel.getBillingAmount()));			
+			else
+				lblPrice.setText(StringUtils.roundAndFormatCurrency(dataModel.getBillingAmount()));
+		}
+
 		
 		if (((TransactionDataModel) getGroup(groupPosition)).getType().equalsIgnoreCase("Credit")) {
 			lblName.setVisibility(View.GONE);
@@ -164,8 +213,105 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		return true;
 	}
 
+	private String getSymbolForCurrenctCode(String code, String price) {
+		Currency currency = Currency.getInstance(code);
+		String symbol = currency.getSymbol().replace(code, "");
+		return symbol+price;
+	}
+	
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
+	
+	/**
+	 * 
+	 * @param context
+	 * @param place
+	 * @param imgMarker
+	 * @param city
+	 * @param country
+	 * @param imgMap
+	 */
+//	public void getAddressFromLocation(final Context context,final String place, final ImageView imgMarker, final String city,
+//			final String country, final ImageView imgMap) {
+//		
+//		Thread thread = new Thread() {
+//			@Override
+//			public void run() {
+//				//Initialize the GeopCoder to verify the Venue for the transation
+//				Locale locale = context.getResources().getConfiguration().locale;
+//				Geocoder geocoder = new Geocoder(context, locale);
+//				
+//				String urlTxt = null;
+//				String resultTxt = null;
+//				double latitude = 0.0;
+//				double longitude = 0.0;
+//
+//				try {
+//					List<Address> list = geocoder.getFromLocationName(place, 1);
+//					if (list != null && list.size() > 0) {
+//
+//						Address location = list.get(0);
+//						latitude = location.getLatitude();
+//						longitude = location.getLongitude();
+//
+//						resultTxt = location.getCountryName();
+//						Log.e("TAG", "------result--" + resultTxt +"-----"+place);
+//					}
+//				} catch (IOException e) {
+//					Log.e("TAG","-------Impossible to connect to Geocoder--", e);
+//					handler.post(new Runnable() {
+//						@Override
+//						public void run() {
+//							imgMarker.setVisibility(View.GONE);						
+//						}
+//					});
+//					
+//				} finally {
+//					if (resultTxt != null && (latitude != 0.0 || longitude != 0.0)) {
+//
+//						// The Venue description is VALID so show marker on Map
+//						Log.e("TAG", "---------------milaaaaaaaaaaaaaaaaa--");
+//						handler.post(new Runnable() {
+//							@Override
+//							public void run() {
+//								imgMarker.setVisibility(View.VISIBLE);					
+//							}
+//						});
+//						
+//						// Make HTTP call
+//						urlTxt = Utils.getMapThumbnailURL(city, country, place);
+//						Log.i("COOP", "URL>>>>>" + urlTxt);
+//
+//					} else {
+//
+//						// Venue description is INVALID so No Marker shown
+//						Log.e("TAG", "---------------nahiiiiiiiiiiiiiiiiii--");
+//						
+//						handler.post(new Runnable() {
+//							@Override
+//							public void run() {
+//								imgMarker.setVisibility(View.GONE);				
+//							}
+//						});
+//						
+//						// Make HTTP call
+//						urlTxt = Utils.getMapThumbnailURL(city, country, null);
+//						Log.i("COOP", "URL>>>>>" + urlTxt);
+//					}
+//					
+//					//Update the Image view with the MAP
+//					final String mapImageURLTxt = urlTxt;
+//					handler.post(new Runnable() {
+//						@Override
+//						public void run() {
+//							imageLoader.DisplayImage(mapImageURLTxt, imgMap);							
+//						}
+//					});
+//				}
+//			}
+//		};
+//		thread.start();
+//	}
 }

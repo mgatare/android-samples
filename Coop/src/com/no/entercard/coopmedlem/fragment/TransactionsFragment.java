@@ -122,7 +122,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View view,
 					int groupPosition, long id) {
-				
+				Log.d("", ">>>>>>"+transactionsArrayList.get(groupPosition).getIsDisputable());
 				if(transactionsArrayList.get(groupPosition).getIsDisputable()) {
 					return false;
 				} else {
@@ -146,7 +146,9 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
-				if (transactionsArrayList.size() < tranxCount) {
+				Log.i("", "transactionsArrayList.size()--"+transactionsArrayList.size());
+				Log.i("", "tranxCount---"+tranxCount);
+				if (transactionsArrayList.size() <= tranxCount) {
 
 					String uuidTxt = ApplicationEx.getInstance().getUUID();
 					String accountIDTxt = ApplicationEx.getInstance().getAccountsArrayList().get(position).getAccountNumber();

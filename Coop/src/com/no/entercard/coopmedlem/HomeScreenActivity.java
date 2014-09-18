@@ -68,6 +68,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 		
 		int accountsCount = ApplicationEx.getInstance().getAccountsArrayList().size();
 		
+		//Currently Language option is set to INVISIBLE need to 14/09/14
 		MenuItem menuitemLanguage = menu.findItem(R.id.action_language);
 		menuitemLanguage.setVisible(false);
 		
@@ -88,6 +89,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			Intent intent = new Intent(HomeScreenActivity.this,AllAccountsActivity.class);
 			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			
 			//Toggle States to NOT allow animation again
 			BaseActivity.setFirstVisit(true);
 			return true;

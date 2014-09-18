@@ -21,7 +21,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -36,7 +35,6 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.no.entercard.coopmedlem.ApplicationEx;
 
@@ -195,11 +193,11 @@ public class Utils {
 	 * @param imgMarker 
 	 * @return the map thumbnail from city name
 	 */
-	public static String getMapThumbnailFromCityOrCountry(String city, String country, String description, ImageView imgMarker) {
+	public static String getMapThumbnailURL(String city, String country, String description) {
 
 		String params = null;
 		String URL = null;
-		int zoomLevel = 8;
+		int zoomLevel = 5;
 		StringBuilder builder = new StringBuilder();
 
 		//venue
@@ -221,21 +219,17 @@ public class Utils {
 		}
 
 		if(!TextUtils.isEmpty(description) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(country))
-			zoomLevel = 18;
-		
-		if (null != country || null != city || null != description)
-			imgMarker.setVisibility(View.VISIBLE);
+			zoomLevel = 14;
 		else
-			imgMarker.setVisibility(View.GONE);
+			zoomLevel = 10;
 		
 		try {
 			params = URLEncoder.encode(builder.toString(), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			params = builder.toString();
-			imgMarker.setVisibility(View.GONE);
 			e.printStackTrace();
 		}
-		Log.v("", "PARAMS->>"+params.toString());
+		//Log.v("", "PARAMS->>"+params.toString());
 		
 		if(TextUtils.isEmpty(params)) {
 			params = "Norway";
@@ -259,36 +253,40 @@ public class Utils {
 			//Log.e("Coop", "density>>"+density);
 			
 			if (density >= 4.0) {
-			   //"xxxhdpi";
-				Log.e("COOP", ":::xxxhdpi::::");
+				//Log.e("COOP", ":::xxxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x380&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 3.0 && density < 4.0) {
-			   //xxhdpi
-				Log.e("COOP", ":::xxhdpi::::");
+				
+				/**
+				 * FOR S5
+				 * 
+				 * http://maps.google.com/maps/api/staticmap?center=7103+DUTY+
+				 * FREE
+				 * %2CGARDERMOEN%2CNorway&zoom=12&size=540x177&maptype=roadmap
+				 * &sensor=false&scale=2
+				 **/
+				
+				//Log.e("COOP", ":::xxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x355&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 2.0) {
-			   //xhdpi
-				Log.e("COOP", ":::xhdpi::::");
+				//Log.e("COOP", ":::xhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x350&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.5 && density < 2.0) {
-			   //hdpi
-				Log.e("COOP", ":::hdpi::::");
+				//Log.e("COOP", ":::hdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
+						+ "&size="+width+"x330&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.0 && density < 1.5) {
-			   //mdpi
-				Log.e("COOP", ":::mdpi::::");
+				//Log.e("COOP", ":::mdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
 			}
-			
 		} else {
 			return null;
 		}
@@ -302,31 +300,50 @@ public class Utils {
 	 *            the address
 	 * @return the location
 	 */
-	public static Location geoCodeAddress(String address) {
-		Geocoder geoCoder = new Geocoder(ApplicationEx.getInstance(), Locale.UK);
-		;
+	@SuppressLint("NewApi") 
+	public static boolean getGeoCodedForVenueAddress(String venue, Context contex) {
 		try {
-			List<Address> addresses = geoCoder.getFromLocationName(address, 1);
-			if (addresses.size() > 0) {
+			double latitude = 0.0;
+			double longitude = 0.0;
 
-				int lat = (int) (addresses.get(0).getLatitude() * 1E6);
-				int lon = (int) (addresses.get(0).getLongitude() * 1E6);
+			Locale locale = contex.getResources().getConfiguration().locale;
+			Geocoder geocoder = new Geocoder(contex, locale);
+			List<Address> address;
+			//String code = null;
 
-				double latitude = lat / 1E6;
-				double longtitude = lon / 1E6;
+			address = geocoder.getFromLocationName(venue, 1);
+			//Log.e("", "Geocoder.isPresent();---->>"+Geocoder.isPresent()+">>>>>"+locale);
 
-				Log.i("COOP", "getLatitude>>>" + latitude);
-				Log.i("COOP", "getLongitude" + longtitude);
+			if (address == null) {
+				return false;
+			} else {
+				Address location = address.get(0);
+				
+				latitude = location.getLatitude();
+				longitude = location.getLongitude();
 
-				Location location = new Location("");
-				location.setLatitude(lat / 1E6);
-				location.setLongitude(lon / 1E6);
-				return location;
+				//Log.e("COOP","address.getLocality()---"+location.getLocality());
+				//Log.e("COOP","address.getCountryName()---"+location.getCountryName());
+				//Log.e("COOP","address.getCountryCode()---"+location.getCountryCode());
+				
+				/*09-17 17:51:03.919: E/COOP(5023): address.getCountryName()---Norway
+				09-17 17:51:03.919: E/COOP(5023): address.getCountryCode()---NO*/
+
+				String resultTxt = location.getCountryName();
+				//code = location.getCountryCode();
+				
+				//Log.e("COOP", venue+" ::: latitide is:::"+latitude+"::::longitudeis:::"+longitude+":::::"+code);
+				
+				if (resultTxt != null && (latitude != 0.0 || longitude != 0.0)) {		
+					return true;
+				} else {
+					return false;
+				}
 			}
 		} catch (Exception e) {
-			Log.e("ERR", "geoCodeAddress:::" + e.toString());
+			//Log.e("TAG", "----------Impossible to connect to Geocoder--");
+			return false;
 		}
-		return null;
 	}
 
 	/**

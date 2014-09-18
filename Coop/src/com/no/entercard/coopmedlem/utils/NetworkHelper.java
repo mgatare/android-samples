@@ -1,11 +1,17 @@
 package com.no.entercard.coopmedlem.utils;
 
+import java.util.List;
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -48,6 +54,43 @@ public class NetworkHelper {
 			return false;
 
 		}
+	}
+	/**
+	 * 
+	 * @param place
+	 * @param contex
+	 * @return
+	 */
+	public boolean getLatLongFromPlace(String venue, Context contex) {
+		try {
+			double latitude = 0.0;
+			double longitude = 0.0;
+
+			Locale locale = contex.getResources().getConfiguration().locale;
+			Geocoder selected_place_geocoder = new Geocoder(contex, locale);
+			List<Address> address;
+
+			address = selected_place_geocoder.getFromLocationName(venue, 1);
+
+			if (address == null) {
+				return false;
+			} else {
+				Address location = address.get(0);
+				latitude = location.getLatitude();
+				longitude = location.getLongitude();
+
+				Log.e("COOP", venue+" ::: latitide is:::"+latitude+"::::longitudeis:::"+longitude);
+				
+				if (latitude == 0.0 && longitude == 0.0) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**

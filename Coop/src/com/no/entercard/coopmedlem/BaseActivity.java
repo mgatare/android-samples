@@ -202,10 +202,6 @@ public abstract class BaseActivity extends ActionBarActivity {
 				startActivity(intent);
 			}
 		}
-		
-//		Configuration config = new Configuration();
-//		config.locale = Locale.getDefault();
-//		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 	}
 	
 	/* (non-Javadoc)

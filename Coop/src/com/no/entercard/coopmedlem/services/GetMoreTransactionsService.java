@@ -76,7 +76,7 @@ public class GetMoreTransactionsService extends BaseService {
 				
 				ArrayList<TransactionDataModel> transactionArrayList = new ArrayList<TransactionDataModel>();
 				transactionArrayList = parseJSONResponse(response);
-				
+				//Log.d("COOP", "--LOAD MORE TRANSACTION SIZE---"+transactionArrayList.size());
 				if (null!=transactionArrayList && null!=getMoreTransactions) {
 					getMoreTransactions.onGetMoreTransactionFinished(transactionArrayList);
 				}

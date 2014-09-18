@@ -44,7 +44,7 @@
     <string name="used">USED</string>
     <string name="open_to_buy">OPEN TO BUY</string>
     <string name="latest_transactions">TRANSACTIONS</string>
-    <string name="card_ending_with">Card number ending with:</string>
+    <string name="card_ending_with">Card number ending with</string>
     <string name="desired_increase_in_credit">Desired increase in credit</string>
     <string name="yearly_income">Yearly income</string>
     <string name="household">Household</string>

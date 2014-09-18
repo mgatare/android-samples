@@ -30,7 +30,7 @@ public class CardsAdapter extends ArrayAdapter<CardDataModel> {
 		ViewHolder holder;
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(R.layout.rc_row_two_textview_vertical, parent,false);
+			convertView = layoutInflater.inflate(R.layout.row_cards_fragment, parent,false);
 
 			holder = new ViewHolder();
 

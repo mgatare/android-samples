@@ -63,7 +63,7 @@
         android:background="@drawable/credit_tectview_background"
         android:ellipsize="end"
         android:textColor="@color/text_heading"
-        android:textSize="@dimen/font_size_normal"
+        android:textSize="@dimen/font_size_small"
         android:textStyle="bold"
         android:visibility="gone" />
 
