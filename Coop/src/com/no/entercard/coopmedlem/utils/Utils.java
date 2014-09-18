@@ -253,9 +253,10 @@ public class Utils {
 			//Log.e("Coop", "density>>"+density);
 			
 			if (density >= 4.0) {
-				//Log.e("COOP", ":::xxxhdpi::::");
+				Log.e("COOP", ":::xxxhdpi::::");
+				zoomLevel = 13; //only  for XXHDPI
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x380&maptype=roadmap&sensor=false";
+						+ "&size=540x300&maptype=roadmap&sensor=false&scale=2";
 			}
 			else if (density >= 3.0 && density < 4.0) {
 				
@@ -267,23 +268,23 @@ public class Utils {
 				 * %2CGARDERMOEN%2CNorway&zoom=12&size=540x177&maptype=roadmap
 				 * &sensor=false&scale=2
 				 **/
-				
-				//Log.e("COOP", ":::xxhdpi::::");
+				zoomLevel = 13; //only  for XXHDPI
+				Log.e("COOP", ":::xxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
-						+ "&size="+width+"x355&maptype=roadmap&sensor=false";
+						+ "&size=540x300&maptype=roadmap&sensor=false&scale=2";
 			}
 			else if (density >= 2.0) {
-				//Log.e("COOP", ":::xhdpi::::");
+				Log.e("COOP", ":::xhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x350&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.5 && density < 2.0) {
-				//Log.e("COOP", ":::hdpi::::");
+				Log.e("COOP", ":::hdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x330&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.0 && density < 1.5) {
-				//Log.e("COOP", ":::mdpi::::");
+				Log.e("COOP", ":::mdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
 			}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#dcdcdb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/lblListItemOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:gravity="left"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="#000000"
+            android:textSize="17dip" />
+
+        <TextView
+            android:id="@+id/lblListItemTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/lblListItemOne"
+            android:layout_below="@+id/lblListItemOne"
+            android:gravity="left"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="#000000"
+            android:textSize="17dip" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/credit_card" />
+    </RelativeLayout>
+
+</LinearLayout>
