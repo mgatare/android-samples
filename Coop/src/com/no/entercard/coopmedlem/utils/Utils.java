@@ -221,13 +221,12 @@ public class Utils {
 		if(!TextUtils.isEmpty(description) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(country))
 			zoomLevel = 14;
 		else
-			zoomLevel = 10;
+			zoomLevel = 11;
 		
 		try {
 			params = URLEncoder.encode(builder.toString(), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			params = builder.toString();
-			e.printStackTrace();
 		}
 		//Log.v("", "PARAMS->>"+params.toString());
 		
@@ -242,7 +241,7 @@ public class Utils {
 		int width = size.x;
 		//int height = size.y;
 		
-		Log.e("Coop", "width>>"+width);
+		//SLog.e("Coop", "width>>"+width);
 		//Log.e("Coop", "height>>"+height);
 		
 		if(!TextUtils.isEmpty(params)) {
@@ -253,7 +252,7 @@ public class Utils {
 			//Log.e("Coop", "density>>"+density);
 			
 			if (density >= 4.0) {
-				Log.e("COOP", ":::xxxhdpi::::");
+				//Log.e("COOP", ":::xxxhdpi::::");
 				zoomLevel = 13; //only  for XXHDPI
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size=540x300&maptype=roadmap&sensor=false&scale=2";
@@ -269,22 +268,22 @@ public class Utils {
 				 * &sensor=false&scale=2
 				 **/
 				zoomLevel = 13; //only  for XXHDPI
-				Log.e("COOP", ":::xxhdpi::::");
+				//Log.e("COOP", ":::xxhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size=540x300&maptype=roadmap&sensor=false&scale=2";
 			}
 			else if (density >= 2.0) {
-				Log.e("COOP", ":::xhdpi::::");
+				//Log.e("COOP", ":::xhdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x350&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.5 && density < 2.0) {
-				Log.e("COOP", ":::hdpi::::");
+				//Log.e("COOP", ":::hdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x330&maptype=roadmap&sensor=false";
 			}
 			else if (density >= 1.0 && density < 1.5) {
-				Log.e("COOP", ":::mdpi::::");
+				//Log.e("COOP", ":::mdpi::::");
 				URL = "http://maps.google.com/maps/api/staticmap?center="+ params.trim() + "&zoom=" + zoomLevel 
 						+ "&size="+width+"x300&maptype=roadmap&sensor=false";
 			}

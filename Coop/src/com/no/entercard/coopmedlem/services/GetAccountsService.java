@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.no.entercard.coopmedlem.ApplicationEx;
 import com.no.entercard.coopmedlem.R;
@@ -50,7 +49,7 @@ public class GetAccountsService extends BaseService {
 		AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_device_version), CompatibilityUtils.getAndroidVersion());
 		if(!TextUtils.isEmpty(ApplicationEx.getInstance().getCookie())) {
 			AddHeader(ApplicationEx.getInstance().getResources().getString(R.string.http_header_set_cookie), ApplicationEx.getInstance().getCookie());
-			Log.i("", ":::Cookie() SENTTTTTTT::::>>>>>>>>>>>"+ApplicationEx.getInstance().getCookie());
+			//Log.i("", ":::Cookie() SENTTTTTTT::::>>>>>>>>>>>"+ApplicationEx.getInstance().getCookie());
 		}
 		
 		try {
@@ -129,7 +128,6 @@ public class GetAccountsService extends BaseService {
 				
 				if (accountsJSONObj.has("accountNumber")) {
 					accountsModel.setAccountNumber(accountsJSONObj.getString("accountNumber"));
-					Log.i("COOP", "accountsJSONObj.getString(\"accountNumber\")--->>"+accountsJSONObj.getString("accountNumber"));
 				}
 				if (accountsJSONObj.has("creditLimit")) {
 					accountsModel.setCreditLimit(accountsJSONObj.getString("creditLimit"));

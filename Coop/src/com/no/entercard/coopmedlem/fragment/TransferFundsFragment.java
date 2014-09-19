@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -154,7 +153,7 @@ public class TransferFundsFragment extends Fragment {
 					return;
 				}
 				
-				Log.i("", "bigIntAmount--->>"+bigIntAmount);
+				//Log.i("", "bigIntAmount--->>"+bigIntAmount);
 				
 				ArrayList<SingletonWebservicesDataModel> arrayList = new ArrayList<SingletonWebservicesDataModel>();
 				SingletonWebservicesDataModel userDataModel = new SingletonWebservicesDataModel();

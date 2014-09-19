@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,7 +121,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View view,
 					int groupPosition, long id) {
-				Log.d("", ">>>>>>"+transactionsArrayList.get(groupPosition).getIsDisputable());
+				//Log.d("", ">>>>>>"+transactionsArrayList.get(groupPosition).getIsDisputable());
 				if(transactionsArrayList.get(groupPosition).getIsDisputable()) {
 					return false;
 				} else {
@@ -146,8 +145,8 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 		
 		transactionListView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
-				Log.i("", "transactionsArrayList.size()--"+transactionsArrayList.size());
-				Log.i("", "tranxCount---"+tranxCount);
+				//Log.i("", "transactionsArrayList.size()--"+transactionsArrayList.size());
+				//Log.i("", "tranxCount---"+tranxCount);
 				if (transactionsArrayList.size() <= tranxCount) {
 
 					String uuidTxt = ApplicationEx.getInstance().getUUID();
@@ -240,7 +239,7 @@ public class TransactionsFragment extends Fragment implements GetMoreTransaction
 			barAnimation = new ProgressBarAnimation(progSpentCash, 0, percentageDiff);
 		}
 		
-		Log.d("COOP", "BaseActivity.isFirstVisit()--->>>"+BaseActivity.isFirstVisit());
+		//Log.d("COOP", "BaseActivity.isFirstVisit()--->>>"+BaseActivity.isFirstVisit());
 		
 		if(BaseActivity.isFirstVisit()) {
 			

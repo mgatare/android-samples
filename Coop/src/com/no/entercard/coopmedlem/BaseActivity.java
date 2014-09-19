@@ -104,7 +104,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 		
 		//For some devices this may be needed
 		//getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);
@@ -155,7 +155,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         @Override
         public void run() {
             // Perform any required operation on disconnect
-        	Log.e("", "................disconnectedddddddddddddddddddddddddddddd........."+isAppBackground);
+        	//Log.e("", "................disconnectedddddddddddddddddddddddddddddd........."+isAppBackground);
         	isAppBackground = true;
         	
         }
@@ -186,7 +186,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		resetDisconnectTimer();
-		Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>"+isAppBackground);
+		//Log.v("", ">>>BASE ACTIVITY ONRESUME CALLED>>>>"+isAppBackground);
 		
 		if(isAppBackground) {
 			if(CompatibilityUtils.getSdkVersion() < 11) {
@@ -209,7 +209,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	 */
 	@Override
 	protected void onPause() {
-		Log.v("", "::::::BASE ACTIVITY onPause CALLED:::::::");
+		//Log.d("", "::::::BASE ACTIVITY onPause CALLED:::::::");
 		//isAppBackground = true;
 		super.onPause();
 	}
@@ -222,7 +222,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.e("COOP", ">>BASE In Method: onDestroy()");
+		//Log.d("COOP", ">>BASE In Method: onDestroy()");
 		if (null != receiver) {
 			unregisterReceiver(receiver);
 			receiver = null;
@@ -232,7 +232,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     public void onStop() {
         super.onStop();
-        Log.e("COOP", ">>BASE In Method: onStop()");
+        //Log.d("COOP", ">>BASE In Method: onStop()");
         //stopDisconnectTimer();
     }
 	
@@ -278,7 +278,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 			}
 			progressDialog = null;
 		} catch (Exception e) {
-			Log.e("COOP", "" + e.getMessage());
+			//Log.e("COOP", "" + e.getMessage());
 		}
 	}
 

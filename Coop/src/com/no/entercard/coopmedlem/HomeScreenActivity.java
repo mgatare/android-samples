@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,10 +13,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.no.entercard.coopmedlem.fragment.CardsFragment;
 import com.no.entercard.coopmedlem.fragment.TransactionsFragment;
@@ -95,7 +97,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 			return true;
 			
 		case R.id.action_language:
-			Log.e("COOP", ">>HOMESCREEN In action_language");
+			//Log.e("COOP", ">>HOMESCREEN In action_language");
 			
 			Intent languageIntent = new Intent(HomeScreenActivity.this, LanguageSelectorActivity.class);
 			startActivity(languageIntent);
@@ -110,6 +112,10 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 		viewPager.setCurrentItem(tab.getPosition());
+		
+		/*TextView textView = (TextView) tab.getCustomView().findViewById(R.id.title);
+		textView.setTextColor(Color.RED);
+		textView.setTypeface(null, Typeface.BOLD);*/
 		closeKeyBoard();
 	}
 
@@ -191,7 +197,7 @@ public class HomeScreenActivity extends BaseActivity implements ActionBar.TabLis
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.e("COOP", ">>HOMESCREEN In Method: onDestroy()"+finishReceiver);
+		//Log.e("COOP", ">>HOMESCREEN In Method: onDestroy()"+finishReceiver);
 		if(null != finishReceiver) {
 			unregisterReceiver(finishReceiver);
 			finishReceiver = null;

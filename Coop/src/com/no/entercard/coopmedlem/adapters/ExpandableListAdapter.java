@@ -5,9 +5,7 @@ import java.util.Currency;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +28,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private ArrayList<TransactionDataModel> listTrsansactionHeader = new ArrayList<TransactionDataModel>();
 	private ImageLoader imageLoader;
-	private Handler handler;
+	//private Handler handler;
 	private boolean isVenueAddressValid = false;
 	
 	public ExpandableListAdapter(Context context, ArrayList<TransactionDataModel> listDataHeader) {
@@ -38,7 +36,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		this.listTrsansactionHeader.addAll(listDataHeader);
 		
 		imageLoader = new ImageLoader(context);
-		handler = new Handler();
+		//handler = new Handler();
 	}
 
 	@Override
@@ -97,7 +95,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			
 			//Make HTTP call
 			String strURL = Utils.getMapThumbnailURL(city, country, description);
-			Log.i("COOP","URL>>>>>"+strURL);
+			//Log.i("COOP","URL>>>>>"+strURL);
 			if(!TextUtils.isEmpty(strURL))
 				imageLoader.DisplayImage(strURL, imgMap);
 			
@@ -106,7 +104,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			
 			//Make HTTP call
 			String strURL = Utils.getMapThumbnailURL(city, country, null);
-			Log.i("COOP","URL>>>>>"+strURL);
+			//Log.i("COOP","URL>>>>>"+strURL);
 			if(!TextUtils.isEmpty(strURL))
 				imageLoader.DisplayImage(strURL, imgMap);
 		}

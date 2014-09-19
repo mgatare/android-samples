@@ -1,5 +1,6 @@
 package com.no.entercard.coopmedlem;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.no.entercard.coopmedlem.utils.PreferenceHelper;
 
@@ -28,6 +30,11 @@ public class SplashScreenActivity extends FragmentActivity {
 				//Initialize GEOCODER
 				Locale locale = getResources().getConfiguration().locale;
 				Geocoder geocoder = new Geocoder(SplashScreenActivity.this, locale);
+				try {
+					geocoder.getFromLocationName("Norway", 1);
+				} catch (IOException e) {
+					Log.e("COOP", "GeoCoder Error-"+e.getMessage());
+				}
 				
 				if (preferenceHelper.getInt(getResources().getString(R.string.pref_is_activated)) == 1) {
 					

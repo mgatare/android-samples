@@ -11,8 +11,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.Log;
 
-import com.no.entercard.coopmedlem.ApplicationEx;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class CompatibilityUtils.
