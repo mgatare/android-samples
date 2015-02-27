@@ -1,12 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string-array name="array_employment">
-        <item>Tillsvidare</item>
-        <item>Tillfällig anställd</item>
-        <item>Egen rörelse</item>
-        <item>Vikariat</item>
-        <item>Arbetslös</item>
-        <item>Studerande</item>
-    </string-array>
-</resources>
