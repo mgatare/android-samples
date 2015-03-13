@@ -1,10 +1,16 @@
 package com.mayur.droid.rgbchecker;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,12 +19,13 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +41,11 @@ import android.widget.Toast;
 /**
  * The Class HomeScreenTwoActivity.
  */
-public class HomeScreenTwoActivity extends ActionBarActivity implements
+public class OldHomeScreenTwoActivity extends ActionBarActivity implements
 		OnClickListener {
 
 	/** The image view. */
-	private ImageView ivPhotoHolder;
+	private ImageView imageView;
 
 	/** The txt rgb value. */
 	private TextView txtRGBValue;
@@ -46,24 +54,21 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 	private TextView txtRGBColor;
 
 	/** The btn get image. */
-	private Button btnGetImageCamera;
+	private Button btnGetImage;
 
-	/** The btn get image gallery. */
-	private Button btnGetImageGallery;
+	/** The rel pixel container. */
+	private RelativeLayout relPixelContainer;
 
 	/** The btn pixel highlighter. */
 	private Button btnPixelHighlighter;
 
-	/** The str current photo path. */
-	private String strCurrentPhotoPath;
+	private Uri mOutputFileUri;
 
 	/** The get image req code. */
 	private int GET_IMAGE_REQ_CODE = 2;
 
-	/** The get image req code kitkat. */
 	private int GET_IMAGE_REQ_CODE_KITKAT = 3;
 
-	/** The req camera. */
 	private int REQ_CAMERA = 4;
 
 	/*
@@ -76,17 +81,16 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_screen_new);
 
-		ivPhotoHolder = (ImageView) findViewById(R.id.imgPhotoHolder);
+		imageView = (ImageView) findViewById(R.id.imgPhotoHolder);
 		txtRGBValue = (TextView) findViewById(R.id.txtRGBValue);
 		txtRGBColor = (TextView) findViewById(R.id.txtRGBColor);
-		btnGetImageGallery = (Button) findViewById(R.id.btnGetImageGallery);
-		btnGetImageCamera = (Button) findViewById(R.id.btnGetImageCamera);
+		btnGetImage = (Button) findViewById(R.id.btnGetImageCamera);
 		btnPixelHighlighter = (Button) findViewById(R.id.btnPixelHighlighter);
+		relPixelContainer = (RelativeLayout) findViewById(R.id.relPixelContainer);
 
-		btnGetImageGallery.setOnClickListener(this);
-		btnGetImageCamera.setOnClickListener(this);
+		btnGetImage.setOnClickListener(this);
 
-		ivPhotoHolder.setOnTouchListener(new OnTouchListener() {
+		imageView.setOnTouchListener(new OnTouchListener() {
 			@SuppressLint("ClickableViewAccessibility")
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
@@ -127,8 +131,8 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 
 				txtRGBValue.setText("RED: " + redValue + " GREEN: "
 						+ greenValue + " BLUE:" + blueValue);
-				// txtRGBColor.setText("RGB COLOR IS: " + "#" +
-				// Integer.toHexString(touchedRGB));
+				txtRGBColor.setText("ARGB COLOR IS: " + "#"
+						+ Integer.toHexString(touchedRGB));
 
 				if (event.getAction() == MotionEvent.ACTION_UP) {
 
@@ -138,13 +142,11 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 
 					btnPixelHighlighter.setVisibility(View.VISIBLE);
 					btnPixelHighlighter.setBackgroundColor(touchedRGB);
-					// txtRGBColor.setTextColor(touchedRGB);
-					txtRGBValue.setTextColor(touchedRGB);
+					txtRGBColor.setTextColor(touchedRGB);
 
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 					btnPixelHighlighter.setBackgroundColor(touchedRGB);
-					// txtRGBColor.setTextColor(touchedRGB);
-					txtRGBValue.setTextColor(touchedRGB);
+					txtRGBColor.setTextColor(touchedRGB);
 				}
 
 				return true;
@@ -163,47 +165,21 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 		switch (v.getId()) {
 		case R.id.btnGetImageCamera:
 
-			// Intent takePictureIntent = new Intent(
-			// MediaStore.ACTION_IMAGE_CAPTURE);
-			// // Ensure that there's a camera activity to handle the intent
-			// if (takePictureIntent.resolveActivity(getPackageManager()) !=
-			// null) {
-			// // Create the File where the photo should go
-			// File photoFile = null;
-			// try {
-			// photoFile = createImageFile();
-			// } catch (IOException ex) {
-			// // Error occurred while creating the File
-			// Log.e("MAYUR", ">>>" + ex.getMessage());
-			// }
-			// // Continue only if the File was successfully created
-			// if (photoFile != null) {
-			// takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
-			// startActivityForResult(takePictureIntent, REQ_CAMERA);
-			// }
+			// if (Build.VERSION.SDK_INT < 19) {
+			// Intent intent = new Intent();
+			// intent.setType("image/jpeg");
+			// intent.setAction(Intent.ACTION_GET_CONTENT);
+			// startActivityForResult(
+			// Intent.createChooser(intent, "Select Image"),
+			// GET_IMAGE_REQ_CODE);
+			// } else {
+			// Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+			// intent.addCategory(Intent.CATEGORY_OPENABLE);
+			// intent.setType("image/jpeg");
+			// startActivityForResult(intent, GET_IMAGE_REQ_CODE_KITKAT);
 			// }
 
-			Toast.makeText(HomeScreenTwoActivity.this,
-					"Functionality not implemented yet.", Toast.LENGTH_LONG)
-					.show();
-
-			break;
-
-		case R.id.btnGetImageGallery:
-
-			if (Build.VERSION.SDK_INT < 19) {
-				Intent intent = new Intent();
-				intent.setType("image/jpeg");
-				intent.setAction(Intent.ACTION_GET_CONTENT);
-				startActivityForResult(
-						Intent.createChooser(intent, "Select Image"),
-						GET_IMAGE_REQ_CODE);
-			} else {
-				Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-				intent.addCategory(Intent.CATEGORY_OPENABLE);
-				intent.setType("image/jpeg");
-				startActivityForResult(intent, GET_IMAGE_REQ_CODE_KITKAT);
-			}
+			openPhotoChooser();
 
 			break;
 
@@ -273,32 +249,54 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 				Log.d("MAYUR", "imageFilePath///" + imageFilePath);
 
 				if (null != imageFilePath)
-					ivPhotoHolder.setImageBitmap(getScaledBitmap(imageFilePath,
+					imageView.setImageBitmap(getScaledBitmap(imageFilePath,
 							300, 500));
 				else
-					Toast.makeText(HomeScreenTwoActivity.this,
+					Toast.makeText(OldHomeScreenTwoActivity.this,
 							"Image not loaded properly. Try agin",
 							Toast.LENGTH_LONG).show();
-
 			} else if (requestCode == REQ_CAMERA) {
+				Uri selectedImageUri = null;
 
-				// Bundle extras = data.getExtras();
-				// Bitmap imageBitmap = (Bitmap) extras.get("data");
-				// ivPhotoHolder.setImageBitmap(imageBitmap);
+				Log.v("TAG", "#onActivityResult req: " + requestCode);
+				if (requestCode == REQ_CAMERA) {
+					final boolean isCamera;
+					if (data == null) {
+						isCamera = true;
+					} else {
+						final String action = data.getAction();
+						if (action == null) {
+							isCamera = false;
+						} else {
+							isCamera = action
+									.equals(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+						}
+					}
 
-				setPic(ivPhotoHolder);
-				galleryAddPic();
+					if (isCamera) {
+						selectedImageUri = mOutputFileUri;
+					} else {
+						selectedImageUri = data == null ? null : data.getData();
+					}
 
+					// Log.v( TAG, "#onActivityResult selectedImageUri: " +
+					// selectedImageUri );
+
+					if (selectedImageUri != null) {
+
+						String imageFilePath = selectedImageUri.getPath();
+						imageView.setImageBitmap(getScaledBitmap(
+								imageFilePath, 300, 500));
+
+					} else {
+						// TODO: show no image data received message
+					}
+				}
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/**
-	 * Gets the uri.
-	 * 
-	 * @return the uri
-	 */
 	private Uri getUri() {
 		String state = Environment.getExternalStorageState();
 		if (!state.equalsIgnoreCase(Environment.MEDIA_MOUNTED))
@@ -367,74 +365,71 @@ public class HomeScreenTwoActivity extends ActionBarActivity implements
 		return inSampleSize;
 	}
 
-	/**
-	 * Sets the pic.
-	 * 
-	 * @param mImageView
-	 *            the new pic
-	 */
-	private void setPic(ImageView mImageView) {
-		// Get the dimensions of the View
-		int targetW = mImageView.getWidth();
-		int targetH = mImageView.getHeight();
+	private void openPhotoChooser() {
 
-		// Get the dimensions of the bitmap
-		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-		bmOptions.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(strCurrentPhotoPath, bmOptions);
-		int photoW = bmOptions.outWidth;
-		int photoH = bmOptions.outHeight;
+		// Determine Uri of camera image to save
+		File root = getStorageDirectory(this, null);
+		root.mkdirs();
+		String fname = Long.toString(new Date().getTime());
+		File sdImageMainDirectory = new File(root, fname);
+		mOutputFileUri = Uri.fromFile(sdImageMainDirectory);
 
-		// Determine how much to scale down the image
-		int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-		// Decode the image file into a Bitmap sized to fill the View
-		bmOptions.inJustDecodeBounds = false;
-		bmOptions.inSampleSize = scaleFactor;
-		// bmOptions.inPurgeable = true;
-
-		Bitmap bitmap = BitmapFactory
-				.decodeFile(strCurrentPhotoPath, bmOptions);
-		mImageView.setImageBitmap(bitmap);
-	}
-
-	/**
-	 * Creates the image file.
-	 * 
-	 * @return the file
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	private File createImageFile() throws IOException {
-		// String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new
-		// Date());
-
-		String extr = Environment.getExternalStorageDirectory().toString();
-		File mFolder = new File(extr + "/rgbchecker_image/");
-
-		String s = "rgbimage.jpg";
-		File fileImage = new File(mFolder.getAbsolutePath(), s);
-		if (!fileImage.exists()) {
-			fileImage.mkdir();
+		// Camera.
+		List<Intent> cameraIntents = new ArrayList<Intent>();
+		Intent captureIntent = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		PackageManager packageManager = getPackageManager();
+		List<ResolveInfo> listCam = packageManager.queryIntentActivities(
+				captureIntent, 0);
+		for (ResolveInfo res : listCam) {
+			String packageName = res.activityInfo.packageName;
+			Intent intent = new Intent(captureIntent);
+			intent.setComponent(new ComponentName(res.activityInfo.packageName,
+					res.activityInfo.name));
+			intent.setPackage(packageName);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, mOutputFileUri);
+			cameraIntents.add(intent);
 		}
 
-		// Save a file: path for use with ACTION_VIEW intents
-		strCurrentPhotoPath = "file:" + fileImage.getAbsolutePath();
-		Log.d("MAYUR", "ABSOLUTE PATH>>>" + strCurrentPhotoPath);
-		return fileImage;
+		// Filesystem.
+		final Intent galleryIntent = new Intent();
+		galleryIntent.setType("image/*");
+		galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+		// Chooser of filesystem options.
+		Intent chooserIntent = Intent.createChooser(galleryIntent,
+				"Select Source");
+		chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+				cameraIntents.toArray(new Parcelable[] {}));
+		startActivityForResult(chooserIntent, REQ_CAMERA);
 	}
 
-	/**
-	 * Gallery add pic.
-	 * 
-	 * @param strCurrentPhotoPath2
-	 */
-	private void galleryAddPic() {
-		Intent mediaScanIntent = new Intent(
-				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-		File f = new File(strCurrentPhotoPath);
-		Uri contentUri = Uri.fromFile(f);
-		mediaScanIntent.setData(contentUri);
-		this.sendBroadcast(mediaScanIntent);
+	public File getStorageDirectory(Context ctx, String dirName) {
+
+		if (TextUtils.isEmpty(dirName)) {
+			dirName = "atemp";
+		}
+
+		File f = null;
+
+		String state = Environment.getExternalStorageState();
+
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			f = new File(
+					Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+							+ "/" + dirName);
+		} else {
+			// media is removed, unmounted etc
+			// Store image in
+			// /data/data/<package-name>/cache/atemp/photograph.jpeg
+			f = new File(ctx.getCacheDir() + "/" + dirName);
+		}
+
+		if (!f.exists()) {
+			f.mkdirs();
+		}
+
+		return f;
 	}
 }
